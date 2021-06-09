@@ -1,0 +1,106 @@
+<div class="limiter animated fadeInUp">
+    <div class="container-login100">
+        <form (ngSubmit)="onSubmit( FormRegister )" name="FormRegister" [formGroup]='FormRegister'>
+
+            <span class="login100-form-title p-b-30">
+            Crear nueva cuenta
+            </span>
+
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+                <label class="pill-label-form" for="Name">Nombre:</label>
+
+                <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
+                && FormRegister.controls.Name.errors}" />
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                  && FormRegister.controls.Name.errors?.required">
+                    Este campo es obligatorio.
+                </div>
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                 && (FormRegister.controls.Name.errors?.minlength || FormRegister.controls.Name.errors?.maxlength) ">
+                    Mínimo 4 caracteres.
+                </div>
+            </div>
+
+
+            <!-- Campo email -->
+            <div class="mb-3">
+
+                <label for="Email" class="pill-label-form">Email:</label>
+
+                <input type="email" class="form-control input100" formControlName="Email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormRegister.controls.Email.touched || submitted)  
+                && FormRegister.controls.Email.errors}" />
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                    && FormRegister.controls.Email.errors?.required">
+                    Este campo es obligatorio.
+                </div>
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                    && (FormRegister.controls.Email.errors?.email) ">
+                    Email inválido.
+                </div>
+            </div>
+
+            <!-- Campo Rol -->
+            <div class="mb-3">
+
+                <label for="Role" class="pill-label-form">Rol:</label>
+                <select class="form-control input100" name="Role" formControlName="Role" [ngClass]="{'is-invalid': (FormRegister.controls.Role.touched || submitted)  
+                && FormRegister.controls.Role.errors}">
+                <option *ngFor="let opt of Roles" [ngValue]="opt.Nombre">
+                        ‌{{ opt.Nombre }}
+			    </option>            
+                </select>
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Role.touched || submitted) 
+                && FormRegister.controls.Role.errors?.required">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+
+            <!-- Campo contraseña -->
+            <div class="mb-3">
+
+                <label for="Password" class="pill-label-form">Contraseña:</label>
+
+                <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
+                && FormRegister.controls.Password.errors}" />
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
+                && FormRegister.controls.Password.errors?.required">
+                    Este campo es obligatorio.
+                </div>
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                && (FormRegister.controls.Password.errors?.minlength)">
+                    Mínimo 8 caracteres.
+                </div>
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                && (FormRegister.controls.Password.errors?.pattern)">
+                    Debe contener al menos 1 letra y un número.
+                </div>
+            </div>
+
+            <!-- Recordar mi cuenta: Check -->
+            <div class="mb-3 mt-7 form-check">
+                <input type="checkbox" class="form-check-input" formControlName="RememberAccount" id="exampleCheck1">
+                <label class="pill-label-check" for="exampleCheck1">Recordar mi cuenta</label>
+            </div>
+
+            <!-- Crear cuenta Button -->
+            <div class="mb-4"></div>
+
+            <div class="container-login100-form-btn m-t-17">
+                <button type="submit" class="login100-form-btn pill-form-btn pill-buton">Crear cuenta</button>
+            </div>
+
+            <!-- Enlace Login -->
+            <div class="mb-3"></div>
+            <a routerLink="/login" class="pill-label-check">
+            ¿Ya tienes cuenta? / Ingresar
+        </a>
+
+        </form>
+    </div>
+</div>
