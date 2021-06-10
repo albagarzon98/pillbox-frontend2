@@ -1,12 +1,14 @@
-<nav class="navbar navbar-light navbar-expand-lg" style="background-color: #6626db;">
+<nav class="navbar navbar-light navbar-expand-lg animated fadeInDown" style="background-color: #6626db;">
     <nav class="pill-navbar">
         P I L L B O X
     </nav>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-          <span class="navbar-toggler-icon"></span>
+        <span class="line icon-bar"></span> 
+        <span class="line icon-bar"></span> 
+        <span class="line icon-bar" style="margin-bottom: 0;"></span>
       </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show animated fadeInDown': navbarOpen }">
         <ul class="nav navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/login">Iniciar sesion</a>
@@ -17,7 +19,7 @@
         </ul>
     </div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show animated fadeInDown': navbarOpen }">
         <ul class="nav navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>
