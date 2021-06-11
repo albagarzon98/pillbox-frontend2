@@ -1,6 +1,7 @@
 <nav class="navbar navbar-light navbar-expand-lg animated fadeInDown" style="background-color: #6626db;">
-
-    <a class="nav-link" title="Logo" routerLink="/">P I L L B O X</a>
+    <div class="m-l-10">
+        <a class="pill-navbar" title="Logo" routerLink="/">P I L L B O X</a>
+    </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <span class="line icon-bar"></span> 
@@ -22,7 +23,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" [ngClass]="{ 'show animated fadeInDown': navbarOpen }" *ngIf="isAuthenticated()">
         <ul class="nav navbar-nav">
 
-            <li class="nav-item  m-t-6 m-r-12 animated fadeInRight">
+            <li class="nav-item  m-t-6 m-r-14 animated fadeInRight">
                 <span class="nav-item pill-nav-link">
                  Bienvenido {{readName()}}
                 </span>
