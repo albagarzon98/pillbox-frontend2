@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class MenuComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit(): void {
+
   }
   
   toggleNavbar() {
@@ -22,9 +24,24 @@ export class MenuComponent implements OnInit {
   }
   
   salir() {
+    this.auth.logout();    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Cerrando sesión...'
+    });
+    Swal.showLoading();
+    Swal.close();
 
-    this.auth.logout();
     this.router.navigateByUrl('/login');
+
   }
 
+  isAuthenticated ():boolean {
+    return this.auth.getIsAuth();
+  }
+
+  readName ():string {
+    return this.auth.readName();
+  }
 }

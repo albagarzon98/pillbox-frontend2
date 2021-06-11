@@ -11,27 +11,43 @@ export class AuthService {
 
   url: string;
   userToken: string;
-  //private url = 'http://localhost:3000/v1/auth';
+  name: string;
   
-  //private apikey = '';
-
-
-
-  //Crear nuevo usuario
-  // http://localhost:3000/v1/auth/register
-
-  //Login
-  // 
-
+  //Esta variable me permite mostrar ciertos <nav-link> del navBar según si el usuario está o no autenticado.
+  isAuth: boolean;
+  
+  //private url = 'http://localhost:3000/v1/auth';
 
   constructor( private httpClient: HttpClient ) { 
     this.url = 'http://localhost:3000/v1/auth';
     this.readToken();
+    this.isAuth = this.isAuthenticated();
+  }
+
+  readName ():string {
+    if( localStorage.getItem('name') ){
+      this.name = localStorage.getItem('name');
+    } else {
+      this.name = '';
+    }
+    return this.name;
+  }
+  
+  getIsAuth (): boolean {
+    return this.isAuth;
   }
 
   //Cerrar sesión
   logout () { 
     localStorage.removeItem('token');
+    
+    //Borramos el valor del nombre del usuario
+    localStorage.removeItem('name');
+    
+    //Cambiamos el valor de isAuth a true porque el usuario acaba de cerrar sesión
+    this.isAuth = false;
+
+    console.log(`Valor de isAuth despues del logout del servicio: ${this.isAuth}`);
   }
 
   //Iniciar sesión
@@ -42,12 +58,20 @@ export class AuthService {
       password: user.password,
       //role: user.role
     };
+    
     return this.httpClient.post(
       `${ this.url }/login`,
       authData
     ).pipe(
       map( resp => {
         this.saveToken( resp['tokens']['access']['token'] );
+        
+        //Cambiamos el valor de isAuth a true porque el usuario acaba de loguearse
+        this.isAuth = true;
+        
+        //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
+        localStorage.setItem('name', resp['user']['name']);
+
         return resp;
       })
     );
@@ -69,6 +93,13 @@ export class AuthService {
     ).pipe(
       map( resp => {
         this.saveToken( resp['tokens']['access']['token'] );
+        
+        //Cambiamos el valor de isAuth a true porque el usuario acaba de crear su cuenta
+        this.isAuth = true;
+        
+        //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
+        localStorage.setItem('name', resp['user']['name']);
+
         return resp;
       })
     );
@@ -102,8 +133,8 @@ export class AuthService {
 
   isAuthenticated(): boolean {
 
-    console.log('Valor del token del login: ' + this.userToken);
-    console.log('Valor del token del local Storage: ' + localStorage.getItem('token'));
+    // console.log('Valor del token del login: ' + this.userToken);
+    // console.log('Valor del token del local Storage: ' + localStorage.getItem('token'));
     
     if ( this.userToken.length < 2 ) {
       return false;

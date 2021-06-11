@@ -172,6 +172,10 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Navbar ]*/
 
+.navbar-nav {
+    text-align: center !important;
+}
+
 body::-webkit-scrollbar {
     width: 0.25rem;
 }
@@ -223,6 +227,11 @@ nav .navbar-nav li a {
     color: #5cf3ba !important;
     font-family: Poppins-Bold;
     font-size: 1.5em;
+}
+
+.pill-navbar:hover {
+    filter: grayscale(0%) opacity(1);
+    transition: 400ms;
 }
 
 

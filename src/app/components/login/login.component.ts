@@ -14,7 +14,11 @@ export class LoginComponent implements OnInit {
 
   FormLogin: FormGroup;
   
+  //Este booleano representa el valor del check "Recordar cuenta"
   rememberAccount = false;
+  
+  //Este booleano me sirve para mostrar las validaciones de los campos del form solo si el
+  //form está submitted
   submitted = false;
 
   user: UserModel = new UserModel();
@@ -42,7 +46,7 @@ export class LoginComponent implements OnInit {
 
     //Si se encuentra almacenada una cuenta de email en el localStorage, se asigna ese mail al usuario,
     //se setea el check "Recordar cuenta" en true, y se muestran estos valores en el form
-    if (localStorage.getItem('email') ){
+    if ( localStorage.getItem('email') ){
       this.user.email = localStorage.getItem('email');
       this.rememberAccount = true;
       this.FormLogin.patchValue({RememberAccount: this.rememberAccount});
@@ -60,7 +64,7 @@ export class LoginComponent implements OnInit {
     this.user.email = this.FormLogin.value['Email'];
     this.user.password = this.FormLogin.value['Password'];
     
-    //Asignamos el valor del form a la variable rememberAccount
+    //Asignamos el valor del check "Recordar cuenta" a la variable rememberAccount
     this.rememberAccount = this.FormLogin.value['RememberAccount'];
 
     //Alerta de SweetAlert
