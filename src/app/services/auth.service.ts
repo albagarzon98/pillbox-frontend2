@@ -47,7 +47,6 @@ export class AuthService {
     //Cambiamos el valor de isAuth a true porque el usuario acaba de cerrar sesión
     this.isAuth = false;
 
-    console.log(`Valor de isAuth despues del logout del servicio: ${this.isAuth}`);
   }
 
   //Iniciar sesión

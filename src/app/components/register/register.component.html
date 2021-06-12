@@ -77,8 +77,32 @@
                 </div>
 
                 <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                && (FormRegister.controls.Password.errors?.pattern)">
-                    Debe contener al menos 1 letra y un número.
+                && (FormRegister.controls.Password.hasError('hasNumber'))">
+                    Debe contener al menos un número.
+                </div>
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                && (FormRegister.controls.Password.hasError('hasSmallCase'))">
+                    Debe contener al menos una letra.
+                </div>
+            </div>
+
+            <!-- Campo Confirmar contraseña -->
+            <div class="mb-3">
+
+                <label for="ConfirmPassword" class="pill-label-form">Confirmar contraseña:</label>
+
+                <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
+                            && (FormRegister.controls.ConfirmPassword.errors)}" />
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
+                            && FormRegister.controls.ConfirmPassword.errors?.required">
+                    Este campo es obligatorio.
+                </div>
+
+                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
+                            && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
+                    Las contraseñas no coinciden.
                 </div>
             </div>
 

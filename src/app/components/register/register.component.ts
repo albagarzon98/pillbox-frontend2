@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -42,17 +42,59 @@ export class RegisterComponent implements OnInit {
         '',
         [Validators.required, Validators.email]
       ],
-      // "(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)"
       Password: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.pattern("(?=.*[0-9])(?=.*[a-z])([a-z0-9]+)")]
+        '', Validators.compose(
+        [Validators.required, Validators.minLength(8),
+        this.patternValidator(/\d/, { hasNumber: true }),
+        this.patternValidator(/[a-z]/, { hasSmallCase: true })
+        ])
+      ],
+      ConfirmPassword:[
+        '', 
+        [Validators.required]
       ],
       Role: ['', [Validators.required]],
       RememberAccount: [false]
+    },
+    {
+
+      validator: this.passwordMatchValidator
     });
     
     this.user = new UserModel();
   }
+
+  
+  patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        // Si el valor del campo del formulario está vacío devolver null
+        return null;
+      }
+  
+      // Comparar el valor del formulario contra la expresión regular ingresada como parámetro
+      const valid = regex.test(control.value);
+  
+      // Si es verdadero se retorna que no hay error, sino se retorna error
+      return valid ? null : error;
+    };
+  }
+
+  //Función encargada de comparar las contraseñas
+  passwordMatchValidator(control: AbstractControl) {
+    
+    const password: string = control.get('Password').value; // Obtener la contraseña del form
+    const confirmPassword: string = control.get('ConfirmPassword').value; // Obtener "Confirmar constraseña" del form
+    
+    // Comparar si las ontraseñas coinciden
+    if (password !== confirmPassword) {
+      // Si no coinciden, setear el error en nuestro confirmPassword del form
+      control.get('ConfirmPassword').setErrors({ NoPassswordMatch: true });
+    }
+  }
+
+
+
 
   onSubmit( form: FormGroup ) {
     
