@@ -91,6 +91,8 @@ export class AuthService {
       authData
     ).pipe(
       map( resp => {
+        
+        //Guardamos el token de la respuesta
         this.saveToken( resp['tokens']['access']['token'] );
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de crear su cuenta

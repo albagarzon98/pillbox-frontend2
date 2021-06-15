@@ -27,13 +27,15 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/assets/css/main.css",
                             "src/assets/css/util.css",
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/assets/css/vendor/animate/animate.css",
                             "src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/bootstrap/dist/js/bootstrap.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

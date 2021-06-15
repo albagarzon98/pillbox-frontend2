@@ -1,37 +1,22 @@
-<nav class="navbar navbar-light navbar-expand-lg animated fadeInDown" style="background-color: #6626db;">
-    <div class="m-l-10">
+<nav class="navbar navbar-expand-lg navbar-light bg-light  animated fadeInDown">
+    <div class="container-fluid">
         <a class="pill-navbar" title="Logo" routerLink="/">P I L L B O X</a>
-    </div>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-        <span class="line icon-bar"></span> 
-        <span class="line icon-bar"></span> 
-        <span class="line icon-bar" style="margin-bottom: 0;"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" [ngClass]="{ 'show animated fadeInDown': navbarOpen }" *ngIf="!isAuthenticated()">
-        <ul class="nav navbar-nav">
-            <li class="nav-item animated fadeInRight">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" *ngIf="!isAuthenticated()">
+            <div class="navbar-nav">
                 <a class="nav-link" routerLink="/login">Iniciar sesion</a>
-            </li>
-            <li class="nav-item animated fadeInRight">
                 <a class="nav-link" title="Register" routerLink="/register">Registrarse</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" [ngClass]="{ 'show animated fadeInDown': navbarOpen }" *ngIf="isAuthenticated()">
-        <ul class="nav navbar-nav">
-
-            <li class="nav-item  m-t-6 m-r-14 animated fadeInRight">
-                <span class="nav-item pill-nav-link">
-                 Bienvenido {{readName()}}
-                </span>
-            </li>
-
-            <li class="nav-item animated fadeInRight">
+            </div>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end " id="navbarNavAltMarkup" *ngIf="isAuthenticated()">
+            <div class="navbar-nav">
+                <div class="m-t-6 m-r-8">
+                    <a class="nav-link-user" routerLink="/home">Bienvenido {{readName()}}</a>
+                </div>
                 <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </nav>

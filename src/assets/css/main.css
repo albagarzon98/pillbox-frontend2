@@ -172,6 +172,10 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Navbar ]*/
 
+.navbar {
+    background-color: #6626db !important;
+}
+
 .navbar-nav {
     text-align: center !important;
 }
@@ -188,30 +192,50 @@ body::-webkit-scrollbar-thumb {
     background: #6649b8;
 }
 
+.nav-link-user {
+    font-family: Poppins-Regular !important;
+    color: #5cf3ba !important;
+    transition: 400ms;
+    text-decoration: none;
+}
+
+.nav-link-user:hover {
+    font-size: 0.91em;
+    color: #5cf3ba !important;
+    transition: 200ms;
+}
+
 .nav-link {
     font-family: Poppins-Regular !important;
-    color: gray;
+    color: rgb(182, 174, 174) !important;
     filter: grayscale(100%) opacity(0.7);
     transition: 400ms;
 }
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 0.95em;
+    font-size: 0.91em;
+    color: #5cf3ba !important;
     transition: 200ms;
 }
 
+.navbar-toggler-icon {
+    color: #5cf3ba !important;
+}
+
 .navbar-toggler {
+    color: #5cf3ba !important;
     width: 47px;
     height: 34px;
     border: none !important;
 }
 
 .navbar-toggler .line {
+    color: #5cf3ba !important;
     width: 100%;
     float: left;
     height: 2px;
-    background-color: #5cf3ba;
+    background-color: #5cf3ba !important;
     margin-bottom: 5px;
 }
 
@@ -234,8 +258,37 @@ nav .navbar-nav li a {
 
 .pill-navbar:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 1.55em;
+    font-size: 1.52em;
     transition: 200ms;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ carousel ]*/
+
+.carousel {
+    font-family: Poppins-Bold;
+}
+
+.carousel-paragraph {
+    font-family: Poppins-Regular;
+    font-size: 1.05em;
+    color: black;
+}
+
+.role-image {
+    padding-bottom: 60px;
+    padding-top: 25px;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+input[type='image'] {
+    width: 300px;
+}
+
+.carousel-item {
+    text-align: center !important;
 }
 
 
@@ -249,7 +302,7 @@ nav .navbar-nav li a {
 
 .container-login100 {
     width: 100%;
-    min-height: 100vh;
+    min-height: 50vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -262,7 +315,26 @@ nav .navbar-nav li a {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    ;
+}
+
+.container-carousel {
+    /* height: 150px; */
+    margin-right: auto;
+    margin-left: auto;
+    width: 500px;
+    /* width: 100%; */
+    min-height: 75vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .wrap-login100 {
@@ -294,6 +366,7 @@ nav .navbar-nav li a {
 .pill-label-check:hover {
     font-family: Poppins-Regular;
     color: #6626db;
+    transition: 200ms;
 }
 
 .pill-danger {
@@ -348,7 +421,7 @@ nav .navbar-nav li a {
     width: 100%;
     background: transparent;
     height: 42px;
-    padding: 0 20px 0 38px;
+    padding: 0 20px 0 20px;
 }
 
 
@@ -478,7 +551,7 @@ nav .navbar-nav li a {
     padding: 0 20px;
     width: 100%;
     height: 52px;
-    background-color: #6626db;
+    background-color: #371BBA;
     color: #5cf3ba;
     /* border: 2px solid #5cf3ba; */
     border-radius: 3px;
@@ -489,7 +562,31 @@ nav .navbar-nav li a {
 }
 
 .login100-form-btn:hover {
-    background-color: #371BBA;
+    background-color: #6626db;
+}
+
+.pill-back-button {
+    font-family: Poppins-Regular;
+    color: gray !important;
+    width: 20px;
+    text-decoration: none;
+}
+
+.pill-back-button:hover {
+    font-family: Poppins-Regular;
+    color: #6626db !important;
+    font-size: 0.9em;
+    transition: 200ms;
+}
+
+.back {
+    position: absolute;
+    top: 59px;
+    font-size: 2em;
+}
+
+input:focus {
+    transition: 200ms;
 }
 
 

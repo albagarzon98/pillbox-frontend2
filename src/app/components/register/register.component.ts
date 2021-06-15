@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  Roles = [
-    {Nombre: 'farmaceutico' },
-    {Nombre: 'tutor' },
-    {Nombre: 'paciente' }
-  ];
   
   FormRegister: FormGroup;
   
@@ -25,9 +20,14 @@ export class RegisterComponent implements OnInit {
 
   submitted = false;
 
+  registerAction = 'roleSelect';
+
+  roles: string[] = [];
+
   constructor(
     private router: Router,
     private auth: AuthService,
+    private roleService: RoleService,
     public formBuilder: FormBuilder
   ) { }
 
@@ -53,18 +53,28 @@ export class RegisterComponent implements OnInit {
         '', 
         [Validators.required]
       ],
-      Role: ['', [Validators.required]],
       RememberAccount: [false]
     },
     {
-
       validator: this.passwordMatchValidator
     });
     
     this.user = new UserModel();
+    this.getRoles();
   }
 
   
+  //Obtener los roles de la BD
+  getRoles () {
+    this.roleService.get().subscribe( res =>{
+      for (var i = 0; i < res['roles'].length; i++) {
+        const descripcion: string = res['roles'][i]['descripcion'];
+        this.roles.push(descripcion);
+      }
+    })
+  }
+
+  //Validador de patrones
   patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
@@ -93,8 +103,32 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  //Esta función se ejecuta si el usuario selecciona el rol paciente
+  selectRolePatient () {
+    this.registerAction = 'inputData';
+    this.user.role = this.roles[1];
+    console.log(`el rol del usuario es: ${this.user.role}`);
+  }
 
+  //Esta función se ejecuta si el usuario selecciona el rol tutor
+  selectRoleTutor () {
+    this.registerAction = 'inputData';
+    this.user.role = this.roles[2];
+    console.log(`el rol del usuario es: ${this.user.role}`);
 
+  }
+
+  //Esta función se ejecuta si el usuario selecciona el rol farmacéutico
+  selectRolePharmaceutic () {
+    this.registerAction = 'inputData';
+    this.user.role = this.roles[0];
+    console.log(`el rol del usuario es: ${this.user.role}`);
+
+  }
+
+  volver () {
+    this.registerAction = 'roleSelect';
+  }
 
   onSubmit( form: FormGroup ) {
     
@@ -104,7 +138,6 @@ export class RegisterComponent implements OnInit {
     //Asignamos los valores del form al objeto user
     this.user.name = this.FormRegister.value['Name'];
     this.user.email = this.FormRegister.value['Email'];
-    this.user.role = this.FormRegister.value['Role'];
     this.user.password = this.FormRegister.value['Password'];
         
     //Asignamos el valor del form a la variable rememberAccount
@@ -123,6 +156,7 @@ export class RegisterComponent implements OnInit {
       console.log(resp);
       Swal.close();
 
+      //Si el usuario marcó el check "Recordar cuenta" se almacena su email
       if( this.rememberAccount ){
         localStorage.setItem('email', this.user.email);
       }

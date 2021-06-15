@@ -2,128 +2,175 @@
     <div class="container-login100">
         <form (ngSubmit)="onSubmit( FormRegister )" name="FormRegister" [formGroup]='FormRegister'>
 
-            <span class="login100-form-title p-b-30">
-            Crear nueva cuenta
-            </span>
 
-            <!-- Campo Nombre -->
-            <div class="mb-3">
-                <label class="pill-label-form" for="Name">Nombre:</label>
+            <!-- Carrusel para la selección del rol -->
+            <div class="container-carousel animated fadeInUp" *ngIf="registerAction == 'roleSelect'">
 
-                <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
+                <span class="login100-form-title">
+                    Escoge tu rol
+                </span>
+
+
+                <div id="carousel" class="carousel carousel-dark slide" data-bs-interval="false">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="false">
+                            <div class="role-image">
+                                <!-- <img src="../../../assets/images/telefono-inteligente.png" class="d-block w-100" alt="..."> -->
+                                <input type="image" src="../../../assets/images/telefono-inteligente.png" (click)="selectRolePatient()">
+                                <h4 class="mt-3">Paciente</h4>
+                                <p class="carousel-paragraph mt-2">Gestioná tus medicamentos</p>
+                            </div>
+
+                        </div>
+                        <div class="carousel-item" data-bs-interval="false">
+                            <div class="role-image">
+                                <input type="image" src="../../../assets/images/user.png" (click)="selectRoleTutor()">
+                                <h4 class="mt-3">Tutor</h4>
+                                <p class="carousel-paragraph mt-2">Tengo una persona a cargo</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" data-bs-interval="false">
+                            <div class="role-image">
+                                <input type="image" src="../../../assets/images/farmaceutico.png" (click)="selectRolePharmaceutic()">
+                                <h4 class="mt-3">Farmacéutico</h4>
+                                <p class="carousel-paragraph mt-2">Trabajo en una farmacia registrada</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                </div>
+
+                <!-- Enlace Login -->
+                <div class="mb-3 mt-10"></div>
+                <a routerLink="/login" class="pill-label-check">
+                    ¿Ya tienes cuenta? / Ingresar
+                </a>
+            </div>
+
+
+            <!-- Formulario del ingreso de datos -->
+            <div class="animated fadeInRight" *ngIf="registerAction == 'inputData'">
+
+
+                <!-- Regresar link -->
+                <a class="pill-back-button mb-4" (click)="volver()">
+                    <span class="back">&lt;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regresar
+                </a>
+
+                <span class="login100-form-title p-b-15 p-t-10">
+                    Ingresa tus datos
+                </span>
+
+                <!-- Campo Nombre -->
+                <div class="mb-3">
+                    <label class="pill-label-form" for="Name">Nombre:</label>
+
+                    <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
                 && FormRegister.controls.Name.errors}" />
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
                   && FormRegister.controls.Name.errors?.required">
-                    Este campo es obligatorio.
-                </div>
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                        Este campo es obligatorio.
+                    </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
                  && (FormRegister.controls.Name.errors?.minlength || FormRegister.controls.Name.errors?.maxlength) ">
-                    Mínimo 4 caracteres.
+                        Mínimo 4 caracteres.
+                    </div>
                 </div>
-            </div>
 
 
-            <!-- Campo email -->
-            <div class="mb-3">
+                <!-- Campo email -->
+                <div class="mb-3">
 
-                <label for="Email" class="pill-label-form">Email:</label>
+                    <label for="Email" class="pill-label-form">Email:</label>
 
-                <input type="email" class="form-control input100" formControlName="Email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormRegister.controls.Email.touched || submitted)  
+                    <input type="email" class="form-control input100" formControlName="Email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormRegister.controls.Email.touched || submitted)  
                 && FormRegister.controls.Email.errors}" />
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
                     && FormRegister.controls.Email.errors?.required">
-                    Este campo es obligatorio.
-                </div>
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                        Este campo es obligatorio.
+                    </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
                     && (FormRegister.controls.Email.errors?.email) ">
-                    Email inválido.
+                        Email inválido.
+                    </div>
                 </div>
-            </div>
 
-            <!-- Campo Rol -->
-            <div class="mb-3">
+                <!-- Campo contraseña -->
+                <div class="mb-3">
 
-                <label for="Role" class="pill-label-form">Rol:</label>
-                <select class="form-control input100" name="Role" formControlName="Role" [ngClass]="{'is-invalid': (FormRegister.controls.Role.touched || submitted)  
-                && FormRegister.controls.Role.errors}">
-                <option *ngFor="let opt of Roles" [ngValue]="opt.Nombre">
-                        ‌{{ opt.Nombre }}
-			    </option>            
-                </select>
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Role.touched || submitted) 
-                && FormRegister.controls.Role.errors?.required">
-                    Este campo es obligatorio.
-                </div>
-            </div>
+                    <label for="Password" class="pill-label-form">Contraseña:</label>
 
-            <!-- Campo contraseña -->
-            <div class="mb-3">
-
-                <label for="Password" class="pill-label-form">Contraseña:</label>
-
-                <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
+                    <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
                 && FormRegister.controls.Password.errors}" />
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
                 && FormRegister.controls.Password.errors?.required">
-                    Este campo es obligatorio.
-                </div>
+                        Este campo es obligatorio.
+                    </div>
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
                 && (FormRegister.controls.Password.errors?.minlength)">
-                    Mínimo 8 caracteres.
-                </div>
+                        Mínimo 8 caracteres.
+                    </div>
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
                 && (FormRegister.controls.Password.hasError('hasNumber'))">
-                    Debe contener al menos un número.
-                </div>
+                        Debe contener al menos un número.
+                    </div>
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
                 && (FormRegister.controls.Password.hasError('hasSmallCase'))">
-                    Debe contener al menos una letra.
+                        Debe contener al menos una letra.
+                    </div>
                 </div>
-            </div>
 
-            <!-- Campo Confirmar contraseña -->
-            <div class="mb-3">
+                <!-- Campo Confirmar contraseña -->
+                <div class="mb-3">
 
-                <label for="ConfirmPassword" class="pill-label-form">Confirmar contraseña:</label>
+                    <label for="ConfirmPassword" class="pill-label-form">Confirmar contraseña:</label>
 
-                <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
+                    <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
                             && (FormRegister.controls.ConfirmPassword.errors)}" />
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
                             && FormRegister.controls.ConfirmPassword.errors?.required">
-                    Este campo es obligatorio.
-                </div>
+                        Este campo es obligatorio.
+                    </div>
 
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
                             && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
-                    Las contraseñas no coinciden.
+                        Las contraseñas no coinciden.
+                    </div>
                 </div>
+
+                <!-- Recordar mi cuenta: Check -->
+                <div class="mt-7 form-check">
+                    <input type="checkbox" class="form-check-input" formControlName="RememberAccount" id="exampleCheck1">
+                    <label class="pill-label-check" for="exampleCheck1">Recordar mi cuenta</label>
+                </div>
+
+                <!-- Crear cuenta Button -->
+                <div class="mb-3"></div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton">Crear cuenta</button>
+                </div>
+
             </div>
-
-            <!-- Recordar mi cuenta: Check -->
-            <div class="mb-3 mt-7 form-check">
-                <input type="checkbox" class="form-check-input" formControlName="RememberAccount" id="exampleCheck1">
-                <label class="pill-label-check" for="exampleCheck1">Recordar mi cuenta</label>
-            </div>
-
-            <!-- Crear cuenta Button -->
-            <div class="mb-4"></div>
-
-            <div class="container-login100-form-btn m-t-17">
-                <button type="submit" class="login100-form-btn pill-form-btn pill-buton">Crear cuenta</button>
-            </div>
-
-            <!-- Enlace Login -->
-            <div class="mb-3"></div>
-            <a routerLink="/login" class="pill-label-check">
-            ¿Ya tienes cuenta? / Ingresar
-        </a>
 
         </form>
     </div>

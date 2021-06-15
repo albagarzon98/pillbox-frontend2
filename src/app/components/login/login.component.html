@@ -18,10 +18,6 @@
                     && FormLogin.controls.Email.errors?.required">
                     Este campo es obligatorio.
                 </div>
-                <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormLogin.controls.Email.touched || submitted) 
-                    && (FormLogin.controls.Email.errors?.email) ">
-                    Email inválido.
-                </div>
 
                 <div id="emailHelp" class="pill-label-check mt-2">Nunca compartiremos tu email con nadie REY!</div>
             </div>
