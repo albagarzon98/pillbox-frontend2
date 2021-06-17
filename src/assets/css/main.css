@@ -203,20 +203,22 @@ body::-webkit-scrollbar-thumb {
     font-size: 0.91em;
     color: #5cf3ba !important;
     transition: 200ms;
+    text-shadow: 1px 1px 2px #8153d6;
 }
 
 .nav-link {
     font-family: Poppins-Regular !important;
     color: rgb(182, 174, 174) !important;
     filter: grayscale(100%) opacity(0.7);
-    transition: 400ms;
+    transition: 250ms;
 }
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
     font-size: 0.91em;
     color: #5cf3ba !important;
-    transition: 200ms;
+    transition: 250ms;
+    text-shadow: 2px 0px 20px #8153d6;
 }
 
 .navbar-toggler-icon {
@@ -266,6 +268,114 @@ nav .navbar-nav li a {
 /*//////////////////////////////////////////////////////////////////
 [ carousel ]*/
 
+.home-register-button {
+    position: relative;
+    top: 25px;
+    border: #5cf3ba solid 3px;
+    border-radius: 20px;
+    height: 40px;
+    width: 200px;
+    color: #5cf3ba;
+    font-family: Poppins-Bold;
+    text-align: center;
+    display: inline-block;
+    padding-bottom: 50x;
+    font-size: 20px;
+    transition: 300ms !important;
+}
+
+.home-register-button:hover {
+    border-radius: 20px;
+    color: #6626db;
+    background-color: #5cf3ba;
+    font-family: Poppins-Bold;
+    text-align: center;
+    display: inline-block;
+    transition: 300ms !important;
+    box-shadow: 1px 1px 20px 2px #8153d6;
+}
+
+.slide-icon1 {
+    width: 40px;
+    position: relative;
+    right: 20px;
+    top: 18px;
+}
+
+.slide-icon3 {
+    width: 120px;
+    position: relative;
+    right: 300px;
+    bottom: 100px;
+    animation: fadeInLeft 2s;
+}
+
+.h1-pill {
+    color: #6626db;
+    font-size: 80px;
+    position: relative;
+    right: 300px;
+    top: 25px;
+    animation: fadeInLeft 2s;
+}
+
+.h2-pill {
+    color: #5cf3ba;
+    font-size: 80px;
+    position: relative;
+    right: 300px;
+    bottom: 275px;
+    animation: fadeInLeft 2s;
+}
+
+.h3-pill {
+    color: #5cf3ba;
+    font-size: 80px;
+    position: relative;
+    right: 300px;
+    bottom: 175px;
+    animation: fadeInLeft 2s;
+}
+
+.h4-pill {
+    color: #5cf3ba;
+    font-size: 80px;
+    position: relative;
+    left: 200px;
+    bottom: 200px;
+    animation: fadeInRight 2s;
+}
+
+.paragraph1-pill {
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    font-size: 25px;
+    position: relative;
+    bottom: 135px;
+    left: 250px;
+    animation: fadeInRight 2s;
+}
+
+.paragraph2-pill {
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    font-size: 25px;
+    position: relative;
+    bottom: 225px;
+    right: 300px;
+    animation: fadeInLeft 2s;
+}
+
+.paragraph3-pill {
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    font-size: 25px;
+    position: relative;
+    bottom: 125px;
+    right: 300px;
+    animation: fadeInLeft 2s;
+}
+
 .carousel {
     font-family: Poppins-Bold;
 }
@@ -277,6 +387,7 @@ nav .navbar-nav li a {
 }
 
 .role-image {
+    width: 500px;
     padding-bottom: 60px;
     padding-top: 25px;
     padding-left: 90px;
@@ -294,6 +405,14 @@ input[type='image'] {
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
+
+.login-background {
+    background: hsla(157, 86%, 66%, 1);
+    background: linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
+    background: -moz-linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
+    background: -webkit-linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5CF3BA", endColorstr="#FFFFFF", GradientType=1);
+}
 
 .limiter {
     width: 100%;
@@ -315,6 +434,16 @@ input[type='image'] {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.login-container {
+    border-radius: 10px;
+    width: 400px;
+    height: auto;
+    padding: 20px;
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0px 0px 10px 1px #bfb3d6;
+    ;
 }
 
 .container-carousel {
@@ -369,6 +498,11 @@ input[type='image'] {
     transition: 200ms;
 }
 
+.pill-label-mail {
+    font-family: Poppins-Regular;
+    color: gray;
+}
+
 .pill-danger {
     font-family: Poppins-Regular;
     font-size: 0.8em;
@@ -415,13 +549,13 @@ input[type='image'] {
 .input100 {
     font-family: Poppins-Regular;
     color: #403866;
+    background-color: honeydew !important;
     line-height: 1.2;
     font-size: 18px;
     display: block;
     width: 100%;
     background: transparent;
     height: 42px;
-    padding: 0 20px 0 20px;
 }
 
 
@@ -580,8 +714,8 @@ input[type='image'] {
 }
 
 .back {
-    position: absolute;
-    top: 59px;
+    position: relative;
+    top: 5px;
     font-size: 2em;
 }
 
