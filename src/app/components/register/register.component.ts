@@ -106,14 +106,14 @@ export class RegisterComponent implements OnInit {
   //Esta función se ejecuta si el usuario selecciona el rol paciente
   selectRolePatient () {
     this.registerAction = 'inputData';
-    this.user.role = this.roles[1];
+    this.user.role = this.roles[2];
     console.log(`el rol del usuario es: ${this.user.role}`);
   }
 
   //Esta función se ejecuta si el usuario selecciona el rol tutor
   selectRoleTutor () {
     this.registerAction = 'inputData';
-    this.user.role = this.roles[2];
+    this.user.role = this.roles[3];
     console.log(`el rol del usuario es: ${this.user.role}`);
 
   }
@@ -121,7 +121,7 @@ export class RegisterComponent implements OnInit {
   //Esta función se ejecuta si el usuario selecciona el rol farmacéutico
   selectRolePharmaceutic () {
     this.registerAction = 'inputData';
-    this.user.role = this.roles[0];
+    this.user.role = this.roles[1];
     console.log(`el rol del usuario es: ${this.user.role}`);
 
   }

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light animated fadeInDown">
     <div class="container-fluid">
-        <a class="pill-navbar" title="Logo" routerLink="/">P I L L B O X</a>
+        <img class="pill-navbar" src="../../../assets/images/logo-navbar.png" routerLink="/" alt="" *ngIf="!isAuthenticated()">
+        <img class="pill-navbar" src="../../../assets/images/logo-navbar.png" routerLink="/home" alt="" *ngIf="isAuthenticated()">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,8 +13,11 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end " id="navbarNavAltMarkup" *ngIf="isAuthenticated()">
             <div class="navbar-nav">
-                <div class="m-t-6 m-r-8">
-                    <a class="nav-link-user" routerLink="/home">Bienvenido {{readName()}}</a>
+                <div class="m-t-6 m-r-8 m-l-8">
+                    <img class="navbar-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="getRole() == 'farmaceutico'">
+                    <img class="navbar-role" src="../../../assets/images/user.png" alt="" *ngIf="getRole() == 'tutor'">
+                    <img class="navbar-role" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="getRole() == 'paciente'">
+                    <a class="nav-link-user" routerLink="/home">{{readName()}}</a>
                 </div>
                 <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>
             </div>

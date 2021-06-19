@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { ReminderComponent } from './components/reminder/reminder.component';
 
 
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent, canActivate: [ AuthGuard ] },
+  { path: 'reminder', component: ReminderComponent, canActivate: [ AuthGuard ] },
   { path: 'homepage', component: HomepageComponent },
   {path:'**', redirectTo:'homepage'}
 ];

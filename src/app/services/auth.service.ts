@@ -41,8 +41,10 @@ export class AuthService {
   logout () { 
     localStorage.removeItem('token');
     
-    //Borramos el valor del nombre del usuario
+    //Borramos el valor del nombre del usuario y el rol
     localStorage.removeItem('name');
+    localStorage.removeItem('role');
+
     
     //Cambiamos el valor de isAuth a true porque el usuario acaba de cerrar sesión
     this.isAuth = false;
@@ -70,6 +72,9 @@ export class AuthService {
         
         //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
         localStorage.setItem('name', resp['user']['name']);
+
+        //Guardamos el rol del usuario para mostrar la imagen correspondiente en el navbar
+        localStorage.setItem('role', resp['user']['role']);
 
         return resp;
       })

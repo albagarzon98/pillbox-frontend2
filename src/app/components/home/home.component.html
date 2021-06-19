@@ -1,7 +1,21 @@
-<div class="m-5">
-
-    <span class="login100-form-title p-b-30">
-        Bienvenido usuario
-    </span>
-
+<div class="limiter login-background">
+    <div class="container-home-title">
+        <span class="home-title">
+        Bienvenido {{name}}!
+        </span>
+    </div>
+    <div class="container-home">
+        <div class="home-box">
+            <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
+            <span class="box-title">Medicamentos</span>
+        </div>
+        <div class="home-box" routerLink="/reminder">
+            <img class="box-image" src="../../../assets/images/alarm-clock.png" alt="">
+            <span class="box-title">Recordatorios</span>
+        </div>
+        <div class="home-box">
+            <img class="box-image" src="../../../assets/images/box-calendar.png" alt="">
+            <span class="box-title">Sacar turno</span>
+        </div>
+    </div>
 </div>

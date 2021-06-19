@@ -172,6 +172,13 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Navbar ]*/
 
+.navbar-role {
+    width: 6%;
+    position: relative;
+    left: 215px;
+    bottom: 5px;
+}
+
 .navbar {
     background-color: #6626db !important;
 }
@@ -197,6 +204,9 @@ body::-webkit-scrollbar-thumb {
     color: #5cf3ba !important;
     transition: 400ms;
     text-decoration: none;
+    position: relative;
+    left: 225px;
+    bottom: 4px;
 }
 
 .nav-link-user:hover {
@@ -252,16 +262,16 @@ nav .navbar-nav li a {
 }
 
 .pill-navbar {
-    color: #5cf3ba !important;
-    font-family: Poppins-Bold;
-    font-size: 1.5em;
-    text-decoration: none !important;
+    position: relative;
+    left: 5px;
+    width: 9%;
+    transition: 200ms;
 }
 
 .pill-navbar:hover {
-    filter: grayscale(0%) opacity(1);
-    font-size: 1.52em;
+    width: 9.2%;
     transition: 200ms;
+    cursor: pointer;
 }
 
 
@@ -303,10 +313,10 @@ nav .navbar-nav li a {
 }
 
 .slide-icon3 {
-    width: 120px;
+    width: 15%;
     position: relative;
     right: 300px;
-    bottom: 100px;
+    bottom: 150px;
     animation: fadeInLeft 2s;
 }
 
@@ -315,7 +325,7 @@ nav .navbar-nav li a {
     font-size: 80px;
     position: relative;
     right: 300px;
-    top: 25px;
+    top: 175px;
     animation: fadeInLeft 2s;
 }
 
@@ -351,7 +361,7 @@ nav .navbar-nav li a {
     font-family: Poppins-Regular;
     font-size: 25px;
     position: relative;
-    bottom: 135px;
+    bottom: 150px;
     left: 250px;
     animation: fadeInRight 2s;
 }
@@ -400,6 +410,100 @@ input[type='image'] {
 
 .carousel-item {
     text-align: center !important;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ homepage ]*/
+
+.logo-homepage {
+    position: relative;
+    top: 250px;
+    right: 325px;
+    width: 15%;
+    animation: fadeInLeft 2s;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ home ]*/
+
+.box-title {
+    font-family: Poppins-Regular;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.home-box {
+    border-radius: 40px;
+    width: 300px;
+    height: 300px;
+    padding: 30px;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 10px 1px #bfb3d6;
+    margin: 25px;
+    transition: 300ms;
+    animation: fadeInUp 600ms;
+}
+
+.home-box:hover {
+    transition: 300ms;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0px 0px 10px 1px #9472d4;
+}
+
+.box-image {
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.home-title {
+    font-family: Poppins-Bold;
+    font-size: 35px;
+    color: #1a1b73;
+    line-height: 1.2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 600ms;
+}
+
+.container-home {
+    width: 100%;
+    min-height: 25vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0px 150px 15px 150px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container-home-title {
+    width: 100%;
+    min-height: 15vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 15px 150px 0px 150px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 
@@ -477,6 +581,12 @@ input[type='image'] {
 /*==================================================================
 [ Form ]*/
 
+.register-role {
+    width: 30%;
+    display: block;
+    margin: auto;
+}
+
 .login100-form {
     width: 100%;
 }
@@ -496,6 +606,7 @@ input[type='image'] {
     font-family: Poppins-Regular;
     color: #6626db;
     transition: 200ms;
+    cursor: pointer;
 }
 
 .pill-label-mail {
@@ -711,6 +822,7 @@ input[type='image'] {
     color: #6626db !important;
     font-size: 0.9em;
     transition: 200ms;
+    cursor: pointer;
 }
 
 .back {

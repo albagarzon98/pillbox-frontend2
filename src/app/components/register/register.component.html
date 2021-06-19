@@ -69,8 +69,14 @@
                     Ingresa tus datos
                 </span>
 
+                <div class="m-t-10 m-b-30">
+                    <img class="register-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="user.role == 'farmaceutico'">
+                    <img class="register-role" src="../../../assets/images/user.png" alt="" *ngIf="user.role == 'tutor'">
+                    <img class="register-role" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="user.role == 'paciente'">
+                </div>
+
                 <!-- Campo Nombre -->
-                <div class="mb-3">
+                <div class="mb-4">
                     <label class="pill-label-form" for="Name">Nombre:</label>
 
                     <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
@@ -88,7 +94,7 @@
 
 
                 <!-- Campo email -->
-                <div class="mb-3">
+                <div class="mb-4">
 
                     <label for="Email" class="pill-label-form">Email:</label>
 
@@ -106,7 +112,7 @@
                 </div>
 
                 <!-- Campo contraseña -->
-                <div class="mb-3">
+                <div class="mb-4">
 
                     <label for="Password" class="pill-label-form">Contraseña:</label>
 
@@ -135,7 +141,7 @@
                 </div>
 
                 <!-- Campo Confirmar contraseña -->
-                <div class="mb-3">
+                <div class="mb-4">
 
                     <label for="ConfirmPassword" class="pill-label-form">Confirmar contraseña:</label>
 

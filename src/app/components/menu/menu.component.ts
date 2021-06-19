@@ -37,8 +37,19 @@ export class MenuComponent implements OnInit {
 
   }
 
+  //Esta función retorna true cuando el usuario inicia sesión y false cuando el usuario cierra sesión
   isAuthenticated ():boolean {
     return this.auth.getIsAuth();
+  }
+
+  //Esta función obtiene el rol del localStorage
+  getRole ():string {
+    if( localStorage.getItem('role') ){
+      return localStorage.getItem('role');
+    }
+    else {
+      return '';
+    }
   }
 
   readName ():string {
