@@ -16,7 +16,7 @@
                 <div class="m-t-6 m-r-8 m-l-8">
                     <img class="navbar-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="getRole() == 'farmaceutico'">
                     <img class="navbar-role" src="../../../assets/images/user.png" alt="" *ngIf="getRole() == 'tutor'">
-                    <img class="navbar-role" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="getRole() == 'paciente'">
+                    <img class="navbar-role-patient" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="getRole() == 'paciente'">
                     <a class="nav-link-user" routerLink="/home">{{readName()}}</a>
                 </div>
                 <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>

@@ -105,6 +105,9 @@ export class AuthService {
         
         //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
         localStorage.setItem('name', resp['user']['name']);
+        
+        //Guardamos el rol del usuario para mostrar la imagen correspondiente en el navbar
+        localStorage.setItem('role', resp['user']['role']);
 
         return resp;
       })

@@ -179,6 +179,13 @@ iframe {
     bottom: 5px;
 }
 
+.navbar-role-patient {
+    width: 5%;
+    position: relative;
+    left: 215px;
+    bottom: 4px;
+}
+
 .navbar {
     background-color: #6626db !important;
 }
@@ -221,6 +228,8 @@ body::-webkit-scrollbar-thumb {
     color: rgb(182, 174, 174) !important;
     filter: grayscale(100%) opacity(0.7);
     transition: 250ms;
+    position: relative;
+    bottom: 2px;
 }
 
 .nav-link:hover {
