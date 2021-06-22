@@ -437,6 +437,10 @@ input[type='image'] {
 /*//////////////////////////////////////////////////////////////////
 [ reminder ]*/
 
+.unit-image {
+    width: 15px;
+}
+
 .container-reminder {
     width: 100%;
     min-height: 25vh;
@@ -447,8 +451,7 @@ input[type='image'] {
     display: flex;
     flex-wrap: wrap;
     justify-content: center !important;
-    align-items: center !important;
-    padding: 0px 200px 15px 200px;
+    padding: 15px 10% 0px 10%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -475,53 +478,48 @@ input[type='image'] {
 
 .reminder-title {
     font-family: Poppins-Bold;
-    font-size: 225%;
+    font-size: 300%;
     color: #1a1b73;
-    line-height: 1.2;
     width: 100%;
     display: flex;
-    animation: fadeInUp 600ms;
+    justify-content: center;
+    animation: fadeIn 1.2s;
 }
 
 .new-reminder-btn {
-    font-family: Poppins-Regular;
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.2;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    padding: 0 20px;
-    width: 20%;
-    height: 50px;
-    background-color: #6626db;
-    color: #5cf3ba;
-    /* border: 2px solid #5cf3ba; */
-    border-radius: 10px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-    animation: fadeInUp 600ms;
-    margin-left: auto;
+    width: 300x;
+    padding: 5px 30px 5px 30px;
+    border: #6626db solid 2px;
+    border-radius: 40px;
+    color: #6626db;
+    font-family: Poppins-Bold;
+    padding-bottom: 50x;
+    font-size: 20px;
+    transition: 300ms !important;
+    animation: fadeIn 1.2s;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .new-reminder-btn:hover {
-    background-color: #371BBA;
+    border: #7732f8 solid 2px;
+    color: #5cf3ba;
+    background-color: #7732f8;
+    text-align: center;
+    transition: 300ms !important;
+    box-shadow: 1px 1px 10px 1px #8153d6;
 }
 
 .reminder-box {
     border-radius: 20px;
-    width: 275px;
-    height: 275px;
-    padding: 5px;
+    width: 325px;
+    height: 300px;
+    padding: 20px 20px 0 20px;
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 5px 1px #bfb3d6;
     margin: 8px;
     transition: 300ms;
     animation: fadeInUp 600ms;
-    text-align: center;
 }
 
 .reminder-box:hover {
@@ -532,7 +530,7 @@ input[type='image'] {
 }
 
 .reminder-image {
-    width: 30%;
+    width: 90px;
     margin: 3%;
     display: flex;
     margin-left: auto;
@@ -551,7 +549,7 @@ input[type='image'] {
     font-family: Poppins-Regular;
     color: black;
     font-size: 15px;
-    margin: 2% 2%;
+    margin: 2% 1%;
 }
 
 .box-reminder-title {
@@ -608,13 +606,13 @@ input[type='image'] {
     padding: 0px 300px 0px 300px;
     align-items: center;
     text-align: center;
-    margin-top: 3%;
+    margin-top: 1.5%;
 }
 
 .box-description {
     font-family: Poppins-Regular;
     text-align: center;
-    font-size: 100%;
+    font-size: 120%;
     animation: fadeIn 300ms;
 }
 
@@ -784,6 +782,7 @@ input[type='image'] {
 
 .pill-label-form {
     font-family: Poppins-Bold;
+    margin-bottom: 4px;
     font-size: 1.2em;
     color: #6626db;
 }

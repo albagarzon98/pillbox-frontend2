@@ -3,12 +3,14 @@
     <div class="container-home" *ngIf="userReminders.length == 0 && reminderAction == 'reminderList'">
         <div class="box-reminder-title">
             <span class="home-title ">
-            ¡Aún no tienes recordatorios!            
-        </span>
+                ¡Aún no tienes recordatorios!            
+            </span>
+
             <button class="home-reminder-button" (click)="addReminder()">
-            <img class="btn-reminder-image" src="../../../assets/images/signo-mas.png" alt="">
-            Nuevo recordatorio
-        </button>
+                <img class="btn-reminder-image" src="../../../assets/images/signo-mas.png" alt="">
+                Nuevo recordatorio
+            </button>
+
             <a class="pill-back-button-reminder m-t-100" routerLink="/home">
                 <br><br><span class="back">&lt; </span> &nbsp;Regresar al inicio
             </a>
@@ -17,21 +19,42 @@
 
     <div class="container-reminder" *ngIf="userReminders.length != 0 && reminderAction == 'reminderList'">
 
-        <span class="reminder-title m-t-15 m-b-15 m-l-10">
+        <span class="reminder-title p-b-15">
             Tus recordatorios
-            <button class="new-reminder-btn m-r-10 d-flex justify-content-end" (click)="addReminder()">Nuevo recordatorio</button>            
         </span>
+
+        <button class="new-reminder-btn m-b-30" (click)="addReminder()">
+            Nuevo recordatorio
+        </button>
+
+
 
         <div class="reminder-box" *ngFor="let reminder of userReminders">
 
-            <img class="reminder-image" src="../../../assets/images/medicine.png" alt="">
+            <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="reminder.unit == 'comprimido(s)'">
+            <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="reminder.unit == 'cápsula(s)'">
+            <img class="reminder-image" src="../../../assets/images/syringe.png" alt="" *ngIf="reminder.unit == 'inyección(es)'">
+            <img class="reminder-image" src="../../../assets/images/cuentagotas.png" alt="" *ngIf="reminder.unit == 'gota(s)'">
+            <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="reminder.unit == 'miligramo(s)'">
+            <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="reminder.unit == 'gramo(s)'">
+            <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="reminder.unit == 'mililitro(s)'">
+            <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="reminder.unit == 'unidad(es)'">
+
 
             <p class="box-reminder-medication-name">{{reminder.medicationName}}</p>
-            <span class="box-reminder-medication"> Dosis: {{reminder.dose}}</span>
-            <span class="box-reminder-medication m-l-1">{{reminder.unit}}</span>
-            <p class="box-reminder-medication">Frecuencia: {{reminder.frequency}}</p>
-            <p class="box-reminder-medication">Fecha de inicio: {{reminder.startDate}}</p>
-            <p class="box-reminder-medication" *ngIf="reminder.endDate">Fecha de finalización: {{reminder.endDate}}</p>
+            <span class="box-reminder-medication"> 
+                <img class="unit-image" src="../../../assets/images/meds.png" alt="">
+                Dosis: {{reminder.dose}}</span>
+            <span class="box-reminder-medication">{{reminder.unit}}</span>
+            <p class="box-reminder-medication">
+                <img class="unit-image" src="../../../assets/images/reloj.png" alt=""> Frecuencia: {{reminder.frequency}}
+            </p>
+            <p class="box-reminder-medication">
+                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de inicio: {{reminder.startDate}}
+            </p>
+            <p class="box-reminder-medication" *ngIf="reminder.endDate">
+                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de finalización: {{reminder.endDate}}
+            </p>
 
         </div>
 
@@ -41,11 +64,11 @@
         <div class="login-container animated fadeInRight m-t-15">
 
             <!-- Regresar link -->
-            <a class="pill-back-button mb-4" (click)="volver()">
+            <a class="pill-back-button" (click)="volver()">
                 <span class="back">&lt;</span> &nbsp;Regresar
             </a>
 
-            <span class="login100-form-title p-b-15 p-t-10">
+            <span class="login100-form-title p-b-30 p-t-10">
             Nuevo recordatorio
         </span>
 
