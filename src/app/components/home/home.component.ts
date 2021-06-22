@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  showDescMedicament = false;
+  showDescReminder = false;
+  showDescAppointment = false;
+  
   name: string = '';
 
   constructor( ) { }

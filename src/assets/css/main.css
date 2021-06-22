@@ -175,15 +175,17 @@ iframe {
 .navbar-role {
     width: 6%;
     position: relative;
-    left: 215px;
-    bottom: 5px;
+    display: block;
+    justify-content: end !important;
+    /* left: 215px;
+    bottom: 5px; */
 }
 
 .navbar-role-patient {
     width: 5%;
     position: relative;
-    left: 215px;
-    bottom: 4px;
+    /* left: 215px;
+    bottom: 4px; */
 }
 
 .navbar {
@@ -209,24 +211,21 @@ body::-webkit-scrollbar-thumb {
 .nav-link-user {
     font-family: Poppins-Regular !important;
     color: #5cf3ba !important;
-    transition: 400ms;
+    font-size: 90%;
+    transition: 200ms;
     text-decoration: none;
-    position: relative;
-    left: 225px;
-    bottom: 4px;
 }
 
 .nav-link-user:hover {
-    font-size: 0.91em;
-    color: #5cf3ba !important;
+    font-size: 94%;
     transition: 200ms;
-    text-shadow: 1px 1px 2px #8153d6;
 }
 
 .nav-link {
     font-family: Poppins-Regular !important;
-    color: rgb(182, 174, 174) !important;
-    filter: grayscale(100%) opacity(0.7);
+    color: rgb(190, 174, 174) !important;
+    font-size: 90%;
+    /* filter: grayscale(100%) opacity(0.7); */
     transition: 250ms;
     position: relative;
     bottom: 2px;
@@ -234,10 +233,9 @@ body::-webkit-scrollbar-thumb {
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 0.91em;
+    font-size: 93%;
     color: #5cf3ba !important;
     transition: 250ms;
-    text-shadow: 2px 0px 20px #8153d6;
 }
 
 .navbar-toggler-icon {
@@ -273,7 +271,7 @@ nav .navbar-nav li a {
 .pill-navbar {
     position: relative;
     left: 5px;
-    width: 9%;
+    width: 115px;
     transition: 200ms;
 }
 
@@ -292,8 +290,8 @@ nav .navbar-nav li a {
     top: 25px;
     border: #5cf3ba solid 3px;
     border-radius: 20px;
-    height: 40px;
-    width: 200px;
+    height: 10%;
+    width: 22%;
     color: #5cf3ba;
     font-family: Poppins-Bold;
     text-align: center;
@@ -315,7 +313,7 @@ nav .navbar-nav li a {
 }
 
 .slide-icon1 {
-    width: 40px;
+    width: 4%;
     position: relative;
     right: 20px;
     top: 18px;
@@ -325,13 +323,15 @@ nav .navbar-nav li a {
     width: 15%;
     position: relative;
     right: 300px;
-    bottom: 150px;
+    bottom: 125px;
+    margin-top: 5%;
+    margin-bottom: 2%;
     animation: fadeInLeft 2s;
 }
 
 .h1-pill {
     color: #6626db;
-    font-size: 80px;
+    font-size: 475%;
     position: relative;
     right: 300px;
     top: 175px;
@@ -340,7 +340,7 @@ nav .navbar-nav li a {
 
 .h2-pill {
     color: #5cf3ba;
-    font-size: 80px;
+    font-size: 475%;
     position: relative;
     right: 300px;
     bottom: 275px;
@@ -349,16 +349,16 @@ nav .navbar-nav li a {
 
 .h3-pill {
     color: #5cf3ba;
-    font-size: 80px;
+    font-size: 475%;
     position: relative;
     right: 300px;
-    bottom: 175px;
+    bottom: 125px;
     animation: fadeInLeft 2s;
 }
 
 .h4-pill {
     color: #5cf3ba;
-    font-size: 80px;
+    font-size: 475%;
     position: relative;
     left: 200px;
     bottom: 200px;
@@ -368,7 +368,7 @@ nav .navbar-nav li a {
 .paragraph1-pill {
     color: #5cf3ba;
     font-family: Poppins-Regular;
-    font-size: 25px;
+    font-size: 175%;
     position: relative;
     bottom: 150px;
     left: 250px;
@@ -378,7 +378,7 @@ nav .navbar-nav li a {
 .paragraph2-pill {
     color: #5cf3ba;
     font-family: Poppins-Regular;
-    font-size: 25px;
+    font-size: 175%;
     position: relative;
     bottom: 225px;
     right: 300px;
@@ -388,9 +388,9 @@ nav .navbar-nav li a {
 .paragraph3-pill {
     color: #5cf3ba;
     font-family: Poppins-Regular;
-    font-size: 25px;
+    font-size: 175%;
     position: relative;
-    bottom: 125px;
+    bottom: 100px;
     right: 300px;
     animation: fadeInLeft 2s;
 }
@@ -435,11 +435,192 @@ input[type='image'] {
 
 
 /*//////////////////////////////////////////////////////////////////
+[ reminder ]*/
+
+.container-reminder {
+    width: 100%;
+    min-height: 25vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0px 200px 15px 200px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.pill-back-button-reminder {
+    font-family: Poppins-Regular;
+    color: gray !important;
+    font-size: 100%;
+    text-decoration: none;
+}
+
+.pill-back-button-reminder:hover {
+    font-family: Poppins-Regular;
+    color: #6626db !important;
+    font-size: 102%;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.toggle-reminder {
+    width: 1.8%;
+}
+
+.reminder-title {
+    font-family: Poppins-Bold;
+    font-size: 225%;
+    color: #1a1b73;
+    line-height: 1.2;
+    width: 100%;
+    display: flex;
+    animation: fadeInUp 600ms;
+}
+
+.new-reminder-btn {
+    font-family: Poppins-Regular;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.2;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    padding: 0 20px;
+    width: 20%;
+    height: 50px;
+    background-color: #6626db;
+    color: #5cf3ba;
+    /* border: 2px solid #5cf3ba; */
+    border-radius: 10px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    animation: fadeInUp 600ms;
+    margin-left: auto;
+}
+
+.new-reminder-btn:hover {
+    background-color: #371BBA;
+}
+
+.reminder-box {
+    border-radius: 20px;
+    width: 275px;
+    height: 275px;
+    padding: 5px;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+    margin: 8px;
+    transition: 300ms;
+    animation: fadeInUp 600ms;
+    text-align: center;
+}
+
+.reminder-box:hover {
+    transition: 300ms;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px #6626db;
+}
+
+.reminder-image {
+    width: 30%;
+    margin: 3%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box-reminder-medication-name {
+    margin: 5px 0;
+    font-family: Poppins-Bold;
+    color: black;
+    font-size: 20px;
+    text-align: center;
+}
+
+.box-reminder-medication {
+    font-family: Poppins-Regular;
+    color: black;
+    font-size: 15px;
+    margin: 2% 2%;
+}
+
+.box-reminder-title {
+    border-radius: 40px;
+    width: auto;
+    height: auto;
+    margin: 50px;
+    padding: 5% 10% 5% 10%;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 10px 1px #bfb3d6;
+    animation: fadeInUp 600ms;
+    text-align: center;
+}
+
+.btn-reminder-image {
+    width: 20px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+}
+
+.home-reminder-button {
+    padding: 5px 30px 5px 30px;
+    border: #6626db solid 2px;
+    border-radius: 40px;
+    height: 10%;
+    width: auto;
+    color: #6626db;
+    font-family: Poppins-Bold;
+    text-align: center;
+    display: inline-block;
+    padding-bottom: 50x;
+    font-size: 20px;
+    transition: 300ms !important;
+    animation: fadeInUp 600ms;
+    margin-top: 50px;
+}
+
+.home-reminder-button:hover {
+    border: #5cf3ba solid 2px;
+    color: #6626db;
+    background-color: #5cf3ba;
+    font-family: Poppins-Bold;
+    text-align: center;
+    display: inline-block;
+    transition: 300ms !important;
+    box-shadow: 1px 1px 10px 1px #8153d6;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
 [ home ]*/
+
+.description-limiter {
+    padding: 0px 300px 0px 300px;
+    align-items: center;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.box-description {
+    font-family: Poppins-Regular;
+    text-align: center;
+    font-size: 100%;
+    animation: fadeIn 300ms;
+}
 
 .box-title {
     font-family: Poppins-Regular;
-    font-size: 20px;
+    font-size: 125%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -448,7 +629,7 @@ input[type='image'] {
 .home-box {
     border-radius: 40px;
     width: 300px;
-    height: 300px;
+    height: 30%;
     padding: 30px;
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 10px 1px #bfb3d6;
@@ -462,17 +643,18 @@ input[type='image'] {
     cursor: pointer;
     background-color: white;
     box-shadow: 0px 0px 10px 1px #9472d4;
+    height: 50% !important;
 }
 
 .box-image {
-    width: 80%;
+    width: 150px;
     display: block;
     margin: auto;
 }
 
 .home-title {
     font-family: Poppins-Bold;
-    font-size: 35px;
+    font-size: 225%;
     color: #1a1b73;
     line-height: 1.2;
     width: 100%;

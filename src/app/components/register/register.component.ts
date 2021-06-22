@@ -67,10 +67,23 @@ export class RegisterComponent implements OnInit {
   //Obtener los roles de la BD
   getRoles () {
     this.roleService.get().subscribe( res =>{
+      
+      console.log(res);
+
       for (var i = 0; i < res['roles'].length; i++) {
         const descripcion: string = res['roles'][i]['descripcion'];
         this.roles.push(descripcion);
       }
+    }, (err) => {
+      console.log(err.message);
+
+      Swal.fire({
+        icon: 'error',
+        text: err.message,
+        title: 'No hay conexión con el servidor.'
+      });
+      this.router.navigateByUrl('/');
+
     })
   }
 

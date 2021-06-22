@@ -13,12 +13,15 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end " id="navbarNavAltMarkup" *ngIf="isAuthenticated()">
             <div class="navbar-nav">
-                <div class="m-t-6 m-r-8 m-l-8">
-                    <img class="navbar-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="getRole() == 'farmaceutico'">
+
+                <a class="nav-link-user m-r-8 m-t-6" routerLink="/home">
+                    <!-- <img class="navbar-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="getRole() == 'farmaceutico'">
                     <img class="navbar-role" src="../../../assets/images/user.png" alt="" *ngIf="getRole() == 'tutor'">
-                    <img class="navbar-role-patient" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="getRole() == 'paciente'">
-                    <a class="nav-link-user" routerLink="/home">{{readName()}}</a>
-                </div>
+                    <img class="navbar-role-patient" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="getRole() == 'paciente'">  -->
+
+                    {{readName()}}
+
+                </a>
                 <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>
             </div>
         </div>
