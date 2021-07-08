@@ -145,6 +145,10 @@ export class AuthService {
     // console.log('Valor del token del login: ' + this.userToken);
     // console.log('Valor del token del local Storage: ' + localStorage.getItem('token'));
     
+    if ( !localStorage.getItem('token') ) {
+      return false;
+    }
+    
     if ( this.userToken.length < 2 ) {
       return false;
     }

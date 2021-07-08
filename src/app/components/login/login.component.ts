@@ -84,11 +84,9 @@ export class LoginComponent implements OnInit {
         //Se cierra el Loading...
         Swal.close();
 
-        //Si el usuario seleccionó el check "Recordar mi cuenta", se almacena su email en el localStorage, sino se borra
+        //Si el usuario seleccionó el check "Recordar mi cuenta", se almacena su email en el localStorage
         if( this.rememberAccount ){
           localStorage.setItem('email', this.user.email);
-        } else {
-          localStorage.removeItem('email');
         }
 
         //Si el login se realiza de manera correcta, redirige al usuario a /home

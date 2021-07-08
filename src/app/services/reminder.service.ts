@@ -22,28 +22,11 @@ export class ReminderService {
   }
 
   get() {
-    
-    const token = localStorage.getItem('token');
-    
-    const httpOtions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    };
-
-    return this.httpClient.get(this.url, httpOtions);
+    return this.httpClient.get(this.url);
   }
 
   post( reminder: Reminder) {
-    const token = localStorage.getItem('token');
-
-    const httpOtions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    };
-
-    return this.httpClient.post(this.url, reminder, httpOtions);
+    return this.httpClient.post(this.url, reminder);
   }
 
 }

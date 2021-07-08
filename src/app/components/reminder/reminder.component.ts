@@ -124,12 +124,6 @@ export class ReminderComponent implements OnInit {
 
     }, (err) => {
       console.log(err.message);
-  
-      Swal.fire({
-        icon: 'error',
-        text: err.message,
-        title: 'Error al cargar los recordatorios.'
-      });  
     })
   }
 

@@ -1,5 +1,6 @@
 <div class="limiter login-background">
 
+    <!-- Esto se muestra cuando el usuario no tiene recordatorios registrados -->
     <div class="container-home" *ngIf="userReminders.length == 0 && reminderAction == 'reminderList'">
         <div class="box-reminder-title">
             <span class="home-title ">
@@ -17,6 +18,7 @@
         </div>
     </div>
 
+    <!-- Cuando el usuario tiene recordatorios registrados se muestran estos recordatorios -->
     <div class="container-reminder" *ngIf="userReminders.length != 0 && reminderAction == 'reminderList'">
 
         <span class="reminder-title p-b-15">
@@ -31,6 +33,7 @@
 
         <div class="reminder-box" *ngFor="let reminder of userReminders">
 
+            <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
             <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="reminder.unit == 'comprimido(s)'">
             <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="reminder.unit == 'cápsula(s)'">
             <img class="reminder-image" src="../../../assets/images/syringe.png" alt="" *ngIf="reminder.unit == 'inyección(es)'">
@@ -41,6 +44,7 @@
             <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="reminder.unit == 'unidad(es)'">
 
 
+            <!-- Se muestran los datos del recordatorio -->
             <p class="box-reminder-medication-name">{{reminder.medicationName}}</p>
             <span class="box-reminder-medication"> 
                 <img class="unit-image" src="../../../assets/images/meds.png" alt="">
@@ -60,6 +64,7 @@
 
     </div>
 
+    <!-- El formulario se muestra cuando el usuario quiere agregar un nuevo recordatorio -->
     <div class="container-home" *ngIf="reminderAction == 'newReminder'">
         <div class="login-container animated fadeInRight m-t-15">
 
