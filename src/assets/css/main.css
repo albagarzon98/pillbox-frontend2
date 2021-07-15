@@ -437,6 +437,28 @@ input[type='image'] {
 /*//////////////////////////////////////////////////////////////////
 [ reminder ]*/
 
+.poppins-regular {
+    font-family: Poppins-Regular !important;
+    color: black;
+}
+
+.box-reminder-menu {
+    border-radius: 10px !important;
+}
+
+.more_reminder {
+    display: block;
+    margin-left: auto !important;
+}
+
+.reminder-image {
+    width: 90px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+}
+
 .unit-image {
     width: 15px;
 }
@@ -513,7 +535,7 @@ input[type='image'] {
 .reminder-box {
     border-radius: 20px;
     width: 325px;
-    height: 300px;
+    height: 350px;
     padding: 20px 20px 0 20px;
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 5px 1px #bfb3d6;
@@ -529,16 +551,8 @@ input[type='image'] {
     box-shadow: 0px 0px 5px 1px #6626db;
 }
 
-.reminder-image {
-    width: 90px;
-    margin: 3%;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .box-reminder-medication-name {
-    margin: 5px 0;
+    margin: 12px 0;
     font-family: Poppins-Bold;
     color: black;
     font-size: 20px;
@@ -855,6 +869,18 @@ input[type='image'] {
     font-size: 18px;
     display: block;
     width: 100%;
+    background: transparent;
+    height: 42px;
+}
+
+.inputDate {
+    font-family: Poppins-Regular;
+    color: #403866;
+    background-color: honeydew !important;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 80%;
     background: transparent;
     height: 42px;
 }

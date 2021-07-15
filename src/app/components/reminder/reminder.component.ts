@@ -41,19 +41,16 @@ export class ReminderComponent implements OnInit {
       startDate: [
         '',
         [
-          Validators.required,
-          Validators.pattern(
-            '(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20)[0-9]{2}'
-          )
+          Validators.required
         ]
       ],
       endDate: [
-        '',
-        [
-          Validators.pattern(
-            '(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}'
-          )
-        ]
+        ''
+        // [
+        //   Validators.pattern(
+        //     '(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}'
+        //   )
+        // ]
       ],
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
       unit: [''],
@@ -101,8 +98,13 @@ export class ReminderComponent implements OnInit {
     });
   }
 
-  formatedDate(date) {
-    return moment(date).format("DD/MM/YYYY");
+  //Esta función se utiliza para formatear la fechas, recibe como parametro la fecha a formatear
+  //y el formato que se le quiere dar, por ejemplo, si enviamos como parámetros:
+  //date = "2021-06-22T03:00:00.000Z"
+  //format = "DD/MM/YYYY"
+  //la función devuelve "22/06/2021"
+  formatedDate(date, format) {
+    return moment(date).format(format);
   }
   
   getReminders() {
@@ -111,10 +113,11 @@ export class ReminderComponent implements OnInit {
       console.log(res);
 
       //Se formatea la fecha de ISO 8061 a dd/mm/aaaa
+      const format = "DD/MM/YYYY";
       for(var i = 0; i < res['reminders'].length; i++){
-        res['reminders'][i]['startDate'] = this.formatedDate(res['reminders'][i]['startDate']);
+        res['reminders'][i]['startDate'] = this.formatedDate(res['reminders'][i]['startDate'],format);
         if(res['reminders'][i]['endDate']){
-          res['reminders'][i]['endDate'] = this.formatedDate(res['reminders'][i]['endDate']);
+          res['reminders'][i]['endDate'] = this.formatedDate(res['reminders'][i]['endDate'],format);
         }
       }
 
@@ -127,6 +130,38 @@ export class ReminderComponent implements OnInit {
     })
   }
 
+  deleteReminder (id) {
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "El recordatorio se eliminará de forma permanente",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Confirmar`,
+      confirmButtonColor: 'green',
+      cancelButtonText: `Cancelar`,
+      cancelButtonColor: 'red'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.reminderService.delete(id).subscribe( res => {
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'success',
+            text:'Recordatorio eliminado exitosamente!'
+          });
+          this.getReminders();
+        }, (err) => {
+          console.log(err.error.message);
+          Swal.fire({
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al eliminar el recordatorio'
+          });
+        }
+        );
+      }
+    })
+  }
+
   onSubmit( form: FormGroup ) {
     
     this.submitted = true;
@@ -135,14 +170,21 @@ export class ReminderComponent implements OnInit {
     //Asignamos los valores del form al objeto reminder
     const reminder = { ...this.FormReminder.value };
 
+    const format = "DD-MM-YYYY";
+    reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
+
+    //Si no se ingresa una fecha de finalización borramos el atributo
     if ( reminder.endDate == null ) {
       delete reminder.endDate;
     }
+    else { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
     
+    //Si no se ingresa una unidad, asignamos la primer unidad por defecto
     if ( reminder.unit == null ) {
       reminder.unit = this.units[0].description;
     }
 
+    //Si no se ingresa una frecuencia, asignamos la primer frecuencia por defecto
     if ( reminder.frequency == null ) {
       reminder.frequency = this.frequencies[0].description;
     }

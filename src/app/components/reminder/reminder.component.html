@@ -33,6 +33,26 @@
 
         <div class="reminder-box" *ngFor="let reminder of userReminders">
 
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="more_reminder">
+                <mat-icon>
+                    more_horiz
+                </mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="box-reminder-menu">
+                <button mat-menu-item>
+                    <mat-icon >visibility</mat-icon>
+                    <span class="poppins-regular">Ver recordatorio</span>
+                  </button>
+                <button mat-menu-item>
+                    <mat-icon >edit</mat-icon>
+                    <span class="poppins-regular">Modificar recordatorio</span>
+                  </button>
+                <button mat-menu-item (click)="deleteReminder(reminder['id'])">
+                  <mat-icon >delete</mat-icon>
+                  <span class="poppins-regular">Eliminar recordatorio</span>
+                </button>
+            </mat-menu>
+
             <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
             <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="reminder.unit == 'comprimido(s)'">
             <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="reminder.unit == 'cápsula(s)'">
@@ -42,7 +62,6 @@
             <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="reminder.unit == 'gramo(s)'">
             <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="reminder.unit == 'mililitro(s)'">
             <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="reminder.unit == 'unidad(es)'">
-
 
             <!-- Se muestran los datos del recordatorio -->
             <p class="box-reminder-medication-name">{{reminder.medicationName}}</p>
@@ -66,6 +85,7 @@
 
     <!-- El formulario se muestra cuando el usuario quiere agregar un nuevo recordatorio -->
     <div class="container-home" *ngIf="reminderAction == 'newReminder'">
+
         <div class="login-container animated fadeInRight m-t-15">
 
             <!-- Regresar link -->
@@ -98,7 +118,7 @@
                 </div>
 
                 <!--campo fechaInicio-->
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <label class="pill-label-form">Fecha de inicio:</label>
 
                     <input class="form-control input100" formControlName="startDate" name="startDate" placeholder="Cuando empezaste con el tratamiento" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
@@ -114,10 +134,33 @@
                         Dato fecha, formato dd-mm-aaaa.
                     </div>
 
+                </div> -->
+
+                <div class="mb-4">
+
+                    <label class="pill-label-form">Fecha de inicio:</label>
+
+                    <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;" formControlName="startDate" name="startDate" placeholder="Cuando iniciaste el tratamiento" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
+                    && FormReminder.controls.startDate.errors}" />
+                    <mat-datepicker-toggle class="m-l-20" matSuffix [for]="picker" style="color:#6626db;"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
+                    && FormReminder.controls.startDate.errors?.required">
+                        Este campo es obligatorio. <br>Dato fecha, formato dd/mm/aaaa.
+                    </div>
+                    <!-- 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
+                    && FormReminder.controls.startDate.errors?.pattern">
+                        Dato fecha, formato dd/mm/aaaa.
+                    </div> -->
+
                 </div>
 
+
                 <!--campo fechaFin-->
-                <div class="mb-4">
+
+                <!-- <div class="mb-4">
                     <label class="pill-label-form">Fecha de finalización:</label>
 
                     <input class="form-control input100" formControlName="endDate" name="endDate" placeholder="Finalización del tratamiento (opcional)" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
@@ -128,7 +171,30 @@
                         Dato fecha, formato dd-mm-aaaa.
                     </div>
 
+                </div> -->
+
+
+                <div class="mb-4">
+
+                    <label class="pill-label-form">Fecha de finalización:</label>
+
+                    <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="Finalización del tratamiento (opcional)" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
+                    && FormReminder.controls.endDate.errors}" />
+                    <mat-datepicker-toggle class="m-l-20" matSuffix [for]="pickerEnd" style="color:#6626db;"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #pickerEnd></mat-datepicker>
+
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.endDate.touched || submitted) 
+                    && FormReminder.controls.endDate.errors">
+                        Dato fecha, formato dd/mm/aaaa.
+                    </div>
+                    <!-- 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
+                    && FormReminder.controls.startDate.errors?.pattern">
+                        Dato fecha, formato dd/mm/aaaa.
+                    </div> -->
+
                 </div>
+
 
                 <!--campo Dosis-->
                 <div class="mb-4">

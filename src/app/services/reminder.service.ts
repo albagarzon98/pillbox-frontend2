@@ -29,4 +29,9 @@ export class ReminderService {
     return this.httpClient.post(this.url, reminder);
   }
 
+  delete(id) {
+    console.log(`id en el reminder service: ${id}`);
+    return this.httpClient.delete(`${this.url}/${id}`)
+  }
+
 }

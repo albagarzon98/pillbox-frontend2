@@ -149,9 +149,9 @@ export class AuthService {
       return false;
     }
     
-    if ( this.userToken.length < 2 ) {
-      return false;
-    }
+    // if ( this.userToken.length < 2 ) {
+    //   return false;
+    // }
 
     const expires = Number(localStorage.getItem('expira'));
     const expiresDate = new Date();
