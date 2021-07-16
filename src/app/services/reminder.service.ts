@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Reminder } from '../models/reminder';
+import { environment } from 'src/environments/environment';
+
+const url = environment.url;
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +13,26 @@ export class ReminderService {
   url: string;
 
   constructor( private httpClient: HttpClient ) { 
-    this.url = 'http://localhost:3000/v1/reminder';
   }
 
   getUnits() {
-    return this.httpClient.get(`${ this.url }/units`);
+    return this.httpClient.get(`${ url }reminder/units`);
   }
 
   getFrequencies() {
-    return this.httpClient.get(`${ this.url }/frequencies`);
+    return this.httpClient.get(`${ url }reminder/frequencies`);
   }
 
   get() {
-    return this.httpClient.get(this.url);
+    return this.httpClient.get(`${ url }reminder`);
   }
 
-  post( reminder: Reminder) {
-    return this.httpClient.post(this.url, reminder);
+  post( reminder: Reminder ) {
+    return this.httpClient.post(`${ url }reminder`, reminder);
   }
 
   delete(id) {
-    console.log(`id en el reminder service: ${id}`);
-    return this.httpClient.delete(`${this.url}/${id}`)
+    return this.httpClient.delete(`${url}reminder/${id}`)
   }
 
 }

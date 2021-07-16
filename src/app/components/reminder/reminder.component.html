@@ -75,8 +75,8 @@
             <p class="box-reminder-medication">
                 <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de inicio: {{reminder.startDate}}
             </p>
-            <p class="box-reminder-medication" *ngIf="reminder.endDate">
-                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de finalización: {{reminder.endDate}}
+            <p class="box-reminder-medication">
+                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de finalización: {{reminder.endDate}} <span *ngIf="!reminder.endDate">--/--/--</span>
             </p>
 
         </div>
@@ -117,25 +117,7 @@
                     </div>
                 </div>
 
-                <!--campo fechaInicio-->
-                <!-- <div class="mb-4">
-                    <label class="pill-label-form">Fecha de inicio:</label>
-
-                    <input class="form-control input100" formControlName="startDate" name="startDate" placeholder="Cuando empezaste con el tratamiento" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
-                && FormReminder.controls.startDate.errors}" />
-
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
-                && FormReminder.controls.startDate.errors?.required">
-                        Este campo es obligatorio.
-                    </div>
-
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
-                && FormReminder.controls.startDate.errors?.pattern">
-                        Dato fecha, formato dd-mm-aaaa.
-                    </div>
-
-                </div> -->
-
+                <!-- Campo Fecha inicio -->
                 <div class="mb-4">
 
                     <label class="pill-label-form">Fecha de inicio:</label>
@@ -149,31 +131,10 @@
                     && FormReminder.controls.startDate.errors?.required">
                         Este campo es obligatorio. <br>Dato fecha, formato dd/mm/aaaa.
                     </div>
-                    <!-- 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
-                    && FormReminder.controls.startDate.errors?.pattern">
-                        Dato fecha, formato dd/mm/aaaa.
-                    </div> -->
 
                 </div>
 
-
-                <!--campo fechaFin-->
-
-                <!-- <div class="mb-4">
-                    <label class="pill-label-form">Fecha de finalización:</label>
-
-                    <input class="form-control input100" formControlName="endDate" name="endDate" placeholder="Finalización del tratamiento (opcional)" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
-                && FormReminder.controls.endDate.errors}" />
-
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.endDate.touched || submitted) 
-                && FormReminder.controls.endDate.errors?.pattern">
-                        Dato fecha, formato dd-mm-aaaa.
-                    </div>
-
-                </div> -->
-
-
+                <!-- Campo Fecha Fin -->
                 <div class="mb-4">
 
                     <label class="pill-label-form">Fecha de finalización:</label>
@@ -187,11 +148,6 @@
                     && FormReminder.controls.endDate.errors">
                         Dato fecha, formato dd/mm/aaaa.
                     </div>
-                    <!-- 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
-                    && FormReminder.controls.startDate.errors?.pattern">
-                        Dato fecha, formato dd/mm/aaaa.
-                    </div> -->
 
                 </div>
 
@@ -220,22 +176,29 @@
                 <div class="mb-4">
                     <label class="pill-label-form" for="unit">Unidad:</label>
 
-                    <select class="form-control input100" name="unit" formControlName="unit">
-                        <option *ngFor="let unit of units">
-                            {{ unit.description }}
-                        </option>            
-                    </select>
+                    <mat-select class="form-control poppins-regular" name="unit" formControlName="unit" placeholder="Selecciona la unidad">
+                        <mat-option class="poppins-regular" *ngFor="let unit of units" [value]="unit.description">
+                            {{unit.description}}
+                        </mat-option>
+                    </mat-select>
+
                 </div>
 
                 <!-- Campo Frecuencia -->
                 <div class="mb-4">
                     <label class="pill-label-form" for="unit">Frecuencia:</label>
 
-                    <select class="form-control input100" name="frequency" formControlName="frequency">
+                    <!-- <select class="form-control input100" name="frequency" formControlName="frequency">
                         <option *ngFor="let frequency of frequencies">
                             {{ frequency.description }}
                         </option>            
-                    </select>
+                    </select> -->
+
+                    <mat-select class="form-control poppins-regular" name="frequency" formControlName="frequency" placeholder="Selecciona la frecuencia">
+                        <mat-option class="poppins-regular" *ngFor="let frequency of frequencies" [value]="frequency.description">
+                            {{frequency.description}}
+                        </mat-option>
+                    </mat-select>
                 </div>
 
                 <div class="container-login100-form-btn">

@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { UserModel } from '../models/user';
 
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
+const url = environment.url;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  url: string;
   userToken: string;
   name: string;
   
@@ -19,7 +21,6 @@ export class AuthService {
   //private url = 'http://localhost:3000/v1/auth';
 
   constructor( private httpClient: HttpClient ) { 
-    this.url = 'http://localhost:3000/v1/auth';
     this.readToken();
     this.isAuth = this.isAuthenticated();
   }
@@ -61,7 +62,7 @@ export class AuthService {
     };
     
     return this.httpClient.post(
-      `${ this.url }/login`,
+      `${ url }auth/login`,
       authData
     ).pipe(
       map( resp => {
@@ -92,7 +93,7 @@ export class AuthService {
     };
 
     return this.httpClient.post(
-      `${ this.url }/register`,
+      `${ url }auth/register`,
       authData
     ).pipe(
       map( resp => {

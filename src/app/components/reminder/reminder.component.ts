@@ -108,9 +108,18 @@ export class ReminderComponent implements OnInit {
   }
   
   getReminders() {
+    
+    // Swal.fire({
+    //   allowOutsideClick: false,
+    //   icon: 'info',
+    //   text:'Espere por favor...'
+    // });
+    // Swal.showLoading();
+
     this.reminderService.get().subscribe( res =>{
         
       console.log(res);
+      // Swal.close();
 
       //Se formatea la fecha de ISO 8061 a dd/mm/aaaa
       const format = "DD/MM/YYYY";
@@ -133,13 +142,15 @@ export class ReminderComponent implements OnInit {
   deleteReminder (id) {
     Swal.fire({
       title: '¿Está seguro?',
-      text: "El recordatorio se eliminará de forma permanente",
+      text: "El recordatorio se eliminará de forma permanente.",
       icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: `Confirmar`,
+      confirmButtonText: 'Confirmar',
       confirmButtonColor: 'green',
-      cancelButtonText: `Cancelar`,
-      cancelButtonColor: 'red'
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+
+
     }).then((result)=>{
       if(result.isConfirmed){
         this.reminderService.delete(id).subscribe( res => {
