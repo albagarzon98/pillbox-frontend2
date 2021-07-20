@@ -38,12 +38,7 @@ export class ReminderComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(4), Validators.maxLength(55)]
       ],
-      startDate: [
-        '',
-        [
-          Validators.required
-        ]
-      ],
+      startDate: ['' , [Validators.required] ],
       endDate: [
         ''
         // [
@@ -53,8 +48,8 @@ export class ReminderComponent implements OnInit {
         // ]
       ],
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
-      unit: [''],
-      frequency: ['']
+      unit: ['', [Validators.required] ],
+      frequency: ['', [Validators.required] ]
     });
     
     
@@ -65,6 +60,7 @@ export class ReminderComponent implements OnInit {
 
   addReminder() {
     this.reminderAction = 'newReminder';
+    console.log(`${this.reminderAction}`);
     this.FormReminder.reset();
   }
   
@@ -139,6 +135,11 @@ export class ReminderComponent implements OnInit {
     })
   }
 
+  checkReminder(reminder) {
+    this.FormReminder.patchValue(reminder);
+    this.reminderAction = 'checkReminder';
+  }
+
   deleteReminder (id) {
     Swal.fire({
       title: '¿Está seguro?',
@@ -189,16 +190,6 @@ export class ReminderComponent implements OnInit {
       delete reminder.endDate;
     }
     else { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
-    
-    //Si no se ingresa una unidad, asignamos la primer unidad por defecto
-    if ( reminder.unit == null ) {
-      reminder.unit = this.units[0].description;
-    }
-
-    //Si no se ingresa una frecuencia, asignamos la primer frecuencia por defecto
-    if ( reminder.frequency == null ) {
-      reminder.frequency = this.frequencies[0].description;
-    }
 
     console.log(reminder);
 

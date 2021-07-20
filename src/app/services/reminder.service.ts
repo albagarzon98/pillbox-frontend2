@@ -34,5 +34,4 @@ export class ReminderService {
   delete(id) {
     return this.httpClient.delete(`${url}reminder/${id}`)
   }
-
 }
