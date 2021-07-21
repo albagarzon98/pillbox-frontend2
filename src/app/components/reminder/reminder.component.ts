@@ -21,6 +21,9 @@ export class ReminderComponent implements OnInit {
 
   FormReminder: FormGroup;
 
+  medName = '';
+  unit = '';
+
   units = [];
 
   frequencies = [];
@@ -36,7 +39,7 @@ export class ReminderComponent implements OnInit {
     this.FormReminder = this.formBuilder.group({
       medicationName: [
         '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(55)]
+        [Validators.required, Validators.maxLength(55)]
       ],
       startDate: ['' , [Validators.required] ],
       endDate: [
@@ -60,7 +63,8 @@ export class ReminderComponent implements OnInit {
 
   addReminder() {
     this.reminderAction = 'newReminder';
-    console.log(`${this.reminderAction}`);
+    this.unit = '';
+    this.FormReminder.enable();
     this.FormReminder.reset();
   }
   
@@ -136,7 +140,18 @@ export class ReminderComponent implements OnInit {
   }
 
   checkReminder(reminder) {
-    this.FormReminder.patchValue(reminder);
+    this.FormReminder.patchValue({      
+      dose: reminder['dose'],
+      startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
+      frequency: reminder['frequency'],
+      medicationName: reminder['medicationName'],
+      endDate: moment(reminder['endDate'], "DD/MM/YYYY"),
+      unit: reminder['unit']
+    });
+    
+    this.medName = reminder['medicationName'];
+    this.unit = reminder['unit'];
+    this.FormReminder.disable();
     this.reminderAction = 'checkReminder';
   }
 

@@ -93,15 +93,28 @@
                 <span class="back">&lt;</span> &nbsp;Regresar
             </a>
 
-            <span class="login100-form-title p-b-30 p-t-10">
-            Nuevo recordatorio
-        </span>
+            <span class="login100-form-title p-b-30 p-t-10" *ngIf="reminderAction == 'newReminder'">
+                Nuevo recordatorio
+            </span>
+
+            <span class="login100-form-title p-b-15 p-t-10" *ngIf="reminderAction == 'checkReminder'">
+                {{medName}}
+            </span>
+
+            <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
+            <img class="reminder-image mb-4" src="../../../assets/images/pills.png" alt="" *ngIf="unit == 'comprimido(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/medicine.png" alt="" *ngIf="unit == 'cápsula(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/syringe.png" alt="" *ngIf="unit == 'inyección(es)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/cuentagotas.png" alt="" *ngIf="unit == 'gota(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="unit == 'miligramo(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="unit == 'gramo(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="unit == 'mililitro(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/drugs.png" alt="" *ngIf="unit == 'unidad(es)'">
 
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
-                <!-- <fieldset [attr.disabled]="reminderAction === 'checkReminder'"> -->
 
                 <!-- Campo Nombre -->
-                <div class="mb-4">
+                <div class="mb-4" *ngIf="reminderAction != 'checkReminder'">
                     <label class="pill-label-form" for="medicationName">Nombre del medicamento:</label>
 
                     <input type="text" class="form-control input100" formControlName="medicationName" placeholder="Escribe aquí el nombre del medicamento" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
@@ -203,10 +216,9 @@
                         Este campo es obligatorio.
                     </div>
                 </div>
-                <!-- </fieldset> -->
 
                 <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton">Crear recordatorio</button>
+                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton" *ngIf="reminderAction == 'newReminder'">Crear recordatorio</button>
                 </div>
 
             </form>
