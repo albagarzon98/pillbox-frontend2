@@ -42,14 +42,7 @@ export class ReminderComponent implements OnInit {
         [Validators.required, Validators.maxLength(55)]
       ],
       startDate: ['' , [Validators.required] ],
-      endDate: [
-        ''
-        // [
-        //   Validators.pattern(
-        //     '(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}'
-        //   )
-        // ]
-      ],
+      endDate: [''],
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
       unit: ['', [Validators.required] ],
       frequency: ['', [Validators.required] ]
@@ -140,6 +133,8 @@ export class ReminderComponent implements OnInit {
   }
 
   checkReminder(reminder) {
+    
+    //Se setean los valores edl recordatorio en el formulario
     this.FormReminder.patchValue({      
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
@@ -149,9 +144,15 @@ export class ReminderComponent implements OnInit {
       unit: reminder['unit']
     });
     
+    //Estos atributos se requieren para mostrar el nombre del medicamento y la imagen correspondiente a la
+    //unidad en el HTML
     this.medName = reminder['medicationName'];
     this.unit = reminder['unit'];
+    
+    //Se deshabilitan los campos del form
     this.FormReminder.disable();
+    
+    //Se cambia el valor de reminderAction a 'checkReminder' para mostrar el form en el HTML
     this.reminderAction = 'checkReminder';
   }
 
@@ -165,7 +166,7 @@ export class ReminderComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       cancelButtonColor: 'red',
       showCancelButton: true,
-
+      reverseButtons: true
 
     }).then((result)=>{
       if(result.isConfirmed){

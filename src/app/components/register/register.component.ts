@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   
   FormRegister: FormGroup;
   
-  user: UserModel;
+  user: UserModel = new UserModel();;
   rememberAccount = false;
 
   submitted = false;
@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
       validator: this.passwordMatchValidator
     });
     
-    this.user = new UserModel();
     this.getRoles();
   }
 
