@@ -56,6 +56,7 @@ export class ReminderComponent implements OnInit {
 
   addReminder() {
     this.reminderAction = 'newReminder';
+    this.submitted = false;
     this.unit = '';
     this.FormReminder.enable();
     this.FormReminder.reset();
@@ -132,9 +133,7 @@ export class ReminderComponent implements OnInit {
     })
   }
 
-  checkReminder(reminder) {
-    
-    //Se setean los valores edl recordatorio en el formulario
+  setFormValues (reminder) {
     this.FormReminder.patchValue({      
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
@@ -143,6 +142,12 @@ export class ReminderComponent implements OnInit {
       endDate: moment(reminder['endDate'], "DD/MM/YYYY"),
       unit: reminder['unit']
     });
+  }
+
+  checkReminder(reminder) {
+    
+    //Se setean los valores del recordatorio en el formulario
+    this.setFormValues(reminder);
     
     //Estos atributos se requieren para mostrar el nombre del medicamento y la imagen correspondiente a la
     //unidad en el HTML
@@ -190,6 +195,11 @@ export class ReminderComponent implements OnInit {
     })
   }
 
+  modifyReminder (reminder) {
+    this.reminderAction = 'modifyReminder';
+    this.setFormValues(reminder);
+  }
+  
   onSubmit( form: FormGroup ) {
     
     this.submitted = true;
@@ -216,27 +226,32 @@ export class ReminderComponent implements OnInit {
     });
     Swal.showLoading();
     
-    this.reminderService.post(reminder)
-    .subscribe( resp => {
-
-      console.log(resp);
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'success',
-        text:'Recordatorio creado con éxito!'
+    if (this.reminderAction === 'newReminder') {
+      this.reminderService.post(reminder)
+      .subscribe( resp => {
+  
+        console.log(resp);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'Recordatorio creado con éxito!'
+        });
+  
+        this.volver();
+        this.getReminders();
+        this.submitted = false
+  
+      }, (err)=> {
+        console.log(err.error.message);
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al crear el recordatorio'
+        });
       });
+    } else if (this.reminderAction === 'modifyReminder') {
 
-      this.volver();
-      this.getReminders();
-      this.submitted = false
+    }
 
-    }, (err)=> {
-      console.log(err.error.message);
-      Swal.fire({
-        icon: 'error',
-        text: err.error.message,
-        title: 'Error al crear el recordatorio'
-      });
-    });
   }
 }

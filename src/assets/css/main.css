@@ -753,6 +753,16 @@ input[type='image'] {
     ;
 }
 
+.form-reminder-container {
+    border-radius: 10px;
+    width: 1200px;
+    height: auto;
+    padding: 30px;
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0px 0px 10px 1px #bfb3d6;
+    ;
+}
+
 .container-carousel {
     /* height: 150px; */
     margin-right: auto;
@@ -801,6 +811,13 @@ input[type='image'] {
     color: #6626db;
 }
 
+.pill-label-reminder {
+    font-family: Poppins-Bold;
+    margin-bottom: 4px;
+    font-size: 15px;
+    color: #6626db;
+}
+
 .pill-label-check {
     font-family: Poppins-Regular;
     color: gray;
@@ -846,6 +863,16 @@ input[type='image'] {
     display: block;
 }
 
+.form-reminder-title {
+    font-family: Poppins-Bold;
+    font-size: 35px;
+    color: #1a1b73;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -860,6 +887,31 @@ input[type='image'] {
 
 
 /*---------------------------------------------*/
+
+mat-select {
+    background-color: honeydew !important;
+    font-family: Poppins-Regular !important;
+}
+
+mat-select .mat-select-placeholder {
+    font-size: 13px !important;
+    color: #8f8fa1 !important;
+}
+
+.form-reminder-input {
+    font-family: Poppins-Regular;
+    color: #403866;
+    background-color: honeydew !important;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    background: transparent;
+    height: 42px;
+}
+
+.form-reminder-input::placeholder {
+    font-size: 13px;
+}
 
 .input100 {
     font-family: Poppins-Regular;
@@ -879,10 +931,14 @@ input[type='image'] {
     background-color: honeydew !important;
     line-height: 1.2;
     font-size: 18px;
-    display: block;
-    width: 80%;
+    display: inline;
+    width: 70%;
     background: transparent;
     height: 42px;
+}
+
+.inputDate::placeholder {
+    font-size: 13px;
 }
 
 
@@ -992,8 +1048,36 @@ input[type='image'] {
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
-    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.pill-reminder-btn {
+    font-family: Poppins-Bold;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 40%;
+    height: 52px;
+    background-color: #371BBA;
+    color: #5cf3ba;
+    /* border: 2px solid #5cf3ba; */
+    border-radius: 3px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
 .pill-form-btn {
