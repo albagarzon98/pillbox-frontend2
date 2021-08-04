@@ -207,6 +207,7 @@
                         </div>
                     </div>
                     <div class="col m-2">
+
                         <!-- Campo Frecuencia -->
                         <div class="mb-4">
                             <label class="pill-label-reminder" for="unit">Frecuencia:</label>
@@ -220,6 +221,20 @@
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.frequency.touched || submitted) 
                             && FormReminder.controls.frequency.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                        </div>
+
+
+                        <!-- Campo Hora de notificación -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="unit">Hora:</label>
+                            <input class="form-control form-reminder-input" name="timeNotification" formControlName="timeNotification" placeholder="Ingrese la hora" [ngxTimepicker]="fullTime" [format]="24" readonly [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
+                            && FormReminder.controls.timeNotification.errors}">
+                            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 
+                            && FormReminder.controls.timeNotification.errors?.required">
                                 Este campo es obligatorio.
                             </div>
                         </div>

@@ -17,6 +17,7 @@ export class ReminderComponent implements OnInit {
 
   reminderAction = 'reminderList';
 
+  //Booleano que se activa cuando el formulario es enviado, me sirve para manejar los validators
   submitted = false;
 
   FormReminder: FormGroup;
@@ -27,6 +28,10 @@ export class ReminderComponent implements OnInit {
   units = [];
 
   frequencies = [];
+
+  //Cuando modificamos un recordatorio, el id del recordatorio a modificar se almacena
+  //en este atributo
+  modifyId = '';
   
   constructor(
     private router: Router,
@@ -45,7 +50,8 @@ export class ReminderComponent implements OnInit {
       endDate: [''],
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
       unit: ['', [Validators.required] ],
-      frequency: ['', [Validators.required] ]
+      frequency: ['', [Validators.required] ],
+      timeNotification: ['', [Validators.required]]
     });
     
     
@@ -140,8 +146,15 @@ export class ReminderComponent implements OnInit {
       frequency: reminder['frequency'],
       medicationName: reminder['medicationName'],
       endDate: moment(reminder['endDate'], "DD/MM/YYYY"),
-      unit: reminder['unit']
+      unit: reminder['unit'],
+      timeNotification: this.formatedDate(reminder['timeNotification'],"HH:mm")
     });
+  }
+  
+  modifyReminder (reminder) {
+    this.reminderAction = 'modifyReminder';
+    this.setFormValues(reminder);
+    this.modifyId = reminder['id'];
   }
 
   checkReminder(reminder) {
@@ -194,11 +207,6 @@ export class ReminderComponent implements OnInit {
       }
     })
   }
-
-  modifyReminder (reminder) {
-    this.reminderAction = 'modifyReminder';
-    this.setFormValues(reminder);
-  }
   
   onSubmit( form: FormGroup ) {
     
@@ -250,7 +258,32 @@ export class ReminderComponent implements OnInit {
         });
       });
     } else if (this.reminderAction === 'modifyReminder') {
+      this.reminderService.patch(this.modifyId, reminder)
+      .subscribe(resp => {
+        
+        //Se muestra la respuesta en consola
+        console.log(resp);
 
+        //Se muestra la alerta
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'Recordatorio mosificado con éxito!'
+        });
+  
+        this.volver();
+        this.getReminders();
+        this.submitted = false;
+
+      }, (err) => {
+        
+        console.log(err.error.message);
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al modificar el recordatorio'
+        });
+      })
     }
 
   }

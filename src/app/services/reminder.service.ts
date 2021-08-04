@@ -31,7 +31,11 @@ export class ReminderService {
     return this.httpClient.post(`${ url }reminder`, reminder);
   }
 
-  delete(id) {
+  delete (id) {
     return this.httpClient.delete(`${url}reminder/${id}`)
+  }
+
+  patch (id, reminder) {
+    return this.httpClient.patch(`${url}reminder/${id}`, reminder)
   }
 }
