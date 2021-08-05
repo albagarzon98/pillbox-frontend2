@@ -794,6 +794,26 @@ input[type='image'] {
 /*==================================================================
 [ Form ]*/
 
+.reminder-label {
+    font-family: Poppins-Bold;
+    margin-bottom: 15px;
+    font-size: 23px;
+    color: #1a1b73;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.div-border-left {
+    border-left: 2px solid #bbb;
+    border-radius: 2px;
+}
+
+.div-border-rigth {
+    border-right: 2px solid #bbb;
+    border-radius: 2px;
+}
+
 .register-role {
     width: 30%;
     display: block;
@@ -1120,7 +1140,7 @@ mat-select .mat-select-placeholder {
 .pill-back-button:hover {
     font-family: Poppins-Regular;
     color: #6626db !important;
-    font-size: 0.9em;
+    font-size: 0.88em;
     transition: 200ms;
     cursor: pointer;
 }

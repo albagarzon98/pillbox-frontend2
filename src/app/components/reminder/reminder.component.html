@@ -93,15 +93,11 @@
                 <span class="back">&lt;</span> &nbsp;Regresar
             </a>
 
-            <span class="form-reminder-title p-b-30 p-t-10" *ngIf="reminderAction == 'modifyReminder'">
-                Modificar recordatorio
-            </span>
-
-            <span class="form-reminder-title p-b-30 p-t-10" *ngIf="reminderAction == 'newReminder'">
+            <span class="form-reminder-title p-b-17 p-t-10" *ngIf="reminderAction == 'newReminder'">
                 Nuevo recordatorio
             </span>
 
-            <span class="login100-form-title p-b-15 p-t-10" *ngIf="reminderAction == 'checkReminder'">
+            <span class="form-reminder-title p-b-15 p-t-10" *ngIf="reminderAction != 'newReminder'">
                 {{medName}}
             </span>
 
@@ -115,13 +111,21 @@
             <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="unit == 'mililitro(s)'">
             <img class="reminder-image mb-4" src="../../../assets/images/drugs.png" alt="" *ngIf="unit == 'unidad(es)'">
 
+            <img class="reminder-image mb-4" src="../../../assets/images/alarm-clock.png" alt="" *ngIf="reminderAction == 'newReminder'">
+
+
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
 
                 <div class="row">
-                    <div class="col m-2">
+                    <div class="col div-border-rigth m-2">
+
+                        <span class="reminder-label">
+                            Descripción
+                        </span>
+
                         <!-- Campo Nombre -->
                         <div class="mb-4" *ngIf="reminderAction != 'checkReminder'">
-                            <label class="pill-label-reminder" for="medicationName">Nombre del medicamento:</label>
+                            <label class="pill-label-reminder" for="medicationName">Nombre:</label>
 
                             <input type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
                             && FormReminder.controls.medicationName.errors}" />
@@ -154,7 +158,7 @@
                         </div>
 
                         <!-- Campo unidad -->
-                        <div class="mb-4">
+                        <div class="mb-1">
                             <label class="pill-label-reminder" for="unit">Unidad:</label>
 
                             <mat-select class="form-control" name="unit" formControlName="unit" placeholder="Selecciona la unidad" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
@@ -171,7 +175,12 @@
                         </div>
                     </div>
 
-                    <div class="col  m-2">
+                    <div class="col m-2">
+
+                        <span class="reminder-label">
+                            Duración
+                        </span>
+
                         <!-- Campo Fecha inicio -->
                         <div class="mb-4">
 
@@ -190,7 +199,7 @@
                         </div>
 
                         <!-- Campo Fecha Fin -->
-                        <div class="mb-4">
+                        <div class="mb-1">
 
                             <label class="pill-label-reminder">Fecha de finalización:</label>
 
@@ -206,7 +215,11 @@
 
                         </div>
                     </div>
-                    <div class="col m-2">
+                    <div class="col div-border-left m-2">
+
+                        <span class="reminder-label">
+                            Recordatorios
+                        </span>
 
                         <!-- Campo Frecuencia -->
                         <div class="mb-4">
@@ -227,7 +240,7 @@
 
 
                         <!-- Campo Hora de notificación -->
-                        <div class="mb-4">
+                        <div class="mb-1">
                             <label class="pill-label-reminder" for="unit">Hora:</label>
                             <input class="form-control form-reminder-input" name="timeNotification" formControlName="timeNotification" placeholder="Ingrese la hora" [ngxTimepicker]="fullTime" [format]="24" readonly [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
                             && FormReminder.controls.timeNotification.errors}">
@@ -244,11 +257,11 @@
 
 
                 <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton" *ngIf="reminderAction == 'newReminder'">Crear recordatorio</button>
+                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20" *ngIf="reminderAction == 'newReminder'">Crear recordatorio</button>
                 </div>
 
                 <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton" *ngIf="reminderAction == 'modifyReminder'">Modificar recordatorio</button>
+                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20" *ngIf="reminderAction == 'modifyReminder'">Modificar recordatorio</button>
                 </div>
 
             </form>

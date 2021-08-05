@@ -5,6 +5,7 @@ import { ReminderService } from '../../services/reminder.service';
 import { Reminder } from '../../models/reminder';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import "moment-timezone";
 
 @Component({
   selector: 'app-reminder',
@@ -70,6 +71,7 @@ export class ReminderComponent implements OnInit {
   
   volver() {
     this.reminderAction = 'reminderList';
+    this.FormReminder.enable();
   }
   
   //Obtener las frecuencias de la BD
@@ -106,6 +108,10 @@ export class ReminderComponent implements OnInit {
   formatedDate(date, format) {
     return moment(date).format(format);
   }
+
+  formatedHour (date, format) {
+    return moment(date).utc().format(format);
+  }
   
   getReminders() {
     
@@ -138,16 +144,26 @@ export class ReminderComponent implements OnInit {
       console.log(err.message);
     })
   }
-
+  
   setFormValues (reminder) {
+    
+    //Verificamos si el recordatorio tiene una fecha de finalización asignada
+    //Si no lo tiene, seteamos el valor como null
+    //Si lo tiene mostramos la fecha de la manera correcta
+    if ( reminder['endDate'] === null) {
+      this.FormReminder.controls['endDate'].setValue(null);
+    } else if ( reminder['endDate'] !== null ) {
+      const endDate = moment(reminder['endDate'], "DD/MM/YYYY");
+      this.FormReminder.controls['endDate'].setValue(endDate);
+    }
+
     this.FormReminder.patchValue({      
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
       frequency: reminder['frequency'],
       medicationName: reminder['medicationName'],
-      endDate: moment(reminder['endDate'], "DD/MM/YYYY"),
       unit: reminder['unit'],
-      timeNotification: this.formatedDate(reminder['timeNotification'],"HH:mm")
+      timeNotification: this.formatedHour(reminder['timeNotification'], 'HH:mm')
     });
   }
   
@@ -155,6 +171,9 @@ export class ReminderComponent implements OnInit {
     this.reminderAction = 'modifyReminder';
     this.setFormValues(reminder);
     this.modifyId = reminder['id'];
+
+    this.medName = reminder['medicationName'];
+    this.unit = reminder['unit'];
   }
 
   checkReminder(reminder) {
@@ -214,8 +233,8 @@ export class ReminderComponent implements OnInit {
     if ( form.invalid ) { return; }
 
     //Asignamos los valores del form al objeto reminder
-    const reminder = { ...this.FormReminder.value };
-
+    let reminder = { ...this.FormReminder.value };
+    
     const format = "DD-MM-YYYY";
     reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
 
@@ -268,7 +287,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Recordatorio mosificado con éxito!'
+          text:'Recordatorio modificado con éxito!'
         });
   
         this.volver();
