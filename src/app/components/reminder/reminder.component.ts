@@ -5,7 +5,6 @@ import { ReminderService } from '../../services/reminder.service';
 import { Reminder } from '../../models/reminder';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import "moment-timezone";
 
 @Component({
   selector: 'app-reminder',
