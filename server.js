@@ -5,10 +5,10 @@ const path = require('path');
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/pillbox-frontend-angular'));
+app.use(express.static('./dist/PillBox-FrontEnd'));
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', { root: 'dist/pillbox-frontend-angular/' }),
+    res.sendFile('index.html', { root: 'dist/PillBox-FrontEnd/' }),
 );
 
 // Start the app by listening on the default Heroku port
