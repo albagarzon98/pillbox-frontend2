@@ -13,6 +13,8 @@ import * as moment from 'moment';
 })
 export class ReminderComponent implements OnInit {
   
+  time = {hour: 13, minute: 30};
+  
   userReminders: Reminder[] = [];
 
   reminderAction = 'reminderList';

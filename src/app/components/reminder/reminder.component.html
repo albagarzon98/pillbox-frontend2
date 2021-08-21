@@ -4,12 +4,12 @@
     <div class="container-home" *ngIf="userReminders.length == 0 && reminderAction == 'reminderList'">
         <div class="box-reminder-title">
             <span class="home-title ">
-                ¡Aún no tienes recordatorios!            
+                ¡Aún no tienes medicamentos!            
             </span>
 
             <button class="home-reminder-button" (click)="addReminder()">
                 <img class="btn-reminder-image" src="../../../assets/images/signo-mas.png" alt="">
-                Nuevo recordatorio
+                Nuevo medicamento
             </button>
 
             <a class="pill-back-button-reminder m-t-100" routerLink="/home">
@@ -22,27 +22,29 @@
     <div class="container-reminder" *ngIf="userReminders.length != 0 && reminderAction == 'reminderList'">
 
         <span class="reminder-title p-b-15">
-            Tus recordatorios
+            Tus medicamentos
         </span>
 
         <button class="new-reminder-btn m-b-30" (click)="addReminder()">
-            Nuevo recordatorio
+            Nuevo medicamento
         </button>
 
 
 
         <div class="reminder-box" *ngFor="let reminder of userReminders">
 
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="more_reminder">
-                <mat-icon>
-                    more_horiz
-                </mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" class="box-reminder-menu">
+            <div class="more-reminder">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>
+                        more_horiz
+                    </mat-icon>
+                </button>
+            </div>
+            <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="before">
                 <button mat-menu-item (click)="checkReminder(reminder)">
                     <mat-icon >visibility</mat-icon>
                     <span class="poppins-regular">Ver recordatorio</span>
-                  </button>
+                </button>
                 <button mat-menu-item (click)="modifyReminder(reminder)">
                     <mat-icon >edit</mat-icon>
                     <span class="poppins-regular">Modificar recordatorio</span>
@@ -94,7 +96,7 @@
             </a>
 
             <span class="form-reminder-title p-b-17 p-t-10" *ngIf="reminderAction == 'newReminder'">
-                Nuevo recordatorio
+                Nuevo medicamento
             </span>
 
             <span class="form-reminder-title p-b-15 p-t-10" *ngIf="reminderAction != 'newReminder'">
@@ -111,7 +113,7 @@
             <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="unit == 'mililitro(s)'">
             <img class="reminder-image mb-4" src="../../../assets/images/drugs.png" alt="" *ngIf="unit == 'unidad(es)'">
 
-            <img class="reminder-image mb-4" src="../../../assets/images/alarm-clock.png" alt="" *ngIf="reminderAction == 'newReminder'">
+            <img class="reminder-image mb-4" src="../../../assets/images/vaccine.png" alt="" *ngIf="reminderAction == 'newReminder'">
 
 
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
