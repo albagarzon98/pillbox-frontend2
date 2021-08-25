@@ -1198,4 +1198,22 @@ input:focus {
     .new-reminder-btn {
         margin: 0px 20px 20px 20px;
     }
+    .form-reminder-title {
+        font-size: 30px;
+    }
+    .div-border-rigth {
+        border-right: none;
+        border-bottom: 2px solid #bbb;
+        border-radius: 2px;
+        padding-bottom: 20px;
+    }
+    .div-border-left {
+        border-left: none;
+        border-top: 2px solid #bbb;
+        border-radius: 2px;
+        padding-top: 15px;
+    }
+    .pill-reminder-btn {
+        width: 100%;
+    }
 }
