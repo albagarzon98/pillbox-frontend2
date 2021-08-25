@@ -77,64 +77,6 @@ li {
     list-style-type: none;
 }
 
-
-/*---------------------------------------------*/
-
-input {
-    outline: none;
-    border: none;
-}
-
-textarea {
-    outline: none;
-    border: none;
-}
-
-textarea:focus,
-input:focus {
-    border-color: transparent !important;
-}
-
-input::-webkit-input-placeholder {
-    color: #8f8fa1;
-}
-
-input:-moz-placeholder {
-    color: #8f8fa1;
-}
-
-input::-moz-placeholder {
-    color: #8f8fa1;
-}
-
-input:-ms-input-placeholder {
-    color: #8f8fa1;
-}
-
-textarea::-webkit-input-placeholder {
-    color: #8f8fa1;
-}
-
-textarea:-moz-placeholder {
-    color: #8f8fa1;
-}
-
-textarea::-moz-placeholder {
-    color: #8f8fa1;
-}
-
-textarea:-ms-input-placeholder {
-    color: #8f8fa1;
-}
-
-label {
-    display: block;
-    margin: 0;
-}
-
-
-/*---------------------------------------------*/
-
 button {
     outline: none !important;
     border: none;
@@ -276,8 +218,6 @@ nav .navbar-nav li a {
 }
 
 .pill-navbar:hover {
-    width: 9.2%;
-    transition: 200ms;
     cursor: pointer;
 }
 
@@ -323,7 +263,7 @@ nav .navbar-nav li a {
     width: 15%;
     position: relative;
     right: 300px;
-    bottom: 125px;
+    bottom: 160px;
     margin-top: 5%;
     margin-bottom: 2%;
     animation: fadeInLeft 2s;
@@ -352,7 +292,7 @@ nav .navbar-nav li a {
     font-size: 475%;
     position: relative;
     right: 300px;
-    bottom: 125px;
+    bottom: 145px;
     animation: fadeInLeft 2s;
 }
 
@@ -390,7 +330,7 @@ nav .navbar-nav li a {
     font-family: Poppins-Regular;
     font-size: 175%;
     position: relative;
-    bottom: 100px;
+    bottom: 150px;
     right: 300px;
     animation: fadeInLeft 2s;
 }
@@ -508,7 +448,6 @@ input[type='image'] {
 }
 
 .new-reminder-btn {
-    width: 300x;
     padding: 5px 30px 5px 30px;
     border: #6626db solid 2px;
     border-radius: 40px;
@@ -518,8 +457,10 @@ input[type='image'] {
     font-size: 20px;
     transition: 300ms !important;
     animation: fadeIn 1.2s;
-    margin-left: 30%;
-    margin-right: 30%;
+    display: block;
+    width: 100%;
+    margin-left: 400px;
+    margin-right: 400px;
 }
 
 .new-reminder-btn:hover {
@@ -1221,3 +1162,40 @@ input:focus {
 
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .role-image {
+        width: 320px;
+        padding-bottom: 60px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .img-role {
+        width: 200px;
+    }
+    .login-container {
+        width: 320px;
+    }
+    .container-home {
+        padding: 0px 10px 15px 10px;
+    }
+    .container-home-title {
+        padding: 15px 20px 15px 20px;
+    }
+    .home-title {
+        font-size: 30px;
+    }
+    .home-box {
+        margin-top: 0px;
+    }
+    .reminder-title {
+        font-size: 30px;
+    }
+    .container-reminder {
+        padding: 15px 20px 15px 20px;
+    }
+    .new-reminder-btn {
+        margin: 0px 20px 20px 20px;
+    }
+}
