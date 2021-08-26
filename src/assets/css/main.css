@@ -341,7 +341,7 @@ nav .navbar-nav li a {
 
 .carousel-paragraph {
     font-family: Poppins-Regular;
-    font-size: 1.05em;
+    font-size: 16.8px;
     color: black;
 }
 
@@ -604,8 +604,19 @@ input[type='image'] {
 }
 
 .home-title {
+    font-size: 30px;
     font-family: Poppins-Bold;
-    font-size: 225%;
+    color: #1a1b73;
+    line-height: 1.2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 600ms;
+}
+
+.home-title-2 {
+    font-family: Poppins-Bold;
+    font-size: 30px;
     color: #1a1b73;
     line-height: 1.2;
     width: 100%;
@@ -1184,9 +1195,6 @@ input:focus {
     .container-home-title {
         padding: 15px 20px 15px 20px;
     }
-    .home-title {
-        font-size: 30px;
-    }
     .home-box {
         margin-top: 0px;
     }
@@ -1216,5 +1224,39 @@ input:focus {
     }
     .pill-reminder-btn {
         width: 100%;
+    }
+}
+
+@media only screen and (width:320px) {
+    .login-container {
+        width: 300px;
+    }
+    .img-role {
+        width: 160px;
+    }
+    .role-image {
+        width: 260px;
+        padding-bottom: 60px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .login100-form-title {
+        font-size: 25px;
+    }
+    .carousel-paragraph {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .home-title {
+        font-size: 25px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .home-title-2 {
+        font-size: 25px;
+    }
+    .home-reminder-button {
+        font-size: 15 px;
     }
 }
