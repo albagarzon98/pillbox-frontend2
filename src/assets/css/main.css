@@ -353,6 +353,10 @@ nav .navbar-nav li a {
     padding-right: 90px;
 }
 
+.img-role {
+    width: 350px;
+}
+
 input[type='image'] {
     width: 300px;
 }
@@ -419,6 +423,7 @@ input[type='image'] {
 }
 
 .pill-back-button-reminder {
+    margin-top: 100px;
     font-family: Poppins-Regular;
     color: gray !important;
     font-size: 100%;
@@ -1175,6 +1180,9 @@ input:focus {
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
 
+
+/* Mobile */
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .role-image {
         width: 320px;
@@ -1257,6 +1265,23 @@ input:focus {
         font-size: 25px;
     }
     .home-reminder-button {
-        font-size: 15 px;
+        font-size: 15px;
+        padding: 2px 15px 2px 15px;
+        margin-top: 25px;
+    }
+    .btn-reminder-image {
+        width: 15px;
+    }
+}
+
+
+/* Tablets */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container-home {
+        padding: 15px 15px 15px;
+    }
+    .home-box {
+        margin: 0px;
     }
 }
