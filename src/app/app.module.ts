@@ -23,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatMenuModule,
     MatSelectModule,
     MatDividerModule,
-    NgxMaterialTimepickerModule
+    NgxMaskModule.forRoot()
   ],
   providers: [
     {

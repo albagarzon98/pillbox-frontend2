@@ -894,6 +894,7 @@ mat-select .mat-select-placeholder {
     width: 70%;
     background: transparent;
     height: 42px;
+    margin-top: 0px !important;
 }
 
 .inputDate::placeholder {

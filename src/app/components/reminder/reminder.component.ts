@@ -53,7 +53,7 @@ export class ReminderComponent implements OnInit {
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
       unit: ['', [Validators.required] ],
       frequency: ['', [Validators.required] ],
-      timeNotification: ['', [Validators.required]]
+      timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]]
     });
     
     
@@ -110,8 +110,8 @@ export class ReminderComponent implements OnInit {
     return moment(date).format(format);
   }
 
-  formatedHour (date, format) {
-    return moment(date).utc().format(format);
+  formatedHour (hour, format) {
+    return moment(hour).utc().format(format);
   }
   
   getReminders() {
@@ -197,7 +197,7 @@ export class ReminderComponent implements OnInit {
   deleteReminder (id) {
     Swal.fire({
       title: '¿Está seguro?',
-      text: "El recordatorio se eliminará de forma permanente.",
+      text: "El medicamento se eliminará de forma permanente.",
       icon: 'warning',
       confirmButtonText: 'Confirmar',
       confirmButtonColor: 'green',
@@ -207,12 +207,18 @@ export class ReminderComponent implements OnInit {
       reverseButtons: true
 
     }).then((result)=>{
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...'
+      });
+      Swal.showLoading();
       if(result.isConfirmed){
         this.reminderService.delete(id).subscribe( res => {
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'Recordatorio eliminado exitosamente!'
+            text:'Medicamento eliminado exitosamente!'
           });
           this.getReminders();
         }, (err) => {
@@ -220,7 +226,7 @@ export class ReminderComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             text: err.error.message,
-            title: 'Error al eliminar el recordatorio'
+            title: 'Error al eliminar el medicamento'
           });
         }
         );
@@ -244,6 +250,8 @@ export class ReminderComponent implements OnInit {
       delete reminder.endDate;
     }
     else { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
+
+    reminder['timeNotification'] = reminder['timeNotification'].slice(0,2) + ':' + reminder['timeNotification'].slice(2,4);
 
     console.log(reminder);
 

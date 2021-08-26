@@ -244,13 +244,17 @@
                         <!-- Campo Hora de notificación -->
                         <div class="mb-1">
                             <label class="pill-label-reminder" for="unit">Hora:</label>
-                            <input class="form-control form-reminder-input" name="timeNotification" formControlName="timeNotification" placeholder="Ingrese la hora" [ngxTimepicker]="fullTime" [format]="24" readonly [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
+
+                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
                             && FormReminder.controls.timeNotification.errors}">
-                            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 
                             && FormReminder.controls.timeNotification.errors?.required">
                                 Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 
+                            && FormReminder.controls.timeNotification.errors?.pattern">
+                                Dato hora, formato HH:mm
                             </div>
                         </div>
 
