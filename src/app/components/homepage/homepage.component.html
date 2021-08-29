@@ -1,4 +1,4 @@
-<div class="animated fadeInUp">
+<div class="homepage animated fadeInUp" *ngIf="screenWidth() > 1024">
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -7,7 +7,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="6000">
-                <img src="../../../assets/images/fondo-slide-1.png" class="d-block h-100" alt="...">
+                <img src="../../../assets/images/fondo-slide-1.png" class="fondo-slide-1 d-block h-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 class="h1-pill">¿Qué es <br> PillBox?</h1>
                     <img class="logo-homepage" src="../../../assets/images/logo-homepage.png" alt="">
@@ -55,4 +55,8 @@
       <span class="visually-hidden">Next</span>
     </button>
     </div>
+</div>
+
+<div class="container-homepage" *ngIf="screenWidth() < 480">
+    <div class="bg-mobile"></div>
 </div>

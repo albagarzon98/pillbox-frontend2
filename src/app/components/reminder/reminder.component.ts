@@ -12,28 +12,41 @@ import * as moment from 'moment';
   styleUrls: ['./reminder.component.css']
 })
 export class ReminderComponent implements OnInit {
-  
-  time = {hour: 13, minute: 30};
-  
-  userReminders: Reminder[] = [];
+    
+  userReminders:Reminder[] = [];
 
-  reminderAction = 'reminderList';
+  reminderAction:string = 'reminderList';
 
   //Booleano que se activa cuando el formulario es enviado, me sirve para manejar los validators
   submitted = false;
 
   FormReminder: FormGroup;
 
-  medName = '';
-  unit = '';
+  medName:string = '';
+  unit:string = '';
 
   units = [];
 
   frequencies = [];
 
-  //Cuando modificamos un recordatorio, el id del recordatorio a modificar se almacena
-  //en este atributo
-  modifyId = '';
+  modifyId: string = '';
+
+  endingType: any;
+
+  endingTypes = [
+    {
+      id: 1,
+      description: "Sin fecha"
+    },
+    {
+      id: 2,
+      description: "Hasta" 
+    },
+    {
+      id: 3,
+      description: "Cantidad de días" 
+    }
+  ];
   
   constructor(
     private router: Router,
@@ -48,12 +61,14 @@ export class ReminderComponent implements OnInit {
         '',
         [Validators.required, Validators.maxLength(55)]
       ],
-      startDate: ['' , [Validators.required] ],
-      endDate: [''],
+      startDate: ['' , [Validators.required]],
+      endDate: ['', [Validators.required]],
       dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
       unit: ['', [Validators.required] ],
+      endingType: ['', [Validators.required]],
+      daysAmount: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
       frequency: ['', [Validators.required] ],
-      timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]]
+      timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
     });
     
     
@@ -68,8 +83,9 @@ export class ReminderComponent implements OnInit {
     this.unit = '';
     this.FormReminder.enable();
     this.FormReminder.reset();
+    this.endingType = 0;
   }
-  
+
   volver() {
     this.reminderAction = 'reminderList';
     this.FormReminder.enable();
@@ -158,6 +174,8 @@ export class ReminderComponent implements OnInit {
       this.FormReminder.controls['endDate'].setValue(endDate);
     }
 
+    this.FormReminder.controls['endingType'].setValue(2);
+
     this.FormReminder.patchValue({      
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
@@ -170,6 +188,7 @@ export class ReminderComponent implements OnInit {
   
   modifyReminder (reminder) {
     this.reminderAction = 'modifyReminder';
+    this.endingType = 2;
     this.setFormValues(reminder);
     this.modifyId = reminder['id'];
 
@@ -178,6 +197,8 @@ export class ReminderComponent implements OnInit {
   }
 
   checkReminder(reminder) {
+    
+    this.endingType = 2;
     
     //Se setean los valores del recordatorio en el formulario
     this.setFormValues(reminder);
@@ -207,13 +228,13 @@ export class ReminderComponent implements OnInit {
       reverseButtons: true
 
     }).then((result)=>{
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text:'Espere por favor...'
-      });
-      Swal.showLoading();
       if(result.isConfirmed){
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text:'Espere por favor...'
+        });
+        Swal.showLoading();
         this.reminderService.delete(id).subscribe( res => {
           Swal.fire({
             allowOutsideClick: false,
@@ -235,21 +256,32 @@ export class ReminderComponent implements OnInit {
   }
   
   onSubmit( form: FormGroup ) {
+
+    const format = "DD-MM-YYYY";
+    const today = moment().toDate();
+
+    if ( this.FormReminder.value.endDate == null ) {
+      this.FormReminder.patchValue({endDate: today});
+    }
+    if ( this.FormReminder.value.daysAmount == '' ) {
+      this.FormReminder.patchValue({daysAmount: 1})
+    }
     
     this.submitted = true;
     if ( form.invalid ) { return; }
 
-    //Asignamos los valores del form al objeto reminder
     let reminder = { ...this.FormReminder.value };
-    
-    const format = "DD-MM-YYYY";
-    reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
 
-    //Si no se ingresa una fecha de finalización borramos el atributo
-    if ( reminder.endDate == null ) {
+    if ( this.endingType == 1 ) {
       delete reminder.endDate;
     }
-    else { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
+    else if ( this.endingType == 2 ) { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
+    else if ( this.endingType == 3 ) { reminder['endDate'] = moment(reminder['startDate']).add(reminder['daysAmount'], 'days').format(format)}
+
+    delete reminder.daysAmount;
+    delete reminder.endingType;
+
+    reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
 
     reminder['timeNotification'] = reminder['timeNotification'].slice(0,2) + ':' + reminder['timeNotification'].slice(2,4);
 
@@ -270,7 +302,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Recordatorio creado con éxito!'
+          text:'Medicamento creado con éxito!'
         });
   
         this.volver();
@@ -282,7 +314,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           text: err.error.message,
-          title: 'Error al crear el recordatorio'
+          title: 'Error al crear el medicamento'
         });
       });
     } else if (this.reminderAction === 'modifyReminder') {
@@ -296,7 +328,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Recordatorio modificado con éxito!'
+          text:'Medicamento modificado con éxito!'
         });
   
         this.volver();
@@ -309,7 +341,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           text: err.error.message,
-          title: 'Error al modificar el recordatorio'
+          title: 'Error al modificar el medicamento'
         });
       })
     }

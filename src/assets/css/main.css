@@ -453,7 +453,7 @@ input[type='image'] {
 }
 
 .new-reminder-btn {
-    padding: 5px 30px 5px 30px;
+    padding: 5px 20px 5px 20px;
     border: #6626db solid 2px;
     border-radius: 40px;
     color: #6626db;
@@ -462,10 +462,9 @@ input[type='image'] {
     font-size: 20px;
     transition: 300ms !important;
     animation: fadeIn 1.2s;
-    display: block;
-    width: 100%;
-    margin-left: 400px;
-    margin-right: 400px;
+    display: inline-block;
+    margin: 0px 100% 0px 100%;
+    width: auto;
 }
 
 .new-reminder-btn:hover {
@@ -538,7 +537,6 @@ input[type='image'] {
     font-family: Poppins-Bold;
     text-align: center;
     display: inline-block;
-    padding-bottom: 50x;
     font-size: 20px;
     transition: 300ms !important;
     animation: fadeInUp 600ms;
@@ -823,11 +821,6 @@ input[type='image'] {
     border: 2px solid #5cf3ba;
 }
 
-::placeholder {
-    font-family: Poppins-Regular;
-    font-size: 0.8em;
-}
-
 .login100-form-title {
     font-family: Poppins-Bold;
     font-size: 30px;
@@ -863,14 +856,19 @@ input[type='image'] {
 
 /*---------------------------------------------*/
 
+.cont-start-date {
+    margin-bottom: 22.5px;
+}
+
 mat-select {
     background-color: honeydew !important;
     font-family: Poppins-Regular !important;
+    height: 42px;
 }
 
 mat-select .mat-select-placeholder {
-    font-size: 13px !important;
-    color: #8f8fa1 !important;
+    font-size: 15px !important;
+    color: #6c767d;
 }
 
 .form-reminder-input {
@@ -880,12 +878,11 @@ mat-select .mat-select-placeholder {
     line-height: 1.2;
     font-size: 18px;
     display: block;
-    background: transparent;
     height: 42px;
 }
 
 .form-reminder-input::placeholder {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .input100 {
@@ -898,6 +895,10 @@ mat-select .mat-select-placeholder {
     width: 100%;
     background: transparent;
     height: 42px;
+}
+
+.input100::placeholder {
+    font-size: 15px;
 }
 
 .inputDate {
@@ -914,7 +915,7 @@ mat-select .mat-select-placeholder {
 }
 
 .inputDate::placeholder {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 
@@ -1178,7 +1179,34 @@ input:focus {
 
 
 /*//////////////////////////////////////////////////////////////////
+[ Homepage ]*/
+
+.container-homepage {}
+
+
+/*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
+
+.mobile {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.bg-mobile {
+    background: url('../images/fondo-mobile.png') no-repeat center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.logo-mobile {
+    width: 60%;
+    display: block;
+    padding-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 /* Mobile */
@@ -1212,9 +1240,6 @@ input:focus {
     .container-reminder {
         padding: 15px 20px 15px 20px;
     }
-    .new-reminder-btn {
-        margin: 0px 20px 20px 20px;
-    }
     .form-reminder-title {
         font-size: 30px;
     }
@@ -1232,6 +1257,9 @@ input:focus {
     }
     .pill-reminder-btn {
         width: 100%;
+    }
+    .reminder-box {
+        height: auto;
     }
 }
 
