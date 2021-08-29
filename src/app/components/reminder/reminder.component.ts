@@ -14,25 +14,15 @@ import * as moment from 'moment';
 export class ReminderComponent implements OnInit {
     
   userReminders:Reminder[] = [];
-
   reminderAction:string = 'reminderList';
-
-  //Booleano que se activa cuando el formulario es enviado, me sirve para manejar los validators
   submitted = false;
-
   FormReminder: FormGroup;
-
   medName:string = '';
   unit:string = '';
-
   units = [];
-
   frequencies = [];
-
   modifyId: string = '';
-
   endingType: any;
-
   endingTypes = [
     {
       id: 1,
@@ -90,14 +80,12 @@ export class ReminderComponent implements OnInit {
     this.endingType = 0;
   }
   
-  //Obtener las frecuencias de la BD
   getFrequencies() {
     this.reminderService.getFrequencies().subscribe( res => {
       this.frequencies = res['frequencies'];
     });
   }
   
-  //Obtener las unidades de la BD
   getUnits() {
     this.reminderService.getUnits().subscribe( res => {
         
@@ -116,11 +104,6 @@ export class ReminderComponent implements OnInit {
     });
   }
 
-  //Esta función se utiliza para formatear la fechas, recibe como parametro la fecha a formatear
-  //y el formato que se le quiere dar, por ejemplo, si enviamos como parámetros:
-  //date = "2021-06-22T03:00:00.000Z"
-  //format = "DD/MM/YYYY"
-  //la función devuelve "22/06/2021"
   formatedDate(date, format) {
     return moment(date).format(format);
   }
@@ -130,20 +113,9 @@ export class ReminderComponent implements OnInit {
   }
   
   getReminders() {
-    
-    // Swal.fire({
-    //   allowOutsideClick: false,
-    //   icon: 'info',
-    //   text:'Espere por favor...'
-    // });
-    // Swal.showLoading();
 
     this.reminderService.get().subscribe( res =>{
         
-      console.log(res);
-      // Swal.close();
-
-      //Se formatea la fecha de ISO 8061 a dd/mm/aaaa
       const format = "DD/MM/YYYY";
       for(var i = 0; i < res['reminders'].length; i++){
         res['reminders'][i]['startDate'] = this.formatedDate(res['reminders'][i]['startDate'],format);
@@ -154,8 +126,6 @@ export class ReminderComponent implements OnInit {
 
       this.userReminders = res['reminders'];
 
-      console.log(this.userReminders);
-
     }, (err) => {
       console.log(err.message);
     })
@@ -163,9 +133,6 @@ export class ReminderComponent implements OnInit {
   
   setFormValues (reminder) {
     
-    //Verificamos si el recordatorio tiene una fecha de finalización asignada
-    //Si no lo tiene, seteamos el valor como null
-    //Si lo tiene mostramos la fecha de la manera correcta
     if ( reminder['endDate'] === null) {
       this.FormReminder.controls['endDate'].setValue(null);
       this.FormReminder.controls['endingType'].setValue(1);
@@ -202,19 +169,13 @@ export class ReminderComponent implements OnInit {
   checkReminder(reminder) {
     
     this.endingType = 2;
-    
-    //Se setean los valores del recordatorio en el formulario
     this.setFormValues(reminder);
-    
-    //Estos atributos se requieren para mostrar el nombre del medicamento y la imagen correspondiente a la
-    //unidad en el HTML
+
     this.medName = reminder['medicationName'];
     this.unit = reminder['unit'];
     
-    //Se deshabilitan los campos del form
     this.FormReminder.disable();
     
-    //Se cambia el valor de reminderAction a 'checkReminder' para mostrar el form en el HTML
     this.reminderAction = 'checkReminder';
   }
 
@@ -262,8 +223,10 @@ export class ReminderComponent implements OnInit {
 
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
+
+    console.log(this.FormReminder.value.endDate);
     
-    if ( this.FormReminder.value.endDate == null && this.endingType != 2) {
+    if ( this.FormReminder.value.endDate == null || this.FormReminder.value.endDate == '' && this.endingType != 2) {
       this.FormReminder.patchValue({endDate: today});
     }
     if ( this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null && this.endingType != 3) {
@@ -324,10 +287,8 @@ export class ReminderComponent implements OnInit {
       this.reminderService.patch(this.modifyId, reminder)
       .subscribe(resp => {
         
-        //Se muestra la respuesta en consola
         console.log(resp);
 
-        //Se muestra la alerta
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
