@@ -79,16 +79,15 @@ export class ReminderComponent implements OnInit {
 
   addReminder() {
     this.reminderAction = 'newReminder';
-    this.submitted = false;
     this.unit = '';
-    this.FormReminder.enable();
-    this.FormReminder.reset();
-    this.endingType = 0;
   }
 
   volver() {
     this.reminderAction = 'reminderList';
+    this.submitted = false;
+    this.FormReminder.reset();
     this.FormReminder.enable();
+    this.endingType = 0;
   }
   
   //Obtener las frecuencias de la BD
@@ -169,25 +168,29 @@ export class ReminderComponent implements OnInit {
     //Si lo tiene mostramos la fecha de la manera correcta
     if ( reminder['endDate'] === null) {
       this.FormReminder.controls['endDate'].setValue(null);
+      this.FormReminder.controls['endingType'].setValue(1);
+      this.endingType = 1;
     } else if ( reminder['endDate'] !== null ) {
       const endDate = moment(reminder['endDate'], "DD/MM/YYYY");
       this.FormReminder.controls['endDate'].setValue(endDate);
+      this.FormReminder.controls['endingType'].setValue(2);
+      this.endingType = 2;
     }
 
-    this.FormReminder.controls['endingType'].setValue(2);
-
-    this.FormReminder.patchValue({      
+    this.FormReminder.patchValue({ 
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
       frequency: reminder['frequency'],
       medicationName: reminder['medicationName'],
       unit: reminder['unit'],
-      timeNotification: this.formatedHour(reminder['timeNotification'], 'HH:mm')
+      timeNotification: this.formatedHour(reminder['timeNotification'], 'HH:mm').replace(':','')
     });
   }
   
   modifyReminder (reminder) {
     this.reminderAction = 'modifyReminder';
+    this.submitted = false;
+
     this.endingType = 2;
     this.setFormValues(reminder);
     this.modifyId = reminder['id'];
@@ -260,10 +263,10 @@ export class ReminderComponent implements OnInit {
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
     
-    if ( this.FormReminder.value.endDate == null ) {
+    if ( this.FormReminder.value.endDate == null && this.endingType != 2) {
       this.FormReminder.patchValue({endDate: today});
     }
-    if ( this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null) {
+    if ( this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null && this.endingType != 3) {
       this.FormReminder.patchValue({daysAmount: 1})
     }
     

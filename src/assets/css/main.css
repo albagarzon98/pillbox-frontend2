@@ -475,7 +475,6 @@ input[type='image'] {
     border: #7732f8 solid 2px;
     color: #5cf3ba;
     background-color: #7732f8;
-    text-align: center;
     transition: 300ms !important;
     box-shadow: 1px 1px 10px 1px #8153d6;
 }
@@ -1185,8 +1184,6 @@ input:focus {
 /*//////////////////////////////////////////////////////////////////
 [ Homepage ]*/
 
-.container-homepage {}
-
 
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
@@ -1216,6 +1213,9 @@ input:focus {
 /* Mobile */
 
 @media only screen and (min-width:320px) and (max-width:480px) {
+    .new-reminder-btn {
+        font-size: 120%;
+    }
     .role-image {
         width: 320px;
         padding-bottom: 60px;
@@ -1239,7 +1239,7 @@ input:focus {
         margin-top: 0px;
     }
     .reminder-title {
-        font-size: 30px;
+        font-size: 180%;
     }
     .container-reminder {
         padding: 15px 20px 15px 20px;
