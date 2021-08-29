@@ -259,11 +259,11 @@ export class ReminderComponent implements OnInit {
 
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
-
+    
     if ( this.FormReminder.value.endDate == null ) {
       this.FormReminder.patchValue({endDate: today});
     }
-    if ( this.FormReminder.value.daysAmount == '' ) {
+    if ( this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null) {
       this.FormReminder.patchValue({daysAmount: 1})
     }
     

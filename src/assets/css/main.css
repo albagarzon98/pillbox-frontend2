@@ -357,6 +357,10 @@ nav .navbar-nav li a {
     width: 350px;
 }
 
+.img-role:hover {
+    cursor: pointer;
+}
+
 input[type='image'] {
     width: 300px;
 }
@@ -430,7 +434,7 @@ input[type='image'] {
     text-decoration: none;
 }
 
-.pill-back-button-reminder:hover {
+.pill-back-button-reminder:img-role {
     font-family: Poppins-Regular;
     color: #6626db !important;
     font-size: 102%;
