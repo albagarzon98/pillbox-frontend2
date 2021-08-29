@@ -462,7 +462,6 @@ input[type='image'] {
     border-radius: 40px;
     color: #6626db;
     font-family: Poppins-Bold;
-    padding-bottom: 50x;
     font-size: 20px;
     transition: 300ms !important;
     animation: fadeIn 1.2s;
