@@ -24,6 +24,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     HomeComponent,
     MenuComponent,
     HomepageComponent,
-    ReminderComponent
+    ReminderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

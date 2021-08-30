@@ -21,7 +21,6 @@
     box-sizing: border-box;
 }
 
-body,
 html {
     height: 100%;
     font-family: Ubuntu-Regular, sans-serif;
@@ -61,14 +60,12 @@ h4,
 h5,
 h6 {
     margin: 0px;
+    font-family: Poppins-Bold;
 }
 
-p {
-    font-family: Ubuntu-Regular;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #666666;
-    margin: 0px;
+p,
+span {
+    font-family: Poppins-Regular;
 }
 
 ul,
@@ -93,17 +90,6 @@ iframe {
 
 
 /*//////////////////////////////////////////////////////////////////
-[ Utility ]*/
-
-.txt1 {
-    font-family: Ubuntu-Regular;
-    font-size: 16px;
-    color: #827ffe;
-    line-height: 1.4;
-}
-
-
-/*//////////////////////////////////////////////////////////////////
 [ Alerts ]*/
 
 .swal2-popup {
@@ -114,24 +100,24 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Navbar ]*/
 
-.navbar-role {
-    width: 6%;
-    position: relative;
-    display: block;
-    justify-content: end !important;
-    /* left: 215px;
-    bottom: 5px; */
+.navbar-toggler {
+    border: none;
 }
 
-.navbar-role-patient {
-    width: 5%;
-    position: relative;
-    /* left: 215px;
-    bottom: 4px; */
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .navbar {
     background-color: #6626db !important;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0px 0px 4px 1.5px #270e53;
 }
 
 .navbar-nav {
@@ -150,6 +136,16 @@ body::-webkit-scrollbar-thumb {
     background: #6649b8;
 }
 
+body {
+    padding-top: 56px;
+}
+
+.divBody {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .nav-link-user {
     font-family: Poppins-Regular !important;
     color: #5cf3ba !important;
@@ -159,7 +155,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .nav-link-user:hover {
-    font-size: 94%;
+    font-size: 91%;
     transition: 200ms;
 }
 
@@ -175,29 +171,9 @@ body::-webkit-scrollbar-thumb {
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 93%;
+    font-size: 91%;
     color: #5cf3ba !important;
     transition: 250ms;
-}
-
-.navbar-toggler-icon {
-    color: #5cf3ba !important;
-}
-
-.navbar-toggler {
-    color: #5cf3ba !important;
-    width: 47px;
-    height: 34px;
-    border: none !important;
-}
-
-.navbar-toggler .line {
-    color: #5cf3ba !important;
-    width: 100%;
-    float: left;
-    height: 2px;
-    background-color: #5cf3ba !important;
-    margin-bottom: 5px;
 }
 
 .pill-nav-link {
@@ -276,6 +252,9 @@ nav .navbar-nav li a {
     right: 300px;
     top: 175px;
     animation: fadeInLeft 2s;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
 }
 
 .h2-pill {
@@ -313,6 +292,9 @@ nav .navbar-nav li a {
     bottom: 150px;
     left: 250px;
     animation: fadeInRight 2s;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
 }
 
 .paragraph2-pill {
@@ -379,6 +361,9 @@ input[type='image'] {
     right: 325px;
     width: 15%;
     animation: fadeInLeft 2s;
+    animation-delay: 500ms;
+    animation-fill-mode: forwards;
+    opacity: 0;
 }
 
 
@@ -420,7 +405,7 @@ input[type='image'] {
     display: flex;
     flex-wrap: wrap;
     justify-content: center !important;
-    padding: 15px 10% 0px 10%;
+    padding: 15px 20px 30px 20px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -683,7 +668,6 @@ input[type='image'] {
 
 .container-login100 {
     width: 100%;
-    min-height: 50vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -1051,7 +1035,6 @@ mat-select .mat-select-placeholder {
     height: 52px;
     background-color: #371BBA;
     color: #5cf3ba;
-    /* border: 2px solid #5cf3ba; */
     border-radius: 3px;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -1181,6 +1164,35 @@ input:focus {
 
 
 /*//////////////////////////////////////////////////////////////////
+[ Footer ]*/
+
+footer {
+    height: 56px;
+    background-color: #371bba;
+    padding: 16px;
+}
+
+.span-footer {
+    font-family: Poppins-Regular;
+    color: #5cf3ba;
+    font-size: 15px;
+}
+
+.span-footer-gray {
+    font-family: Poppins-Regular;
+    color: rgb(190, 174, 174);
+    font-size: 15px;
+}
+
+.logo-footer {
+    width: 35px;
+    position: relative;
+    top: -3px;
+    right: 8px;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
 [ Homepage ]*/
 
 
@@ -1198,14 +1210,97 @@ input:focus {
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
+    text-align: center;
+    height: 100vh;
 }
 
 .logo-mobile {
-    width: 60%;
-    display: block;
-    padding-top: 10%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 95%;
+    margin: 15% 0 10%;
+    animation: fadeIn 3s;
+}
+
+.mobile-title {
+    font-size: 35px;
+    color: #5cf3ba;
+    margin-bottom: 5%;
+    animation: fadeInLeft 1500ms;
+    animation-delay: 1500ms;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.p1-mobile {
+    font-size: 25px;
+    color: #5cf3ba;
+    line-height: 140%;
+    margin-bottom: 12%;
+    animation: fadeInLeft 1500ms;
+    animation-delay: 1500ms;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.span-mobile {
+    font-size: 20px;
+    color: #5cf3ba;
+    line-height: 100%;
+    position: relative;
+    left: 32%;
+}
+
+.cont-span-mobile1 {
+    animation: fadeIn 1500ms;
+    animation-delay: 3s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-bottom: 15%;
+}
+
+.cont-span-mobile2 {
+    animation: fadeIn 1500ms;
+    animation-delay: 4.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-bottom: 15%;
+}
+
+.cont-span-mobile3 {
+    animation: fadeIn 1500ms;
+    animation-delay: 6s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    padding-bottom: 15%;
+}
+
+.pill-mobile,
+.clock-mobile,
+.calendar-mobile {
+    width: 13%;
+    position: absolute;
+    left: 12%;
+    margin-bottom: 5%;
+}
+
+.pill-mobile {
+    animation: fadeIn 1500ms;
+    animation-delay: 3s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.clock-mobile {
+    animation: fadeIn 1500ms;
+    animation-delay: 4.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.calendar-mobile {
+    animation: fadeIn 1500ms;
+    animation-delay: 6s;
+    opacity: 0;
+    animation-fill-mode: forwards;
 }
 
 
@@ -1239,9 +1334,6 @@ input:focus {
     }
     .reminder-title {
         font-size: 180%;
-    }
-    .container-reminder {
-        padding: 15px 20px 15px 20px;
     }
     .form-reminder-title {
         font-size: 30px;
