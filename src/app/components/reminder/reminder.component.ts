@@ -15,13 +15,17 @@ export class ReminderComponent implements OnInit {
     
   userReminders:Reminder[] = [];
   reminderAction:string = 'reminderList';
-  submitted = false;
+
+  modifyId: string = '';
+  
   FormReminder: FormGroup;
+  submitted = false;
   medName:string = '';
+  modifyGrammage:string='';
   unit:string = '';
+  // grammage: boolean;
   units = [];
   frequencies = [];
-  modifyId: string = '';
   endingType: any;
   endingTypes = [
     {
@@ -53,12 +57,14 @@ export class ReminderComponent implements OnInit {
       ],
       startDate: ['' , [Validators.required]],
       endDate: ['', [Validators.required]],
-      dose: [null, [Validators.required, Validators.pattern('[0-9]{1,7}')]],
+      dose: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
       unit: ['', [Validators.required] ],
       endingType: ['', [Validators.required]],
       daysAmount: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
       frequency: ['', [Validators.required] ],
       timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
+      grammage: ['', [Validators.pattern('[0-9]{1,5}')]],
+      inventory: ['', [Validators.pattern('[0-9]{1,5}')]]
     });
     
     
@@ -112,6 +118,10 @@ export class ReminderComponent implements OnInit {
     return moment(hour).utc().format(format);
   }
   
+  // checkBoxValue(event) {
+  //   this.grammage = event.currentTarget.checked;
+  // }
+
   getReminders() {
 
     this.reminderService.get().subscribe( res =>{
@@ -150,7 +160,9 @@ export class ReminderComponent implements OnInit {
       frequency: reminder['frequency'],
       medicationName: reminder['medicationName'],
       unit: reminder['unit'],
-      timeNotification: this.formatedHour(reminder['timeNotification'], 'HH:mm').replace(':','')
+      timeNotification: this.formatedHour(reminder['timeNotification'], 'HH:mm').replace(':',''),
+      inventory: reminder['inventory'],
+      grammage: reminder['grammage']
     });
   }
   
@@ -164,6 +176,7 @@ export class ReminderComponent implements OnInit {
 
     this.medName = reminder['medicationName'];
     this.unit = reminder['unit'];
+    this.modifyGrammage = reminder['grammage']
   }
 
   checkReminder(reminder) {
@@ -173,6 +186,7 @@ export class ReminderComponent implements OnInit {
 
     this.medName = reminder['medicationName'];
     this.unit = reminder['unit'];
+    this.modifyGrammage = reminder['grammage']
     
     this.FormReminder.disable();
     
@@ -235,20 +249,28 @@ export class ReminderComponent implements OnInit {
     
     this.submitted = true;
     if ( form.invalid ) { return; }
-
     let reminder = { ...this.FormReminder.value };
 
     if ( this.endingType == 1 ) {
       delete reminder.endDate;
     }
-    else if ( this.endingType == 2 ) { reminder['endDate'] = this.formatedDate(reminder['endDate'], format); }
-    else if ( this.endingType == 3 ) { reminder['endDate'] = moment(reminder['startDate']).add(reminder['daysAmount'], 'days').format(format)}
-
+    else if ( this.endingType == 2 ) { 
+      reminder['endDate'] = this.formatedDate(reminder['endDate'], format); 
+    }
+    else if ( this.endingType == 3 ) { 
+      reminder['endDate'] = moment(reminder['startDate']).add(reminder['daysAmount'], 'days').format(format)
+    }
     delete reminder.daysAmount;
     delete reminder.endingType;
 
-    reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
+    if ( reminder['grammage'] == '' || reminder['grammage'] == null) {
+      delete reminder.grammage;
+    }
+    if ( reminder['inventory'] == '' || reminder['inventory'] == null ) {
+      delete reminder.inventory;
+    }
 
+    reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
     reminder['timeNotification'] = reminder['timeNotification'].slice(0,2) + ':' + reminder['timeNotification'].slice(2,4);
 
     console.log(reminder);

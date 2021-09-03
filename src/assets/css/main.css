@@ -1,4 +1,9 @@
 /*//////////////////////////////////////////////////////////////////
+[ Outlined icons ]*/
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+/*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
 @font-face {
@@ -466,8 +471,8 @@ input[type='image'] {
 .reminder-box {
     border-radius: 20px;
     width: 325px;
-    height: 350px;
-    padding: 20px 20px 0 20px;
+    height: auto;
+    padding: 20px;
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 5px 1px #bfb3d6;
     margin: 8px;
@@ -492,7 +497,7 @@ input[type='image'] {
 .box-reminder-medication {
     font-family: Poppins-Regular;
     color: black;
-    font-size: 15px;
+    font-size: 14px;
     margin: 2% 1%;
 }
 
@@ -751,6 +756,11 @@ input[type='image'] {
 .div-border-rigth {
     border-right: 2px solid #bbb;
     border-radius: 2px;
+    padding: 0px 30px 0px 0px;
+}
+
+.div-center {
+    padding: 0;
 }
 
 .register-role {
@@ -782,8 +792,13 @@ input[type='image'] {
     color: gray;
 }
 
-.pill-label-check:hover {
+.pill-label-check2 {
     font-family: Poppins-Regular;
+    color: #6c767d;
+}
+
+.pill-label-check:hover,
+.pill-label-check2:hover {
     color: #6626db;
     transition: 200ms;
     cursor: pointer;
@@ -827,6 +842,10 @@ input[type='image'] {
     display: block;
 }
 
+.form-check-input:hover {
+    cursor: pointer;
+}
+
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -843,7 +862,7 @@ input[type='image'] {
 /*---------------------------------------------*/
 
 .cont-start-date {
-    margin-bottom: 22.5px;
+    margin-bottom: 15px;
 }
 
 mat-select {
@@ -1324,7 +1343,10 @@ footer {
         width: 320px;
     }
     .container-home {
-        padding: 0px 10% 15px 10%;
+        padding: 0px 6% 15px 6%;
+    }
+    .container-reminder {
+        padding: 5% 3% 10% 3%;
     }
     .container-home-title {
         padding: 15px 20px 15px 20px;
@@ -1342,19 +1364,23 @@ footer {
         border-right: none;
         border-bottom: 2px solid #bbb;
         border-radius: 2px;
-        padding-bottom: 20px;
+        padding: 0 4% 10% 4%;
     }
     .div-border-left {
         border-left: none;
         border-top: 2px solid #bbb;
         border-radius: 2px;
-        padding-top: 15px;
+        padding: 15px 4% 0 4%;
+    }
+    .div-center {
+        padding: 0 4%;
     }
     .pill-reminder-btn {
         width: 100%;
     }
     .reminder-box {
         height: auto;
+        width: 100%;
     }
 }
 

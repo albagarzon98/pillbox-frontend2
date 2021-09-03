@@ -66,19 +66,26 @@
             <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="reminder.unit == 'unidad(es)'">
 
             <!-- Se muestran los datos del recordatorio -->
-            <p class="box-reminder-medication-name">{{reminder.medicationName}}</p>
+            <p class="box-reminder-medication-name">{{reminder.medicationName}} {{reminder['grammage'] == null ? '':reminder['grammage'] + 'mg'}}</p>
             <span class="box-reminder-medication"> 
-                <img class="unit-image" src="../../../assets/images/meds.png" alt="">
-                Dosis: {{reminder.dose}}</span>
+                <mat-icon svgIcon="pill_icon"></mat-icon>
+                &nbsp; Dosis: {{reminder.dose}}</span>
             <span class="box-reminder-medication">{{reminder.unit}}</span>
             <p class="box-reminder-medication">
-                <img class="unit-image" src="../../../assets/images/reloj.png" alt=""> Frecuencia: {{reminder.frequency}}
+                <mat-icon class="material-icons-outlined">watch_later</mat-icon>
+                &nbsp; Frecuencia: {{reminder.frequency}}
             </p>
             <p class="box-reminder-medication">
-                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de inicio: {{reminder.startDate}}
+                <mat-icon>event</mat-icon>
+                &nbsp; Fecha de inicio: {{reminder.startDate}}
             </p>
             <p class="box-reminder-medication">
-                <img class="unit-image" src="../../../assets/images/calendar.png" alt=""> Fecha de finalización: {{reminder.endDate}} <span *ngIf="!reminder.endDate">--/--/--</span>
+                <mat-icon>event</mat-icon>
+                &nbsp; Fecha de finalización: {{reminder.endDate}} <span *ngIf="!reminder.endDate">--/--/--</span>
+            </p>
+            <p class="box-reminder-medication">
+                <mat-icon class="material-icons-outlined">medication</mat-icon>
+                &nbsp; Stock: {{reminder.inventory}} <span *ngIf="!reminder.inventory">--</span>
             </p>
 
         </div>
@@ -100,7 +107,7 @@
             </span>
 
             <span class="form-reminder-title p-b-15 p-t-10" *ngIf="reminderAction != 'newReminder'">
-                {{medName}}
+                {{medName}} {{modifyGrammage == null ? '':modifyGrammage + 'mg'}}
             </span>
 
             <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
@@ -126,10 +133,10 @@
                         </span>
 
                         <!-- Campo Nombre -->
-                        <div class="mb-4" *ngIf="reminderAction != 'checkReminder'">
-                            <label class="pill-label-reminder" for="medicationName">Nombre:</label>
+                        <div class="mb-3" *ngIf="reminderAction != 'checkReminder'">
+                            <label class="pill-label-reminder" for="medicationName">Nombre del medicamento:</label>
 
-                            <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
+                            <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Ibuprofeno" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
                             && FormReminder.controls.medicationName.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.medicationName.touched || submitted) 
@@ -139,31 +146,12 @@
 
                         </div>
 
-                        <!--campo Dosis-->
-                        <div class="mb-4">
-                            <label class="pill-label-reminder">Dosis:</label>
-
-                            <input class="form-control form-reminder-input" formControlName="dose" name="dose" placeholder="Cantidad de unidades" [ngClass]="{'is-invalid': (FormReminder.controls.dose.touched || submitted)  
-                            && FormReminder.controls.dose.errors}" />
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.dose.touched || submitted) 
-                            && FormReminder.controls.dose.errors?.required">
-                                Este campo es obligatorio.
-                            </div>
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.dose.touched || submitted) 
-                            && FormReminder.controls.dose.errors?.pattern">
-                                Dato numérico.
-                                <br> Máximo 7 caracteres.
-                            </div>
-
-                        </div>
 
                         <!-- Campo unidad -->
-                        <div class="mb-1">
+                        <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Unidad:</label>
 
-                            <mat-select class="form-control" name="unit" formControlName="unit" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
+                            <mat-select class="form-control" name="unit" formControlName="unit" placeholder="comprimido(s)" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
                             && FormReminder.controls.unit.errors}">
                                 <mat-option class="poppins-regular" *ngFor="let unit of units" [value]="unit.description">
                                     {{unit.description}}
@@ -175,9 +163,66 @@
                                 Este campo es obligatorio.
                             </div>
                         </div>
+
+                        <!--campo Dosis-->
+                        <div class="mb-3">
+                            <label class="pill-label-reminder">Dosis:</label>
+
+                            <input class="form-control form-reminder-input" formControlName="dose" name="dose" placeholder="1" [ngClass]="{'is-invalid': (FormReminder.controls.dose.touched || submitted)  
+                            && FormReminder.controls.dose.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.dose.touched || submitted) 
+                            && FormReminder.controls.dose.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.dose.touched || submitted) 
+                            && FormReminder.controls.dose.errors?.pattern">
+                                Dato numérico.
+                                <br> Máximo 5 caracteres.
+                            </div>
+
+                        </div>
+
+                        <!-- Gramaje: Check -->
+                        <!-- <div class="mt-7 form-check">
+                            <input (change)="checkBoxValue($event)" class="form-check-input" value="angular" type="checkbox" id="exampleCheck1" />
+                            <label class="pill-label-check2" for="exampleCheck1">Gramaje</label>
+                        </div> -->
+
+                        <!--campo Gramaje-->
+                        <div class="mt-3">
+                            <label class="pill-label-reminder">Gramaje, en mg (opcional):</label>
+
+                            <input class="form-control form-reminder-input" formControlName="grammage" name="grammage" [placeholder]="reminderAction == 'checkReminder' ? '':'600'" [ngClass]="{'is-invalid': (FormReminder.controls.grammage.touched || submitted)  
+                            && FormReminder.controls.grammage.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.grammage.touched || submitted) 
+                            && FormReminder.controls.grammage.errors?.pattern">
+                                Dato numérico.
+                                <br> Máximo 5 caracteres.
+                            </div>
+
+                        </div>
+
+                        <!--campo Stock-->
+                        <div class="mt-3">
+                            <label class="pill-label-reminder">Stock (opcional):</label>
+
+                            <input class="form-control form-reminder-input" formControlName="inventory" name="inventory" [placeholder]="reminderAction == 'checkReminder' ? '':'8'" [ngClass]="{'is-invalid': (FormReminder.controls.inventory.touched || submitted)  
+                            && FormReminder.controls.inventory.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.inventory.touched || submitted) 
+                            && FormReminder.controls.inventory.errors?.pattern">
+                                Dato numérico.
+                                <br> Máximo 5 caracteres.
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="col m-2">
+                    <div class="col div-center m-2">
 
                         <span class="reminder-label">
                             Duración
@@ -188,7 +233,7 @@
 
                             <label class="pill-label-reminder">Fecha de inicio:</label>
 
-                            <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;" formControlName="startDate" name="startDate" placeholder="Ingrese la fecha" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
+                            <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;" formControlName="startDate" name="startDate" placeholder="27/11/2021" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
                             && FormReminder.controls.startDate.errors}" />
                             <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker" style="color:#6626db;"></mat-datepicker-toggle>
                             <mat-datepicker touchUi #picker></mat-datepicker>
@@ -201,7 +246,7 @@
                         </div>
 
                         <!-- Campo Finalización -->
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Finalización:</label>
                             <mat-select class="form-control" formControlName="endingType" name="endingType" placeholder="Seleccione una opción" [(value)]="endingType" [ngClass]="{'is-invalid': (FormReminder.controls.endingType.touched || submitted)  
                             && FormReminder.controls.endingType.errors}">
@@ -221,7 +266,7 @@
 
                             <label class="pill-label-reminder">Fecha de finalización:</label>
 
-                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="Ingrese la fecha" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
+                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="17/08/2022" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
                             && FormReminder.controls.endDate.errors}" />
                             <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd" style="color:#6626db;"></mat-datepicker-toggle>
                             <mat-datepicker touchUi #pickerEnd></mat-datepicker>
@@ -237,7 +282,7 @@
                         <div *ngIf="endingType == 3">
                             <label class="pill-label-reminder">Cantidad de días:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="daysAmount" name="daysAmount" placeholder="Ingresa un número" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="daysAmount" name="daysAmount" placeholder="30" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
                             && FormReminder.controls.daysAmount.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.daysAmount.touched || submitted) 
@@ -262,7 +307,7 @@
                         </span>
 
                         <!-- Campo Frecuencia -->
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Frecuencia:</label>
 
                             <mat-select class="form-control poppins-regular" name="frequency" formControlName="frequency" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.frequency.touched || submitted)  
@@ -283,7 +328,7 @@
                         <div class="mb-1">
                             <label class="pill-label-reminder" for="unit">Hora:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="20:30" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
                             && FormReminder.controls.timeNotification.errors}">
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 
@@ -312,7 +357,4 @@
 
         </div>
     </div>
-
-
-
 </div>

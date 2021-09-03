@@ -4,5 +4,7 @@ export class Reminder {
     unit: string;
     frequency: string;
     medicationName: string;
-    dose: number
+    dose: number;
+    inventory: number;
+    grammage: number
 }
