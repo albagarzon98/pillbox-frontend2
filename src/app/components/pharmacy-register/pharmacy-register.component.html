@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 cont-farmaceutica cont-pharm-reg">
+            <img class="logo-pharm-register" src="../../../assets/images/logo-navbar.png" alt="">
+            <h1 class="reg-pharm-title">¡Registrá tu farmacia!</h1>
+            <p class="m-b-50" style="color: #041d41">
+                Registrate en simples pasos y brinda a tus clientes una nueva forma de gestionar sus medicamentos.
+            </p>
+        </div>
+        <div class="col-lg-6 cont-pharm-form">
+            <div class="login-container">
+
+                <span class="pharm-form-title p-b-20 p-t-10">
+                    Registro de tu farmacia
+                </span>
+
+                <!-- Campo Nombre -->
+                <div class="mb-4">
+                    <label class="pill-label-form" for="Name">Nombre del local:</label>
+
+                    <input type="text" class="form-control input100" placeholder="Escribe aquí el nombre" />
+
+                    <!-- <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
+                    && FormRegister.controls.Name.errors}" /> -->
+
+                    <!-- <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                    && FormRegister.controls.Name.errors?.required">
+                        Este campo es obligatorio.
+                    </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                    && (FormRegister.controls.Name.errors?.minlength || FormRegister.controls.Name.errors?.maxlength) ">
+                        Mínimo 4 caracteres.
+                    </div> -->
+                </div>
+                <!-- Campo Nombre -->
+                <div class="mb-4">
+                    <label class="pill-label-form" for="Name">Cantidad de sucursales:</label>
+
+                    <input type="text" class="form-control input100" placeholder="1" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

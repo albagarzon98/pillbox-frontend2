@@ -33,6 +33,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if ( localStorage.getItem('token') ) {
+      this.router.navigateByUrl('/home');
+    }
+    
     this.FormRegister = this.formBuilder.group({
       Name: [
         '',

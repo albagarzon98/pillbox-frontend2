@@ -105,6 +105,33 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Navbar ]*/
 
+.pharmacy-icon {
+    transform: scale(0.9);
+    margin: 0 5px 0 0;
+}
+
+.pharmacy-register-button {
+    border: #5cf3ba solid 2px;
+    border-radius: 20px;
+    height: 36px;
+    width: auto;
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    text-align: center;
+    display: inline-block;
+    padding: 2px 20px;
+    font-size: 14px;
+    transition: 300ms !important;
+    margin-right: 15px;
+}
+
+.pharmacy-register-button:hover {
+    color: #6626db;
+    background-color: #5cf3ba;
+    transition: 300ms !important;
+    box-shadow: 1px 1px 4px 2px #8153d6;
+}
+
 .navbar-toggler {
     border: none;
 }
@@ -168,7 +195,6 @@ body {
     font-family: Poppins-Regular !important;
     color: rgb(190, 174, 174) !important;
     font-size: 90%;
-    /* filter: grayscale(100%) opacity(0.7); */
     transition: 250ms;
     position: relative;
     bottom: 2px;
@@ -223,12 +249,8 @@ nav .navbar-nav li a {
 }
 
 .home-register-button:hover {
-    border-radius: 20px;
     color: #6626db;
     background-color: #5cf3ba;
-    font-family: Poppins-Bold;
-    text-align: center;
-    display: inline-block;
     transition: 300ms !important;
     box-shadow: 1px 1px 20px 2px #8153d6;
 }
@@ -341,7 +363,7 @@ nav .navbar-nav li a {
 }
 
 .img-role {
-    width: 350px;
+    width: 100%;
 }
 
 .img-role:hover {
@@ -1212,7 +1234,13 @@ footer {
 
 
 /*//////////////////////////////////////////////////////////////////
-[ Homepage ]*/
+[ pharmacy-register ]*/
+
+.cont-pharm-reg {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/farmaceutica.jpg");
+    height: 100%;
+    background-size: cover;
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -1337,10 +1365,11 @@ footer {
         padding-right: 10px;
     }
     .img-role {
-        width: 200px;
+        width: 60%;
     }
     .login-container {
-        width: 320px;
+        width: auto;
+        padding: 10%;
     }
     .container-home {
         padding: 0px 6% 15px 6%;
@@ -1381,6 +1410,50 @@ footer {
     .reminder-box {
         height: auto;
         width: 100%;
+    }
+    .pharmacy-register-button {
+        width: 75%;
+        margin: 0 auto;
+    }
+    .pharmacy-icon {
+        transform: scale(0.75);
+        margin: 0 5px 0 0;
+    }
+    .cont-farmaceutica {
+        padding: 10% 5%;
+        width: 100%;
+    }
+    .logo-pharm-register {
+        width: 70%;
+        margin: 5% auto;
+    }
+    .reg-pharm-title {
+        font-size: 160%;
+        color: #041d41;
+        margin: 5% 0;
+    }
+    .cont-pharm-reg {
+        background-position: 80% 0%;
+    }
+    .cont-pharm-form {
+        position: absolute;
+        top: 51%;
+    }
+    .pharm-form-title {
+        font-family: Poppins-Bold;
+        font-size: 180%;
+        color: #041d41;
+        margin: 5% 0;
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height:670px) {
+    .cont-pharm-form {
+        position: absolute;
+        top: 57%;
     }
 }
 

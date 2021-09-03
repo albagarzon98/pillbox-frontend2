@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if ( localStorage.getItem('token') ) {
+      this.router.navigateByUrl('/home');
+    }
+    
     //Se inicializan las variables de control del formulario, con sus validadores
     this.FormLogin = this.formBuilder.group({
       Email: [
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit {
       ],
       RememberAccount: [false]
     });
-
+    
     //Si se encuentra almacenada una cuenta de email en el localStorage, se asigna ese mail al usuario,
     //se setea el check "Recordar cuenta" en true, y se muestran estos valores en el form
     if ( localStorage.getItem('email') ){

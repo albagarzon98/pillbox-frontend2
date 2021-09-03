@@ -17,6 +17,10 @@ export class AppComponent {
       'pill_icon',
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/images/pill_icon.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      'pharmacy',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/images/pharmacy_icon.svg")
+    );
   }
 
   title = 'PillBox-FrontEnd';

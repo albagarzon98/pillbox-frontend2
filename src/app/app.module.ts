@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FooterComponent } from './components/footer/footer.component';
+import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FooterComponent } from './components/footer/footer.component';
     MenuComponent,
     HomepageComponent,
     ReminderComponent,
-    FooterComponent
+    FooterComponent,
+    PharmacyRegisterComponent
   ],
   imports: [
     BrowserModule,
