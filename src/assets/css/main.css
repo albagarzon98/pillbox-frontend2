@@ -1246,10 +1246,58 @@ footer {
 /*//////////////////////////////////////////////////////////////////
 [ pharmacy-register ]*/
 
-.cont-pharm-reg {
+.cont-pharmacy {
     background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/farmaceutica.jpg");
     height: 100%;
     background-size: cover;
+    background-attachment: fixed;
+}
+
+.cont-pharm-form {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    padding: 5% 10% 5% 0;
+}
+
+.reg-pharm-title {
+    font-size: 220%;
+    color: #041d41;
+    margin: 5% 0;
+}
+
+.pharm-form-title {
+    font-family: Poppins-Bold;
+    font-size: 200%;
+    color: #041d41;
+    margin: 5% 0;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.pharm-form {
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    padding: 5% 10%;
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0px 0px 10px 1px #bfb3d6;
+    ;
+}
+
+.p-pharm {
+    color: #041d41;
+    font-size: 120%;
+}
+
+.cont-pharm-reg {
+    padding: 5% 10%;
+}
+
+.logo-pharm-register {
+    width: 60%;
+    margin: 0 0 10% 0;
 }
 
 
@@ -1429,10 +1477,6 @@ footer {
         transform: scale(0.75);
         margin: 0 5px 0 0;
     }
-    .cont-farmaceutica {
-        padding: 10% 5%;
-        width: 100%;
-    }
     .logo-pharm-register {
         width: 70%;
         margin: 5% auto;
@@ -1443,13 +1487,18 @@ footer {
         margin: 5% 0;
     }
     .cont-pharm-reg {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/farmaceutica.jpg");
+        height: 100%;
+        background-size: cover;
         background-position: 80% 0%;
         margin-bottom: 250%;
+        padding: 10% 5%;
+        width: 100%;
     }
     .cont-pharm-form {
         position: absolute;
         padding: 0 5%;
-        top: 50%;
+        top: 52%;
     }
     .pharm-form-title {
         font-family: Poppins-Bold;
@@ -1460,12 +1509,22 @@ footer {
         display: block;
         width: 100%;
     }
+    .cont-pharmacy {
+        background-image: none;
+    }
 }
 
-@media only screen and (max-height:670px) {
+@media only screen and (max-width:480px) and (max-height:670px) {
     .cont-pharm-form {
         position: absolute;
-        top: 57%;
+        top: 60%;
+    }
+}
+
+@media only screen and (max-width:480px) and (min-height:850px) {
+    .cont-pharm-form {
+        position: absolute;
+        top: 45%;
     }
 }
 
@@ -1505,6 +1564,9 @@ footer {
     }
     .btn-reminder-image {
         width: 15px;
+    }
+    .cont-pharm-form {
+        padding: 0 3%;
     }
 }
 
