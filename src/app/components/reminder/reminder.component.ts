@@ -76,6 +76,7 @@ export class ReminderComponent implements OnInit {
   addReminder() {
     this.reminderAction = 'newReminder';
     this.unit = '';
+    this.FormReminder.controls['dose'].patchValue(1);
   }
 
   volver() {
@@ -237,8 +238,6 @@ export class ReminderComponent implements OnInit {
 
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
-
-    console.log(this.FormReminder.value.endDate);
     
     if ( this.FormReminder.value.endDate == null || this.FormReminder.value.endDate == '' && this.endingType != 2) {
       this.FormReminder.patchValue({endDate: today});

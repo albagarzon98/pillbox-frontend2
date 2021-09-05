@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FooterComponent } from './components/footer/footer.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
+import { IconModule } from '../app/icon.module'
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PharmacyRegisterComponent } from './components/pharmacy-register/pharma
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    IconModule,
     MatMenuModule,
     MatSelectModule,
     MatDividerModule,

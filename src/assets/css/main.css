@@ -169,7 +169,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 body {
-    padding-top: 56px;
+    padding-top: 54px;
     padding-bottom: 56px;
 }
 
@@ -264,21 +264,20 @@ nav .navbar-nav li a {
 }
 
 .slide-icon3 {
-    width: 15%;
+    transform: scale(5);
+    color: #5cf3ba;
     position: relative;
-    right: 300px;
-    bottom: 160px;
-    margin-top: 5%;
-    margin-bottom: 2%;
-    animation: fadeInLeft 2s;
+    right: 30%;
+    bottom: 22vh;
+    animation: fadeIn 2s;
 }
 
 .h1-pill {
     color: #6626db;
     font-size: 475%;
     position: relative;
-    right: 300px;
-    top: 175px;
+    right: 44vh;
+    top: 36vh;
     animation: fadeInLeft 2s;
     animation-delay: 500ms;
     animation-fill-mode: forwards;
@@ -289,8 +288,8 @@ nav .navbar-nav li a {
     color: #5cf3ba;
     font-size: 475%;
     position: relative;
-    right: 300px;
-    bottom: 275px;
+    right: 50vh;
+    bottom: 30vh;
     animation: fadeInLeft 2s;
 }
 
@@ -298,8 +297,8 @@ nav .navbar-nav li a {
     color: #5cf3ba;
     font-size: 475%;
     position: relative;
-    right: 300px;
-    bottom: 145px;
+    right: 44vh;
+    bottom: 32vh;
     animation: fadeInLeft 2s;
 }
 
@@ -317,8 +316,8 @@ nav .navbar-nav li a {
     font-family: Poppins-Regular;
     font-size: 175%;
     position: relative;
-    bottom: 150px;
-    left: 250px;
+    bottom: 10vh;
+    left: 42vh;
     animation: fadeInRight 2s;
     animation-delay: 500ms;
     animation-fill-mode: forwards;
@@ -330,8 +329,8 @@ nav .navbar-nav li a {
     font-family: Poppins-Regular;
     font-size: 175%;
     position: relative;
-    bottom: 225px;
-    right: 300px;
+    bottom: 24vh;
+    right: 50vh;
     animation: fadeInLeft 2s;
 }
 
@@ -340,8 +339,8 @@ nav .navbar-nav li a {
     font-family: Poppins-Regular;
     font-size: 175%;
     position: relative;
-    bottom: 150px;
-    right: 300px;
+    bottom: 10vh;
+    right: 44vh;
     animation: fadeInLeft 2s;
 }
 
@@ -391,13 +390,34 @@ input[type='image'] {
 
 .logo-homepage {
     position: relative;
-    top: 250px;
-    right: 325px;
+    top: 50vh;
+    right: 48vh;
     width: 15%;
     animation: fadeInLeft 2s;
     animation-delay: 500ms;
     animation-fill-mode: forwards;
     opacity: 0;
+}
+
+.carousel-inner .sizing {
+    width: 100%;
+    height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.fondo-slide-1 {
+    background: url(../images/fondo-slide-1.png) no-repeat center center fixed;
+}
+
+.fondo-slide-2 {
+    background: url(../images/fondo-slide-2.png) no-repeat center center fixed;
+}
+
+.fondo-slide-3 {
+    background: url(../images/fondo-slide-3.png) no-repeat center center fixed;
 }
 
 
@@ -1108,7 +1128,6 @@ mat-select .mat-select-placeholder {
     height: 52px;
     background-color: #371BBA;
     color: #5cf3ba;
-    /* border: 2px solid #5cf3ba; */
     border-radius: 3px;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -1116,7 +1135,7 @@ mat-select .mat-select-placeholder {
     transition: all 0.4s;
 }
 
-.login100-form-btn:hover {
+.pill-form-btn:hover {
     background-color: #6626db;
 }
 
@@ -1270,10 +1289,10 @@ footer {
     font-family: Poppins-Bold;
     font-size: 200%;
     color: #041d41;
-    margin: 5% 0;
     text-align: center;
     display: block;
     width: 100%;
+    margin: 5% 0;
 }
 
 .pharm-form {
@@ -1491,7 +1510,7 @@ footer {
         height: 100%;
         background-size: cover;
         background-position: 80% 0%;
-        margin-bottom: 250%;
+        margin-bottom: 280%;
         padding: 10% 5%;
         width: 100%;
     }

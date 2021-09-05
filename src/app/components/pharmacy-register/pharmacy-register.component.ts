@@ -28,6 +28,8 @@ export class PharmacyRegisterComponent implements OnInit {
   }
 
   onSubmit( form: FormGroup ) {
+    this.submitted = true;
+    if ( form.invalid ) { return; }
 
   }
 

@@ -12,12 +12,12 @@
 
                 <form (ngSubmit)="onSubmit( FormPharmacy )" name="FormPharmacy" [formGroup]='FormPharmacy'>
 
-                    <span class="pharm-form-title p-b-20 p-t-10">
+                    <span class="pharm-form-title">
                         Registro de tu farmacia
                     </span>
 
                     <!-- Campo Nombre del local-->
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Nombre del local:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="pharmacyName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.pharmacyName.touched || submitted)  
@@ -37,7 +37,7 @@
 
                     <!-- Campo Cantidad de sucursales -->
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Cantidad de sucursales:</label>
 
                         <input class="form-control form-reminder-input" formControlName="branchOffices" mask="9999" name="branchOffices" placeholder="Escribe aquí la cantidad" [ngClass]="{'is-invalid': (FormPharmacy.controls.branchOffices.touched || submitted)  
@@ -56,7 +56,7 @@
                     </div>
 
                     <!-- Campo Nombre -->
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Nombre:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="ownerName" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.ownerName.touched || submitted)  
@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Campo Apellido -->
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Apellido:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="ownerLastName" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.ownerLastName.touched || submitted)  
@@ -102,7 +102,7 @@
                     </div>
 
                     <!-- Campo Teléfono de contacto -->
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Teléfono de contacto:</label>
 
                         <input class="form-control form-reminder-input" formControlName="phone" mask="(000) 000-0000" name="phone" placeholder="(351) 123-4567" [ngClass]="{'is-invalid': (FormPharmacy.controls.phone.touched || submitted)  
@@ -116,7 +116,7 @@
                     </div>
 
                     <!-- Campo Correo electrónico -->
-                    <div class="mb-3">
+                    <div class="mb-4">
 
                         <label class="pill-label-reminder">Email:</label>
 
@@ -134,10 +134,10 @@
                     </div>
 
                     <!-- Campo Dirección -->
-                    <div class="mb-3">
+                    <div class="mb-5">
                         <label class="pill-label-reminder">Dirección del local:</label>
 
-                        <input matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.address.touched || submitted)  
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Escribe aquí la dirección" [ngClass]="{'is-invalid':    (FormPharmacy.controls.address.touched || submitted)  
                         && FormPharmacy.controls.address.errors}" />
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.address.touched || submitted) 
@@ -155,6 +155,8 @@
                             Ingresa un texto válido.
                         </div>
                     </div>
+
+                    <button type="submit" class="pill-form-btn">Comenzar</button>
 
                 </form>
 
