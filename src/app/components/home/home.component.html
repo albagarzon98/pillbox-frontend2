@@ -10,10 +10,10 @@
             <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
             <span class="box-title">Medicamentos</span>
         </div>
-        <!-- <div class="home-box" routerLink="/reminder" (mouseover)="showDescReminder=true" (mouseout)="showDescReminder=false">
-            <img class="box-image" src="../../../assets/images/alarm-clock.png" alt="">
-            <span class="box-title">Recordatorios</span>
-        </div> -->
+        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false">
+            <img class="box-image" src="../../../assets/images/pharmacy.png" alt="">
+            <span class="box-title">Farmacias</span>
+        </div>
         <!-- <div class="home-box" (mouseover)="showDescAppointment=true" (mouseout)="showDescAppointment=false">
             <img class="box-image" src="../../../assets/images/box-calendar.png" alt="">
             <span class="box-title">Sacar turno</span>
@@ -21,8 +21,8 @@
     </div>
 
     <div class="description-limiter">
-
         <span class="box-description" *ngIf="showDescMedicament">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
+        <span class="box-description" *ngIf="showDescPharmacy">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
     </div>
 
 </div>

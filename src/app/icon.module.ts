@@ -17,6 +17,7 @@ export class IconModule {
         .addSvgIcon('pill-icon', this.setPath(`${this.path}/pill_icon.svg`))
         .addSvgIcon('pharmacy', this.setPath(`${this.path}/pharmacy_icon.svg`))
         .addSvgIcon('playStore', this.setPath(`${this.path}/svg_playStore.svg`))
+        .addSvgIcon('mas', this.setPath(`${this.path}/mas.svg`))
     }
 
     private setPath (url:string): SafeResourceUrl {

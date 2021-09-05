@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
+import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 
 
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'reminder', component: ReminderComponent, canActivate: [ AuthGuard ] },
   { path: 'homepage', component: HomepageComponent },
   { path: 'pharmacyRegister', component: PharmacyRegisterComponent },
+  { path: 'pharmacy', component: PharmacyComponent, canActivate: [ AuthGuard ] },
   {path:'**', redirectTo:'homepage'}
 ];
 

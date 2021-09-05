@@ -8,8 +8,9 @@
             </span>
 
             <button class="home-reminder-button" (click)="addReminder()">
-                <img class="btn-reminder-image" src="../../../assets/images/signo-mas.png" alt="">
-                Nuevo
+                <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                <!-- <img class="btn-reminder-image" src="../../../assets/images/signo-mas.png" alt=""> -->
+                &nbsp;Nuevo
             </button>
 
             <a class="pill-back-button-reminder" routerLink="/home">
@@ -25,9 +26,13 @@
             Mis medicamentos
         </span>
 
-        <button class="new-reminder-btn m-b-30" (click)="addReminder()">
-            Nuevo
-        </button>
+        <div class="container-login100-form-btn">
+            <button class="new-reminder-btn m-b-30" (click)="addReminder()">
+                <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                &nbsp; Nuevo
+            </button>
+        </div>
+
 
 
 

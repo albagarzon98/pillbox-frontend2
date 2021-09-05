@@ -76,7 +76,7 @@ export class ReminderComponent implements OnInit {
   addReminder() {
     this.reminderAction = 'newReminder';
     this.unit = '';
-    this.FormReminder.controls['dose'].patchValue(1);
+    this.FormReminder.controls['dose'].patchValue('1');
   }
 
   volver() {

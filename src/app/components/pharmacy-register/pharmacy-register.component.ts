@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pharmacy-register',
@@ -31,6 +32,18 @@ export class PharmacyRegisterComponent implements OnInit {
     this.submitted = true;
     if ( form.invalid ) { return; }
 
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'success',
+      title: '¡Solicitud registrada!',
+      text:'Nos pondremos en contacto contigo una vez que hayamos verificado tus datos.'
+    });
   }
 
 }
