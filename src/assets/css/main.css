@@ -1616,6 +1616,9 @@ footer {
         display: block;
         width: 100%;
     }
+    .pharm-form {
+        padding-bottom: 10%;
+    }
     .cont-pharmacy {
         background-image: none;
     }
