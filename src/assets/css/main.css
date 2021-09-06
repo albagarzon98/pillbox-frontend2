@@ -818,6 +818,7 @@ input[type='image'] {
 
 .col-cont-pharm {
     margin: 3% 20%;
+    padding: 0;
 }
 
 .box-pharm {
@@ -1605,7 +1606,7 @@ footer {
     .cont-pharm-form {
         position: absolute;
         padding: 0 5%;
-        top: 60%;
+        top: 80%;
     }
     .pharm-form-title {
         font-family: Poppins-Bold;
@@ -1623,7 +1624,7 @@ footer {
         background-image: none;
     }
     .cont-search-input {
-        width: 60%;
+        width: 90%;
         padding: 0 3%;
     }
     .col-cont-pharm {
@@ -1643,14 +1644,14 @@ footer {
 @media only screen and (max-width:480px) and (max-height:670px) {
     .cont-pharm-form {
         position: absolute;
-        top: 60%;
+        top: 80%;
     }
 }
 
 @media only screen and (max-width:480px) and (min-height:850px) {
     .cont-pharm-form {
         position: absolute;
-        top: 45%;
+        top: 80%;
     }
 }
 
