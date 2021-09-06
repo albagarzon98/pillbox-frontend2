@@ -528,7 +528,8 @@ input[type='image'] {
     animation: fadeInUp 600ms;
 }
 
-.reminder-box:hover {
+.reminder-box:hover,
+.box-pharm:hover {
     transition: 300ms;
     background-color: white;
     box-shadow: 0px 0px 5px 1px #6626db;
@@ -808,10 +809,62 @@ input[type='image'] {
     background: transparent;
     width: 80%;
     margin: 0 0 0 4%;
+    color: #6626db;
 }
 
 .search-input:focus {
     outline: none;
+}
+
+.col-cont-pharm {
+    margin: 3% 20%;
+}
+
+.box-pharm {
+    border-radius: 5px;
+    width: 100%;
+    padding: 2%;
+    height: auto;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+    transition: 300ms;
+    animation: fadeInUp 600ms;
+    margin: 2% 0;
+}
+
+.box-pharm:hover {
+    cursor: pointer;
+}
+
+.cont-img-pharm {
+    border: black solid 1.5px;
+    border-radius: 7px;
+    width: 16%;
+    display: inline-block;
+}
+
+.img-pharm {
+    width: 100%;
+    height: auto;
+    border-radius: 7px;
+}
+
+.cont-text-pharm {
+    width: auto;
+    display: inline-block;
+    height: 100%;
+    margin: 0 0 0 2%;
+}
+
+.box-pharm-name {
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 16px;
+}
+
+.box-pharm-address {
+    font-size: 14px;
+    margin-bottom: 100%;
 }
 
 
@@ -1545,7 +1598,7 @@ footer {
         height: 100%;
         background-size: cover;
         background-position: 80% 0%;
-        margin-bottom: 280%;
+        margin-bottom: 340%;
         padding: 10% 5%;
         width: 100%;
     }

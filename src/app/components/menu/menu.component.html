@@ -18,6 +18,10 @@
         <div class="collapse navbar-collapse justify-content-end " id="navbarNavAltMarkup" *ngIf="isAuthenticated()">
             <div class="navbar-nav">
 
+                <button class="pharmacy-register-button" routerLink="/pharmacyRegister">
+                    <mat-icon class="pharmacy-icon" svgIcon="pharmacy"></mat-icon>
+                    Registrá tu farmacia
+                </button>
                 <a class="nav-link-user m-r-8 m-t-6" routerLink="/home">
 
                     {{readName()}}
