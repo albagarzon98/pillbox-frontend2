@@ -1600,13 +1600,13 @@ footer {
         background-size: cover;
         background-position: 80% 0%;
         margin-bottom: 340%;
-        padding: 10% 5%;
+        padding: 10% 5% 20% 5%;
         width: 100%;
     }
     .cont-pharm-form {
         position: absolute;
         padding: 0 5%;
-        top: 80%;
+        top: 52%;
     }
     .pharm-form-title {
         font-family: Poppins-Bold;
@@ -1644,14 +1644,14 @@ footer {
 @media only screen and (max-width:480px) and (max-height:670px) {
     .cont-pharm-form {
         position: absolute;
-        top: 80%;
+        top: 60%;
     }
 }
 
 @media only screen and (max-width:480px) and (min-height:850px) {
     .cont-pharm-form {
         position: absolute;
-        top: 80%;
+        top: 47%;
     }
 }
 
