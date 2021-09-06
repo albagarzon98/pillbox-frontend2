@@ -1623,6 +1623,18 @@ footer {
         width: 60%;
         padding: 0 3%;
     }
+    .col-cont-pharm {
+        margin: 5% 3%;
+    }
+    .box-pharm-name {
+        font-size: 12px;
+    }
+    .box-pharm-address {
+        font-size: 10px;
+    }
+    .cont-img-pharm {
+        width: 20%;
+    }
 }
 
 @media only screen and (max-width:480px) and (max-height:670px) {
