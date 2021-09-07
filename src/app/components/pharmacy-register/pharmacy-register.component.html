@@ -137,7 +137,7 @@
                     <div class="mb-3">
                         <label class="pill-label-reminder">Dirección del local:</label>
 
-                        <input matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Escribe aquí la dirección" [ngClass]="{'is-invalid':    (FormPharmacy.controls.address.touched || submitted)  
+                        <input #mapSearchField matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Buscar" [ngClass]="{'is-invalid':    (FormPharmacy.controls.address.touched || submitted)  
                         && FormPharmacy.controls.address.errors}" />
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.address.touched || submitted) 
@@ -149,26 +149,16 @@
                         && FormPharmacy.controls.address.errors?.maxlength">
                             Máximo 55 caracteres.
                         </div>
-
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.ownerLastName.touched || submitted) 
-                        && FormPharmacy.controls.ownerLastName.errors?.pattern">
-                            Ingresa un texto válido.
-                        </div>
                     </div>
 
 
                     <div class="map-container">
-                        <input #mapSearchField class="form-control form-reminder-input mb-2" type="text" placeholder="Buscar" />
-
                         <google-map width="100%" height="50vh" [center]="initialCoordinates" [options]="mapConfigurations"></google-map>
                     </div>
 
                     <button type="submit" class="pill-form-btn">Comenzar</button>
 
                 </form>
-
-
-
 
                 <!-- 1)Completa el formulario.
                 2)Te contactaremos para confirmar creación de farmacia.

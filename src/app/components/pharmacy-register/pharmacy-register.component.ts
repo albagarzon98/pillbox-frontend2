@@ -36,7 +36,7 @@ export class PharmacyRegisterComponent implements OnInit {
       ownerLastName: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
       phone: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
-      address: ['',[Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9\u00C0-\u00FF \']*$')]]
+      address: ['',[Validators.required, Validators.maxLength(55)]]
     })
   }
 

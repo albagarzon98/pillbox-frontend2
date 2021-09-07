@@ -623,7 +623,7 @@ input[type='image'] {
 
 .home-box {
     border-radius: 20px;
-    width: 25%;
+    width: 260px;
     height: auto;
     padding: 30px;
     background-color: rgba(240, 240, 240, 0.938);
@@ -1625,7 +1625,7 @@ footer {
         height: 100%;
         background-size: cover;
         background-position: 80% 0%;
-        margin-bottom: 340%;
+        margin-bottom: 380%;
         padding: 10% 5% 20% 5%;
         width: 100%;
     }

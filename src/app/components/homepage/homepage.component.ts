@@ -13,7 +13,6 @@ export class HomepageComponent implements OnInit {
   }
 
   screenWidth () {
-    console.log(`width: ${window.screen.width}`);
     return window.screen.width;
   }
 }
