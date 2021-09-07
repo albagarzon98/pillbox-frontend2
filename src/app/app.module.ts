@@ -6,12 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
+import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { InterceptorService } from './interceptors/interceptor.service';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -24,10 +28,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { FooterComponent } from './components/footer/footer.component';
-import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { IconModule } from '../app/icon.module';
-import { PharmacyComponent } from './components/pharmacy/pharmacy.component'
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { PharmacyComponent } from './components/pharmacy/pharmacy.component'
     MatMenuModule,
     MatSelectModule,
     MatDividerModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    GoogleMapsModule
   ],
   providers: [
     {

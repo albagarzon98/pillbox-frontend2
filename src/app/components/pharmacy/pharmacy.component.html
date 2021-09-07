@@ -13,33 +13,27 @@
     <div class="container">
         <div class="row">
             <div class="col col-cont-pharm">
-                <!-- *ngFor -->
-                <div class="box-pharm">
+
+                <div class="box-pharm" *ngFor="let pharmacy of pharmacies">
                     <div class="cont-img-pharm">
-                        <img class="img-pharm" src="../../../assets/images/farmacias-lider-logo.png" alt="">
+                        <img [src]="'../../../assets/images/logo-'+ pharmacy.imgName +'.png'" alt="">
                     </div>
                     <div class="cont-text-pharm">
+
                         <span class="box-pharm-name">
-                            Farmacia Líder - Barrio Jardín
+                            {{pharmacy.name}}</span>
+                        <span class="box-pharm-address">
+                            <mat-icon class="material-icons-outlined location-icon" >add_location</mat-icon>
+                            Dirección: {{pharmacy.address}}
                         </span>
                         <span class="box-pharm-address">
-                            Dirección: Av. Pablo Richieri 3116
+                            <mat-icon class="material-icons-outlined watch-icon">watch_later</mat-icon>
+
+                            Horario de atención: {{pharmacy.businessHours}}
                         </span>
                     </div>
                 </div>
-                <div class="box-pharm">
-                    <div class="cont-img-pharm">
-                        <img class="img-pharm" src="../../../assets/images/logo-farmacity.png" alt="">
-                    </div>
-                    <div class="cont-text-pharm">
-                        <span class="box-pharm-name">
-                            Farmacity 
-                        </span>
-                        <span class="box-pharm-address">
-                            Dirección: José Manuel Estrada 153
-                        </span>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

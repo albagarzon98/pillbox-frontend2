@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GoogleMap } from '@angular/google-maps';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,6 +10,17 @@ import Swal from 'sweetalert2';
 })
 export class PharmacyRegisterComponent implements OnInit {
 
+  //Maps
+  @ViewChild('mapSearchField') searchField: ElementRef;
+  @ViewChild(GoogleMap) map: GoogleMap;
+  initialCoordinates = {
+    lat: -31.420211, 
+    lng: -64.188854
+  }
+  mapConfigurations = {
+    zoomControl: true
+  }
+  
   FormPharmacy: FormGroup;
   submitted: boolean = false;
 
@@ -26,6 +38,32 @@ export class PharmacyRegisterComponent implements OnInit {
       email: ['',[Validators.required, Validators.email]],
       address: ['',[Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9\u00C0-\u00FF \']*$')]]
     })
+  }
+
+  ngAfterViewInit():void {
+    
+    const searchBox = new google.maps.places.SearchBox(
+      this.searchField.nativeElement,
+    );
+    
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces();
+      if ( places.length === 0 ) {
+        return;
+      }
+      const bounds = new google.maps.LatLngBounds();
+      places.forEach(place => {
+        if (!place.geometry || !place.geometry.location) {
+          return;
+        }
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      this.map.fitBounds(bounds);
+    });
   }
 
   onSubmit( form: FormGroup ) {

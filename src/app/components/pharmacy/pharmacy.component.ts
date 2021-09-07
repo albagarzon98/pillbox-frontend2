@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PharmacyService } from '../../services/pharmacy.service';
+import { Pharmacy } from '../../models/pharmacy';
 
 @Component({
   selector: 'app-pharmacy',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PharmacyComponent implements OnInit {
 
-  constructor() { }
+  pharmacies: Pharmacy[];
+  
+  constructor(
+    private pharmacyService: PharmacyService
+  ) { }
 
   ngOnInit(): void {
+    this.getPharmacies();
+  }
+
+  getPharmacies () {
+    this.pharmacyService.get().subscribe( (res: Pharmacy[]) => {
+      this.pharmacies = res;
+    });
   }
 
 }
