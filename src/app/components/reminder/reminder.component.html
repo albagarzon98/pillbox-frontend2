@@ -141,7 +141,7 @@
                         <div class="mb-3" *ngIf="reminderAction != 'checkReminder'">
                             <label class="pill-label-reminder" for="medicationName">Nombre del medicamento:</label>
 
-                            <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Ibuprofeno" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
+                            <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Ingrese aquí el nombre" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
                             && FormReminder.controls.medicationName.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.medicationName.touched || submitted) 
@@ -156,7 +156,7 @@
                         <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Unidad:</label>
 
-                            <mat-select class="form-control" name="unit" formControlName="unit" placeholder="comprimido(s)" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
+                            <mat-select class="form-control" name="unit" formControlName="unit" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
                             && FormReminder.controls.unit.errors}">
                                 <mat-option class="poppins-regular" *ngFor="let unit of units" [value]="unit.description">
                                     {{unit.description}}
@@ -193,7 +193,7 @@
                         <div class="mt-3">
                             <label class="pill-label-reminder">Gramaje, en mg (opcional):</label>
 
-                            <input class="form-control form-reminder-input" formControlName="grammage" name="grammage" [placeholder]="reminderAction == 'checkReminder' ? '':'600'" [ngClass]="{'is-invalid': (FormReminder.controls.grammage.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="grammage" name="grammage" [placeholder]="reminderAction == 'checkReminder' ? '':'Ingrese aquí el gramaje'" [ngClass]="{'is-invalid': (FormReminder.controls.grammage.touched || submitted)  
                             && FormReminder.controls.grammage.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.grammage.touched || submitted) 
@@ -208,7 +208,7 @@
                         <div class="mt-3">
                             <label class="pill-label-reminder">Stock (opcional):</label>
 
-                            <input class="form-control form-reminder-input" formControlName="inventory" name="inventory" [placeholder]="reminderAction == 'checkReminder' ? '':'8'" [ngClass]="{'is-invalid': (FormReminder.controls.inventory.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="inventory" name="inventory" [placeholder]="reminderAction == 'checkReminder' ? '':'Cantidad de unidades'" [ngClass]="{'is-invalid': (FormReminder.controls.inventory.touched || submitted)  
                             && FormReminder.controls.inventory.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.inventory.touched || submitted) 
@@ -265,7 +265,7 @@
 
                             <label class="pill-label-reminder">Fecha de finalización:</label>
 
-                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="17/08/2022" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
+                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
                             && FormReminder.controls.endDate.errors}" />
                             <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd" style="color:#6626db;"></mat-datepicker-toggle>
                             <mat-datepicker touchUi #pickerEnd></mat-datepicker>
