@@ -874,6 +874,7 @@ input[type='image'] {
 }
 
 .box-pharm-address {
+    height: 20%;
     display: block;
     font-size: 12px;
 }
@@ -1657,9 +1658,11 @@ footer {
     }
     .box-pharm-name {
         font-size: 12px;
+        height: 22%;
     }
     .box-pharm-address {
         font-size: 10px;
+        height: 22%;
     }
     .cont-img-pharm {
         width: 20%;
