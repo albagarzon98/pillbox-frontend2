@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if ( localStorage.getItem('token') ) {
-      this.router.navigateByUrl('/home');
+    if ( localStorage.getItem('role') ) {
+      this.navigateByRole(localStorage.getItem('role'));
     }
     
     //Se inicializan las variables de control del formulario, con sus validadores
@@ -57,6 +57,21 @@ export class LoginComponent implements OnInit {
       this.FormLogin.patchValue({Email: this.user.email});
     }
 
+  }
+
+  navigateByRole ( role:string ) {
+    if ( role === 'admin') {
+      this.router.navigateByUrl('/homeAdmin');
+    }
+    if ( role === 'tutor') {
+      this.router.navigateByUrl('/homeTutor');
+    }
+    if ( role === 'farmaceutico') {
+      this.router.navigateByUrl('/homePharmacist');
+    }
+    if ( role === 'paciente') {
+      this.router.navigateByUrl('/home');
+    }
   }
 
   login (form: FormGroup) {
@@ -94,7 +109,7 @@ export class LoginComponent implements OnInit {
         }
 
         //Si el login se realiza de manera correcta, redirige al usuario a /home
-        this.router.navigateByUrl('/home');
+        this.navigateByRole(this.auth.getRole());
 
       }, (err) => {
         

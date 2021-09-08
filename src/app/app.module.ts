@@ -14,6 +14,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { InterceptorService } from './interceptors/interceptor.service';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
+import { HomeTutorComponent } from './components/home-tutor/home-tutor.component';
+import { HomePharmacistComponent } from './components/home-pharmacist/home-pharmacist.component'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
-import { GoogleMapsModule } from '@angular/google-maps'
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +46,10 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ReminderComponent,
     FooterComponent,
     PharmacyRegisterComponent,
-    PharmacyComponent
+    PharmacyComponent,
+    HomeAdminComponent,
+    HomeTutorComponent,
+    HomePharmacistComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div class="limiter login-background">
+<div class="limiter login-background" *ngIf="getPathName() === '/home'">
 
     <div class="container-home-title">
         <span class="home-title">
@@ -6,11 +6,11 @@
         </span>
     </div>
     <div class="container-home">
-        <div class="home-box" routerLink="/reminder" (mouseover)="showDescMedicament=true" (mouseout)="showDescMedicament=false">
+        <div class="home-box" routerLink="./reminder" (mouseover)="showDescMedicament=true" (mouseout)="showDescMedicament=false">
             <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
             <span class="box-title">Medicamentos</span>
         </div>
-        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false">
+        <div class="home-box" routerLink="./pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false">
             <img class="box-image" src="../../../assets/images/pharmacy.png" alt="">
             <span class="box-title">Farmacias</span>
         </div>
@@ -26,3 +26,4 @@
     </div>
 
 </div>
+<router-outlet></router-outlet>

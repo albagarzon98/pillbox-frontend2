@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
 
     if ( localStorage.getItem('token') ) {
-      this.router.navigateByUrl('/home');
+      this.navigateByRole(localStorage.getItem('token'));   
     }
     
     this.FormRegister = this.formBuilder.group({
@@ -146,6 +146,21 @@ export class RegisterComponent implements OnInit {
     this.registerAction = 'roleSelect';
   }
 
+  navigateByRole ( role:string ) {
+    if ( role === 'admin') {
+      this.router.navigateByUrl('/homeAdmin');
+    }
+    if ( role === 'tutor') {
+      this.router.navigateByUrl('/homeTutor');
+    }
+    if ( role === 'farmaceutico') {
+      this.router.navigateByUrl('/homePharmacist');
+    }
+    if ( role === 'paciente') {
+      this.router.navigateByUrl('/home');
+    }
+  }
+
   onSubmit( form: FormGroup ) {
     
     this.submitted = true;
@@ -177,7 +192,7 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem('email', this.user.email);
       }
 
-      this.router.navigateByUrl('/home');
+      this.navigateByRole(this.auth.getRole());
 
     }, (err)=>{
       console.log(err.error.message);

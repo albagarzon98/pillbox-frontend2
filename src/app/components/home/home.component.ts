@@ -25,4 +25,8 @@ export class HomeComponent implements OnInit {
     } 
   }
 
+  getPathName () {
+    return window.location.pathname;
+  }
+
 }

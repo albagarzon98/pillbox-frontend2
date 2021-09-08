@@ -14,6 +14,7 @@ export class AuthService {
 
   userToken: string;
   name: string;
+  roleAs: string;
   
   //Esta variable me permite mostrar ciertos <nav-link> del navBar según si el usuario está o no autenticado.
   isAuth: boolean;
@@ -46,7 +47,8 @@ export class AuthService {
     localStorage.removeItem('name');
     localStorage.removeItem('role');
 
-    
+    this.roleAs = '';
+
     //Cambiamos el valor de isAuth a true porque el usuario acaba de cerrar sesión
     this.isAuth = false;
 
@@ -67,6 +69,7 @@ export class AuthService {
     ).pipe(
       map( resp => {
         this.saveToken( resp['tokens']['access']['token'] );
+        this.saveRole( resp['user']['role'] );
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de loguearse
         this.isAuth = true;
@@ -100,6 +103,7 @@ export class AuthService {
         
         //Guardamos el token de la respuesta
         this.saveToken( resp['tokens']['access']['token'] );
+        this.saveRole( resp['user']['role'] );
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de crear su cuenta
         this.isAuth = true;
@@ -121,11 +125,20 @@ export class AuthService {
     this.userToken = idToken;
     localStorage.setItem('token', idToken);
 
-    //A la fecha actual se le suma media hora, que es el tiempo de expiración del token y se almacena en el localStorage
+    //A la fecha actual se le suman dos horas, que es el tiempo de expiración del token y se almacena en el localStorage
     let today = new Date();
-    today.setSeconds(1800);
+    today.setSeconds(7200);
     localStorage.setItem( 'expira', today.getTime().toString() );
+  }
 
+  private saveRole ( role: string ) {
+    this.roleAs = role;
+    localStorage.setItem('role', role);
+  }
+
+  getRole() {
+    this.roleAs = localStorage.getItem('role');
+    return this.roleAs;
   }
 
   //Leer el token
