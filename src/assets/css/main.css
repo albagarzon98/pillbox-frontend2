@@ -1448,6 +1448,7 @@ footer {
     background-attachment: fixed;
     text-align: center;
     height: 100vh;
+    background-color: #6626db;
 }
 
 .logo-mobile {
