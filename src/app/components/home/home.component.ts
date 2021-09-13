@@ -29,4 +29,8 @@ export class HomeComponent implements OnInit {
     return window.location.pathname;
   }
 
+  screenWidth () {
+    return window.screen.width;
+  }
+
 }

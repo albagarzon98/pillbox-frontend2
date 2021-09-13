@@ -20,7 +20,7 @@
         </div> -->
     </div>
 
-    <div class="description-limiter">
+    <div class="description-limiter" *ngIf="screenWidth() > 1024">
         <span class="box-description" *ngIf="showDescMedicament">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
         <span class="box-description" *ngIf="showDescPharmacy">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
     </div>

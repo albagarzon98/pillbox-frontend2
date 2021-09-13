@@ -97,7 +97,7 @@
 
     </div>
 
-    <!-- El formulario se muestra cuando el usuario quiere agregar un nuevo medicamento  newReminder -->
+    <!-- El formulario se muestra cuando el usuario quiere agregar un nuevo medicamento, modificar un medicamento o consultar un medicamento -->
     <div class="container container-home" *ngIf="reminderAction != 'reminderList'">
 
         <div class="form-reminder-container animated fadeInRight m-t-15">
@@ -327,7 +327,7 @@
                         <div class="mb-1">
                             <label class="pill-label-reminder" for="unit">Hora:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="20:30" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
                             && FormReminder.controls.timeNotification.errors}">
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 

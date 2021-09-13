@@ -1564,6 +1564,7 @@ footer {
     .container-home {
         padding: 0px 10% 15px 10%;
         height: auto;
+        width: 100%;
     }
     .container-reminder {
         padding: 5% 3% 10% 3%;
@@ -1581,6 +1582,9 @@ footer {
     }
     .form-reminder-title {
         font-size: 30px;
+    }
+    .form-reminder-container {
+        width: 100%;
     }
     .div-border-rigth {
         border-right: none;
