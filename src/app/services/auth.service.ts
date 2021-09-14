@@ -46,6 +46,7 @@ export class AuthService {
     //Borramos el valor del nombre del usuario y el rol
     localStorage.removeItem('name');
     localStorage.removeItem('role');
+    localStorage.removeItem('gender');
 
     this.roleAs = '';
 
@@ -60,7 +61,6 @@ export class AuthService {
     const authData = {
       email: user.email,
       password: user.password,
-      //role: user.role
     };
     
     return this.httpClient.post(
@@ -76,9 +76,6 @@ export class AuthService {
         
         //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
         localStorage.setItem('name', resp['user']['name']);
-
-        //Guardamos el rol del usuario para mostrar la imagen correspondiente en el navbar
-        localStorage.setItem('role', resp['user']['role']);
 
         return resp;
       })
@@ -110,9 +107,6 @@ export class AuthService {
         
         //Guardamos el valor del nombre del usuario para mostrarlo en el Navbar
         localStorage.setItem('name', resp['user']['name']);
-        
-        //Guardamos el rol del usuario para mostrar la imagen correspondiente en el navbar
-        localStorage.setItem('role', resp['user']['role']);
 
         return resp;
       })

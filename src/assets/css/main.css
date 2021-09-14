@@ -1595,6 +1595,9 @@ footer {
     .form-reminder-container {
         width: 100%;
     }
+    .box-reminder-title {
+        border-radius: 25px;
+    }
     .div-border-rigth {
         border-right: none;
         border-bottom: 2px solid #bbb;

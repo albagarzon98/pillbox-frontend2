@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   showDescPharmacy = false;
   showDescAppointment = false;
   
-  name: string = '';
+  name: string;
 
   constructor( ) { }
 
@@ -23,6 +23,13 @@ export class HomeComponent implements OnInit {
     if ( localStorage.getItem('name') ) {
       this.name = localStorage.getItem('name');
     } 
+  }
+
+  getGender() {
+    if ( localStorage.getItem('gender') ) {
+      return localStorage.getItem('gender');
+    }
+    return '';
   }
 
   getPathName () {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserModel } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
+import { PatientService } from '../../services/patient.service';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
+    private patientService: PatientService,
     public formBuilder: FormBuilder
   ) {}
 
@@ -56,7 +58,6 @@ export class LoginComponent implements OnInit {
       this.FormLogin.patchValue({RememberAccount: this.rememberAccount});
       this.FormLogin.patchValue({Email: this.user.email});
     }
-
   }
 
   navigateByRole ( role:string ) {
@@ -100,6 +101,11 @@ export class LoginComponent implements OnInit {
         
         console.log(resp);
         
+        this.patientService.get().subscribe(res => {
+          console.log(res);
+          localStorage.setItem('gender', res['patient']['0']['gender']);
+        });
+
         //Se cierra el Loading...
         Swal.close();
 
