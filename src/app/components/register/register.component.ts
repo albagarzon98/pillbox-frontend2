@@ -5,6 +5,8 @@ import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
+import { PatientService } from '../../services/patient.service';
+import { Patient } from '../../models/patient';
 
 @Component({
   selector: 'app-register',
@@ -15,18 +17,20 @@ export class RegisterComponent implements OnInit {
   
   FormRegister: FormGroup;
   
-  user: UserModel = new UserModel();;
-  rememberAccount = false;
+  user: UserModel = new UserModel();
+  patient: Patient = new Patient();
 
-  submitted = false;
-
-  registerAction = 'roleSelect';
+  rememberAccount: boolean = false;
+  submitted: boolean = false;
+  registerAction: string = 'roleSelect';
 
   roles: string[] = [];
+  genders = [];
 
   constructor(
     private router: Router,
     private auth: AuthService,
+    private patientService: PatientService,
     private roleService: RoleService,
     public formBuilder: FormBuilder
   ) { }
@@ -40,12 +44,19 @@ export class RegisterComponent implements OnInit {
     this.FormRegister = this.formBuilder.group({
       Name: [
         '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(55)]
+        [Validators.required, Validators.maxLength(55)]
       ],
+      LastName: [
+        '',
+        [Validators.required, Validators.maxLength(55)]
+      ],
+      Phone: ['', Validators.required],
       Email: [
         '',
         [Validators.required, Validators.email]
       ],
+      Document: [null, [Validators.required, Validators.pattern('[0-9]{7,8}')]],
+      Gender: ['', [Validators.required]],
       Password: [
         '', Validators.compose(
         [Validators.required, Validators.minLength(8),
@@ -64,6 +75,7 @@ export class RegisterComponent implements OnInit {
     });
     
     this.getRoles();
+    this.getGenders();
   }
 
   
@@ -88,6 +100,13 @@ export class RegisterComponent implements OnInit {
       this.router.navigateByUrl('/');
 
     })
+  }
+
+  getGenders() {
+    this.patientService.getGenders().subscribe( res => {
+      this.genders = res['genders'];
+      console.log(this.genders);
+    });
   }
 
   //Validador de patrones
@@ -131,7 +150,6 @@ export class RegisterComponent implements OnInit {
     this.registerAction = 'inputData';
     this.user.role = this.roles[3];
     console.log(`el rol del usuario es: ${this.user.role}`);
-
   }
 
   //Esta función se ejecuta si el usuario selecciona el rol farmacéutico
@@ -139,11 +157,12 @@ export class RegisterComponent implements OnInit {
     this.registerAction = 'inputData';
     this.user.role = this.roles[1];
     console.log(`el rol del usuario es: ${this.user.role}`);
-
   }
 
   volver () {
     this.registerAction = 'roleSelect';
+    this.FormRegister.reset();
+    this.submitted = false;
   }
 
   navigateByRole ( role:string ) {
@@ -170,6 +189,13 @@ export class RegisterComponent implements OnInit {
     this.user.name = this.FormRegister.value['Name'];
     this.user.email = this.FormRegister.value['Email'];
     this.user.password = this.FormRegister.value['Password'];
+
+    //Asignamos los valores del form al objeto patient
+    this.patient.fullName = `${this.FormRegister.value['Name']} ${this.FormRegister.value['LastName']}`;
+    this.patient.email = this.FormRegister.value['Email'];
+    this.patient.document = this.FormRegister.value['Document'];
+    this.patient.gender = this.FormRegister.value['Gender'];
+    this.patient.phoneNumber = this.FormRegister.value['Phone'];
         
     //Asignamos el valor del form a la variable rememberAccount
     this.rememberAccount = this.FormRegister.value['RememberAccount'];
@@ -185,6 +211,9 @@ export class RegisterComponent implements OnInit {
     .subscribe( resp => {
 
       console.log(resp);
+      this.patientService.post( this.patient ).subscribe( res => {
+        console.log(res);
+      });
       Swal.close();
 
       //Si el usuario marcó el check "Recordar cuenta" se almacena su email

@@ -10,8 +10,6 @@ const url = environment.url;
 })
 export class RoleService {
 
-  url: string;
-
   constructor ( private httpClient: HttpClient ) { 
   }
 

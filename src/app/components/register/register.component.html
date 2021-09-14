@@ -57,7 +57,7 @@
 
 
             <!-- Formulario del ingreso de datos -->
-            <div class="login-container animated fadeInRight" *ngIf="registerAction == 'inputData'">
+            <div class="container register-container animated fadeInRight" *ngIf="registerAction == 'inputData'">
 
 
                 <!-- Regresar link -->
@@ -75,92 +75,164 @@
                     <img class="register-role" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="user.role == 'paciente'">
                 </div>
 
-                <!-- Campo Nombre -->
-                <div class="mb-4">
-                    <label class="pill-label-form" for="Name">Nombre:</label>
+                <div class="row">
+                    <div class="col">
 
-                    <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
-                && FormRegister.controls.Name.errors}" />
+                        <!-- Campo Nombre -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="Name">Nombre:</label>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
-                  && FormRegister.controls.Name.errors?.required">
-                        Este campo es obligatorio.
+                            <input type="text" class="form-control input100" formControlName="Name" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormRegister.controls.Name.touched || submitted)  
+                            && FormRegister.controls.Name.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                            && FormRegister.controls.Name.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
+                            && (FormRegister.controls.Name.errors?.maxlength) ">
+                                Máximo 4 caracteres.
+                            </div>
+                        </div>
+
+                        <!-- Campo email -->
+                        <div class="mb-4">
+                            <label for="Email" class="pill-label-reminder">Email:</label>
+
+                            <input type="email" class="form-control input100" formControlName="Email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormRegister.controls.Email.touched || submitted)  
+                            && FormRegister.controls.Email.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                            && FormRegister.controls.Email.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
+                            && (FormRegister.controls.Email.errors?.email) ">
+                                Email inválido.
+                            </div>
+                        </div>
+
+                        <!-- Campo DNI -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder">Número de documento:</label>
+
+                            <input class="form-control input100" formControlName="Document" name="Document" placeholder="12345678" [ngClass]="{'is-invalid': (FormRegister.controls.Document.touched || submitted)  
+                            && FormRegister.controls.Document.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Document.touched || submitted) 
+                            && FormRegister.controls.Document.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Document.touched || submitted) 
+                            && FormRegister.controls.Document.errors?.pattern">
+                                Número de documento inválido.
+                            </div>
+                        </div>
+
+                        <!-- Campo contraseña -->
+                        <div class="mb-4">
+
+                            <label for="Password" class="pill-label-reminder">Contraseña:</label>
+
+                            <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
+                            && FormRegister.controls.Password.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
+                            && FormRegister.controls.Password.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                            && (FormRegister.controls.Password.errors?.minlength)">
+                                Mínimo 8 caracteres.
+                            </div>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                            && (FormRegister.controls.Password.hasError('hasNumber'))">
+                                Debe contener al menos un número.
+                            </div>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                            && (FormRegister.controls.Password.hasError('hasSmallCase'))">
+                                Debe contener al menos una letra.
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Name.touched || submitted) 
-                 && (FormRegister.controls.Name.errors?.minlength || FormRegister.controls.Name.errors?.maxlength) ">
-                        Mínimo 4 caracteres.
-                    </div>
-                </div>
 
+                    <div class="col">
 
-                <!-- Campo email -->
-                <div class="mb-4">
+                        <!-- Campo Apellido -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="LastName">Apellido:</label>
 
-                    <label for="Email" class="pill-label-form">Email:</label>
+                            <input type="text" class="form-control input100" formControlName="LastName" placeholder="Escribe aquí tu apellido" [ngClass]="{'is-invalid':    (FormRegister.controls.LastName.touched || submitted)  
+                            && FormRegister.controls.Name.errors}" />
 
-                    <input type="email" class="form-control input100" formControlName="Email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormRegister.controls.Email.touched || submitted)  
-                && FormRegister.controls.Email.errors}" />
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
+                            && FormRegister.controls.LastName.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
+                            && (FormRegister.controls.LastName.errors?.maxlength) ">
+                                Máximo 55 caracteres.
+                            </div>
+                        </div>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
-                    && FormRegister.controls.Email.errors?.required">
-                        Este campo es obligatorio.
-                    </div>
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Email.touched || submitted) 
-                    && (FormRegister.controls.Email.errors?.email) ">
-                        Email inválido.
-                    </div>
-                </div>
+                        <!-- Campo Teléfono de contacto -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder">Teléfono de contacto:</label>
 
-                <!-- Campo contraseña -->
-                <div class="mb-4">
+                            <input class="form-control input100" formControlName="Phone" mask="(000) 000-0000" name="phone" placeholder="(351) 123-4567" [ngClass]="{'is-invalid': (FormRegister.controls.Phone.touched || submitted)  
+                            && FormRegister.controls.Phone.errors}" />
 
-                    <label for="Password" class="pill-label-form">Contraseña:</label>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Phone.touched || submitted) 
+                            && FormRegister.controls.Phone.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                        </div>
 
-                    <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
-                && FormRegister.controls.Password.errors}" />
+                        <!-- Campo Genero -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="gender">Género:</label>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
-                && FormRegister.controls.Password.errors?.required">
-                        Este campo es obligatorio.
-                    </div>
+                            <mat-select class="form-control" name="Gender" formControlName="Gender" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormRegister.controls.Gender.touched || submitted)  
+                            && FormRegister.controls.Gender.errors}">
+                                <mat-option class="poppins-regular" *ngFor="let gender of genders" [value]="gender.descripcion">
+                                    {{gender.descripcion}}
+                                </mat-option>
+                            </mat-select>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                && (FormRegister.controls.Password.errors?.minlength)">
-                        Mínimo 8 caracteres.
-                    </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Gender.touched || submitted) 
+                            && FormRegister.controls.Gender.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                        </div>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                && (FormRegister.controls.Password.hasError('hasNumber'))">
-                        Debe contener al menos un número.
-                    </div>
+                        <!-- Campo Confirmar contraseña -->
+                        <div class="mb-4">
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                && (FormRegister.controls.Password.hasError('hasSmallCase'))">
-                        Debe contener al menos una letra.
-                    </div>
-                </div>
+                            <label for="ConfirmPassword" class="pill-label-reminder">Confirmar contraseña:</label>
 
-                <!-- Campo Confirmar contraseña -->
-                <div class="mb-4">
+                            <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
+                                    && (FormRegister.controls.ConfirmPassword.errors)}" />
 
-                    <label for="ConfirmPassword" class="pill-label-form">Confirmar contraseña:</label>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
+                                    && FormRegister.controls.ConfirmPassword.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
 
-                    <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
-                            && (FormRegister.controls.ConfirmPassword.errors)}" />
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
+                                    && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
+                                Las contraseñas no coinciden.
+                            </div>
+                        </div>
 
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
-                            && FormRegister.controls.ConfirmPassword.errors?.required">
-                        Este campo es obligatorio.
-                    </div>
-
-                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
-                            && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
-                        Las contraseñas no coinciden.
                     </div>
                 </div>
 
                 <!-- Recordar mi cuenta: Check -->
-                <div class="mt-7 form-check">
+                <div class="mt-2 mb-4 form-check">
                     <input type="checkbox" class="form-check-input" formControlName="RememberAccount" id="exampleCheck1">
                     <label class="pill-label-check" for="exampleCheck1">Recordar mi cuenta</label>
                 </div>
