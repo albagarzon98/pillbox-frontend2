@@ -92,8 +92,8 @@
             <div class="mb-4">
                 <label class="pill-label-reminder">Teléfono de contacto:</label>
 
-                <input class="form-control input100" formControlName="phoneNumber" mask="(000) 000-0000" name="phoneNumber" placeholder="(351) 123-4567" [ngClass]="{'is-invalid': (FormProfile.controls.phoneNumber.touched || submitted)  
-                && FormProfile.controls.phoneNumber.errors}" />
+                <input class="form-control input100" formControlName="phoneNumber" name="phoneNumber" placeholder="3511234567" [ngClass]="{'is-invalid': (FormProfile.controls.phoneNumber.touched || submitted)  
+                && FormProfile.controls.phoneNumber.errors}">
 
                 <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormProfile.controls.phoneNumber.touched || submitted) 
                 && FormProfile.controls.phoneNumber.errors?.required">
@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormProfile.controls.phoneNumber.touched || submitted) 
-                && FormProfile.controls.phoneNumber.errors">
-                    Ingrese un teléfono válido.
+                && FormProfile.controls.phoneNumber.errors?.pattern">
+                    Número de teléfono inválido.
                 </div>
             </div>
 

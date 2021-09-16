@@ -72,6 +72,10 @@ body {
     padding-bottom: 56px;
 }
 
+input:disabled {
+    color: gray;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Alerts ]*/
@@ -628,7 +632,7 @@ input[type='image'] {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    padding: 0px 150px 15px 150px;
+    padding: 20px 10%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

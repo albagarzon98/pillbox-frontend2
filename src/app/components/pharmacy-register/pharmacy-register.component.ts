@@ -34,7 +34,7 @@ export class PharmacyRegisterComponent implements OnInit {
       branchOffices: ['',[Validators.required]],
       ownerName: ['',[Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
       ownerLastName: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       email: ['',[Validators.required, Validators.email]],
       address: ['',[Validators.required, Validators.maxLength(55)]]
     })

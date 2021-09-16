@@ -31,10 +31,6 @@ img {
     font-size: 30px;
 }
 
-input:disabled {
-    color: gray;
-}
-
 .modify-btn {
     background-color: transparent;
     display: block;

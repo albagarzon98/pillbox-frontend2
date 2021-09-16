@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
       fullName: ['', [Validators.required, Validators.maxLength(55)]],
       email: ['', [Validators.required, Validators.email]],
       dni: [null, [Validators.required, Validators.pattern('[0-9]{7,8}')]],
-      phoneNumber: [null, Validators.required],
+      phoneNumber: [null, [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       gender: ['', [Validators.required]]
     });
 
@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
 
       this.getPatient();
       this.submitted = false;
-
+      this.modifyProfile();
     }, (err) => {
       console.log(err.error.message);
       Swal.fire({

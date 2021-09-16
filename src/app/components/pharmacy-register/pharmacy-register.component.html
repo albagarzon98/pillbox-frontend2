@@ -105,12 +105,17 @@
                     <div class="mb-4">
                         <label class="pill-label-reminder">Teléfono de contacto:</label>
 
-                        <input class="form-control form-reminder-input" formControlName="phone" mask="(000) 000-0000" name="phone" placeholder="(351) 123-4567" [ngClass]="{'is-invalid': (FormPharmacy.controls.phone.touched || submitted)  
+                        <input class="form-control form-reminder-input" formControlName="phone" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormPharmacy.controls.phone.touched || submitted)  
                         && FormPharmacy.controls.phone.errors}" />
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phone.touched || submitted) 
                         && FormPharmacy.controls.phone.errors?.required">
                             Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phone.touched || submitted) 
+                        && FormPharmacy.controls.phone.errors?.pattern">
+                            Número de teléfono inválido.
                         </div>
 
                     </div>
