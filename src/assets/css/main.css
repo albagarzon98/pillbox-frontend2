@@ -401,10 +401,6 @@ input[type='image'] {
     border-radius: 10px !important;
 }
 
-.more-reminder {
-    text-align: right;
-}
-
 .reminder-image {
     width: 90px;
     display: block;
@@ -1146,33 +1142,6 @@ mat-select .mat-select-placeholder {
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
-}
-
-.pill-reminder-btn {
-    font-family: Poppins-Bold;
-    font-size: 16px;
-    color: #fff;
-    line-height: 1.2;
-    text-transform: uppercase;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    width: 40%;
-    height: 52px;
-    background-color: #371BBA;
-    color: #5cf3ba;
-    border-radius: 3px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
 }
 
 .pill-form-btn {

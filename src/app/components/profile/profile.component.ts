@@ -101,6 +101,7 @@ export class ProfileComponent implements OnInit {
       this.patientService.patch(this.patient).subscribe( res => {
         console.log(res);
         localStorage.setItem('fullName', res['patient']['fullName']);
+        localStorage.setItem('name', res['patient']['fullName']);
         localStorage.setItem('gender', res['patient']['gender']);
       }, (err)=>{
         console.log(err.error.message);

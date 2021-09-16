@@ -17,3 +17,13 @@
 .container-login100-form-btn {
     margin-top: 20px;
 }
+
+.pill-form-btn {
+    width: 40%;
+    display: block;
+    margin: auto;
+}
+
+.modify-btn {
+    background-color: transparent;
+}

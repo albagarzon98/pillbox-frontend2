@@ -14,10 +14,6 @@
             </button>
         </div>
         <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="before">
-            <button mat-menu-item (click)="modifyProfile()">
-                <mat-icon>edit</mat-icon>
-                <span class="poppins-regular">Modificar datos personales</span>
-              </button>
             <button mat-menu-item>
               <mat-icon>person_off</mat-icon>
               <span class="poppins-regular">Desactivar cuenta</span>
@@ -33,6 +29,11 @@
         <img src="../../../assets/images/female.png" alt="" *ngIf="patient.gender == 'Femenino'">
         <img src="../../../assets/images/other.png" alt="" *ngIf="patient.gender == 'Otro'">
 
+
+        <button class="modify-btn" mat-raised-button (click)="modifyProfile()">
+            <mat-icon>edit</mat-icon>
+            &nbsp; Modificar datos
+        </button>
 
         <form (ngSubmit)="onSubmit( FormProfile )" name="FormProfile" [formGroup]='FormProfile'>
 
@@ -106,7 +107,7 @@
             </div>
 
             <!-- Campo Genero -->
-            <div class="mb-4">
+            <div class="mb-2">
                 <label class="pill-label-reminder" for="gender">Género:</label>
 
                 <mat-select class="form-control" name="gender" formControlName="gender" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormProfile.controls.gender.touched || submitted)  
@@ -122,7 +123,7 @@
                 </div>
             </div>
 
-            <div class="container-login100-form-btn" *ngIf="modify">
+            <div class="container-login100-form-btn mt-4" *ngIf="modify">
                 <button type="submit" class="pill-form-btn">Actualizar</button>
             </div>
 

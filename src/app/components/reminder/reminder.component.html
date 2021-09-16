@@ -26,8 +26,8 @@
             Mis medicamentos
         </span>
 
-        <div class="container-login100-form-btn">
-            <button class="new-reminder-btn m-b-30" (click)="addReminder()">
+        <div class="container-login100-form-btn mb-5">
+            <button class="new-reminder-btn" (click)="addReminder()">
                 <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
                 &nbsp; Nuevo
             </button>
@@ -35,14 +35,12 @@
 
         <div class="reminder-box" *ngFor="let reminder of userReminders">
 
-            <div class="more-reminder">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>
                         more_horiz
                     </mat-icon>
-                </button>
-            </div>
-            <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="before">
+            </button>
+            <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="after">
                 <button mat-menu-item (click)="checkReminder(reminder)">
                     <mat-icon >visibility</mat-icon>
                     <span class="poppins-regular">Ver medicamento</span>
@@ -342,11 +340,11 @@
 
 
                 <div class="container-login100-form-btn" *ngIf="reminderAction == 'newReminder'">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20">Crear medicamento</button>
+                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton m-t-20">Crear medicamento</button>
                 </div>
 
                 <div class="container-login100-form-btn" *ngIf="reminderAction == 'modifyReminder'">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20">Modificar medicamento</button>
+                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton m-t-20">Modificar medicamento</button>
                 </div>
 
             </form>
