@@ -17,29 +17,9 @@
 }
 
 
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-html {
-    height: 100%;
-    font-family: Ubuntu-Regular, sans-serif;
-}
-
-
 /*---------------------------------------------*/
 
 a {
-    font-family: Ubuntu-Regular;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #666666;
-    margin: 0px;
     transition: all 0.4s;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -73,12 +53,6 @@ span {
     font-family: Poppins-Regular;
 }
 
-ul,
-li {
-    margin: 0px;
-    list-style-type: none;
-}
-
 button {
     outline: none !important;
     border: none;
@@ -91,6 +65,15 @@ button:hover {
 
 iframe {
     border: none !important;
+}
+
+body {
+    padding-top: 52px;
+    padding-bottom: 56px;
+}
+
+input:disabled {
+    color: gray;
 }
 
 
@@ -168,11 +151,6 @@ body::-webkit-scrollbar-thumb {
     background: #6649b8;
 }
 
-body {
-    padding-top: 54px;
-    padding-bottom: 56px;
-}
-
 .divBody {
     display: flex;
     flex-direction: column;
@@ -187,11 +165,6 @@ body {
     text-decoration: none;
 }
 
-.nav-link-user:hover {
-    font-size: 91%;
-    transition: 200ms;
-}
-
 .nav-link {
     font-family: Poppins-Regular !important;
     color: rgb(190, 174, 174) !important;
@@ -203,7 +176,6 @@ body {
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 91%;
     color: #5cf3ba !important;
     transition: 250ms;
 }
@@ -433,10 +405,6 @@ input[type='image'] {
     border-radius: 10px !important;
 }
 
-.more-reminder {
-    text-align: right;
-}
-
 .reminder-image {
     width: 90px;
     display: block;
@@ -463,22 +431,6 @@ input[type='image'] {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.pill-back-button-reminder {
-    margin-top: 100px;
-    font-family: Poppins-Regular;
-    color: gray !important;
-    font-size: 100%;
-    text-decoration: none;
-}
-
-.pill-back-button-reminder:img-role {
-    font-family: Poppins-Regular;
-    color: #6626db !important;
-    font-size: 102%;
-    transition: 200ms;
-    cursor: pointer;
 }
 
 .toggle-reminder {
@@ -680,7 +632,7 @@ input[type='image'] {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    padding: 0px 150px 15px 150px;
+    padding: 20px 10%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1196,37 +1148,9 @@ mat-select .mat-select-placeholder {
     text-align: center;
 }
 
-.pill-reminder-btn {
-    font-family: Poppins-Bold;
-    font-size: 16px;
-    color: #fff;
-    line-height: 1.2;
-    text-transform: uppercase;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    width: 40%;
-    height: 52px;
-    background-color: #371BBA;
-    color: #5cf3ba;
-    border-radius: 3px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-}
-
 .pill-form-btn {
     font-family: Poppins-Bold;
     font-size: 16px;
-    color: #fff;
     line-height: 1.2;
     text-transform: uppercase;
     display: -webkit-box;
@@ -1255,16 +1179,15 @@ mat-select .mat-select-placeholder {
 .pill-back-button {
     font-family: Poppins-Regular;
     color: gray !important;
-    width: 20px;
     text-decoration: none;
+    font-size: 14px;
 }
 
 .pill-back-button:hover {
-    font-family: Poppins-Regular;
     color: #6626db !important;
-    font-size: 0.88em;
     transition: 200ms;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .back {

@@ -55,4 +55,11 @@ export class MenuComponent implements OnInit {
   readName ():string {
     return this.auth.readName();
   }
+
+  readFullName () {
+    if ( localStorage.getItem('fullName') ) {
+      return localStorage.getItem('fullName');
+    }
+    return '';
+  }
 }

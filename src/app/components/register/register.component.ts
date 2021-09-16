@@ -37,8 +37,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if ( localStorage.getItem('token') ) {
-      this.navigateByRole(localStorage.getItem('token'));   
+    if ( localStorage.getItem('role') ) {
+      this.navigateByRole(localStorage.getItem('role'));   
     }
     
     this.FormRegister = this.formBuilder.group({
@@ -105,7 +105,6 @@ export class RegisterComponent implements OnInit {
   getGenders() {
     this.patientService.getGenders().subscribe( res => {
       this.genders = res['genders'];
-      console.log(this.genders);
     });
   }
 

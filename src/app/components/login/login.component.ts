@@ -102,8 +102,8 @@ export class LoginComponent implements OnInit {
         console.log(resp);
         
         this.patientService.get().subscribe(res => {
-          console.log(res);
           localStorage.setItem('gender', res['patient']['0']['gender']);
+          localStorage.setItem('fullName', res['patient']['0']['fullName']);
         });
 
         //Se cierra el Loading...

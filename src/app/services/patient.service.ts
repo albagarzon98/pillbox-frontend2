@@ -12,14 +12,15 @@ const url = environment.url;
 })
 export class PatientService {
 
-  gender:string;
-
   constructor( private httpClient: HttpClient ) { }
 
   
   private saveGender ( gender: string ) {
-    this.gender = gender;
     localStorage.setItem('gender', gender);
+  }
+
+  private saveFullName ( fullName: string ) {
+    localStorage.setItem('fullName', fullName);
   }
   
   post( patient: Patient ) {
@@ -37,8 +38,13 @@ export class PatientService {
       authData).pipe(
         map(res => {
           this.saveGender(res['patient']['0']['gender']);
+          this.saveFullName(res['patient']['0']['fullName']);
         })
       );
+  }
+
+  patch ( patient: Patient) {
+    return this.httpClient.patch(`${ url }patient/`, patient)
   }
 
   get () {

@@ -5,34 +5,12 @@
     vertical-align: middle;
 }
 
-
-/* .container-login100 {
-    width: 100%;
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    ;
+html,
+body {
+    height: 100%;
 }
 
-.login100-form-title {
-    font-family: Ubuntu-Bold;
-    font-size: 30px;
-    color: #403866;
-    line-height: 1.2;
-    text-transform: uppercase;
-    text-align: center;
-    width: 100%;
-    display: block;
-} */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

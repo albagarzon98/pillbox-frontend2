@@ -22,12 +22,26 @@
                     <mat-icon class="pharmacy-icon" svgIcon="pharmacy"></mat-icon>
                     Registrá tu farmacia
                 </button>
-                <a class="nav-link-user m-r-8 m-t-6" routerLink="/home">
 
-                    {{readName()}}
-
-                </a>
-                <a class="nav-link" routerLink="" (click)="salir()">Cerrar sesion</a>
+                <button mat-button [matMenuTriggerFor]="belowMenu" class="nav-link-user">
+                    {{readFullName()}}
+                    <mat-icon class="material-icons-outlined">expand_more</mat-icon>
+                </button>
+                <mat-menu #belowMenu="matMenu" yPosition="below" class="box-reminder-menu">
+                    <button mat-menu-item routerLink="/profile">
+                        <span class="poppins-regular">
+                            <mat-icon>person</mat-icon>
+                            Mi cuenta
+                        </span>
+                        <!-- <span class="poppins-regular">{{readFullName()}}</span> -->
+                    </button>
+                    <button mat-menu-item (click)="salir()">
+                        <span class="poppins-regular">
+                            <mat-icon>logout</mat-icon>
+                            Cerrar sesion
+                        </span>
+                    </button>
+                </mat-menu>
             </div>
         </div>
     </div>

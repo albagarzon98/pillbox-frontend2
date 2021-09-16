@@ -1,0 +1,52 @@
+html {
+    scroll-behavior: smooth;
+}
+
+img {
+    width: 25%;
+    display: block;
+    margin: 15px auto 30px auto;
+}
+
+.container-login100 {
+    padding: 40px;
+    animation: fadeIn 1.2s;
+}
+
+.login-container {
+    width: 600px;
+    padding: 30px;
+}
+
+.reminder-title {
+    margin: 20px 0;
+}
+
+.more-reminder {
+    float: right;
+    margin: 4px 0 0 0;
+}
+
+.more {
+    font-size: 30px;
+}
+
+.modify-btn {
+    background-color: transparent;
+    display: block;
+    margin: 0 0 15px auto;
+}
+
+.modify-btn:hover {
+    background-color: white;
+}
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .login-container {
+        width: auto;
+        padding: 10%;
+    }
+    .pill-label-form {
+        font-size: 15px;
+    }
+}
