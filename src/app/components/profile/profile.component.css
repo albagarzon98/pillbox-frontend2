@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 img {
     width: 25%;
     display: block;
@@ -11,15 +15,24 @@ img {
 
 .login-container {
     width: 600px;
-    padding: 30px 60px;
+    padding: 30px;
 }
 
 .reminder-title {
-    margin: 10px 0 20px 0;
+    margin: 20px 0;
 }
 
-.pill-back-button:hover {
-    font-size: initial;
+.more-reminder {
+    float: right;
+    margin: 4px 0 0 0;
+}
+
+.more {
+    font-size: 30px;
+}
+
+input:disabled {
+    color: gray;
 }
 
 @media only screen and (min-width:320px) and (max-width:480px) {

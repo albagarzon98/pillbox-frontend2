@@ -104,7 +104,7 @@
                 <span class="back">&lt;</span> &nbsp;Regresar
             </a>
 
-            <span class="form-reminder-title p-b-17 p-t-10" *ngIf="reminderAction == 'newReminder'">
+            <span class="form-reminder-title mt-4 mb-4" *ngIf="reminderAction == 'newReminder'">
                 Nuevo medicamento
             </span>
 
@@ -122,7 +122,7 @@
             <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="unit == 'mililitro(s)'">
             <img class="reminder-image mb-4" src="../../../assets/images/drugs.png" alt="" *ngIf="unit == 'unidad(es)'">
 
-            <img class="reminder-image mb-4" src="../../../assets/images/vaccine.png" alt="" *ngIf="reminderAction == 'newReminder'">
+            <img class="reminder-image mb-5" src="../../../assets/images/vaccine.png" alt="" *ngIf="reminderAction == 'newReminder'">
 
 
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
@@ -341,12 +341,12 @@
                 </div>
 
 
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20" *ngIf="reminderAction == 'newReminder'">Crear medicamento</button>
+                <div class="container-login100-form-btn" *ngIf="reminderAction == 'newReminder'">
+                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20">Crear medicamento</button>
                 </div>
 
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20" *ngIf="reminderAction == 'modifyReminder'">Modificar medicamento</button>
+                <div class="container-login100-form-btn" *ngIf="reminderAction == 'modifyReminder'">
+                    <button type="submit" class="login100-form-btn pill-reminder-btn pill-buton m-t-20">Modificar medicamento</button>
                 </div>
 
             </form>

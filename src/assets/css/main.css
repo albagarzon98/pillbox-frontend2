@@ -433,22 +433,6 @@ input[type='image'] {
     background-repeat: no-repeat;
 }
 
-.pill-back-button-reminder {
-    margin-top: 100px;
-    font-family: Poppins-Regular;
-    color: gray !important;
-    font-size: 100%;
-    text-decoration: none;
-}
-
-.pill-back-button-reminder:img-role {
-    font-family: Poppins-Regular;
-    color: #6626db !important;
-    font-size: 102%;
-    transition: 200ms;
-    cursor: pointer;
-}
-
 .toggle-reminder {
     width: 1.8%;
 }
@@ -1222,16 +1206,15 @@ mat-select .mat-select-placeholder {
 .pill-back-button {
     font-family: Poppins-Regular;
     color: gray !important;
-    width: 20px;
     text-decoration: none;
+    font-size: 14px;
 }
 
 .pill-back-button:hover {
-    font-family: Poppins-Regular;
     color: #6626db !important;
-    font-size: 0.88em;
     transition: 200ms;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .back {

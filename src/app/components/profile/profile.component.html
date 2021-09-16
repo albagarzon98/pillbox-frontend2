@@ -6,17 +6,39 @@
             <span class="back">&lt;</span> &nbsp;Regresar
         </a>
 
+        <div class="more-reminder">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="more">
+                    more_horiz
+                </mat-icon>
+            </button>
+        </div>
+        <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="before">
+            <button mat-menu-item (click)="modifyProfile()">
+                <mat-icon>edit</mat-icon>
+                <span class="poppins-regular">Modificar datos personales</span>
+              </button>
+            <button mat-menu-item>
+              <mat-icon>person_off</mat-icon>
+              <span class="poppins-regular">Desactivar cuenta</span>
+            </button>
+        </mat-menu>
+
         <span class="reminder-title">
             Mi cuenta
         </span>
+
+
         <img src="../../../assets/images/male.png" alt="" *ngIf="patient.gender == 'Masculino'">
-        <img src="../../../assets/images/female.png" alt="" *ngIf="patient.gender != 'Masculino'">
+        <img src="../../../assets/images/female.png" alt="" *ngIf="patient.gender == 'Femenino'">
+        <img src="../../../assets/images/other.png" alt="" *ngIf="patient.gender == 'Otro'">
+
 
         <form (ngSubmit)="onSubmit( FormProfile )" name="FormProfile" [formGroup]='FormProfile'>
 
-            <!-- Campo Nombre -->
+            <!-- Campo Nombre y apellido -->
             <div class="mb-4">
-                <label class="pill-label-form" for="fullName">Nombre y apellido:</label>
+                <label class="pill-label-reminder" for="fullName">Nombre y apellido:</label>
 
                 <input type="text" class="form-control input100" formControlName="fullName" placeholder="Escribe aquí tu nombre completo" [ngClass]="{'is-invalid':    (FormProfile.controls.fullName.touched || submitted)  
                 && FormProfile.controls.fullName.errors}" />
@@ -33,7 +55,7 @@
 
             <!-- Campo email -->
             <div class="mb-4">
-                <label for="email" class="pill-label-form">Email:</label>
+                <label for="email" class="pill-label-reminder">Email:</label>
 
                 <input type="email" class="form-control input100" formControlName="email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormProfile.controls.email.touched || submitted)  
                 && FormProfile.controls.email.errors}" />
@@ -50,7 +72,7 @@
 
             <!-- Campo DNI -->
             <div class="mb-4">
-                <label class="pill-label-form">Número de documento:</label>
+                <label class="pill-label-reminder">Número de documento:</label>
 
                 <input class="form-control input100" formControlName="dni" name="dni" placeholder="12345678" [ngClass]="{'is-invalid': (FormProfile.controls.dni.touched || submitted)  
                 && FormProfile.controls.dni.errors}" />
@@ -67,7 +89,7 @@
 
             <!-- Campo Teléfono de contacto -->
             <div class="mb-4">
-                <label class="pill-label-form">Teléfono de contacto:</label>
+                <label class="pill-label-reminder">Teléfono de contacto:</label>
 
                 <input class="form-control input100" formControlName="phoneNumber" mask="(000) 000-0000" name="phoneNumber" placeholder="(351) 123-4567" [ngClass]="{'is-invalid': (FormProfile.controls.phoneNumber.touched || submitted)  
                 && FormProfile.controls.phoneNumber.errors}" />
@@ -85,7 +107,7 @@
 
             <!-- Campo Genero -->
             <div class="mb-4">
-                <label class="pill-label-form" for="gender">Género:</label>
+                <label class="pill-label-reminder" for="gender">Género:</label>
 
                 <mat-select class="form-control" name="gender" formControlName="gender" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormProfile.controls.gender.touched || submitted)  
                 && FormProfile.controls.gender.errors}">
@@ -100,7 +122,7 @@
                 </div>
             </div>
 
-            <div class="container-login100-form-btn">
+            <div class="container-login100-form-btn" *ngIf="modify">
                 <button type="submit" class="pill-form-btn">Actualizar</button>
             </div>
 

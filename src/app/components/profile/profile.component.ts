@@ -3,6 +3,8 @@ import { Patient } from 'src/app/models/patient';
 import { PatientService } from '../../services/patient.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UserService } from '../../services/user.service';
+import { UserModel } from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +16,14 @@ export class ProfileComponent implements OnInit {
   FormProfile: FormGroup;
   submitted: boolean = false;
 
+  user: UserModel = new UserModel();
   patient: Patient = new Patient();
   genders = [];
+  modify:boolean = false;
 
   constructor(
     private patientService: PatientService,
+    private userService: UserService,
     public formBuilder: FormBuilder
   ) { }
 
@@ -34,6 +39,7 @@ export class ProfileComponent implements OnInit {
 
     this.getGenders();
     this.getPatient();
+    this.FormProfile.disable();
   }
 
   getGenders() {
@@ -60,6 +66,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  modifyProfile() {
+    this.modify = !this.modify;
+    if (this.modify) {
+      this.FormProfile.enable();
+    }
+    if (!this.modify) {
+      this.FormProfile.disable();
+    }
+  }
+
   onSubmit( form: FormGroup ) {
     
     this.submitted = true;
@@ -67,7 +83,11 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.patient = { ...this.FormProfile.value };
+    this.patient = { ...this.FormProfile.value }; 
+    this.user.email = this.FormProfile.value.email;
+    this.user.name = this.FormProfile.value.fullName;
+
+    const id = this.userService.readId();
 
     Swal.fire({
       allowOutsideClick: false,
@@ -75,8 +95,17 @@ export class ProfileComponent implements OnInit {
       text:'Espere por favor...'
     });
     Swal.showLoading();
-    this.patientService.patch(this.patient).subscribe( res => {
+
+    this.userService.patch(this.user, id).subscribe(res => {
       
+      this.patientService.patch(this.patient).subscribe( res => {
+        console.log(res);
+        localStorage.setItem('fullName', res['patient']['fullName']);
+        localStorage.setItem('gender', res['patient']['gender']);
+      }, (err)=>{
+        console.log(err.error.message);
+      });
+
       console.log(res);
       Swal.fire({
         allowOutsideClick: false,
@@ -85,11 +114,9 @@ export class ProfileComponent implements OnInit {
       });
 
       this.getPatient();
-      localStorage.setItem('fullName', res['patient']['fullName']);
-      localStorage.setItem('gender', res['patient']['gender']);
-
       this.submitted = false;
-    }, (err)=>{
+
+    }, (err) => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',

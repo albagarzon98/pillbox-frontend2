@@ -37,8 +37,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if ( localStorage.getItem('token') ) {
-      this.navigateByRole(localStorage.getItem('token'));   
+    if ( localStorage.getItem('role') ) {
+      this.navigateByRole(localStorage.getItem('role'));   
     }
     
     this.FormRegister = this.formBuilder.group({

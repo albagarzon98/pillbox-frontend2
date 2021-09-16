@@ -46,6 +46,7 @@ export class AuthService {
     localStorage.removeItem('role');
     localStorage.removeItem('gender');
     localStorage.removeItem('fullName');
+    localStorage.removeItem('id');
 
     this.roleAs = '';
 
@@ -69,6 +70,7 @@ export class AuthService {
       map( resp => {
         this.saveToken( resp['tokens']['access']['token'] );
         this.saveRole( resp['user']['role'] );
+        this.saveId(resp['user']['id']);
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de loguearse
         this.isAuth = true;
@@ -100,6 +102,7 @@ export class AuthService {
         //Guardamos el token de la respuesta
         this.saveToken( resp['tokens']['access']['token'] );
         this.saveRole( resp['user']['role'] );
+        this.saveId(resp['user']['id']);
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de crear su cuenta
         this.isAuth = true;
@@ -127,6 +130,10 @@ export class AuthService {
   private saveRole ( role: string ) {
     this.roleAs = role;
     localStorage.setItem('role', role);
+  }
+
+  private saveId ( id: string ) {
+    localStorage.setItem('id', id);
   }
 
   getRole() {
