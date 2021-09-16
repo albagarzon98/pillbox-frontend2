@@ -13,7 +13,6 @@ const url = environment.url;
 export class AuthService {
 
   userToken: string;
-  name: string;
   roleAs: string;
   
   //Esta variable me permite mostrar ciertos <nav-link> del navBar según si el usuario está o no autenticado.
@@ -28,11 +27,10 @@ export class AuthService {
 
   readName ():string {
     if( localStorage.getItem('name') ){
-      this.name = localStorage.getItem('name');
+      return localStorage.getItem('name');
     } else {
-      this.name = '';
+      return '';
     }
-    return this.name;
   }
   
   getIsAuth (): boolean {
@@ -47,6 +45,7 @@ export class AuthService {
     localStorage.removeItem('name');
     localStorage.removeItem('role');
     localStorage.removeItem('gender');
+    localStorage.removeItem('fullName');
 
     this.roleAs = '';
 

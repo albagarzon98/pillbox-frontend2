@@ -11,6 +11,7 @@ import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { HomeTutorComponent } from './components/home-tutor/home-tutor.component';
 import { HomePharmacistComponent } from './components/home-pharmacist/home-pharmacist.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   // { path: 'pharmacy', component: PharmacyComponent, canActivate: [ AuthGuard ] },
   { path: 'homepage', component: HomepageComponent },
   { path: 'pharmacyRegister', component: PharmacyRegisterComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { 
     path: 'home', component: HomeComponent,
     canActivate: [AuthGuard],

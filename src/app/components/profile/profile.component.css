@@ -1,0 +1,33 @@
+img {
+    width: 25%;
+    display: block;
+    margin: 15px auto 30px auto;
+}
+
+.container-login100 {
+    padding: 40px;
+    animation: fadeIn 1.2s;
+}
+
+.login-container {
+    width: 600px;
+    padding: 30px 60px;
+}
+
+.reminder-title {
+    margin: 10px 0 20px 0;
+}
+
+.pill-back-button:hover {
+    font-size: initial;
+}
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .login-container {
+        width: auto;
+        padding: 10%;
+    }
+    .pill-label-form {
+        font-size: 15px;
+    }
+}

@@ -17,29 +17,9 @@
 }
 
 
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-html {
-    height: 100%;
-    font-family: Ubuntu-Regular, sans-serif;
-}
-
-
 /*---------------------------------------------*/
 
 a {
-    font-family: Ubuntu-Regular;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #666666;
-    margin: 0px;
     transition: all 0.4s;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -73,12 +53,6 @@ span {
     font-family: Poppins-Regular;
 }
 
-ul,
-li {
-    margin: 0px;
-    list-style-type: none;
-}
-
 button {
     outline: none !important;
     border: none;
@@ -91,6 +65,11 @@ button:hover {
 
 iframe {
     border: none !important;
+}
+
+body {
+    padding-top: 52px;
+    padding-bottom: 56px;
 }
 
 
@@ -168,11 +147,6 @@ body::-webkit-scrollbar-thumb {
     background: #6649b8;
 }
 
-body {
-    padding-top: 54px;
-    padding-bottom: 56px;
-}
-
 .divBody {
     display: flex;
     flex-direction: column;
@@ -187,11 +161,6 @@ body {
     text-decoration: none;
 }
 
-.nav-link-user:hover {
-    font-size: 91%;
-    transition: 200ms;
-}
-
 .nav-link {
     font-family: Poppins-Regular !important;
     color: rgb(190, 174, 174) !important;
@@ -203,7 +172,6 @@ body {
 
 .nav-link:hover {
     filter: grayscale(0%) opacity(1);
-    font-size: 91%;
     color: #5cf3ba !important;
     transition: 250ms;
 }
@@ -1226,7 +1194,6 @@ mat-select .mat-select-placeholder {
 .pill-form-btn {
     font-family: Poppins-Bold;
     font-size: 16px;
-    color: #fff;
     line-height: 1.2;
     text-transform: uppercase;
     display: -webkit-box;

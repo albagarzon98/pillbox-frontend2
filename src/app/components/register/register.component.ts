@@ -105,7 +105,6 @@ export class RegisterComponent implements OnInit {
   getGenders() {
     this.patientService.getGenders().subscribe( res => {
       this.genders = res['genders'];
-      console.log(this.genders);
     });
   }
 

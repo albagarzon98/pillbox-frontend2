@@ -33,6 +33,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     PharmacyComponent,
     HomeAdminComponent,
     HomeTutorComponent,
-    HomePharmacistComponent
+    HomePharmacistComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
