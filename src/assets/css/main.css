@@ -704,6 +704,7 @@ input[type='image'] {
 
 .register-container {
     width: 600px;
+    padding: 30px;
 }
 
 .form-reminder-container {
