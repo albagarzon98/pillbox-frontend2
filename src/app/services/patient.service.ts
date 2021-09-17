@@ -37,8 +37,9 @@ export class PatientService {
       `${ url }patient/`, 
       authData).pipe(
         map(res => {
-          this.saveGender(res['patient']['0']['gender']);
-          this.saveFullName(res['patient']['0']['fullName']);
+          console.log(res);
+          this.saveGender(res['patient']['gender']);
+          this.saveFullName(res['patient']['fullName']);
         })
       );
   }

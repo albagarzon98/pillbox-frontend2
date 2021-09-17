@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         '',
         [Validators.required, Validators.maxLength(55)]
       ],
-      Phone: ['', Validators.required],
+      Phone: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       Email: [
         '',
         [Validators.required, Validators.email]
@@ -212,6 +212,8 @@ export class RegisterComponent implements OnInit {
       console.log(resp);
       this.patientService.post( this.patient ).subscribe( res => {
         console.log(res);
+      }, (err) => {
+        console.log(err);
       });
       Swal.close();
 
