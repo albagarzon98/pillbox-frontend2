@@ -8,9 +8,6 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
-import { HomeAdminComponent } from './components/home-admin/home-admin.component';
-import { HomeTutorComponent } from './components/home-tutor/home-tutor.component';
-import { HomePharmacistComponent } from './components/home-pharmacist/home-pharmacist.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 
@@ -40,21 +37,21 @@ const routes: Routes = [
     ]
   },  
   {
-    path: 'homeAdmin', component: HomeAdminComponent,
+    path: 'homeAdmin', component: HomeComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'admin'
     }
   },
   {
-    path: 'homeTutor', component: HomeTutorComponent,
+    path: 'homeTutor', component: HomeComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'tutor'
     }
   },
   {
-    path: 'homePharmacist', component: HomePharmacistComponent,
+    path: 'homePharmacist', component: HomeComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'farmaceutico'
