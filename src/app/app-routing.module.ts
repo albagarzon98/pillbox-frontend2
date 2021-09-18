@@ -15,46 +15,20 @@ import { ProfileComponent } from './components/profile/profile.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
-  // { path: 'reminder', component: ReminderComponent, canActivate: [ AuthGuard ] },
-  // { path: 'pharmacy', component: PharmacyComponent, canActivate: [ AuthGuard ] },
   { path: 'homepage', component: HomepageComponent },
   { path: 'pharmacyRegister', component: PharmacyRegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { 
-    path: 'home', component: HomeComponent,
-    canActivate: [AuthGuard],
-    canActivateChild:  [AuthGuard],
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'reminder', component: ReminderComponent,
+    canActivate: [ AuthGuard ],
     data: {
-      role: 'paciente'
-    },
-    children: [
-      {
-        path: 'reminder', component: ReminderComponent
-      },
-      {
-        path: 'pharmacy', component: PharmacyComponent
-      }
-    ]
-  },  
-  {
-    path: 'homeAdmin', component: HomeComponent,
-    canActivate: [AuthGuard],
-    data: {
-      role: 'admin'
+      role: ['paciente', 'tutor']
     }
   },
-  {
-    path: 'homeTutor', component: HomeComponent,
-    canActivate: [AuthGuard],
+  { path: 'pharmacy', component: PharmacyComponent, 
+    canActivate: [ AuthGuard ],
     data: {
-      role: 'tutor'
-    }
-  },
-  {
-    path: 'homePharmacist', component: HomeComponent,
-    canActivate: [AuthGuard],
-    data: {
-      role: 'farmaceutico'
+      role: ['paciente', 'tutor']
     }
   },
   { path:'**', redirectTo:'homepage' }

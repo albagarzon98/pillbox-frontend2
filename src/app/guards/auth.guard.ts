@@ -43,27 +43,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     if ( this.auth.isAuthenticated() ) {
       const userRole = this.auth.getRole();
       if ( route.data.role && route.data.role.indexOf(userRole) === -1 ) {
-        this.navigateByRole(userRole);
+        this.router.navigateByUrl('/home');
         return false;
       }
       return true;
     }
     this.router.navigate(['/login']);
     return false;
-  }
-
-  navigateByRole ( role:string ) {
-    if ( role === 'admin') {
-      this.router.navigateByUrl('/homeAdmin');
-    }
-    if ( role === 'tutor') {
-      this.router.navigateByUrl('/homeTutor');
-    }
-    if ( role === 'farmaceutico') {
-      this.router.navigateByUrl('/homePharmacist');
-    }
-    if ( role === 'paciente') {
-      this.router.navigateByUrl('/home');
-    }
   }
 }
