@@ -31,6 +31,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     FooterComponent,
     PharmacyRegisterComponent,
     PharmacyComponent,
-    ProfileComponent
+    ProfileComponent,
+    PharmacyRequestsComponent
   ],
   imports: [
     BrowserModule,

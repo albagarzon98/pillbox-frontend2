@@ -28,4 +28,8 @@ export class UserService {
   patch(user, id) {
     return this.httpClient.patch(`${url}users/${id}`, user);
   }
+
+  get (id) {
+    return this.httpClient.get(`${url}users/${id}`);
+  }
 }

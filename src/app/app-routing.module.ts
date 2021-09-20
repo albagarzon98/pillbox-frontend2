@@ -9,6 +9,7 @@ import { ReminderComponent } from './components/reminder/reminder.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
 
 
 
@@ -30,7 +31,13 @@ const routes: Routes = [
     data: {
       role: ['paciente', 'tutor']
     }
-  },
+  },  
+  { path: 'pharmacyRequests', component: PharmacyRequestsComponent, 
+  canActivate: [ AuthGuard ],
+  data: {
+    role: ['admin']
+  }
+},
   { path:'**', redirectTo:'homepage' }
 ];
 
