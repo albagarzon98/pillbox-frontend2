@@ -1,3 +1,54 @@
 .nav-link-user {
     margin: 0 10px;
 }
+
+.pharmacy-icon {
+    transform: scale(0.9);
+    margin: 0 5px 0 0;
+}
+
+.pharmacy-register-button {
+    border: #5cf3ba solid 2px;
+    border-radius: 20px;
+    height: 36px;
+    width: auto;
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    text-align: center;
+    display: inline-block;
+    padding: 2px 20px;
+    font-size: 14px;
+    transition: 300ms !important;
+    margin-right: 15px;
+}
+
+.pharmacy-register-button:hover {
+    color: #6626db;
+    background-color: #5cf3ba;
+    transition: 300ms !important;
+    box-shadow: 1px 1px 4px 2px #8153d6;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar {
+    background-color: #6626db !important;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0px 0px 4px 1.5px #270e53;
+}
+
+.navbar-nav {
+    text-align: center !important;
+}

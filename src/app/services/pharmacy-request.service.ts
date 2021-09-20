@@ -15,4 +15,8 @@ export class PharmacyRequestService {
   post ( pharmacyRequest: PharmacyRequest ) {
     return this.httpClient.post(`${url}pharmacyRequest/`, pharmacyRequest);
   }
+
+  get() {
+    return this.httpClient.get(`${url}pharmacyRequest/`);
+  }
 }
