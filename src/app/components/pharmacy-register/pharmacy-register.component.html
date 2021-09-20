@@ -40,23 +40,23 @@
                     <div class="mb-4">
                         <label class="pill-label-reminder">Cantidad de sucursales:</label>
 
-                        <input class="form-control form-reminder-input" formControlName="branchOffices" mask="9999" name="branchOffices" placeholder="Escribe aquí la cantidad" [ngClass]="{'is-invalid': (FormPharmacy.controls.branchOffices.touched || submitted)  
-                        && FormPharmacy.controls.branchOffices.errors}" />
+                        <input class="form-control form-reminder-input" formControlName="branchesNumber" mask="9999" name="branchOffices" placeholder="Escribe aquí la cantidad" [ngClass]="{'is-invalid': (FormPharmacy.controls.branchesNumber.touched || submitted)  
+                        && FormPharmacy.controls.branchesNumber.errors}" />
 
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.branchOffices.touched || submitted) 
-                        && FormPharmacy.controls.branchOffices.errors?.required">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.branchesNumber.touched || submitted) 
+                        && FormPharmacy.controls.branchesNumber.errors?.required">
                             Este campo es obligatorio.
                         </div>
 
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.branchOffices.touched || submitted) 
-                        && FormPharmacy.controls.branchOffices.errors?.maxlength">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.branchesNumber.touched || submitted) 
+                        && FormPharmacy.controls.branchesNumber.errors?.maxlength">
                             Máximo 4 caracteres.
                         </div>
 
                     </div>
 
                     <!-- Campo Nombre -->
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label class="pill-label-reminder">Nombre:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="ownerName" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.ownerName.touched || submitted)  
@@ -76,10 +76,10 @@
                         && FormPharmacy.controls.ownerName.errors?.pattern">
                             Ingresa un texto válido.
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Campo Apellido -->
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label class="pill-label-reminder">Apellido:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="ownerLastName" placeholder="Escribe aquí tu nombre" [ngClass]="{'is-invalid':    (FormPharmacy.controls.ownerLastName.touched || submitted)  
@@ -99,22 +99,22 @@
                         && FormPharmacy.controls.ownerLastName.errors?.pattern">
                             Ingresa un texto válido.
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Campo Teléfono de contacto -->
                     <div class="mb-4">
                         <label class="pill-label-reminder">Teléfono de contacto:</label>
 
-                        <input class="form-control form-reminder-input" formControlName="phone" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormPharmacy.controls.phone.touched || submitted)  
-                        && FormPharmacy.controls.phone.errors}" />
+                        <input class="form-control form-reminder-input" formControlName="phoneNumber" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormPharmacy.controls.phoneNumber.touched || submitted)  
+                        && FormPharmacy.controls.phoneNumber.errors}" />
 
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phone.touched || submitted) 
-                        && FormPharmacy.controls.phone.errors?.required">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phoneNumber.touched || submitted) 
+                        && FormPharmacy.controls.phoneNumber.errors?.required">
                             Este campo es obligatorio.
                         </div>
 
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phone.touched || submitted) 
-                        && FormPharmacy.controls.phone.errors?.pattern">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.phoneNumber.touched || submitted) 
+                        && FormPharmacy.controls.phoneNumber.errors?.pattern">
                             Número de teléfono inválido.
                         </div>
 
@@ -125,15 +125,15 @@
 
                         <label class="pill-label-reminder">Email:</label>
 
-                        <input type="email" class="form-control input100" formControlName="email" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormPharmacy.controls.email.touched || submitted)  
-                        && FormPharmacy.controls.email.errors}" />
+                        <input type="email" class="form-control input100" formControlName="contactEmail" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormPharmacy.controls.contactEmail.touched || submitted)  
+                        && FormPharmacy.controls.contactEmail.errors}" />
 
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.email.touched || submitted) 
-                        && FormPharmacy.controls.email.errors?.required">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.contactEmail.touched || submitted) 
+                        && FormPharmacy.controls.contactEmail.errors?.required">
                             Este campo es obligatorio.
                         </div>
-                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.email.touched || submitted) 
-                        && (FormPharmacy.controls.email.errors?.email) ">
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacy.controls.contactEmail.touched || submitted) 
+                        && (FormPharmacy.controls.contactEmail.errors?.email) ">
                             Email inválido.
                         </div>
                     </div>
