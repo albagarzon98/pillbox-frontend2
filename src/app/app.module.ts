@@ -14,9 +14,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
 import { InterceptorService } from './interceptors/interceptor.service';
-import { HomeAdminComponent } from './components/home-admin/home-admin.component';
-import { HomeTutorComponent } from './components/home-tutor/home-tutor.component';
-import { HomePharmacistComponent } from './components/home-pharmacist/home-pharmacist.component'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +31,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
 
 
 @NgModule({
@@ -48,10 +46,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     FooterComponent,
     PharmacyRegisterComponent,
     PharmacyComponent,
-    HomeAdminComponent,
-    HomeTutorComponent,
-    HomePharmacistComponent,
-    ProfileComponent
+    ProfileComponent,
+    PharmacyRequestsComponent
   ],
   imports: [
     BrowserModule,
