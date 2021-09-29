@@ -299,7 +299,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Medicamento creado con éxito!'
+          text:'¡Medicamento creado con éxito!'
         });
   
         this.volver();

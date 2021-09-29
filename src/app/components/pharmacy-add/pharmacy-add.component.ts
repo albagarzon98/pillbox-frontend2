@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Pharmacy } from 'src/app/models/pharmacy';
+import Swal from 'sweetalert2';
 import { PharmacyService } from '../../services/pharmacy.service';
 
 @Component({
@@ -51,7 +52,32 @@ export class PharmacyAddComponent implements OnInit {
 
     let pharmacy: Pharmacy = {...this.FormPharmacyAdd.value};
     pharmacy.branches = [];
-    console.log(`farmacia al hacer submitt: ${pharmacy.address}`);
+
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    
+    this.pharmacyService.post(pharmacy).subscribe(res => {
+
+      console.log(res);
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'success',
+        title: '¡Farmacia registrada con éxito!',
+      });
+
+      this.router.navigateByUrl('/pharmacyRequests');
+    }, err => {
+      console.log(err.error.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al registrar la farmacia.'
+      });
+    });
   }
 
 }
