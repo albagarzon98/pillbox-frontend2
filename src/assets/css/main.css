@@ -166,117 +166,6 @@ nav .navbar-nav li a {
 /*//////////////////////////////////////////////////////////////////
 [ carousel ]*/
 
-.home-register-button {
-    position: relative;
-    top: 25px;
-    border: #5cf3ba solid 3px;
-    border-radius: 20px;
-    height: 10%;
-    width: 22%;
-    color: #5cf3ba;
-    font-family: Poppins-Bold;
-    text-align: center;
-    display: inline-block;
-    padding-bottom: 50x;
-    font-size: 20px;
-    transition: 300ms !important;
-}
-
-.home-register-button:hover {
-    color: #6626db;
-    background-color: #5cf3ba;
-    transition: 300ms !important;
-    box-shadow: 1px 1px 20px 2px #8153d6;
-}
-
-.slide-icon1 {
-    width: 4%;
-    position: relative;
-    right: 20px;
-    top: 18px;
-}
-
-.slide-icon3 {
-    transform: scale(5);
-    color: #5cf3ba;
-    position: relative;
-    right: 30%;
-    bottom: 22vh;
-    animation: fadeIn 2s;
-}
-
-.h1-pill {
-    color: #6626db;
-    font-size: 475%;
-    position: relative;
-    right: 44vh;
-    top: 36vh;
-    animation: fadeInLeft 2s;
-    animation-delay: 500ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-.h2-pill {
-    color: #5cf3ba;
-    font-size: 475%;
-    position: relative;
-    right: 50vh;
-    bottom: 30vh;
-    animation: fadeInLeft 2s;
-}
-
-.h3-pill {
-    color: #5cf3ba;
-    font-size: 475%;
-    position: relative;
-    right: 44vh;
-    bottom: 32vh;
-    animation: fadeInLeft 2s;
-}
-
-.h4-pill {
-    color: #5cf3ba;
-    font-size: 475%;
-    position: relative;
-    left: 200px;
-    bottom: 200px;
-    animation: fadeInRight 2s;
-}
-
-.paragraph1-pill {
-    color: #5cf3ba;
-    font-family: Poppins-Regular;
-    font-size: 175%;
-    position: relative;
-    bottom: 10vh;
-    left: 42vh;
-    animation: fadeInRight 2s;
-    animation-delay: 500ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-.paragraph2-pill {
-    color: #5cf3ba;
-    font-family: Poppins-Regular;
-    font-size: 175%;
-    position: relative;
-    bottom: 24vh;
-    right: 50vh;
-    animation: fadeInLeft 2s;
-}
-
-.paragraph3-pill {
-    color: #5cf3ba;
-    font-family: Poppins-Regular;
-    font-size: 175%;
-    position: relative;
-    bottom: 10vh;
-    right: 44vh;
-    animation: fadeInLeft 2s;
-}
-
 .carousel {
     font-family: Poppins-Bold;
 }
@@ -320,17 +209,6 @@ input[type='image'] {
 
 /*//////////////////////////////////////////////////////////////////
 [ homepage ]*/
-
-.logo-homepage {
-    position: relative;
-    top: 50vh;
-    right: 48vh;
-    width: 15%;
-    animation: fadeInLeft 2s;
-    animation-delay: 500ms;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
 
 .carousel-inner .sizing {
     width: 100%;
