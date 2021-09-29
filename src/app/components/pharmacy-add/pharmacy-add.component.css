@@ -5,3 +5,9 @@
 .container {
     animation: fadeInUp 500ms;
 }
+
+img {
+    width: 25%;
+    display: block;
+    margin: 0 auto 15px auto;
+}
