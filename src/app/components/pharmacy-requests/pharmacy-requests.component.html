@@ -1,4 +1,4 @@
-<div class="login-background">
+<div class="login-background" *ngIf="route() == '/pharmacyRequests'">
 
     <!-- Este elemento se muestra cuando no hay solicitudes registradas -->
     <div class="container-home" *ngIf="requests.length == 0">
@@ -55,6 +55,18 @@
                             <mat-icon svgIcon="pharmacy"></mat-icon>
                             Sucursales: {{request.branchesNumber}}
                         </span>
+
+                        <div class="buttons">
+                            <button type="button" class="btn btn-success" routerLink="./add">
+                                <mat-icon class="material-icons-outlined">add</mat-icon>
+                                Crear farmacia
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <mat-icon class="material-icons-outlined">close</mat-icon>
+                                Anular solicitud
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -64,3 +76,5 @@
 
 
 </div>
+
+<router-outlet></router-outlet>

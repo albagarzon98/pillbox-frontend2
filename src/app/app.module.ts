@@ -32,6 +32,7 @@ import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
+import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharma
     PharmacyRegisterComponent,
     PharmacyComponent,
     ProfileComponent,
-    PharmacyRequestsComponent
+    PharmacyRequestsComponent,
+    PharmacyAddComponent
   ],
   imports: [
     BrowserModule,
