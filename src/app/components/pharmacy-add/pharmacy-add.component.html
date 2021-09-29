@@ -1,0 +1,95 @@
+<div class="login-background">
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 col-xs-12">
+                <form class="pharm-form" (ngSubmit)="onSubmit( FormPharmacyAdd )" name="FormPharmacyAdd" [formGroup]='FormPharmacyAdd'>
+
+                    <span class="pharm-form-title">
+                        Registrar farmacia
+                    </span>
+
+                    <img src="../../../assets/images/pharmacy.png" alt="">
+
+                    <!-- Campo Nombre del local-->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Nombre del local:</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="pharmacyName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.pharmacyName.touched || submitted)  
+                        && FormPharmacyAdd.controls.pharmacyName.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.pharmacyName.touched || submitted) 
+                        && FormPharmacyAdd.controls.pharmacyName.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.pharmacyName.touched || submitted) 
+                        && FormPharmacyAdd.controls.pharmacyName.errors?.maxlength">
+                            Máximo 55 caracteres.
+                        </div>
+
+                    </div>
+
+                    <!-- Campo Correo electrónico -->
+                    <div class="mb-4">
+
+                        <label class="pill-label-reminder">Email:</label>
+
+                        <input type="email" class="form-control input100" formControlName="contactEmail" placeholder="nombre@ejemplo.com" [ngClass]="{'is-invalid': (FormPharmacyAdd.controls.contactEmail.touched || submitted)  
+                        && FormPharmacyAdd.controls.contactEmail.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.contactEmail.touched || submitted) 
+                        && FormPharmacyAdd.controls.contactEmail.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.contactEmail.touched || submitted) 
+                        && (FormPharmacyAdd.controls.contactEmail.errors?.email) ">
+                            Email inválido.
+                        </div>
+                    </div>
+
+                    <!-- Campo Teléfono de contacto -->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Teléfono de contacto:</label>
+
+                        <input class="form-control form-reminder-input" formControlName="phoneNumber" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormPharmacyAdd.controls.phoneNumber.touched || submitted)  
+                        && FormPharmacyAdd.controls.phoneNumber.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.phoneNumber.touched || submitted) 
+                        && FormPharmacyAdd.controls.phoneNumber.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.phoneNumber.touched || submitted) 
+                        && FormPharmacyAdd.controls.phoneNumber.errors?.pattern">
+                            Número de teléfono inválido.
+                        </div>
+
+                    </div>
+
+                    <!-- Campo Dirección -->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Dirección del local:</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Buscar" [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.address.touched || submitted)  
+                        && FormPharmacyAdd.controls.address.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.address.touched || submitted) 
+                        && FormPharmacyAdd.controls.address.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.address.touched || submitted) 
+                        && FormPharmacyAdd.controls.address.errors?.maxlength">
+                            Máximo 55 caracteres.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="pill-form-btn">Registrar Farmacia</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
