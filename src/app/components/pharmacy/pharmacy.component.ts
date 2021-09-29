@@ -20,9 +20,7 @@ export class PharmacyComponent implements OnInit {
   }
 
   getPharmacies () {
-    this.pharmacyService.get().subscribe( (res: Pharmacy[]) => {
-      this.pharmacies = res;
-    });
+
   }
 
 }

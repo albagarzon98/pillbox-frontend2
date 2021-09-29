@@ -3,6 +3,8 @@ import { PharmacyRequest } from 'src/app/models/pharmacy-request';
 import Swal from 'sweetalert2';
 import { PharmacyRequestService } from '../../services/pharmacy-request.service';
 import { Router } from '@angular/router';
+import { PharmacyService } from '../../services/pharmacy.service';
+import { Pharmacy } from 'src/app/models/pharmacy';
 
 @Component({
   selector: 'app-pharmacy-requests',
@@ -14,7 +16,8 @@ export class PharmacyRequestsComponent implements OnInit {
   requests = [];
 
   constructor( private pharmacyRequestService: PharmacyRequestService,
-               private router: Router ) { }
+               private router: Router,
+               private pharmacyService: PharmacyService ) { }
   
   ngOnInit(): void {
     this.getRequests();
@@ -29,6 +32,18 @@ export class PharmacyRequestsComponent implements OnInit {
       request.expand = false;
     }
     request.expand = !request.expand;
+  }
+
+  addPharmacy( request ) {
+    const pharmacy = new Pharmacy();
+    pharmacy.pharmacyName = request.pharmacyName;
+    pharmacy.address = request.address;
+    pharmacy.contactEmail = request.contactEmail;
+    pharmacy.phoneNumber = request.phoneNumber;
+
+    this.pharmacyService.addPharmacy(pharmacy);
+
+    this.router.navigateByUrl('/pharmacyRequests/add');
   }
 
   getRequests() {

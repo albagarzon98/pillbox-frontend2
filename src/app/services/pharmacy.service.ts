@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { Pharmacies } from '../models/pharmacy';
+import { Pharmacy } from '../models/pharmacy';
 
 
 @Injectable({
@@ -8,8 +8,18 @@ import { Pharmacies } from '../models/pharmacy';
 })
 export class PharmacyService {
 
+  pharmacyAdd: Pharmacy;
+  
   constructor() { }
+  
   get () {
-    return of(Pharmacies);
+  }
+
+  addPharmacy ( pharmacy: Pharmacy ) {
+    this.pharmacyAdd = pharmacy;
+  }
+
+  getPharmacyAdd(): Pharmacy {
+    return this.pharmacyAdd;
   }
 }
