@@ -1,15 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { Pharmacies } from '../models/pharmacy';
+import { environment } from 'src/environments/environment';
+import { Pharmacy } from '../models/pharmacy';
 
+const url = environment.url;
 
 @Injectable({
   providedIn: 'root'
 })
 export class PharmacyService {
 
-  constructor() { }
+  pharmacyAdd: Pharmacy;
+  
+  constructor( private httpClient: HttpClient ) { }
+  
   get () {
-    return of(Pharmacies);
+  }
+
+  post (pharmacy: Pharmacy) {
+    return this.httpClient.post(`${ url }pharmacy/`, pharmacy);
+  }
+
+  addPharmacy ( pharmacy: Pharmacy ) {
+    this.pharmacyAdd = pharmacy;
+  }
+
+  getPharmacyAdd(): Pharmacy {
+    return this.pharmacyAdd;
   }
 }

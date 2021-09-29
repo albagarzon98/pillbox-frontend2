@@ -15,22 +15,22 @@
             <div class="col col-cont-pharm">
 
                 <div class="box-pharm" *ngFor="let pharmacy of pharmacies">
-                    <div class="cont-img-pharm">
+                    <!-- <div class="cont-img-pharm">
                         <img [src]="'../../../assets/images/logo-'+ pharmacy.imgName +'.png'" alt="">
-                    </div>
+                    </div> -->
                     <div class="cont-text-pharm">
 
                         <span class="box-pharm-name">
-                            {{pharmacy.name}}</span>
+                            {{pharmacy.pharmacyName}}</span>
                         <span class="box-pharm-address">
                             <mat-icon class="material-icons-outlined location-icon" >add_location</mat-icon>
                             Dirección: {{pharmacy.address}}
                         </span>
-                        <span class="box-pharm-address">
+                        <!-- <span class="box-pharm-address">
                             <mat-icon class="material-icons-outlined watch-icon">watch_later</mat-icon>
 
                             Horario de atención: {{pharmacy.businessHours}}
-                        </span>
+                        </span> -->
                     </div>
                 </div>
 

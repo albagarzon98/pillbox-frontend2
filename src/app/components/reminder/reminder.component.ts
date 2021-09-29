@@ -69,7 +69,15 @@ export class ReminderComponent implements OnInit {
     
     
     this.getUnits();
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
     this.getReminders();
+
     this.getFrequencies();
   }
 
@@ -136,6 +144,8 @@ export class ReminderComponent implements OnInit {
       }
 
       this.userReminders = res['reminders'];
+
+      Swal.close();
 
     }, (err) => {
       console.log(err.message);
@@ -289,7 +299,7 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Medicamento creado con éxito!'
+          text:'¡Medicamento creado con éxito!'
         });
   
         this.volver();

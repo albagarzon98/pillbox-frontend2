@@ -10,6 +10,7 @@ import { PharmacyRegisterComponent } from './components/pharmacy-register/pharma
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
+import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
 
 
 
@@ -32,11 +33,15 @@ const routes: Routes = [
       role: ['paciente', 'tutor']
     }
   },  
-  { path: 'pharmacyRequests', component: PharmacyRequestsComponent, 
+  { path: 'pharmacyRequests', component: PharmacyRequestsComponent,
   canActivate: [ AuthGuard ],
   data: {
     role: ['admin']
-  }
+  },
+  canActivateChild: [AuthGuard],
+  children: [
+    {path: 'add', component: PharmacyAddComponent}
+  ]
 },
   { path:'**', redirectTo:'homepage' }
 ];
