@@ -546,16 +546,6 @@ input[type='image'] {
     padding: 30px;
 }
 
-.form-reminder-container {
-    border-radius: 10px;
-    width: 1200px;
-    height: auto;
-    padding: 30px;
-    background-color: rgb(240, 240, 240);
-    box-shadow: 0px 0px 10px 1px #bfb3d6;
-    ;
-}
-
 .container-carousel {
     /* height: 150px; */
     margin-right: auto;
@@ -699,21 +689,6 @@ input[type='image'] {
     text-align: center;
     width: 100%;
     display: block;
-}
-
-.div-border-left {
-    border-left: 2px solid #bbb;
-    border-radius: 2px;
-}
-
-.div-border-rigth {
-    border-right: 2px solid #bbb;
-    border-radius: 2px;
-    padding: 0px 30px 0px 0px;
-}
-
-.div-center {
-    padding: 0;
 }
 
 .register-role {
@@ -993,10 +968,6 @@ mat-select .mat-select-placeholder {
     font-size: 16px;
     line-height: 1.2;
     text-transform: uppercase;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1006,14 +977,12 @@ mat-select .mat-select-placeholder {
     background-color: #371BBA;
     color: #5cf3ba;
     border-radius: 3px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: 300ms;
 }
 
 .pill-form-btn:hover {
     background-color: #6626db;
+    transition: 300ms;
 }
 
 .pill-back-button {
@@ -1360,21 +1329,6 @@ footer {
     }
     .box-reminder-title {
         border-radius: 25px;
-    }
-    .div-border-rigth {
-        border-right: none;
-        border-bottom: 2px solid #bbb;
-        border-radius: 2px;
-        padding: 0 4% 10% 4%;
-    }
-    .div-border-left {
-        border-left: none;
-        border-top: 2px solid #bbb;
-        border-radius: 2px;
-        padding: 15px 4% 0 4%;
-    }
-    .div-center {
-        padding: 0 4%;
     }
     .pill-reminder-btn {
         width: 100%;
