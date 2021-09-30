@@ -95,6 +95,23 @@
                             </div>
                         </div>
 
+                        <!-- Campo Apellido -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="LastName">Apellido:</label>
+
+                            <input type="text" class="form-control input100" formControlName="LastName" placeholder="Escribe aquí tu apellido" [ngClass]="{'is-invalid':    (FormRegister.controls.LastName.touched || submitted)  
+                            && FormRegister.controls.Name.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
+                            && FormRegister.controls.LastName.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
+                            && (FormRegister.controls.LastName.errors?.maxlength) ">
+                                Máximo 55 caracteres.
+                            </div>
+                        </div>
+
                         <!-- Campo email -->
                         <div class="mb-4">
                             <label for="Email" class="pill-label-reminder">Email:</label>
@@ -112,6 +129,28 @@
                             </div>
                         </div>
 
+                        <!-- Campo Teléfono de contacto -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder">Teléfono de contacto:</label>
+
+                            <input class="form-control input100" formControlName="Phone" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormRegister.controls.Phone.touched || submitted)  
+                            && FormRegister.controls.Phone.errors}" />
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Phone.touched || submitted) 
+                            && FormRegister.controls.Phone.errors?.required">
+                                Este campo es obligatorio.
+                            </div>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Phone.touched || submitted) 
+                            && FormRegister.controls.Phone.errors?.pattern">
+                                Número de teléfono inválido.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+
                         <!-- Campo DNI -->
                         <div class="mb-4">
                             <label class="pill-label-reminder">Número de documento:</label>
@@ -126,6 +165,23 @@
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Document.touched || submitted) 
                             && FormRegister.controls.Document.errors?.pattern">
                                 Número de documento inválido.
+                            </div>
+                        </div>
+
+                        <!-- Campo Genero -->
+                        <div class="mb-4">
+                            <label class="pill-label-reminder" for="gender">Género:</label>
+
+                            <mat-select class="form-control" name="Gender" formControlName="Gender" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormRegister.controls.Gender.touched || submitted)  
+                            && FormRegister.controls.Gender.errors}">
+                                <mat-option class="poppins-regular" *ngFor="let gender of genders" [value]="gender.descripcion">
+                                    {{gender.descripcion}}
+                                </mat-option>
+                            </mat-select>
+
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Gender.touched || submitted) 
+                            && FormRegister.controls.Gender.errors?.required">
+                                Este campo es obligatorio.
                             </div>
                         </div>
 
@@ -155,62 +211,6 @@
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
                             && (FormRegister.controls.Password.hasError('hasSmallCase'))">
                                 Debe contener al menos una letra.
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6 col-xs-12">
-
-                        <!-- Campo Apellido -->
-                        <div class="mb-4">
-                            <label class="pill-label-reminder" for="LastName">Apellido:</label>
-
-                            <input type="text" class="form-control input100" formControlName="LastName" placeholder="Escribe aquí tu apellido" [ngClass]="{'is-invalid':    (FormRegister.controls.LastName.touched || submitted)  
-                            && FormRegister.controls.Name.errors}" />
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
-                            && FormRegister.controls.LastName.errors?.required">
-                                Este campo es obligatorio.
-                            </div>
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
-                            && (FormRegister.controls.LastName.errors?.maxlength) ">
-                                Máximo 55 caracteres.
-                            </div>
-                        </div>
-
-                        <!-- Campo Teléfono de contacto -->
-                        <div class="mb-4">
-                            <label class="pill-label-reminder">Teléfono de contacto:</label>
-
-                            <input class="form-control input100" formControlName="Phone" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormRegister.controls.Phone.touched || submitted)  
-                            && FormRegister.controls.Phone.errors}" />
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Phone.touched || submitted) 
-                            && FormRegister.controls.Phone.errors?.required">
-                                Este campo es obligatorio.
-                            </div>
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Phone.touched || submitted) 
-                            && FormRegister.controls.Phone.errors?.pattern">
-                                Número de teléfono inválido.
-                            </div>
-                        </div>
-
-                        <!-- Campo Genero -->
-                        <div class="mb-4">
-                            <label class="pill-label-reminder" for="gender">Género:</label>
-
-                            <mat-select class="form-control" name="Gender" formControlName="Gender" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormRegister.controls.Gender.touched || submitted)  
-                            && FormRegister.controls.Gender.errors}">
-                                <mat-option class="poppins-regular" *ngFor="let gender of genders" [value]="gender.descripcion">
-                                    {{gender.descripcion}}
-                                </mat-option>
-                            </mat-select>
-
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Gender.touched || submitted) 
-                            && FormRegister.controls.Gender.errors?.required">
-                                Este campo es obligatorio.
                             </div>
                         </div>
 
