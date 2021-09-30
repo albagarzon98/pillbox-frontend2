@@ -977,10 +977,12 @@ mat-select .mat-select-placeholder {
     background-color: #371BBA;
     color: #5cf3ba;
     border-radius: 3px;
+    transition: 300ms;
 }
 
 .pill-form-btn:hover {
     background-color: #6626db;
+    transition: 300ms;
 }
 
 .pill-back-button {

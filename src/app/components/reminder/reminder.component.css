@@ -23,6 +23,9 @@
 }
 
 @media only screen and (min-width:320px) and (max-width:480px) {
+    .form-reminder-container {
+        margin-top: 5%;
+    }
     .pill-form-btn {
         width: 100%;
     }
