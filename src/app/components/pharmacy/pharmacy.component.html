@@ -3,7 +3,7 @@
         Farmacias
     </h1>
 
-    <div class="container-login100-form-btn">
+    <div class="container-login100-form-btn mb-4">
         <div class="cont-search-input">
             <mat-icon style="transform: scale(1.1);">search</mat-icon>
             <input class="search-input" type="text" placeholder="Buscar...">
@@ -11,20 +11,28 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col col-cont-pharm">
+        <div class="row justify-content-md-center">
+            <div class="col-md-7 col-xs-12">
 
                 <div class="box-pharm" *ngFor="let pharmacy of pharmacies">
                     <!-- <div class="cont-img-pharm">
                         <img [src]="'../../../assets/images/logo-'+ pharmacy.imgName +'.png'" alt="">
                     </div> -->
+                    <div class="cont-img-pharm">
+                        <img src="../../../assets/images/pharmacy.png" alt="">
+                    </div>
                     <div class="cont-text-pharm">
 
                         <span class="box-pharm-name">
-                            {{pharmacy.pharmacyName}}</span>
-                        <span class="box-pharm-address">
+                            {{pharmacy.pharmacyName}}
+                        </span>
+                        <span class="box-pharm-address mb-1">
                             <mat-icon class="material-icons-outlined location-icon" >add_location</mat-icon>
                             Dirección: {{pharmacy.address}}
+                        </span>
+                        <span class="box-pharm-address">
+                            <mat-icon class="material-icons-outlined phone-icon" >phone</mat-icon>
+                            Teléfono: {{pharmacy.phoneNumber}}
                         </span>
                         <!-- <span class="box-pharm-address">
                             <mat-icon class="material-icons-outlined watch-icon">watch_later</mat-icon>

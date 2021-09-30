@@ -577,6 +577,19 @@ input[type='image'] {
 /*==================================================================
 [ Pharmacy ]*/
 
+.box-pharm {
+    border-radius: 5px;
+    width: 100%;
+    padding: 2%;
+    height: auto;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+    transition: 300ms;
+    animation: fadeInUp 600ms;
+    margin: 2% 0;
+    display: flex;
+}
+
 .container-pharmacy {
     padding: 2%;
 }
@@ -606,49 +619,6 @@ input[type='image'] {
     outline: none;
 }
 
-.col-cont-pharm {
-    margin: 3% 20%;
-    padding: 0;
-}
-
-.box-pharm {
-    border-radius: 5px;
-    width: 100%;
-    padding: 2%;
-    height: 15%;
-    background-color: rgba(240, 240, 240, 0.938);
-    box-shadow: 0px 0px 5px 1px #bfb3d6;
-    transition: 300ms;
-    animation: fadeInUp 600ms;
-    margin: 2% 0;
-    display: flex;
-}
-
-.box-pharm:hover {
-    cursor: pointer;
-}
-
-.cont-img-pharm {
-    width: auto;
-    height: 100%;
-    display: inline-block;
-}
-
-.cont-img-pharm img {
-    width: 100%;
-    height: auto;
-    border: black solid 1.5px;
-    border-radius: 7px;
-}
-
-@supports(object-fit: cover) {
-    .cont-img-pharm img {
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-    }
-}
-
 .cont-text-pharm {
     width: auto;
     display: inline-block;
@@ -661,20 +631,6 @@ input[type='image'] {
     font-family: Poppins-Bold;
     font-size: 16px;
     margin: 0 0 2px 0;
-}
-
-.box-pharm-address {
-    height: 20%;
-    display: block;
-    font-size: 12px;
-}
-
-.location-icon {
-    transform: scale(0.8);
-}
-
-.watch-icon {
-    transform: scale(0.75);
 }
 
 
@@ -1387,31 +1343,12 @@ footer {
         width: 90%;
         padding: 0 3%;
     }
-    .col-cont-pharm {
-        margin: 5% 3%;
-    }
     .box-pharm-name {
         font-size: 12px;
         height: 22%;
     }
-    .box-pharm-address {
-        font-size: 10px;
-        height: 22%;
-    }
-    .cont-img-pharm {
-        width: 20%;
-    }
-    .box-pharm {
-        height: 22%;
-    }
     .box-pharm-name {
         margin: 0;
-    }
-    .location-icon {
-        transform: scale(0.6);
-    }
-    .watch-icon {
-        transform: scale(0.55);
     }
 }
 

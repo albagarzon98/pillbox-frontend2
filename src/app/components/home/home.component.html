@@ -12,7 +12,7 @@
             <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
             <span class="box-title">Medicamentos</span>
         </div>
-        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false" *ngIf="role == 'paciente' || role == 'tutor'">
+        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false" *ngIf="role != 'farmaceutico'">
             <img class="box-image" src="../../../assets/images/pharmacy.png" alt="">
             <span class="box-title">Farmacias</span>
         </div>
@@ -27,7 +27,8 @@
 
     <div class="description-limiter" *ngIf="screenWidth() > 1024">
         <span class="box-description" *ngIf="showDescMedicament">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
-        <span class="box-description" *ngIf="showDescPharmacy">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
+        <span class="box-description" *ngIf="showDescPharmacy && role != 'admin'">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
+        <span class="box-description" *ngIf="showDescPharmacy && role == 'admin'">Aquí puedes administrar las farmacias que se encuentran registradas en la aplicación.</span>
         <span class="box-description" *ngIf="showDescRequest">Gestiona las solicitudes de las farmacias que quieren registrarse en la aplicación.</span>
     </div>
 

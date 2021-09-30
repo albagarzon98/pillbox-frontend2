@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'pharmacy', component: PharmacyComponent, 
     canActivate: [ AuthGuard ],
     data: {
-      role: ['paciente', 'tutor']
+      role: ['paciente', 'tutor', 'admin']
     }
   },  
   { path: 'pharmacyRequests', component: PharmacyRequestsComponent,

@@ -16,6 +16,7 @@ export class PharmacyService {
   constructor( private httpClient: HttpClient ) { }
   
   get () {
+    return this.httpClient.get(`${ url }pharmacy/`);
   }
 
   post (pharmacy: Pharmacy) {
