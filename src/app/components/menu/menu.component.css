@@ -52,3 +52,10 @@
 .navbar-nav {
     text-align: center !important;
 }
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .pharmacy-register-button {
+        display: inline-block;
+        margin: auto;
+    }
+}
