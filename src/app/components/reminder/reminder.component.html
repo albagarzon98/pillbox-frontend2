@@ -126,7 +126,7 @@
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
 
                 <div class="row">
-                    <div class="col div-border-rigth m-2">
+                    <div class="col col-xs-12 div-border-rigth m-2">
 
                         <span class="reminder-label">
                             Descripción
@@ -216,7 +216,7 @@
 
                     </div>
 
-                    <div class="col div-center m-2">
+                    <div class="col-md-4 col-xs-12 m-2">
 
                         <span class="reminder-label">
                             Duración
@@ -241,6 +241,7 @@
 
                         <!-- Campo Finalización -->
                         <div class="mb-3">
+
                             <label class="pill-label-reminder" for="unit">Finalización:</label>
                             <mat-select class="form-control" formControlName="endingType" name="endingType" placeholder="Seleccione una opción" [(value)]="endingType" [ngClass]="{'is-invalid': (FormReminder.controls.endingType.touched || submitted)  
                             && FormReminder.controls.endingType.errors}">
@@ -253,6 +254,7 @@
                             && FormReminder.controls.endingType.errors?.required">
                                 Este campo es obligatorio.
                             </div>
+
                         </div>
 
                         <!-- Campo Fecha Fin -->
@@ -294,7 +296,7 @@
 
 
                     </div>
-                    <div class="col div-border-left m-2">
+                    <div class="col col-xs-12 div-border-left m-2">
 
                         <span class="reminder-label">
                             Recordatorios
@@ -340,11 +342,11 @@
 
 
                 <div class="container-login100-form-btn" *ngIf="reminderAction == 'newReminder'">
-                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton m-t-20">Crear medicamento</button>
+                    <button type="submit" class="pill-form-btn m-t-20">Crear medicamento</button>
                 </div>
 
                 <div class="container-login100-form-btn" *ngIf="reminderAction == 'modifyReminder'">
-                    <button type="submit" class="login100-form-btn pill-form-btn pill-buton m-t-20">Modificar medicamento</button>
+                    <button type="submit" class="pill-form-btn m-t-20">Modificar medicamento</button>
                 </div>
 
             </form>

@@ -19,10 +19,6 @@ export class MenuComponent implements OnInit {
 
   }
   
-  // toggleNavbar() {
-  //   this.navbarOpen = !this.navbarOpen;
-  // }
-  
   salir() {
     this.auth.logout();    
     Swal.fire({
