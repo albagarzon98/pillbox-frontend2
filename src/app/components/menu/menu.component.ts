@@ -33,6 +33,10 @@ export class MenuComponent implements OnInit {
 
   }
 
+  screenWidth () {
+    return window.screen.width;
+  }
+
   //Esta función retorna true cuando el usuario inicia sesión y false cuando el usuario cierra sesión
   isAuthenticated ():boolean {
     return this.auth.getIsAuth();
