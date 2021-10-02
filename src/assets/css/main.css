@@ -1248,8 +1248,7 @@ footer {
     .img-role {
         width: 60%;
     }
-    .login-container,
-    .register-container {
+    .login-container {
         width: auto;
         padding: 10%;
     }
