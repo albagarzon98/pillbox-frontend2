@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
         '', 
         [Validators.required]
       ],
+      PharmacyCode: [null, [Validators.required, Validators.pattern('[a-z0-9]{11}')]],
       RememberAccount: [false]
     },
     {
