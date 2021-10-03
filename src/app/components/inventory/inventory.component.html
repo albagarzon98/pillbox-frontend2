@@ -1,0 +1,45 @@
+<div class="login-background">
+
+    <div class="container-home">
+        <div class="box-reminder-title">
+
+            <div class="cont-back">
+                <a class="pill-back-button mb-4" routerLink="/home">
+                    <span class="back">&lt;</span> &nbsp;Regresar
+                </a>
+            </div>
+
+            <!-- <div class="cont-back">
+                <a class="pill-back-button-reminder" routerLink="/home">
+                    <span class="back">&lt; </span> &nbsp;Regresar al inicio
+                </a>
+            </div> -->
+
+
+            <span class="home-title-2 ">
+                ¡Aún no tienes medicamentos cargados!            
+            </span>
+
+            <button class="home-reminder-button" (click)="expands()">
+                <mat-icon class="material-icons-outlined"  *ngIf="!expand">
+                    expand_more
+                </mat-icon>
+                <mat-icon class="material-icons-outlined" *ngIf="expand">
+                    expand_less
+                </mat-icon>         
+                &nbsp;Añadir medicamentos
+            </button>
+
+            <div *ngIf="expand" @fade>
+                <div class="box-pharm">
+
+                </div>
+                <div class="box-pharm">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+.cont-back {
+    text-align: start;
+    margin: 0 0 25px 0;
+}
+
+.box-reminder-title {
+    padding: 40px 60px;
+    margin: 30px;
+}
+
+.home-reminder-button {
+    margin: 40px 0 10px 0;
+    font-size: 18px;
+}
+
+.mat-icon {
+    transform: scale(1.2);
+    animation: fadeIn 1s;
+}
+
+.box-pharm {
+    animation: fadeInDown 500ms;
+    transition: ease-out;
+}
