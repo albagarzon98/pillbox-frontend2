@@ -174,6 +174,9 @@ export class RegisterComponent implements OnInit {
     this.user.name = this.FormRegister.value['Name'];
     this.user.email = this.FormRegister.value['Email'];
     this.user.password = this.FormRegister.value['Password'];
+    if ( this.FormRegister.value['PharmacyCode'] ) {
+      this.user.pharmacyCode = this.FormRegister.value['PharmacyCode'];
+    }
 
     //Asignamos los valores del form al objeto patient
     this.patient.fullName = `${this.FormRegister.value['Name']} ${this.FormRegister.value['LastName']}`;
@@ -194,10 +197,11 @@ export class RegisterComponent implements OnInit {
     
     this.auth.signIn(this.user)
     .subscribe( resp => {
-
       console.log(resp);
+
       this.patientService.post( this.patient ).subscribe( res => {
         console.log(res);
+
       }, (err) => {
         console.log(err);
       });
