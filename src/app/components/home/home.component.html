@@ -23,13 +23,27 @@
             <span class="box-title">Solicitudes</span>
         </div>
 
+        <!-- Vista farmacéutico -->
+        <div class="home-box" routerLink="/reminder" (mouseover)="showDescMedicament=true" (mouseout)="showDescMedicament=false" *ngIf="role == 'farmaceutico'">
+            <img class="box-image" src="../../../assets/images/medicamento.png" alt="">
+            <span class="box-title">Inventario</span>
+        </div>
+
     </div>
 
     <div class="description-limiter" *ngIf="screenWidth() > 1024">
-        <span class="box-description" *ngIf="showDescMedicament">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
+
+        <!-- Descripción paciente -->
+        <span class="box-description" *ngIf="showDescMedicament && (role == 'paciente' || role == 'tutor')">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
         <span class="box-description" *ngIf="showDescPharmacy && role != 'admin'">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
+
+        <!-- Descripción admin -->
         <span class="box-description" *ngIf="showDescPharmacy && role == 'admin'">Aquí puedes administrar las farmacias que se encuentran registradas en la aplicación.</span>
         <span class="box-description" *ngIf="showDescRequest">Gestiona las solicitudes de las farmacias que quieren registrarse en la aplicación.</span>
+
+        <!-- Descripción farmacéutico -->
+        <span class="box-description" *ngIf="showDescMedicament && role == 'farmaceutico'">Aquí puedes gestionar el inventario de tu farmacia.</span>
+
     </div>
 
 </div>
