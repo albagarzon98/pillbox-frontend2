@@ -86,16 +86,9 @@ export class AuthService {
   //Registrar nuevo usuario
    signIn( user: UserModel ){
 
-    const authData = {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      role: user.role
-    };
-
     return this.httpClient.post(
       `${ url }auth/register`,
-      authData
+      user
     ).pipe(
       map( resp => {
         

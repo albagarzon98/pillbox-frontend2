@@ -72,13 +72,13 @@
                     Ingresa tus datos
                 </span>
 
-                <div class="mb-4">
+                <div class="mb-5">
                     <img class="register-role" src="../../../assets/images/farmaceutico.png" alt="" *ngIf="user.role == 'farmaceutico'">
                     <img class="register-role" src="../../../assets/images/user.png" alt="" *ngIf="user.role == 'tutor'">
                     <img class="register-role" src="../../../assets/images/telefono-inteligente.png" alt="" *ngIf="user.role == 'paciente'">
                 </div>
 
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-md-6 col-xs-12">
 
                         <!-- Campo Nombre -->
@@ -132,6 +132,10 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="col-md-6 col-xs-12">
+
                         <!-- Campo Teléfono de contacto -->
                         <div class="mb-4">
                             <label class="pill-label-reminder">Teléfono de contacto:</label>
@@ -149,10 +153,6 @@
                                 Número de teléfono inválido.
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="col-md-6 col-xs-12">
 
                         <!-- Campo DNI -->
                         <div class="mb-4">
@@ -188,54 +188,80 @@
                             </div>
                         </div>
 
-                        <!-- Campo contraseña -->
-                        <div class="mb-4">
+                    </div>
+                </div>
 
-                            <label for="Password" class="pill-label-reminder">Contraseña:</label>
+                <!-- Campo Código de farmacia -->
+                <div class="mb-4" *ngIf="user.role == 'farmaceutico'">
 
-                            <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
-                            && FormRegister.controls.Password.errors}" />
+                    <label class="pill-label-reminder">Código de farmacia:
+                        &nbsp;
+                    </label>
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
-                            && FormRegister.controls.Password.errors?.required">
-                                Este campo es obligatorio.
-                            </div>
+                    <mat-icon matTooltip="Ingresa el código de la farmacia donde trabajas." matTooltipPosition="right" class="material-icons-outlined info">
+                        info
+                    </mat-icon>
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                            && (FormRegister.controls.Password.errors?.minlength)">
-                                Mínimo 8 caracteres.
-                            </div>
+                    <input class="form-control input100" formControlName="PharmacyCode" name="PharmacyCode" placeholder="Escribe aquí el código de farmacia" [ngClass]="{'is-invalid': (FormRegister.controls.PharmacyCode.touched || submitted)  
+                    && FormRegister.controls.PharmacyCode.errors}" />
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                            && (FormRegister.controls.Password.hasError('hasNumber'))">
-                                Debe contener al menos un número.
-                            </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.PharmacyCode.touched || submitted) 
+                    && FormRegister.controls.PharmacyCode.errors?.required">
+                        Este campo es obligatorio.
+                    </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.PharmacyCode.touched || submitted) 
+                    && FormRegister.controls.PharmacyCode.errors?.pattern">
+                        Código de farmacia inválido.
+                    </div>
+                </div>
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
-                            && (FormRegister.controls.Password.hasError('hasSmallCase'))">
-                                Debe contener al menos una letra.
-                            </div>
-                        </div>
+                <!-- Campo contraseña -->
+                <div class="mb-4">
 
-                        <!-- Campo Confirmar contraseña -->
-                        <div class="mb-4">
+                    <div class="divider mb-4"></div>
 
-                            <label for="ConfirmPassword" class="pill-label-reminder">Confirmar contraseña:</label>
+                    <label for="Password" class="pill-label-reminder">Contraseña:</label>
 
-                            <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
-                                    && (FormRegister.controls.ConfirmPassword.errors)}" />
+                    <input type="password" class="form-control input100" formControlName="Password" placeholder="Escribe aquí tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.Password.touched  || submitted)  
+                    && FormRegister.controls.Password.errors}" />
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
-                                    && FormRegister.controls.ConfirmPassword.errors?.required">
-                                Este campo es obligatorio.
-                            </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched  || submitted) 
+                    && FormRegister.controls.Password.errors?.required">
+                        Este campo es obligatorio.
+                    </div>
 
-                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
-                                    && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
-                                Las contraseñas no coinciden.
-                            </div>
-                        </div>
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    && (FormRegister.controls.Password.errors?.minlength)">
+                        Mínimo 8 caracteres.
+                    </div>
 
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    && (FormRegister.controls.Password.hasError('hasNumber'))">
+                        Debe contener al menos un número.
+                    </div>
+
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.Password.touched || submitted) 
+                    && (FormRegister.controls.Password.hasError('hasSmallCase'))">
+                        Debe contener al menos una letra.
+                    </div>
+                </div>
+
+                <!-- Campo Confirmar contraseña -->
+                <div class="mb-4">
+
+                    <label for="ConfirmPassword" class="pill-label-reminder">Confirmar contraseña:</label>
+
+                    <input type="password" class="form-control input100" formControlName="ConfirmPassword" placeholder="Vuelve a escribir tu contraseña" [ngClass]="{'is-invalid': (FormRegister.controls.ConfirmPassword.touched  || submitted)  
+                            && (FormRegister.controls.ConfirmPassword.errors)}" />
+
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched  || submitted) 
+                            && FormRegister.controls.ConfirmPassword.errors?.required">
+                        Este campo es obligatorio.
+                    </div>
+
+                    <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.ConfirmPassword.touched || submitted) 
+                            && (FormRegister.controls['ConfirmPassword'].hasError('NoPassswordMatch'))">
+                        Las contraseñas no coinciden.
                     </div>
                 </div>
 
