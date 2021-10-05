@@ -1,6 +1,7 @@
-<div class="login-background">
+<div class="login-background" *ngIf="route() == '/inventory'">
 
     <div class="container-home">
+        <!-- [@expand]="state"  -->
         <div class="box-reminder-title">
 
             <div class="cont-back">
@@ -8,13 +9,6 @@
                     <span class="back">&lt;</span> &nbsp;Regresar
                 </a>
             </div>
-
-            <!-- <div class="cont-back">
-                <a class="pill-back-button-reminder" routerLink="/home">
-                    <span class="back">&lt; </span> &nbsp;Regresar al inicio
-                </a>
-            </div> -->
-
 
             <span class="home-title-2 ">
                 ¡Aún no tienes medicamentos cargados!            
@@ -30,12 +24,19 @@
                 &nbsp;Añadir medicamentos
             </button>
 
-            <div *ngIf="expand" @fade>
-                <div class="box-pharm">
+            <div class="cont-opt" *ngIf="expand" @fade>
+                <div class="box-pharm" routerLink="/inventory/addMedicament">
+                    <img src="../../../assets/images/vaccine.png" alt="">
+                    <span>
+                        Medicamento individual
+                    </span>
 
                 </div>
                 <div class="box-pharm">
-
+                    <img src="../../../assets/images/csv.png" alt="">
+                    <span>
+                        Carga con CSV
+                    </span>
                 </div>
             </div>
 
@@ -43,3 +44,5 @@
     </div>
 
 </div>
+
+<router-outlet></router-outlet>

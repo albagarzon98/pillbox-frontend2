@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
 import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
+import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
 
 
 
@@ -49,7 +50,11 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   data: {
     role: ['farmaceutico']
-  }
+  },
+  canActivateChild: [AuthGuard],
+  children: [
+    {path: 'addMedicament', component: AddMedicamentComponent}
+  ]
 },
   { path:'**', redirectTo:'homepage' }
 ];

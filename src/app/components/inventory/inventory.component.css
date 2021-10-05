@@ -18,7 +18,38 @@
     animation: fadeIn 1s;
 }
 
+.cont-opt {
+    margin-top: 20px;
+}
+
 .box-pharm {
-    animation: fadeInDown 500ms;
-    transition: ease-out;
+    animation: none;
+    width: 70%;
+    margin: 10px auto;
+}
+
+.box-pharm:hover {
+    cursor: pointer;
+}
+
+.box-pharm img {
+    width: 40px;
+    margin: 0 15px;
+}
+
+.box-pharm span {
+    margin: auto 0;
+}
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .box-pharm {
+        width: 100%;
+    }
+    .box-reminder-title {
+        padding: 10%;
+        margin: 5% 0;
+    }
+    .home-reminder-button {
+        font-size: 14px;
+    }
 }
