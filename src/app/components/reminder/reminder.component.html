@@ -278,7 +278,7 @@
                         <div *ngIf="endingType == 3">
                             <label class="pill-label-reminder">Cantidad de días:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="daysAmount" name="daysAmount" placeholder="30" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="daysAmount" name="daysAmount" placeholder="Ingrese la cantidad de días" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
                             && FormReminder.controls.daysAmount.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.daysAmount.touched || submitted) 
