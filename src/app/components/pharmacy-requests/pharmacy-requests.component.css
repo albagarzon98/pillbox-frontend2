@@ -3,9 +3,10 @@
 }
 
 .box-pharm {
-    height: auto;
-    padding: 3% 5%;
+    height: 50px;
+    padding: 5px 5%;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .box-pharm-name {
@@ -17,6 +18,8 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 40px;
+    ;
 }
 
 .pharm-data {
@@ -47,6 +50,10 @@
 
 .btn:focus {
     box-shadow: none;
+}
+
+button .mat-icon {
+    animation: fadeIn 500ms;
 }
 
 @media only screen and (min-width:320px) and (max-width:480px) {
