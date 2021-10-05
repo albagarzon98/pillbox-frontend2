@@ -1,3 +1,13 @@
 .pharm-form {
     margin: 30px 0;
 }
+
+img {
+    width: 25%;
+    display: block;
+    margin: 0 auto 40px auto;
+}
+
+.container {
+    animation: fadeInRight 600ms;
+}

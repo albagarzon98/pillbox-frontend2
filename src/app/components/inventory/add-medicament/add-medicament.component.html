@@ -2,7 +2,60 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-6 col-xs-12">
-                <form class="pharm-form" (ngSubmit)="onSubmit( FormMedicamentAdd )" name="FormMedicamentAdd" [formGroup]='FormMedicamentAdd'>
+                <form class="pharm-form" (ngSubmit)="onSubmit( FormMedication )" name="FormMedication" [formGroup]='FormMedication'>
+
+                    <div class="cont-back">
+                        <a class="pill-back-button mb-4" routerLink="/inventory">
+                            <span class="back">&lt;</span> &nbsp;Regresar
+                        </a>
+                    </div>
+
+                    <span class="pharm-form-title">
+                        Registrar medicamento
+                    </span>
+
+                    <img src="../../../../assets/images/vaccine.png" alt="">
+
+                    <!-- Campo Nombre-->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Nombre:</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormMedication.controls.medicationName.touched || submitted)  
+                        && FormMedication.controls.medicationName.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.medicationName.touched || submitted) 
+                        && FormMedication.controls.medicationName.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.medicationName.touched || submitted) 
+                        && FormMedication.controls.medicationName.errors?.maxlength">
+                            Máximo 55 caracteres.
+                        </div>
+
+                    </div>
+
+                    <!-- Campo Descripción-->
+                    <div class="mb-5">
+                        <label class="pill-label-reminder">Dscripción:</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="description" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormMedication.controls.description.touched || submitted)  
+                        && FormMedication.controls.description.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.description.touched || submitted) 
+                        && FormMedication.controls.description.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.description.touched || submitted) 
+                        && FormMedication.controls.description.errors?.maxlength">
+                            Máximo 100 caracteres.
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="pill-form-btn">Registrar medicamento</button>
+
                 </form>
             </div>
         </div>

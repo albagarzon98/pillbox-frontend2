@@ -54,4 +54,8 @@ export class InventoryComponent implements OnInit {
     this.expand = !this.expand;
   }
 
+  // expandToFalse () {
+  //   this.expand = false;
+  // }
+
 }

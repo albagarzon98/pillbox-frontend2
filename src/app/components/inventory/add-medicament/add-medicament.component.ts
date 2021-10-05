@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-medicament',
@@ -9,16 +9,25 @@ import { FormGroup } from '@angular/forms';
 export class AddMedicamentComponent implements OnInit {
 
   submitted: boolean = false;
-  FormMedicamentAdd: FormGroup;
+  FormMedication: FormGroup;
   
-  constructor() { }
+  constructor(
+    public formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.FormMedication = this.formBuilder.group({
+      medicationName: ['', [Validators.required, Validators.maxLength(55)]],
+      description: ['', [Validators.required, Validators.maxLength(100)]]
+    })
   }
 
   onSubmit( form: FormGroup ) { 
+    this.submitted = true;
+
     if ( form.invalid ) {
       return;
     }
   }
+
 }
