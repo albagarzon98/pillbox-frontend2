@@ -1,6 +1,10 @@
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Medication } from 'src/app/models/medication';
+import { MedicationService } from '../../services/medication.service';
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inventory',
@@ -19,30 +23,21 @@ import { Router } from '@angular/router';
       ]),
 
     ]),
-    
-    // Animación div expand
-    // trigger('expand', [
-    //   state('in', style({
-    //     height: '275px',
-    //   })),
-    //   state('out', style({
-    //     height: '450px',
-    //   })),
-    //   transition('in => out', animate('200ms ease-in-out')),
-    //   transition('out => in', animate('200ms ease-in-out'))
-    // ])
   ]
 })
 export class InventoryComponent implements OnInit {
 
   expand: boolean = false;
-  state: string;
+  medications: Medication[];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private medicationService: MedicationService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.getMedications();
   }
 
   route () {
@@ -50,12 +45,31 @@ export class InventoryComponent implements OnInit {
   }
 
   expands () {
-    // this.state = this.state === 'out' ? 'in' : 'out';
     this.expand = !this.expand;
   }
 
-  // expandToFalse () {
-  //   this.expand = false;
-  // }
+  getMedications () {
+    let branchId = this.authService.getBranchId();
+
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.medicationService.get(branchId).subscribe(res=>{
+      
+      this.medications = res['branchMedication'];
+      console.log(this.medications);
+      Swal.close();
+    },err=>{
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al cargar sus medicamentos'
+      });
+    });
+  }
 
 }

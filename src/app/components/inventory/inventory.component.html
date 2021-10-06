@@ -1,6 +1,6 @@
 <div class="login-background" *ngIf="route() == '/inventory'">
 
-    <div class="container-home">
+    <div class="container-home" *ngIf="medications.length == 0">
         <!-- [@expand]="state"  -->
         <div class="box-reminder-title">
 
@@ -26,7 +26,6 @@
 
 
             <div class="cont-opt" *ngIf="expand" @fade>
-                <!-- (click)="expandToFalse()" -->
                 <div class="box-pharm" routerLink="/inventory/addMedicament">
                     <img src="../../../assets/images/vaccine.png" alt="">
                     <span>
@@ -42,6 +41,69 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-8 col-xs-12">
+                <span class="home-title">
+                    Medicamentos
+                </span>
+
+                <button class="new-reminder-btn" (click)="expands()">
+                    <mat-icon class="material-icons-outlined"  *ngIf="!expand">
+                        expand_more
+                    </mat-icon>
+                    <mat-icon class="material-icons-outlined" *ngIf="expand">
+                        expand_less
+                    </mat-icon>         
+                    &nbsp;Añadir medicamentos
+                </button>
+
+                <div class="cont-opt" *ngIf="expand" @fade>
+                    <div class="box-pharm" routerLink="/inventory/addMedicament">
+                        <img src="../../../assets/images/vaccine.png" alt="">
+                        <span>
+                            Medicamento individual
+                        </span>
+
+                    </div>
+                    <div class="box-pharm">
+                        <img src="../../../assets/images/csv.png" alt="">
+                        <span>
+                            Carga con CSV
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 col-xs-12">
+
+                <div class="box-pharm" *ngFor="let medication of medications">
+                    <span class="med-name">{{medication.medicationName}}</span>
+                    <div class="options">
+                        <button mat-icon-button>
+                            <mat-icon class="material-icons-outlined">
+                                visibility
+                            </mat-icon>
+                        </button>
+                        <button mat-icon-button>
+                            <mat-icon class="material-icons-outlined">
+                                edit
+                            </mat-icon>
+                        </button>
+                        <button mat-icon-button>
+                            <mat-icon class="material-icons-outlined">
+                                delete
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
