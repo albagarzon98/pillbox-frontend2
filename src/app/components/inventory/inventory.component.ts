@@ -59,10 +59,16 @@ export class InventoryComponent implements OnInit {
     private router: Router,
     private medicationService: MedicationService,
     private authService: AuthService
-  ) { }
+  ) {  
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+    };
+   }
 
   ngOnInit(): void {
-    this.getMedications();
+    if ( this.route()=='/inventory' ) {
+      this.getMedications();
+    }
     this.state = 'in';
     this.stateBox = 'inBox'
   }
@@ -86,6 +92,11 @@ export class InventoryComponent implements OnInit {
   modifyMedication ( medication: Medication) {
     this.medicationService.setMedicationData(medication);
     this.medicationService.setUserAction('modifyMedication');
+    this.router.navigateByUrl('/inventory/addMedicament');
+  }
+
+  newMedication () {
+    this.medicationService.setUserAction('newMedication');
     this.router.navigateByUrl('/inventory/addMedicament');
   }
 

@@ -65,6 +65,10 @@
     cursor: default;
 }
 
+.row {
+    animation: fadeInUp 500ms;
+}
+
 .options {
     margin-left: auto;
 }

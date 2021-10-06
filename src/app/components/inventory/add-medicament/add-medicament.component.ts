@@ -31,7 +31,7 @@ export class AddMedicamentComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(100)]]
     });
 
-    this.userAction = this.medicationService.getUserAction();    
+    this.userAction = this.medicationService.getUserAction();
     this.medication = this.medicationService.getMedicationData();
     this.setFormValues();
   }
@@ -105,7 +105,6 @@ export class AddMedicamentComponent implements OnInit {
           allowOutsideClick: false,
           icon: 'success',
           text:'¡Medicamento modificado con éxito!',
-          // showConfirmButton: false,
         });
   
         this.router.navigateByUrl('/inventory');
