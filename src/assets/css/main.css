@@ -541,11 +541,6 @@ input[type='image'] {
     width: 400px;
 }
 
-.register-container {
-    width: 600px;
-    padding: 30px;
-}
-
 .container-carousel {
     /* height: 150px; */
     margin-right: auto;
@@ -1253,8 +1248,7 @@ footer {
     .img-role {
         width: 60%;
     }
-    .login-container,
-    .register-container {
+    .login-container {
         width: auto;
         padding: 10%;
     }

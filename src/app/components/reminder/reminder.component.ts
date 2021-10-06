@@ -69,15 +69,7 @@ export class ReminderComponent implements OnInit {
     
     
     this.getUnits();
-    
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
     this.getReminders();
-
     this.getFrequencies();
   }
 
@@ -126,13 +118,15 @@ export class ReminderComponent implements OnInit {
   formatedHour (hour, format) {
     return moment(hour).utc().format(format);
   }
-  
-  // checkBoxValue(event) {
-  //   this.grammage = event.currentTarget.checked;
-  // }
 
   getReminders() {
 
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
     this.reminderService.get().subscribe( res =>{
         
       const format = "DD/MM/YYYY";
@@ -144,7 +138,6 @@ export class ReminderComponent implements OnInit {
       }
 
       this.userReminders = res['reminders'];
-
       Swal.close();
 
     }, (err) => {
@@ -228,9 +221,14 @@ export class ReminderComponent implements OnInit {
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'Medicamento eliminado exitosamente!'
+            text:'!Medicamento eliminado con éxito!',
+            showConfirmButton: false,
           });
-          this.getReminders();
+
+          setTimeout(()=>{
+            this.getReminders();
+          },1500);
+
         }, (err) => {
           console.log(err.error.message);
           Swal.fire({
@@ -299,11 +297,15 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'¡Medicamento creado con éxito!'
+          text:'¡Medicamento creado con éxito!',
+          showConfirmButton: false,
         });
   
-        this.volver();
-        this.getReminders();
+        setTimeout(()=>{
+          this.getReminders();
+          this.volver();
+        },1500);
+
         this.submitted = false
   
       }, (err)=> {
@@ -323,11 +325,15 @@ export class ReminderComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'Medicamento modificado con éxito!'
+          text:'¡Medicamento modificado con éxito!',
+          showConfirmButton: false,
         });
   
-        this.volver();
-        this.getReminders();
+        setTimeout(()=>{
+          this.getReminders();
+          this.volver();
+        },1500);
+
         this.submitted = false;
 
       }, (err) => {

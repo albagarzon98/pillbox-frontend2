@@ -13,6 +13,11 @@ import { ReminderComponent } from './components/reminder/reminder.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PharmacyComponent } from './components/pharmacy/pharmacy.component';
 import { PharmacyRegisterComponent } from './components/pharmacy-register/pharmacy-register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
+import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
 import { InterceptorService } from './interceptors/interceptor.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,11 +35,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { ProfileComponent } from './components/profile/profile.component';
-import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
-import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
-import { InventoryComponent } from './components/inventory/inventory.component';
-import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { AddMedicamentComponent } from './components/inventory/add-medicament/ad
     MatSelectModule,
     MatDividerModule,
     NgxMaskModule.forRoot(),
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatTooltipModule
   ],
   providers: [
     {
