@@ -15,6 +15,8 @@ export class AddMedicamentComponent implements OnInit {
 
   submitted: boolean = false;
   FormMedication: FormGroup;
+  userAction: string;
+  medication: Medication;
   
   constructor(
     private router: Router,
@@ -27,44 +29,95 @@ export class AddMedicamentComponent implements OnInit {
     this.FormMedication = this.formBuilder.group({
       medicationName: ['', [Validators.required, Validators.maxLength(55)]],
       description: ['', [Validators.required, Validators.maxLength(100)]]
-    })
+    });
+
+    this.userAction = this.medicationService.getUserAction();    
+    this.medication = this.medicationService.getMedicationData();
+    this.setFormValues();
+  }
+
+  setFormValues () {
+    if ( this.userAction != 'newMedication' ) {
+      this.FormMedication.patchValue({
+          medicationName: this.medication.medicationName,
+          description: this.medication.description
+      });
+    };
+    if ( this.userAction == 'viewMedication' ) {
+      this.FormMedication.disable();
+    }
   }
 
   onSubmit( form: FormGroup ) { 
+    
     this.submitted = true;
     if ( form.invalid ) {
       return;
     }
 
     let medication: Medication;
-    medication = {...this.FormMedication.value};
-    medication.branchId = this.authService.getBranchId();
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.medicationService.post(medication).subscribe(res => {
+    if ( this.userAction == 'newMedication' ) {
 
-      console.log(res);
+      medication = {...this.FormMedication.value};
+      medication.branchId = this.authService.getBranchId();
+
       Swal.fire({
         allowOutsideClick: false,
-        icon: 'success',
-        text:'¡Medicamento creado con éxito!',
-        // showConfirmButton: false,
+        icon: 'info',
+        text:'Espere por favor...'
       });
+      Swal.showLoading();
+      this.medicationService.post(medication).subscribe(res => {
+  
+        console.log(res);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'¡Medicamento creado con éxito!',
+          // showConfirmButton: false,
+        });
+  
+        this.router.navigateByUrl('/inventory');
+      }, err => {
+        console.log(err.error.message);
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al crear el medicamento'
+        });
+      });
+    };
+    
+    if ( this.userAction == 'modifyMedication') {
 
-      this.router.navigateByUrl('/inventory');
-    }, err => {
-      console.log(err.error.message);
+      medication = {...this.FormMedication.value};
+
       Swal.fire({
-        icon: 'error',
-        text: err.error.message,
-        title: 'Error al crear el medicamento'
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...'
       });
-    });
+      Swal.showLoading();
+      this.medicationService.patch(this.medication.id, medication).subscribe(res=>{
+        console.log(res);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'¡Medicamento modificado con éxito!',
+          // showConfirmButton: false,
+        });
+  
+        this.router.navigateByUrl('/inventory');
+      },err=>{
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al modificar el medicamento'
+        });
+      })
+    };
+
   }
 
 }

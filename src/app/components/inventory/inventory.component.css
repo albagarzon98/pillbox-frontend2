@@ -22,6 +22,21 @@
     margin-top: 20px;
 }
 
+.col-lg-8 .cont-opt {
+    height: 55px;
+    overflow: hidden;
+}
+
+.box-reminder-title .cont-opt {
+    overflow: hidden;
+    height: 85px;
+}
+
+.box-reminder-title .cont-opt .home-reminder-button {
+    margin: 20px;
+    height: 45px;
+}
+
 .box-pharm {
     animation: none;
     width: 70%;
@@ -46,7 +61,7 @@
     padding: 5px 3%;
 }
 
-.box-pharm:hover {
+.col-lg-10 .box-pharm:hover {
     cursor: default;
 }
 
@@ -76,7 +91,7 @@
 
 .col-lg-8 .new-reminder-btn {
     display: block;
-    margin: 0 auto 20px auto;
+    margin: 10px auto 25px auto;
     height: 42px;
     padding: 0 5%;
 }
@@ -85,15 +100,28 @@
     margin: 30px 0;
 }
 
+::ng-deep .mat-tooltip {
+    position: relative;
+    top: 13px;
+}
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .box-pharm {
         width: 100%;
     }
     .box-reminder-title {
-        padding: 10%;
+        padding: 5%;
         margin: 5% 0;
     }
-    .home-reminder-button {
+    .box-reminder-title .box-pharm {
+        width: 95%;
+    }
+    .cont-opt .home-reminder-button {
         font-size: 14px;
+        height: 35px;
+        padding: 0 15px;
+    }
+    .box-pharm span {
+        font-size: 12px;
     }
 }

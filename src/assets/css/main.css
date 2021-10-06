@@ -63,6 +63,12 @@ button:hover {
     cursor: pointer;
 }
 
+.mat-tooltip {
+    font-family: Poppins-Regular;
+    font-size: 12px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
 iframe {
     border: none !important;
 }

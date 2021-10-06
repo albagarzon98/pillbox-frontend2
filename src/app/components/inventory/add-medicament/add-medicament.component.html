@@ -10,8 +10,16 @@
                         </a>
                     </div>
 
-                    <span class="pharm-form-title">
+                    <span class="pharm-form-title" *ngIf="userAction == 'viewMedication'">
+                        {{medication.medicationName}}
+                    </span>
+
+                    <span class="pharm-form-title" *ngIf="userAction == 'newMedication'">
                         Registrar medicamento
+                    </span>
+
+                    <span class="pharm-form-title" *ngIf="userAction == 'modifyMedication'">
+                        Modificar medicamento
                     </span>
 
                     <img src="../../../../assets/images/vaccine.png" alt="">
@@ -54,7 +62,9 @@
 
                     </div>
 
-                    <button type="submit" class="pill-form-btn">Registrar medicamento</button>
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newMedication'">Registrar medicamento</button>
+
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'modifyMedication'">Modificar medicamento</button>
 
                 </form>
             </div>

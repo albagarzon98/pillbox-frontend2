@@ -14,18 +14,16 @@
                 ¡Aún no tienes medicamentos cargados!            
             </span>
 
-            <button class="home-reminder-button" (click)="expands()">
-                <mat-icon class="material-icons-outlined"  *ngIf="!expand">
-                    expand_more
-                </mat-icon>
-                <mat-icon class="material-icons-outlined" *ngIf="expand">
-                    expand_less
-                </mat-icon>         
-                &nbsp;Añadir medicamentos
-            </button>
-
-
-            <div class="cont-opt" *ngIf="expand" @fade>
+            <div class="cont-opt" [@expand]="stateBox">
+                <button class="home-reminder-button" (click)="expands()">
+                    <mat-icon class="material-icons-outlined"  *ngIf="!expand">
+                        expand_more
+                    </mat-icon>
+                    <mat-icon class="material-icons-outlined" *ngIf="expand">
+                        expand_less
+                    </mat-icon>         
+                    &nbsp;Añadir medicamentos
+                </button>
                 <div class="box-pharm" routerLink="/inventory/addMedicament">
                     <img src="../../../assets/images/vaccine.png" alt="">
                     <span>
@@ -44,7 +42,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" *ngIf="medications.length != 0">
 
         <div class="row justify-content-md-center">
             <div class="col-lg-8 col-xs-12">
@@ -52,17 +50,16 @@
                     Medicamentos
                 </span>
 
-                <button class="new-reminder-btn" (click)="expands()">
-                    <mat-icon class="material-icons-outlined"  *ngIf="!expand">
-                        expand_more
-                    </mat-icon>
-                    <mat-icon class="material-icons-outlined" *ngIf="expand">
-                        expand_less
-                    </mat-icon>         
-                    &nbsp;Añadir medicamentos
-                </button>
-
-                <div class="cont-opt" *ngIf="expand" @fade>
+                <div class="cont-opt" [@expand]="state">
+                    <button class="new-reminder-btn" (click)="expands()">
+                        <mat-icon class="material-icons-outlined"  *ngIf="!expand">
+                            expand_more
+                        </mat-icon>
+                        <mat-icon class="material-icons-outlined" *ngIf="expand">
+                            expand_less
+                        </mat-icon>         
+                        &nbsp;Añadir medicamentos
+                    </button>
                     <div class="box-pharm" routerLink="/inventory/addMedicament">
                         <img src="../../../assets/images/vaccine.png" alt="">
                         <span>
@@ -86,17 +83,17 @@
                 <div class="box-pharm" *ngFor="let medication of medications">
                     <span class="med-name">{{medication.medicationName}}</span>
                     <div class="options">
-                        <button mat-icon-button>
+                        <button mat-icon-button matTooltip="Ver medicamento" matTooltipPosition="above" (click)="viewMedication(medication)">
                             <mat-icon class="material-icons-outlined">
                                 visibility
                             </mat-icon>
                         </button>
-                        <button mat-icon-button>
+                        <button mat-icon-button matTooltip="Modificar medicamento" matTooltipPosition="above" (click)="modifyMedication(medication)">
                             <mat-icon class="material-icons-outlined">
                                 edit
                             </mat-icon>
                         </button>
-                        <button mat-icon-button>
+                        <button mat-icon-button matTooltip="Eliminar medicamento" matTooltipPosition="above" (click)="deleteMedication(medication)">
                             <mat-icon class="material-icons-outlined">
                                 delete
                             </mat-icon>
