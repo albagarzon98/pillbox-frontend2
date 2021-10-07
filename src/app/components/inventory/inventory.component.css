@@ -1,0 +1,131 @@
+.cont-back {
+    text-align: start;
+    margin: 0 0 25px 0;
+}
+
+.box-reminder-title {
+    padding: 40px 60px;
+    margin: 30px;
+}
+
+.home-reminder-button {
+    margin: 40px 0 10px 0;
+    font-size: 18px;
+}
+
+.mat-icon {
+    transform: scale(1.2);
+    animation: fadeIn 1s;
+}
+
+.cont-opt {
+    margin-top: 20px;
+}
+
+.col-lg-8 .cont-opt {
+    height: 55px;
+    overflow: hidden;
+}
+
+.box-reminder-title .cont-opt {
+    overflow: hidden;
+    height: 85px;
+}
+
+.box-reminder-title .cont-opt .home-reminder-button {
+    margin: 20px;
+    height: 45px;
+}
+
+.box-pharm {
+    animation: none;
+    width: 70%;
+    margin: 10px auto;
+}
+
+.box-pharm:hover {
+    cursor: pointer;
+}
+
+.box-pharm img {
+    width: 40px;
+    margin: 0 15px;
+}
+
+.box-pharm span {
+    margin: auto 0;
+}
+
+.col-lg-10 .box-pharm {
+    height: 40px;
+    padding: 5px 3%;
+}
+
+.col-lg-10 .box-pharm:hover {
+    cursor: default;
+}
+
+.row {
+    animation: fadeInUp 500ms;
+}
+
+.options {
+    margin-left: auto;
+}
+
+.options button {
+    position: relative;
+    bottom: 5px;
+}
+
+.options button .mat-icon:hover {
+    color: black;
+    transition: 300ms;
+}
+
+.options button .mat-icon {
+    color: #707070;
+    font-size: 20px;
+    transition: 300ms;
+}
+
+.med-name {
+    font-family: Poppins-Bold;
+}
+
+.col-lg-8 .new-reminder-btn {
+    display: block;
+    margin: 10px auto 25px auto;
+    height: 42px;
+    padding: 0 5%;
+}
+
+.home-title {
+    margin: 30px 0;
+}
+
+::ng-deep .mat-tooltip {
+    position: relative;
+    top: 13px;
+}
+
+@media only screen and (min-width:320px) and (max-width:480px) {
+    .box-pharm {
+        width: 100%;
+    }
+    .box-reminder-title {
+        padding: 5%;
+        margin: 5% 0;
+    }
+    .box-reminder-title .box-pharm {
+        width: 95%;
+    }
+    .cont-opt .home-reminder-button {
+        font-size: 14px;
+        height: 35px;
+        padding: 0 15px;
+    }
+    .box-pharm span {
+        font-size: 12px;
+    }
+}

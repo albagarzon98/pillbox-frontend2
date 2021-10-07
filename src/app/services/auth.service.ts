@@ -14,6 +14,7 @@ export class AuthService {
 
   userToken: string;
   roleAs: string;
+  branchId: string;
   
   //Esta variable me permite mostrar ciertos <nav-link> del navBar según si el usuario está o no autenticado.
   isAuth: boolean;
@@ -47,6 +48,7 @@ export class AuthService {
     localStorage.removeItem('gender');
     localStorage.removeItem('fullName');
     localStorage.removeItem('id');
+    localStorage.removeItem('branchId');
 
     this.roleAs = '';
 
@@ -71,6 +73,9 @@ export class AuthService {
         this.saveToken( resp['tokens']['access']['token'] );
         this.saveRole( resp['user']['role'] );
         this.saveId(resp['user']['id']);
+        if ( resp['user']['pharmacyCode'] ) {
+          this.saveBranchId(resp['user']['pharmacyCode']);
+        }
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de loguearse
         this.isAuth = true;
@@ -96,6 +101,9 @@ export class AuthService {
         this.saveToken( resp['tokens']['access']['token'] );
         this.saveRole( resp['user']['role'] );
         this.saveId(resp['user']['id']);
+        if ( resp['user']['pharmacyCode'] ) {
+          this.saveBranchId(resp['user']['pharmacyCode']);
+        }
         
         //Cambiamos el valor de isAuth a true porque el usuario acaba de crear su cuenta
         this.isAuth = true;
@@ -129,9 +137,19 @@ export class AuthService {
     localStorage.setItem('id', id);
   }
 
+  private saveBranchId ( branchId: string ) {
+    this.branchId = branchId;
+    localStorage.setItem('branchId', branchId);
+  }
+
   getRole() {
     this.roleAs = localStorage.getItem('role');
     return this.roleAs;
+  }
+
+  getBranchId() {
+    this.branchId = localStorage.getItem('branchId');
+    return this.branchId;
   }
 
   //Leer el token

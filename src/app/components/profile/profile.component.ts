@@ -37,9 +37,19 @@ export class ProfileComponent implements OnInit {
       gender: ['', [Validators.required]]
     });
 
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+
     this.getGenders();
     this.getPatient();
     this.FormProfile.disable();
+    
+    Swal.close();
+
   }
 
   getGenders() {
@@ -111,7 +121,9 @@ export class ProfileComponent implements OnInit {
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
-        text:'¡Datos modificados correctamente!'
+        text:'¡Datos modificados correctamente!',
+        showConfirmButton: false,
+        timer: 1000
       });
 
       this.getPatient();

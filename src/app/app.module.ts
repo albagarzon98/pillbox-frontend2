@@ -16,6 +16,8 @@ import { PharmacyRegisterComponent } from './components/pharmacy-register/pharma
 import { ProfileComponent } from './components/profile/profile.component';
 import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharmacy-requests.component';
 import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
 import { InterceptorService } from './interceptors/interceptor.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +35,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PharmacyComponent,
     ProfileComponent,
     PharmacyRequestsComponent,
-    PharmacyAddComponent
+    PharmacyAddComponent,
+    InventoryComponent,
+    AddMedicamentComponent
   ],
   imports: [
     BrowserModule,
