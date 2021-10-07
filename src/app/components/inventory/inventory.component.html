@@ -102,6 +102,7 @@
             <div class="col-lg-10 col-xs-12">
 
                 <div class="box-pharm" *ngFor="let medication of medications">
+                    <mat-icon svgIcon="pill-icon"></mat-icon>
                     <span class="med-name">{{medication.medicationName}}</span>
                     <div class="options">
                         <button mat-icon-button matTooltip="Ver medicamento" matTooltipPosition="above" (click)="viewMedication(medication)">
