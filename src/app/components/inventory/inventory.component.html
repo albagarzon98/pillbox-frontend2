@@ -67,12 +67,33 @@
                         </span>
 
                     </div>
+
                     <div class="box-pharm">
-                        <img src="../../../assets/images/csv.png" alt="">
-                        <span>
-                            Carga con CSV
+                        <div class="CSV" (click)="addCSV()">
+                            <img src="../../../assets/images/csv.png" alt="">
+                            <span>
+                                Carga con CSV
+                            </span>
+                        </div>
+                        <span class="material-icons-outlined infoCSV" (click)="infoCSV()">
+                            info
                         </span>
                     </div>
+
+                    <div class="cont-upload">
+                        <span>
+
+                        </span>
+
+                        <input class="input100" type="file" name="" id="">
+                        <button mat-raised-button color="primary">
+                            <mat-icon class="material-icons-outlined">
+                                file_upload
+                            </mat-icon>
+                            Subir archivo
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>

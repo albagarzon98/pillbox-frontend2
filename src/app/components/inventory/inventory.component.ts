@@ -33,6 +33,10 @@ import Swal from 'sweetalert2';
         overflow: 'hidden',
         height: '245px',
       })),
+      state('CSV', style({
+        overflow: 'hidden',
+        height: '360px',
+      })),
       state('inBox', style({
         overflow: 'hidden',
         height: '85px',
@@ -43,6 +47,9 @@ import Swal from 'sweetalert2';
       })),
       transition('in => out', animate('400ms ease-in-out')),
       transition('out => in', animate('400ms ease-in-out')),
+      transition('out => CSV', animate('400ms ease-in-out')),
+      transition('CSV => out', animate('400ms ease-in-out')),
+      transition('CSV => in', animate('400ms ease-in-out')),
       transition('inBox => outBox', animate('400ms ease-in-out')),
       transition('outBox => inBox', animate('400ms ease-in-out'))
     ])
@@ -54,6 +61,7 @@ export class InventoryComponent implements OnInit {
   medications: Medication[] = [];
   state: string;
   stateBox: string;
+  // archives:any = [];
 
   constructor(
     private router: Router,
@@ -73,12 +81,29 @@ export class InventoryComponent implements OnInit {
     this.stateBox = 'inBox'
   }
 
+  // captureFile(event): any {
+  //   let capturedFile = event.target.files[0];
+  //   this.archives.push( capturedFile );
+  // }
+
+  addCSV() {
+    this.state = this.state === 'CSV' ? 'out' : 'CSV';
+  }
+
+  infoCSV () {
+
+  }
+
   route () {
     return this.router.url;
   }
 
   expands () {
-    this.state = this.state === 'out' ? 'in' : 'out';
+    if ( this.state == 'CSV') {
+      this.state = 'in';
+    } else {
+      this.state = this.state === 'out' ? 'in' : 'out';
+    }
     this.stateBox = this.stateBox === 'outBox' ? 'inBox' : 'outBox';
     this.expand = !this.expand;
   }
