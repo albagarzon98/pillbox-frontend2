@@ -8,8 +8,6 @@
 }
 
 .divider {
-    border-top: 2px solid #bbb;
-    border-radius: 2px;
     width: 100%;
 }
 
@@ -20,7 +18,7 @@
     color: rgb(100, 99, 99);
 }
 
-.mat-tooltip {
+::ng-deep .mat-tooltip {
     position: relative;
     bottom: 12px;
 }

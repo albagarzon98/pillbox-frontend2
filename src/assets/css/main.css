@@ -638,6 +638,11 @@ input[type='image'] {
 /*==================================================================
 [ Form ]*/
 
+.divider {
+    border-top: 2px solid #bbb;
+    border-radius: 2px;
+}
+
 .reminder-label {
     font-family: Poppins-Bold;
     margin-bottom: 15px;

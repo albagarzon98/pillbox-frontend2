@@ -75,10 +75,11 @@ export class AddMedicamentComponent implements OnInit {
           allowOutsideClick: false,
           icon: 'success',
           text:'¡Medicamento creado con éxito!',
-          // showConfirmButton: false,
+          showConfirmButton: false
         });
-  
-        this.router.navigateByUrl('/inventory');
+        setTimeout(()=>{
+          this.router.navigateByUrl('/inventory');
+        },1200);
       }, err => {
         console.log(err.error.message);
         Swal.fire({
@@ -105,9 +106,14 @@ export class AddMedicamentComponent implements OnInit {
           allowOutsideClick: false,
           icon: 'success',
           text:'¡Medicamento modificado con éxito!',
+          showConfirmButton: false
+
         });
   
-        this.router.navigateByUrl('/inventory');
+        setTimeout(()=>{
+          this.router.navigateByUrl('/inventory');
+        },1200);
+
       },err=>{
         Swal.fire({
           icon: 'error',

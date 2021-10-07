@@ -31,7 +31,7 @@ import Swal from 'sweetalert2';
       })),
       state('out', style({
         overflow: 'hidden',
-        height: '240px',
+        height: '245px',
       })),
       state('inBox', style({
         overflow: 'hidden',
