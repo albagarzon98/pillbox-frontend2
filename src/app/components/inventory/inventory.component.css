@@ -43,6 +43,10 @@
     margin: 10px auto;
 }
 
+.box-pharm .mat-icon {
+    margin: 2px 15px 0 0;
+}
+
 .box-pharm .options button {
     margin: 0 5px 0 0;
 }
