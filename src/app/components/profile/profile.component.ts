@@ -37,19 +37,9 @@ export class ProfileComponent implements OnInit {
       gender: ['', [Validators.required]]
     });
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-
     this.getGenders();
     this.getPatient();
     this.FormProfile.disable();
-    
-    Swal.close();
-
   }
 
   getGenders() {
@@ -59,6 +49,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getPatient () {
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
     this.patientService.get().subscribe(res => {   
       this.FormProfile.patchValue({
         fullName: res['patient']['0']['fullName'],
@@ -73,6 +70,15 @@ export class ProfileComponent implements OnInit {
       this.patient.fullName = res['patient']['0']['fullName'];
       this.patient.gender = res['patient']['0']['gender'];
       this.patient.phoneNumber = res['patient']['0']['phoneNumber'];
+
+      Swal.close();
+    }, err => {
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al cargar sus datos'
+      });
     });
   }
 
@@ -126,9 +132,13 @@ export class ProfileComponent implements OnInit {
         timer: 1000
       });
 
-      this.getPatient();
+      setTimeout(()=>{
+        this.getPatient();
+      },1200);
+
       this.submitted = false;
       this.modifyProfile();
+
     }, (err) => {
       console.log(err.error.message);
       Swal.fire({

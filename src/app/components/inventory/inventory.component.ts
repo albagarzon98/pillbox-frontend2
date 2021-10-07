@@ -156,7 +156,7 @@ export class InventoryComponent implements OnInit {
           });
           setTimeout(()=>{
             this.getMedications();
-          },1500);
+          },1200);
         }, err=>{
           console.log(err);
           Swal.fire({
