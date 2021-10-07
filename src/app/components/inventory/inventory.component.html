@@ -80,13 +80,9 @@
                         </span>
                     </div>
 
-                    <div class="cont-upload">
-                        <span>
-
-                        </span>
-
+                    <div class="cont-upload" (change)="captureFile($event)">
                         <input class="input100" type="file" name="" id="">
-                        <button mat-raised-button color="primary">
+                        <button mat-raised-button color="primary" (click)="uploadFile()">
                             <mat-icon class="material-icons-outlined">
                                 file_upload
                             </mat-icon>

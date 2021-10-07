@@ -67,6 +67,8 @@
 .cont-upload button {
     display: block;
     margin: 0 auto;
+    width: 40%;
+    font-size: 15px;
 }
 
 .input100 {

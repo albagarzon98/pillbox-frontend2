@@ -39,6 +39,10 @@ export class MedicationService {
     return this.httpClient.post(`${ url }branchMedication/`, medication);
   }
 
+  postCSV (file: any, branchId: string) {
+    return this.httpClient.post(`${url}branchMedication/upload/${branchId}`, file);
+  }
+
   patch ( id: string, medication: Medication ) {
     return this.httpClient.patch(`${url}branchMedication/${id}`, medication);
   }

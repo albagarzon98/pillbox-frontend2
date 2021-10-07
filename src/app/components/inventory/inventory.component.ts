@@ -61,7 +61,7 @@ export class InventoryComponent implements OnInit {
   medications: Medication[] = [];
   state: string;
   stateBox: string;
-  // archives:any = [];
+  files:any = [];
 
   constructor(
     private router: Router,
@@ -81,10 +81,48 @@ export class InventoryComponent implements OnInit {
     this.stateBox = 'inBox'
   }
 
-  // captureFile(event): any {
-  //   let capturedFile = event.target.files[0];
-  //   this.archives.push( capturedFile );
-  // }
+  captureFile(event): any {
+    let capturedFile = event.target.files[0];
+    this.files.push( capturedFile );
+  }
+
+  uploadFile(): any {
+
+      let branchId = this.authService.getBranchId();
+      let formData = new FormData();
+      let file = this.files[0];
+      formData.append('file', file);
+  
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...',
+        title: 'Cargando archivo'
+      });
+      Swal.showLoading();
+      this.medicationService.postCSV(file, branchId).subscribe(res=>{
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'!Medicamentos cargados con éxito!',
+          showConfirmButton: false,
+        });
+        
+        setTimeout(()=>{
+          this.getMedications();
+        },1200);
+
+      },err=>{
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          text: `${err.error.message}
+          ${err.error.error}`,
+          title: 'Error al cargar el archivo'
+        });
+      });
+
+  }
 
   addCSV() {
     this.state = this.state === 'CSV' ? 'out' : 'CSV';
