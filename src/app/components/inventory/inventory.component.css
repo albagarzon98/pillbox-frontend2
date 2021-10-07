@@ -43,9 +43,8 @@
     margin: 10px auto;
 }
 
-.box-pharm .mat-icon {
-    width: 20px;
-    margin: 2px 15px 0 0;
+.box-pharm .options button {
+    margin: 0 5px 0 0;
 }
 
 .box-pharm:hover {
@@ -144,6 +143,9 @@
     }
     .box-pharm span {
         font-size: 12px;
+    }
+    .box-pharm .options button {
+        margin: 0;
     }
 }
 
