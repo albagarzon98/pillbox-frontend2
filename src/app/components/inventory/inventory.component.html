@@ -1,7 +1,6 @@
 <div class="login-background" *ngIf="route() == '/inventory'">
 
     <div class="container-home" *ngIf="medications.length == 0">
-        <!-- [@expand]="state"  -->
         <div class="box-reminder-title">
 
             <div class="cont-back">
@@ -14,6 +13,7 @@
                 ¡Aún no tienes medicamentos cargados!            
             </span>
 
+            <!-- screenWidth < 480 ? stateBoxMobile :  -->
             <div class="cont-opt" [@expand]="stateBox">
                 <button class="home-reminder-button" (click)="expands()">
                     <mat-icon class="material-icons-outlined"  *ngIf="!expand">
@@ -32,10 +32,31 @@
 
                 </div>
                 <div class="box-pharm">
-                    <img src="../../../assets/images/csv.png" alt="">
-                    <span>
-                        Carga con CSV
+                    <div class="CSV" (click)="addCSV()">
+                        <img src="../../../assets/images/csv.png" alt="">
+                        <span>
+                            Carga con CSV
+                        </span>
+                    </div>
+                    <span class="material-icons-outlined infoCSV" (click)="infoCSV()">
+                        info
                     </span>
+                </div>
+
+                <div class="cont-upload" (change)="captureFile($event)">
+                    <input #inputFile class="input100" type="file" name="" id="">
+                    <button mat-raised-button color="primary" (click)="uploadFile()">
+                        <mat-icon class="material-icons-outlined">
+                            file_upload
+                        </mat-icon>
+                        Subir archivo
+                    </button>
+                    <div class="pill-danger animated fadeIn" *ngIf="uploaded && inputState == 'isEmpty'">
+                        Por favor, seleccione un archivo.
+                    </div>
+                    <div class="pill-danger animated fadeIn" *ngIf="uploaded && inputState == 'incorrectFile'">
+                        Formato de archivo incorrecto.
+                    </div>
                 </div>
             </div>
 
@@ -51,7 +72,7 @@
                 </span>
 
                 <div class="cont-opt" [@expand]="state">
-                    <button class="new-reminder-btn" (click)="expands()">
+                    <button class="new-reminder-btn list-btn" (click)="expands()">
                         <mat-icon class="material-icons-outlined"  *ngIf="!expand">
                             expand_more
                         </mat-icon>
@@ -81,7 +102,7 @@
                     </div>
 
                     <div class="cont-upload" (change)="captureFile($event)">
-                        <input class="input100" type="file" name="" id="">
+                        <input #inputFile class="input100" type="file" name="" id="">
                         <button mat-raised-button color="primary" (click)="uploadFile()">
                             <mat-icon class="material-icons-outlined">
                                 file_upload
@@ -102,7 +123,6 @@
 
         <div class="row justify-content-md-center">
             <div class="col-lg-10 col-xs-12">
-                <div class="border"></div>
                 <div class="box-pharm" *ngFor="let medication of medications">
                     <mat-icon svgIcon="pill-icon"></mat-icon>
                     <span class="med-name">{{medication.medicationName}}</span>
