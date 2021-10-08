@@ -67,8 +67,17 @@
 .cont-upload button {
     display: block;
     margin: 0 auto;
-    width: 40%;
+    width: 27%;
     font-size: 15px;
+}
+
+.pill-danger {
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.cont-upload button .mat-icon {
+    margin: 0 6% 0 0;
 }
 
 .input100 {
@@ -102,6 +111,11 @@
 
 .box-pharm span {
     margin: auto 0;
+}
+
+.border {
+    box-shadow: 0 -5px 5px -5px #270e53;
+    margin-top: 5px;
 }
 
 .col-lg-10 .box-pharm {

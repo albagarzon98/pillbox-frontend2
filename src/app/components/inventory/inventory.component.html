@@ -88,6 +88,12 @@
                             </mat-icon>
                             Subir archivo
                         </button>
+                        <div class="pill-danger animated fadeIn" *ngIf="uploaded && inputState == 'isEmpty'">
+                            Por favor, seleccione un archivo.
+                        </div>
+                        <div class="pill-danger animated fadeIn" *ngIf="uploaded && inputState == 'incorrectFile'">
+                            Formato de archivo incorrecto.
+                        </div>
                     </div>
 
                 </div>
@@ -96,7 +102,7 @@
 
         <div class="row justify-content-md-center">
             <div class="col-lg-10 col-xs-12">
-
+                <div class="border"></div>
                 <div class="box-pharm" *ngFor="let medication of medications">
                     <mat-icon svgIcon="pill-icon"></mat-icon>
                     <span class="med-name">{{medication.medicationName}}</span>

@@ -35,7 +35,7 @@ import Swal from 'sweetalert2';
       })),
       state('CSV', style({
         overflow: 'hidden',
-        height: '360px',
+        height: '380px',
       })),
       state('inBox', style({
         overflow: 'hidden',
@@ -61,7 +61,9 @@ export class InventoryComponent implements OnInit {
   medications: Medication[] = [];
   state: string;
   stateBox: string;
-  files:any = [];
+  file: File;
+  inputState: string = 'isEmpty';
+  uploaded: boolean = false;
 
   constructor(
     private router: Router,
@@ -82,50 +84,63 @@ export class InventoryComponent implements OnInit {
   }
 
   captureFile(event): any {
-    let capturedFile = event.target.files[0];
-    this.files.push( capturedFile );
+    this.file = event.target.files[0];
+    if ( this.file.type != 'application/vnd.ms-excel' ) {
+      this.inputState = 'incorrectFile'
+    }
   }
 
   uploadFile(): any {
 
-      let branchId = this.authService.getBranchId();
-      let formData = new FormData();
-      let file = this.files[0];
-      formData.append('file', file);
+    this.uploaded = true;
+    if ( !this.file  ) {
+      this.inputState = 'isEmpty';
+      return;
+    }
+    if ( this.file.type != 'application/vnd.ms-excel' ) {
+      return;
+    }
+    
+    let branchId = this.authService.getBranchId();
+    console.log(this.file);
   
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...',
+      title: 'Cargando archivo'
+    });
+    Swal.showLoading();
+    this.medicationService.postCSV(this.file, branchId).subscribe(res=>{
       Swal.fire({
         allowOutsideClick: false,
-        icon: 'info',
-        text:'Espere por favor...',
-        title: 'Cargando archivo'
+        icon: 'success',
+        text:'!Medicamentos cargados con éxito!',
+        showConfirmButton: false,
       });
-      Swal.showLoading();
-      this.medicationService.postCSV(file, branchId).subscribe(res=>{
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'success',
-          text:'!Medicamentos cargados con éxito!',
-          showConfirmButton: false,
-        });
-        
-        setTimeout(()=>{
-          this.getMedications();
-        },1200);
+      
+      setTimeout(()=>{
+        this.getMedications();
+      },1200);
 
-      },err=>{
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          text: `${err.error.message}
-          ${err.error.error}`,
-          title: 'Error al cargar el archivo'
-        });
+    },err=>{
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        text: `${err.error.error}`,
+        title: 'Error al cargar el archivo'
       });
+    });
 
   }
 
   addCSV() {
     this.state = this.state === 'CSV' ? 'out' : 'CSV';
+    if ( this.state == 'out') {
+      setTimeout(()=>{
+        this.uploaded = false;
+      },300);
+    }
   }
 
   infoCSV () {
