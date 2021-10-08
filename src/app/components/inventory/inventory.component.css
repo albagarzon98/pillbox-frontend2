@@ -23,7 +23,11 @@
 }
 
 .cont-opt .list-btn {
-    margin-bottom: 30px !important;
+    margin-bottom: 35px !important;
+}
+
+.swal2-html-container {
+    text-align: left !important;
 }
 
 .col-lg-8 .cont-opt {
@@ -119,7 +123,6 @@
 }
 
 .col-lg-10 {
-    box-shadow: 0 -5px 5px -5px #270e53;
     padding: 10px 0;
     width: 670px;
 }

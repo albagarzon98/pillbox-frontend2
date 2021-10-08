@@ -122,7 +122,7 @@
         </div>
 
         <div class="row justify-content-md-center">
-            <div class="col-lg-10 col-xs-12">
+            <div class="col-lg-10 col-xs-12" [@divider]="divider">
                 <div class="box-pharm" *ngFor="let medication of medications">
                     <mat-icon svgIcon="pill-icon"></mat-icon>
                     <span class="med-name">{{medication.medicationName}}</span>

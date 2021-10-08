@@ -24,6 +24,17 @@ import Swal from 'sweetalert2';
 
     ]),
 
+    trigger('divider', [
+      state('in', style({
+        boxShadow: 'none'
+      })),
+      state('out', style({
+        boxShadow: '0 -5px 5px -5px #270e53'
+      })),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
+    ]),
+
     trigger('expand', [
       state('in', style({
         overflow: 'hidden',
@@ -31,11 +42,11 @@ import Swal from 'sweetalert2';
       })),
       state('out', style({
         overflow: 'hidden',
-        height: '245px',
+        height: '255px',
       })),
       state('CSV', style({
         overflow: 'hidden',
-        height: '390px',
+        height: '395px',
       })),
       state('inBox', style({
         overflow: 'hidden',
@@ -75,6 +86,7 @@ export class InventoryComponent implements OnInit {
   medications: Medication[] = [];
   state: string;
   stateBox: string;
+  divider:string;
   files: File[] = [];
   inputState: string = 'isEmpty';
   uploaded: boolean = false;
@@ -95,7 +107,8 @@ export class InventoryComponent implements OnInit {
       this.getMedications();
     }
     this.state = 'in';
-    this.stateBox = 'inBox'
+    this.stateBox = 'inBox';
+    this.divider = 'in';
   }
 
   screenWidth () {
@@ -117,14 +130,14 @@ export class InventoryComponent implements OnInit {
     
     if ( this.state == 'CSV') {
       this.state = 'in';
-      this.files = [];
+      this.divider = 'in';
 
       setTimeout(()=>{
-        this.InputFile.nativeElement.value = "";
-        this.uploaded = false;
+        this.resetInput();
       },600);
     } else {
       this.state = this.state === 'out' ? 'in' : 'out';
+      this.divider = this.divider === 'out' ? 'in' : 'out';
       this.resetInput();
     }
 
@@ -145,7 +158,22 @@ export class InventoryComponent implements OnInit {
   }
 
   infoCSV () {
-
+    let text: string = `El formato del archivo debe ser CSV (extensión .csv)`;
+    Swal.fire({
+      icon: 'info',
+      html:
+      `<div class="csv-info">
+        <span>Un archivo CSV (Comma Separated Values)
+        es un archivo de texto plano que contiene valores separados por comas.</span><br><br>
+        <span>La extensión del archivo debe ser .csv , por ejemplo:</span><br>
+        <span>"ejemplo.csv"</span><br><br>
+        <span>El formato del archivo debe ser el siguiente:</span>
+        <img src="../../../assets/images/CSVexample.png" alt="">
+        <p>Los valores aquí mostrados son a modo de ejemplo</p>
+      </div>`
+      ,
+    footer: '<a href="https://support.google.com/google-ads/editor/answer/56368">Para más información visite este sitio.</a>'
+    })
   }
 
   addCSV() {
