@@ -142,6 +142,11 @@ export class ReminderComponent implements OnInit {
 
     }, (err) => {
       console.log(err.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al cargar sus medicamentos'
+      });
     })
   }
   
@@ -279,8 +284,6 @@ export class ReminderComponent implements OnInit {
 
     reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
     reminder['timeNotification'] = reminder['timeNotification'].slice(0,2) + ':' + reminder['timeNotification'].slice(2,4);
-
-    console.log(reminder);
 
     Swal.fire({
       allowOutsideClick: false,

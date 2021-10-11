@@ -2,10 +2,38 @@
     margin: 3% 0;
 }
 
+.register-container {
+    width: 600px;
+    padding: 30px;
+}
+
+.divider {
+    width: 100%;
+}
+
+.info {
+    transform: scale(0.85);
+    position: relative;
+    bottom: 2px;
+    color: rgb(100, 99, 99);
+}
+
+::ng-deep .mat-tooltip {
+    position: relative;
+    bottom: 12px;
+}
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .carousel-item .pill-form-btn {
         display: block;
         margin: auto;
         width: 80%;
+    }
+    .register-container {
+        width: auto;
+        padding: 10%;
+    }
+    .divider {
+        width: 100%;
     }
 }

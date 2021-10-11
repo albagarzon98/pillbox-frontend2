@@ -63,6 +63,12 @@ button:hover {
     cursor: pointer;
 }
 
+.mat-tooltip {
+    font-family: Poppins-Regular;
+    font-size: 12px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
 iframe {
     border: none !important;
 }
@@ -541,11 +547,6 @@ input[type='image'] {
     width: 400px;
 }
 
-.register-container {
-    width: 600px;
-    padding: 30px;
-}
-
 .container-carousel {
     /* height: 150px; */
     margin-right: auto;
@@ -636,6 +637,11 @@ input[type='image'] {
 
 /*==================================================================
 [ Form ]*/
+
+.divider {
+    border-top: 2px solid #bbb;
+    border-radius: 2px;
+}
 
 .reminder-label {
     font-family: Poppins-Bold;
@@ -805,6 +811,20 @@ mat-select .mat-select-placeholder {
 
 .inputDate::placeholder {
     font-size: 15px;
+}
+
+.csv-info {
+    text-align: left;
+}
+
+.csv-info p {
+    font-size: 14px;
+}
+
+.csv-info img {
+    border: solid 1px #707070;
+    border-radius: 10px;
+    margin: 15px auto 10px auto;
 }
 
 
@@ -1253,8 +1273,7 @@ footer {
     .img-role {
         width: 60%;
     }
-    .login-container,
-    .register-container {
+    .login-container {
         width: auto;
         padding: 10%;
     }
