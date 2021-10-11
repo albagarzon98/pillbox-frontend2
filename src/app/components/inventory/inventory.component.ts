@@ -193,7 +193,7 @@ export class InventoryComponent implements OnInit {
       this.uploaded = true;
       this.inputState = 'isEmpty';
     }
-    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' ) {
+    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv' ) {
       this.uploaded = true;
       this.inputState = 'incorrectFile';
       console.log(this.files[0].type);
