@@ -19,7 +19,15 @@
 }
 
 .cont-opt {
-    margin-top: 20px;
+    margin-top: 0;
+}
+
+.cont-opt .list-btn {
+    margin-bottom: 35px !important;
+}
+
+.swal2-html-container {
+    text-align: left !important;
 }
 
 .col-lg-8 .cont-opt {
@@ -59,6 +67,52 @@
     cursor: pointer;
 }
 
+.CSV {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+
+.cont-upload button {
+    display: block;
+    margin: 0 auto;
+    width: 27%;
+    font-size: 15px;
+}
+
+.pill-danger {
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.cont-upload button .mat-icon {
+    margin: 0 6% 0 0;
+}
+
+.input100 {
+    display: block;
+    margin: 30px auto 25px auto;
+    width: 70%;
+    height: auto;
+    background-color: none;
+}
+
+.input100:hover {
+    cursor: pointer;
+}
+
+.infoCSV {
+    margin: auto 15px auto 0 !important;
+    font-size: 30px;
+    color: #707070;
+    transition: 300ms;
+}
+
+.infoCSV:hover {
+    color: black;
+    transition: 300ms;
+}
+
 .box-pharm img {
     width: 40px;
     margin: 0 15px;
@@ -68,8 +122,14 @@
     margin: auto 0;
 }
 
+.col-lg-10 {
+    padding: 10px 0;
+    width: 670px;
+}
+
 .col-lg-10 .box-pharm {
     height: 40px;
+    width: 100%;
     padding: 5px 3%;
 }
 
@@ -113,7 +173,7 @@
 }
 
 .home-title {
-    margin: 30px 0;
+    margin: 30px 0 15px 0;
 }
 
 ::ng-deep .mat-tooltip {
@@ -122,9 +182,15 @@
 }
 
 @media only screen and (min-width:320px) and (max-width:480px) {
-    .box-pharm {
-        width: 95%;
+    .col-lg-10 {
+        padding: 10px 0;
+        margin: 0 5%;
+        width: 90%;
+    }
+    .col-lg-10 .box-pharm {
+        width: 100%;
         overflow: hidden;
+        margin: 10px 0;
     }
     .box-pharm span {
         width: 150px;
@@ -148,6 +214,21 @@
         font-size: 14px;
         height: 35px;
         padding: 0 15px;
+    }
+    .cont-opt .box-pharm {
+        width: 90%;
+    }
+    .cont-opt .box-pharm .infoCSV {
+        width: 25px;
+        font-size: 25px;
+    }
+    .cont-opt .box-pharm img {
+        width: 30px;
+        height: 30px;
+    }
+    .cont-opt input {
+        width: 90%;
+        font-size: 12px;
     }
     .box-pharm span {
         font-size: 12px;

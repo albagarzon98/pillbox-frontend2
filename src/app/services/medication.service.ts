@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Medication } from '../models/medication';
@@ -37,6 +37,16 @@ export class MedicationService {
   
   post( medication: Medication ) {
     return this.httpClient.post(`${ url }branchMedication/`, medication);
+  }
+
+  postCSV (file: File, branchId: string) {
+    let headers = new HttpHeaders({
+      'file': `${file.name}`
+    });
+    let formData = new FormData();
+    formData.append('file', new Blob([file], { type: 'text/csv' }), file.name);
+
+    return this.httpClient.post(`${url}branchMedication/upload/${branchId}`, formData, { headers: headers });
   }
 
   patch ( id: string, medication: Medication ) {

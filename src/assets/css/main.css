@@ -813,6 +813,20 @@ mat-select .mat-select-placeholder {
     font-size: 15px;
 }
 
+.csv-info {
+    text-align: left;
+}
+
+.csv-info p {
+    font-size: 14px;
+}
+
+.csv-info img {
+    border: solid 1px #707070;
+    border-radius: 10px;
+    margin: 15px auto 10px auto;
+}
+
 
 /*------------------------------------------------------------------
 [ Focus Input ]*/
