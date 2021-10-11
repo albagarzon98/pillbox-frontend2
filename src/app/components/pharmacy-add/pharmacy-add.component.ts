@@ -2,9 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GoogleMap } from '@angular/google-maps';
 import { Router } from '@angular/router';
+import { Branch } from 'src/app/models/branch';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import Swal from 'sweetalert2';
 import { PharmacyService } from '../../services/pharmacy.service';
+import { BranchService } from '../../services/branch.service';
+import { PharmacyRequestService } from 'src/app/services/pharmacy-request.service';
+import { PharmacyRequest } from 'src/app/models/pharmacy-request';
 
 @Component({
   selector: 'app-pharmacy-add',
@@ -13,16 +17,16 @@ import { PharmacyService } from '../../services/pharmacy.service';
 })
 export class PharmacyAddComponent implements OnInit {
 
-    //Maps
-    @ViewChild('mapSearchField') searchField: ElementRef;
-    @ViewChild(GoogleMap) map: GoogleMap;
-    initialCoordinates = {
-      lat: -31.420211, 
-      lng: -64.188854
-    }
-    mapConfigurations = {
-      zoomControl: true
-    }
+  //Maps
+  @ViewChild('mapSearchField') searchField: ElementRef;
+  @ViewChild(GoogleMap) map: GoogleMap;
+  initialCoordinates = {
+    lat: -31.420211, 
+    lng: -64.188854
+  }
+  mapConfigurations = {
+    zoomControl: true
+  }
   
   submitted: boolean = false;
   FormPharmacyAdd: FormGroup;
@@ -30,7 +34,9 @@ export class PharmacyAddComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
-    private pharmacyService: PharmacyService
+    private pharmacyService: PharmacyService,
+    private branchService: BranchService,
+    private pharmacyRequestService: PharmacyRequestService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +47,9 @@ export class PharmacyAddComponent implements OnInit {
       // ownerLastName: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       contactEmail: ['',[Validators.required, Validators.email]],
-      businessHours: ['', [Validators.required, Validators.maxLength(100)]],
-      address: ['',[Validators.required, Validators.maxLength(55)]]
+      businessHours: ['', [Validators.required, Validators.maxLength(200)]],
+      address: ['',[Validators.required, Validators.maxLength(55)]],
+      urlLogo: ['',[Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)]]
     })
 
     this.getPharmacyAdd();
@@ -86,11 +93,20 @@ export class PharmacyAddComponent implements OnInit {
   }
 
   onSubmit( form: FormGroup ) { 
+    
     this.submitted = true;
     if ( form.invalid ) { return; }
 
     let pharmacy: Pharmacy = {...this.FormPharmacyAdd.value};
+    delete pharmacy['businessHours'];
+    console.log(pharmacy);
     pharmacy.branches = [];
+
+    let branch: Branch = new Branch();
+    branch.branchName = pharmacy.pharmacyName;
+    branch.phoneNumber = pharmacy.phoneNumber;
+    branch.realAddress = pharmacy.address;
+    branch.businessHours = this.FormPharmacyAdd.value['businessHours'];
 
     Swal.fire({
       allowOutsideClick: false,
@@ -102,13 +118,43 @@ export class PharmacyAddComponent implements OnInit {
     this.pharmacyService.post(pharmacy).subscribe(res => {
 
       console.log(res);
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'success',
-        title: '¡Farmacia registrada con éxito!',
-      });
+      let pharmacyId = res['id'];
 
-      this.router.navigateByUrl('/pharmacyRequests');
+      this.branchService.post(branch, pharmacyId).subscribe(res=>{
+        
+        console.log(res);
+        
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          title: '¡Farmacia registrada con éxito!',
+          showConfirmButton: false
+        });
+
+        let requestId = this.pharmacyService.getRequestId();
+        let pharmacyRequest = {
+          pharmacyRequestId: requestId,
+          status: 'aprobado'
+        }
+
+        this.pharmacyRequestService.patch(pharmacyRequest).subscribe(res=>{
+          console.log(res);
+        },err=>{
+          console.log(err);
+        });
+
+        setTimeout(()=>{
+          this.router.navigateByUrl('/pharmacyRequests');
+        },1200);      
+      
+      },err=>{
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al registrar la sucursal.'
+        });
+      });
+      
     }, err => {
       console.log(err.error.message);
       Swal.fire({

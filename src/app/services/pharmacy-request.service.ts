@@ -19,4 +19,8 @@ export class PharmacyRequestService {
   get() {
     return this.httpClient.get(`${url}pharmacyRequest/`);
   }
+
+  patch ( pharmacyRequest ) {
+    return this.httpClient.patch(`${url}pharmacyRequest/`, pharmacyRequest);
+  }
 }

@@ -31,7 +31,6 @@
                         && FormPharmacyAdd.controls.pharmacyName.errors?.maxlength">
                             Máximo 100 caracteres.
                         </div>
-
                     </div>
 
                     <!-- Campo Correo electrónico -->
@@ -75,8 +74,8 @@
                     <div class="mb-4">
                         <label class="pill-label-reminder">Horario de atención:</label>
 
-                        <input matInput type="text" class="form-control form-reminder-input" formControlName="businessHours" placeholder="Escribe aquí el horario de atención." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.businessHours.touched || submitted)  
-                        && FormPharmacyAdd.controls.address.errors}" />
+                        <textarea type="text" class="form-control form-reminder-input" formControlName="businessHours" placeholder="Escribe aquí el horario de atención." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.businessHours.touched || submitted)  
+                        && FormPharmacyAdd.controls.businessHours.errors}"></textarea>
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.businessHours.touched || submitted) 
                         && FormPharmacyAdd.controls.businessHours.errors?.required">
@@ -85,7 +84,7 @@
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.businessHours.touched || submitted) 
                         && FormPharmacyAdd.controls.businessHours.errors?.maxlength">
-                            Máximo 55 caracteres.
+                            Máximo 200 caracteres.
                         </div>
                     </div>
 
@@ -107,8 +106,21 @@
                         </div>
                     </div>
 
-                    <div class="map-container">
+                    <div class="map-container mb-4">
                         <google-map width="100%" height="50vh" [center]="initialCoordinates" [options]="mapConfigurations"></google-map>
+                    </div>
+
+                    <!-- Campo url imagen-->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Url imagen (opcional):</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="urlLogo" placeholder="Ingresa el enlace de la imagen." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.urlLogo.touched || submitted)  
+                        && FormPharmacyAdd.controls.urlLogo.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.urlLogo.touched || submitted) 
+                        && FormPharmacyAdd.controls.urlLogo.errors?.pattern">
+                            Enlace inválido.
+                        </div>
                     </div>
 
                     <button type="submit" class="pill-form-btn">Registrar Farmacia</button>

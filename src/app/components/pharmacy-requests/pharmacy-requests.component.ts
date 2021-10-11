@@ -43,7 +43,13 @@ export class PharmacyRequestsComponent implements OnInit {
 
   constructor( private pharmacyRequestService: PharmacyRequestService,
                private router: Router,
-               private pharmacyService: PharmacyService ) { }
+               private pharmacyService: PharmacyService ) { 
+              
+              this.router.routeReuseStrategy.shouldReuseRoute = function() {
+                return false;
+              };
+              this.router.onSameUrlNavigation = 'reload';
+  }
   
   ngOnInit(): void {
     this.getRequests();
@@ -67,13 +73,16 @@ export class PharmacyRequestsComponent implements OnInit {
   }
 
   addPharmacy( request ) {
-    const pharmacy = new Pharmacy();
+    
+    let pharmacy = new Pharmacy();
     pharmacy.pharmacyName = request.pharmacyName;
     pharmacy.address = request.address;
     pharmacy.contactEmail = request.contactEmail;
     pharmacy.phoneNumber = request.phoneNumber;
 
-    this.pharmacyService.addPharmacy(pharmacy);
+    let requestId = request.id;
+
+    this.pharmacyService.addPharmacy(pharmacy, requestId);
 
     this.router.navigateByUrl('/pharmacyRequests/add');
   }
