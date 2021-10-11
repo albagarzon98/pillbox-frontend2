@@ -197,8 +197,7 @@ export class InventoryComponent implements OnInit {
       this.uploaded = true;
       this.inputState = 'incorrectFile';
       console.log(this.files[0].type);
-    }
-    if ( this.files[0] && this.files[0].type == 'application/vnd.ms-excel' ) {
+    } else {
       this.inputState = '';
     }
   }
