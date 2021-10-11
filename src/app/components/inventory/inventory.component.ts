@@ -209,7 +209,7 @@ export class InventoryComponent implements OnInit {
       this.inputState = 'isEmpty';
       return;
     }
-    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' ) {
+    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv' ) {
       return;
     }
 
