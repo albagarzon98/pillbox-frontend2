@@ -40,6 +40,7 @@ import { state, trigger, style, transition, animate } from '@angular/animations'
 export class PharmacyRequestsComponent implements OnInit {
 
   requests = [];
+  filter: string = "pendiente";
 
   constructor( private pharmacyRequestService: PharmacyRequestService,
                private router: Router,
@@ -59,6 +60,18 @@ export class PharmacyRequestsComponent implements OnInit {
     return this.router.url;
   }
   
+  filterPendent () {
+    this.filter = "pendiente";
+  }
+
+  filterApproved () {
+    this.filter = "aprobado";
+  }
+
+  filterRejected () {
+    this.filter = "rechazado";
+  }
+
   expandData( request ) {
     if ( window.screen.width < 500) {
       request.state = request.state === 'mobileOut' ? 'mobileIn' : 'mobileOut';

@@ -4,5 +4,6 @@ export class Pharmacy {
     phoneNumber: string;
     address: string;
     contactEmail: string;
+    urlLogo: string;
     branches: []
 }
