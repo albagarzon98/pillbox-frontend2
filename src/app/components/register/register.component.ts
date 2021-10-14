@@ -168,7 +168,18 @@ export class RegisterComponent implements OnInit {
   onSubmit( form: FormGroup ) {
     
     this.submitted = true;
-    if ( form.invalid ) { return; }
+    if ( this.user.role == "farmaceutico" && form.invalid ) { return; }
+    if ( this.user.role != 'farmaceutico' &&
+         (this.FormRegister.controls.Name.invalid ||
+         this.FormRegister.controls.LastName.invalid ||
+         this.FormRegister.controls.Email.invalid ||
+         this.FormRegister.controls.Phone.invalid || 
+         this.FormRegister.controls.Document.invalid ||
+         this.FormRegister.controls.Gender.invalid ||
+         this.FormRegister.controls.Password.invalid ||
+         this.FormRegister.controls.ConfirmPassword.invalid) ) {
+           return;
+         }
 
     //Asignamos los valores del form al objeto user
     this.user.name = this.FormRegister.value['Name'];

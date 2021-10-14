@@ -103,7 +103,7 @@
                             <label class="pill-label-reminder" for="LastName">Apellido:</label>
 
                             <input type="text" class="form-control input100" formControlName="LastName" placeholder="Escribe aquí tu apellido" [ngClass]="{'is-invalid':    (FormRegister.controls.LastName.touched || submitted)  
-                            && FormRegister.controls.Name.errors}" />
+                            && FormRegister.controls.LastName.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormRegister.controls.LastName.touched || submitted) 
                             && FormRegister.controls.LastName.errors?.required">
