@@ -143,6 +143,11 @@
                                 Este campo es obligatorio.
                             </div>
 
+                            <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.medicationName.touched || submitted) 
+                            && FormReminder.controls.medicationName.errors?.maxlength">
+                                Máximo 55 caracteres.
+                            </div>
+
                         </div>
 
 
