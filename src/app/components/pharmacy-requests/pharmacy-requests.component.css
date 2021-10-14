@@ -56,6 +56,16 @@ button .mat-icon {
     animation: fadeIn 500ms;
 }
 
+.search {
+    animation: fadeInUp 500ms;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.search button {
+    background-color: rgba(240, 240, 240, 0.938);
+}
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .container-home-title {
         text-align: center;

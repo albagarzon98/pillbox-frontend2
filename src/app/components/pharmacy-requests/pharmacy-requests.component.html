@@ -21,18 +21,31 @@
             </span>
         </div>
 
-        <button mat-button [matMenuTriggerFor]="belowMenu">Estado{{filter == '' ? '':': ' + filter}}</button>
-        <mat-menu #belowMenu="matMenu" yPosition="below">
-            <button mat-menu-item (click)="filterPendent()">Pendiente</button>
-            <button mat-menu-item (click)="filterApproved()">Aprobada</button>
-            <button mat-menu-item (click)="filterRejected()">Rechazada</button>
-        </mat-menu>
+        <div class="search">
+            <button mat-raised-button [matMenuTriggerFor]="belowMenu">Estado{{': ' + filter}} 
+                <mat-icon class="material-icons-outlined">
+                    expand_more
+                </mat-icon>
+            </button>
+            <mat-menu #belowMenu="matMenu" yPosition="below">
+                <button mat-menu-item (click)="getRequests()">Todas</button>
+                <button mat-menu-item (click)="filterPendent()">Pendiente</button>
+                <button mat-menu-item (click)="filterApproved()">Aprobada</button>
+                <button mat-menu-item (click)="filterRejected()">Rechazada</button>
+            </mat-menu>
+        </div>
+
 
         <div class="row justify-content-md-center">
             <div class="col-lg-6 col-xs-12 center-col">
                 <div *ngFor="let request of requests">
 
-                    <div class="box-pharm" [@expand]="request.state" *ngIf="request.status == filter">
+                    <!-- [@expand]="request.state" *ngIf="filter == '' ? 
+                    (request.status == 'aprobado' ||
+                    request.status == 'pendiente' ||
+                    request.status == 'rechazado') 
+                    : request.status == filter" -->
+                    <div class="box-pharm">
 
                         <div class="pharm-name">
                             <span class="box-pharm-name">

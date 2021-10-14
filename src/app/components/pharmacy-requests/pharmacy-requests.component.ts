@@ -40,7 +40,7 @@ import { state, trigger, style, transition, animate } from '@angular/animations'
 export class PharmacyRequestsComponent implements OnInit {
 
   requests = [];
-  filter: string = "pendiente";
+  filter: string = "Todas";
 
   constructor( private pharmacyRequestService: PharmacyRequestService,
                private router: Router,
@@ -59,17 +59,71 @@ export class PharmacyRequestsComponent implements OnInit {
   route () {
     return this.router.url;
   }
-  
+
   filterPendent () {
-    this.filter = "pendiente";
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.pharmacyRequestService.getPendent().subscribe(res=>{
+      Swal.close();
+      this.requests = res['results'];
+      this.filter = "Pendiente";
+    },err=>{
+      console.log(err.error.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al obtener las solicitudes'
+      });
+    });
   }
 
   filterApproved () {
-    this.filter = "aprobado";
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.pharmacyRequestService.getApproved().subscribe(res=>{
+      Swal.close();
+      this.requests = res['results'];
+      this.filter = "Aprobada";
+    },err=>{
+      console.log(err.error.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al obtener las solicitudes'
+      });
+    });
   }
 
   filterRejected () {
-    this.filter = "rechazado";
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.pharmacyRequestService.getRejected().subscribe(res=>{
+      Swal.close();
+      this.requests = res['results'];
+      this.filter = "Rechazada";
+    },err=>{
+      console.log(err.error.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al obtener las solicitudes'
+      });
+    });
   }
 
   expandData( request ) {
@@ -114,6 +168,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.close();
       console.log(res);
       this.requests = res['results']
+      this.filter = "Todas";
     },err=>{
       console.log(err.error.message);
       Swal.fire({

@@ -20,6 +20,18 @@ export class PharmacyRequestService {
     return this.httpClient.get(`${url}pharmacyRequest/`);
   }
 
+  getPendent () {
+    return this.httpClient.get(`${url}pharmacyRequest?status=pendiente`);
+  }
+
+  getApproved () {
+    return this.httpClient.get(`${url}pharmacyRequest?status=aprobado`);
+  }
+
+  getRejected () {
+    return this.httpClient.get(`${url}pharmacyRequest?status=rechazado`);
+  }
+
   patch ( pharmacyRequest ) {
     return this.httpClient.patch(`${url}pharmacyRequest/`, pharmacyRequest);
   }
