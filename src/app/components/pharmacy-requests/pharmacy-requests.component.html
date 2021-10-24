@@ -40,12 +40,7 @@
             <div class="col-lg-6 col-xs-12 center-col">
                 <div *ngFor="let request of requests">
 
-                    <!-- [@expand]="request.state" *ngIf="filter == '' ? 
-                    (request.status == 'aprobado' ||
-                    request.status == 'pendiente' ||
-                    request.status == 'rechazado') 
-                    : request.status == filter" -->
-                    <div class="box-pharm">
+                    <div class="box-pharm" [@expand]="request.state">
 
                         <div class="pharm-name">
                             <span class="box-pharm-name">
@@ -80,7 +75,7 @@
                                 Sucursales: {{request.branchesNumber}}
                             </span>
 
-                            <div class="buttons">
+                            <div class="buttons" *ngIf="request.status == 'pendiente'">
                                 <button type="button" class="btn btn-success" (click)="addPharmacy(request)">
                                     <mat-icon class="material-icons-outlined">add</mat-icon>
                                     Registrar farmacia
@@ -89,6 +84,13 @@
                                     <mat-icon class="material-icons-outlined">close</mat-icon>
                                     Anular solicitud
                                 </button>
+                            </div>
+
+                            <div class="approved" *ngIf="request.status == 'aprobado'">
+                                Solicitud Aprobada &nbsp;
+                                <mat-icon class="material-icons-outlined">
+                                    done
+                                </mat-icon>
                             </div>
 
                         </div>

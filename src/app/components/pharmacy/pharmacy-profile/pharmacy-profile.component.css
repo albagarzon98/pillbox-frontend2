@@ -1,0 +1,101 @@
+.img {
+    text-align: center;
+}
+
+.cont-img-pharm {
+    width: auto;
+    height: 150px;
+    display: inline-block;
+    margin: 0 auto 20px auto;
+}
+
+.cont-img-pharm img {
+    width: 150px;
+    height: 150px;
+    border-radius: 7px;
+    object-fit: cover;
+    box-shadow: -1px 2px 10px 0.5px #270e53;
+}
+
+.container .row .col-md-3 {
+    padding: 30px 15px;
+}
+
+.container .row .col-md-6 {
+    padding: 30px 15px;
+}
+
+.branch-name {
+    font-family: Poppins-Bold;
+}
+
+.branch-data {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: 10px;
+}
+
+.branch-data span {
+    width: 100%;
+    margin: 5px 0 0 0;
+}
+
+.branch-data .mat-icon {
+    font-size: 20px;
+}
+
+.options {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.options button .mat-icon:hover {
+    color: black;
+    transition: 300ms;
+}
+
+.options button .mat-icon {
+    color: #707070;
+    font-size: 25px;
+    transition: 300ms;
+}
+
+.branch-address {
+    font-size: 14px;
+}
+
+.box-pharm .options button {
+    margin: 0 5px 0 0;
+}
+
+.box-pharm .options .mat-icon {
+    margin: 0;
+}
+
+.box-pharm:hover {
+    cursor: pointer;
+}
+
+::ng-deep .mat-tooltip {
+    position: relative;
+    top: 13px;
+}
+
+.box-pharm .mat-icon {
+    margin: 2px 0 0 0;
+}
+
+.home-title {
+    margin: 0 0 25px 0;
+}
+
+.cont-search-input {
+    width: auto;
+    margin: 0 10% 30px 10%;
+}
+
+.cont-search-input .mat-icon {
+    margin-left: 15px;
+}

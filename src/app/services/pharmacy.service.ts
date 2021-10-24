@@ -12,6 +12,7 @@ const url = environment.url;
 export class PharmacyService {
 
   pharmacyAdd: Pharmacy;
+  pharmacyProfile: Pharmacy;
   requestId: string;
   
   constructor( private httpClient: HttpClient ) { }
@@ -29,11 +30,23 @@ export class PharmacyService {
     this.requestId = requestId;
   }
 
+  profilePharmacy ( pharmacy: Pharmacy ) {
+    this.pharmacyProfile = pharmacy;
+  }
+
+  getPharmacyProfile () {
+    return this.pharmacyProfile;
+  }
+
   getPharmacyAdd(): Pharmacy {
     return this.pharmacyAdd;
   }
 
   getRequestId () {
     return this.requestId;
+  }
+
+  getPharmacyBranches ( pharmacyId: string ) {
+    return this.httpClient.get(`${url}pharmacy/branches/${pharmacyId}`);
   }
 }

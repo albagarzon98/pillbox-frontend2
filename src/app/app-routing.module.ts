@@ -13,6 +13,7 @@ import { PharmacyRequestsComponent } from './components/pharmacy-requests/pharma
 import { PharmacyAddComponent } from './components/pharmacy-add/pharmacy-add.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
+import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 
 
 
@@ -33,7 +34,11 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     data: {
       role: ['paciente', 'tutor', 'admin']
-    }
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'profile', component: PharmacyProfileComponent}
+    ]
   },  
   { path: 'pharmacyRequests', component: PharmacyRequestsComponent,
   canActivate: [ AuthGuard ],

@@ -1,4 +1,5 @@
-<div class="container-pharmacy login-background">
+<div class="container-pharmacy login-background" *ngIf="route() == '/pharmacy'">
+
     <h1 class="reminder-title mb-4 mt-2">
         Farmacias
     </h1>
@@ -14,13 +15,12 @@
         <div class="row justify-content-md-center">
             <div class="col-md-7 col-xs-12">
 
-                <div class="box-pharm" *ngFor="let pharmacy of pharmacies">
-                    <!-- <div class="cont-img-pharm">
-                        <img [src]="'../../../assets/images/logo-'+ pharmacy.imgName +'.png'" alt="">
-                    </div> -->
+                <div class="box-pharm" *ngFor="let pharmacy of pharmacies" (click)="pharmacyProfile(pharmacy)">
+
                     <div class="cont-img-pharm">
                         <img [src]="pharmacy.urlLogo" alt="">
                     </div>
+
                     <div class="cont-text-pharm">
 
                         <span class="box-pharm-name">
@@ -45,3 +45,5 @@
             </div>
         </div>
     </div>
+</div>
+<router-outlet></router-outlet>

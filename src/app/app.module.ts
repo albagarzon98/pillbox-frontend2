@@ -36,6 +36,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     PharmacyRequestsComponent,
     PharmacyAddComponent,
     InventoryComponent,
-    AddMedicamentComponent
+    AddMedicamentComponent,
+    PharmacyProfileComponent
   ],
   imports: [
     BrowserModule,

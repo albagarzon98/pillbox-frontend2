@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PharmacyService } from '../../services/pharmacy.service';
 import { Pharmacy } from '../../models/pharmacy';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pharmacy',
@@ -13,7 +14,8 @@ export class PharmacyComponent implements OnInit {
   pharmacies: Pharmacy[];
   
   constructor(
-    private pharmacyService: PharmacyService
+    private pharmacyService: PharmacyService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +27,17 @@ export class PharmacyComponent implements OnInit {
     });
     Swal.showLoading();
     this.getPharmacies();
+  }
+
+  route () {
+    return this.router.url;
+  }
+
+  pharmacyProfile ( pharm ) {
+    let pharmacy: Pharmacy = {...pharm};
+
+    this.pharmacyService.profilePharmacy( pharmacy );
+    this.router.navigateByUrl('/pharmacy/profile');
   }
 
   getPharmacies () {
