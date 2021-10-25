@@ -1,4 +1,4 @@
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide animated fadeIn" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="../../../../assets/images/publicidad1.png" class="d-block w-100" alt="...">
@@ -19,6 +19,7 @@
       <span class="visually-hidden">Next</span>
     </button>
 </div>
+
 <div class="login-background">
     <div class="container animated fadeInUp">
         <div class="row justify-content-center">
@@ -30,7 +31,19 @@
                 </div>
 
                 <div class="box-pharm">
-
+                    <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
+                    <span>
+                        <mat-icon class="material-icons-outlined">add_location</mat-icon>
+                        &nbsp; Dirección: {{pharmacy.address}}
+                    </span>
+                    <span>
+                        <mat-icon class="material-icons-outlined">phone</mat-icon>
+                        &nbsp; Teléfono: {{pharmacy.phoneNumber}}
+                    </span>
+                    <span>
+                        <mat-icon class="material-icons-outlined">mail</mat-icon>
+                        &nbsp; Mail: {{pharmacy.contactEmail}}
+                    </span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -41,6 +54,13 @@
                 <div class="cont-search-input">
                     <mat-icon style="transform: scale(1.1);">search</mat-icon>
                     <input class="search-input" type="text" placeholder="Buscar...">
+                </div>
+
+                <div class="container-login100-form-btn" *ngIf="role == 'admin'">
+                    <button class="new-reminder-btn" (click)="addBranch()">
+                        <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                        &nbsp; Nueva sucursal
+                    </button>
                 </div>
 
                 <div class="box-pharm" *ngFor="let branch of branches">

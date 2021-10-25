@@ -34,9 +34,9 @@ export class PharmacyComponent implements OnInit {
   }
 
   pharmacyProfile ( pharm ) {
-    let pharmacy: Pharmacy = {...pharm};
+    let pharmacyId:string = pharm['id'];
 
-    this.pharmacyService.profilePharmacy( pharmacy );
+    this.pharmacyService.profilePharmacy( pharmacyId );
     this.router.navigateByUrl('/pharmacy/profile');
   }
 

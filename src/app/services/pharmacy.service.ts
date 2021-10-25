@@ -12,13 +12,16 @@ const url = environment.url;
 export class PharmacyService {
 
   pharmacyAdd: Pharmacy;
-  pharmacyProfile: Pharmacy;
   requestId: string;
   
   constructor( private httpClient: HttpClient ) { }
   
   get () {
     return this.httpClient.get(`${ url }pharmacy/`);
+  }
+
+  getPharmacy ( pharmacyId: string ) {
+    return this.httpClient.get(`${ url }pharmacy/${pharmacyId}`);
   }
 
   post (pharmacy: Pharmacy) {
@@ -30,12 +33,8 @@ export class PharmacyService {
     this.requestId = requestId;
   }
 
-  profilePharmacy ( pharmacy: Pharmacy ) {
-    this.pharmacyProfile = pharmacy;
-  }
-
-  getPharmacyProfile () {
-    return this.pharmacyProfile;
+  profilePharmacy ( pharmacyId: string ) {
+    localStorage.setItem('profilePharmacy', pharmacyId);
   }
 
   getPharmacyAdd(): Pharmacy {

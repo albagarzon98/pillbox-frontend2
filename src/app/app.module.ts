@@ -37,6 +37,7 @@ import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
+import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile
     PharmacyAddComponent,
     InventoryComponent,
     AddMedicamentComponent,
-    PharmacyProfileComponent
+    PharmacyProfileComponent,
+    BranchFormComponent
   ],
   imports: [
     BrowserModule,

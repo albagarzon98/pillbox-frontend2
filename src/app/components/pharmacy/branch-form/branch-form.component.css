@@ -1,0 +1,13 @@
+.pharm-form {
+    margin: 5% 0;
+}
+
+img {
+    width: 25%;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+textarea {
+    height: 100px;
+}
