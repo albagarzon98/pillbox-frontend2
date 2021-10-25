@@ -34,55 +34,104 @@
                     <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
                     <span>
                         <mat-icon class="material-icons-outlined">add_location</mat-icon>
-                        &nbsp; Dirección: {{pharmacy.address}}
+                        &nbsp; Dirección: {{userAction == 'branches' ? pharmacy.address : branchSelected.realAddress}}
                     </span>
                     <span>
                         <mat-icon class="material-icons-outlined">phone</mat-icon>
-                        &nbsp; Teléfono: {{pharmacy.phoneNumber}}
+                        &nbsp; Teléfono: {{userAction == 'branches' ? pharmacy.phoneNumber : branchSelected.phoneNumber}}
                     </span>
-                    <span>
+                    <span class="mb-4">
                         <mat-icon class="material-icons-outlined">mail</mat-icon>
                         &nbsp; Mail: {{pharmacy.contactEmail}}
                     </span>
                 </div>
             </div>
             <div class="col-md-6">
-                <span class="home-title">
-                    Sucursales
-                </span>
+                <div *ngIf="userAction == 'branches'">
+                    <span class="home-title">
+                        Sucursales
+                    </span>
 
-                <div class="cont-search-input">
-                    <mat-icon style="transform: scale(1.1);">search</mat-icon>
-                    <input class="search-input" type="text" placeholder="Buscar...">
-                </div>
-
-                <div class="container-login100-form-btn" *ngIf="role == 'admin'">
-                    <button class="new-reminder-btn" (click)="addBranch()">
-                        <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
-                        &nbsp; Nueva sucursal
-                    </button>
-                </div>
-
-                <div class="box-pharm" *ngFor="let branch of branches">
-                    <div class="branch-data">
-                        <span class="branch-name">{{branch.branchName}}</span>
-                        <span class="branch-address">
-                            <mat-icon class="material-icons-outlined">add_location</mat-icon>
-                            Dirección: {{branch.realAddress}}
-                        </span>
+                    <div class="cont-search-input">
+                        <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                        <input class="search-input" type="text" placeholder="Buscar...">
                     </div>
-                    <div class="options" *ngIf="role == 'admin'">
-                        <button mat-icon-button matTooltip="Modificar sucursal" matTooltipPosition="above" (click)="modifyBranch(branch)">
-                            <mat-icon class="material-icons-outlined">
-                                edit
-                            </mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Eliminar Sucursal" matTooltipPosition="above" (click)="deleteBranch(branch)">
-                            <mat-icon class="material-icons-outlined">
-                                delete
-                            </mat-icon>
+
+                    <div class="container-login100-form-btn" *ngIf="role == 'admin'">
+                        <button class="new-reminder-btn" (click)="addBranch()">
+                            <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                            &nbsp; Nueva sucursal
                         </button>
                     </div>
+
+                    <div class="box-pharm" *ngFor="let branch of branches">
+                        <div class="branch-data" (click)="branchSelect(branch)">
+                            <span class="branch-name">{{branch.branchName}}</span>
+                            <span class="branch-address">
+                                <mat-icon class="material-icons-outlined">add_location</mat-icon>
+                                Dirección: {{branch.realAddress}}
+                            </span>
+                        </div>
+                        <div class="options" *ngIf="role == 'admin'">
+                            <button mat-icon-button matTooltip="Modificar sucursal" matTooltipPosition="above" (click)="modifyBranch(branch)">
+                                <mat-icon class="material-icons-outlined">
+                                    edit
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Eliminar Sucursal" matTooltipPosition="above" (click)="deleteBranch(branch)">
+                                <mat-icon class="material-icons-outlined">
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="medications" *ngIf="userAction == 'branchMedications'">
+                    <span class="home-title">
+                        {{branchSelected.branchName}}
+                    </span>
+                    <div class="cont-search-input">
+                        <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                        <input class="search-input" type="text" placeholder="Buscar...">
+                    </div>
+
+                    <div *ngFor="let medication of branchMedications">
+                        <div class="box-pharm" [@expand]="medication.state">
+                            <div class="cont-med-name">
+                                <mat-icon svgIcon="pill-icon"></mat-icon>
+                                <span class="med-name">{{medication.medicationName}}</span>
+                                <button mat-icon-button>
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'in' || !medication.state">
+                                        expand_more
+                                    </mat-icon>
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'out'">
+                                        expand_less
+                                    </mat-icon>
+                                </button>
+                            </div>
+
+                            <div class="med-data">
+                                <span>
+                                    Descripción: {{medication.description}}
+                                </span>
+                                <span> 
+                                    Unidad: {{medication.unit}}
+                                </span>
+                                <span> 
+                                    Gramaje: {{medication['grammage'] == null ? '--' : medication.grammage+' mg'}}
+                                </span>
+                            </div>
+
+                            <div class="add-med">
+                                <button mat-raised-button>
+                                    <mat-icon style="transform: scale(0.7)" svgIcon="mas"></mat-icon>
+                                    Crear recordatorio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             <div class="col-md-3">

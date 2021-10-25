@@ -6,23 +6,44 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { BranchService } from '../../../services/branch.service';
+import { Medication } from 'src/app/models/medication';
+import { MedicationService } from '../../../services/medication.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-pharmacy-profile',
   templateUrl: './pharmacy-profile.component.html',
-  styleUrls: ['./pharmacy-profile.component.css']
+  styleUrls: ['./pharmacy-profile.component.css'],
+  animations: [
+    trigger('expand', [
+      state('in', style({
+        height: '40px',
+        overflow: 'hidden'
+      })),
+      state('out', style({
+        height: '205px',
+        overflow: 'hidden'
+      })),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
+    ])
+  ]
 })
 export class PharmacyProfileComponent implements OnInit {
 
   pharmacy: Pharmacy;
   branches: Branch[] = [];
+  branchSelected: Branch;
+  branchMedications = [];
+  userAction: string = 'branches';
   role: string;
   
   constructor(
     private pharmacyService: PharmacyService,
     private authService: AuthService,
     private router: Router,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private medicationService: MedicationService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -44,6 +65,36 @@ export class PharmacyProfileComponent implements OnInit {
 
   setRole() {
     this.role = this.authService.getRole();
+  }
+
+  expandData( medication ) {
+      medication.state = medication.state === 'out' ? 'in' : 'out';
+  }
+
+  branchSelect ( branch:Branch ) {
+    let branchId = branch.branchId;
+    this.branchSelected = branch;
+
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.medicationService.get(branchId).subscribe(res=>{
+      console.log(res);
+      this.branchMedications = res['branchMedication'];
+      Swal.close();
+    },err=>{
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        text: `${err.error.error}`,
+        title: 'Error al cargar los medicamentos.'
+      });
+    });
+    
+    this.userAction = 'branchMedications';
   }
 
   getPharmacyProfile () {
