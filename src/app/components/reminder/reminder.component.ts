@@ -270,9 +270,6 @@ export class ReminderComponent implements OnInit {
   
   onSubmit( form: FormGroup ) {
 
-    this.submitted = true;
-    if ( form.invalid ) { return; }
-
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
     
@@ -284,6 +281,9 @@ export class ReminderComponent implements OnInit {
     }
     
     let reminder = { ...this.FormReminder.value };
+
+    this.submitted = true;
+    if ( form.invalid ) { return; }
 
     if ( this.endingType == 1 ) {
       delete reminder.endDate;
