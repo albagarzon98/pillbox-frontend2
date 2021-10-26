@@ -1,0 +1,100 @@
+<div class="login-background">
+
+    <div class="container animated fadeInUp">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 col-xs-12">
+                <form class="pharm-form" (ngSubmit)="onSubmit( FormBranchAdd )" name="FormBranchAdd" [formGroup]='FormBranchAdd'>
+                    <a class="pill-back-button" routerLink="/pharmacy/profile">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
+                    <span class="pharm-form-title">
+                        Registrar sucursal
+                    </span>
+
+                    <img src="../../../assets/images/pharmacy.png" alt="">
+
+                    <!-- Campo Nombre del local-->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Nombre de la sucursal:</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="branchName" placeholder="Escribe aquí el nombre" [ngClass]="{'is-invalid':    (FormBranchAdd.controls.branchName.touched || submitted)  
+                        && FormBranchAdd.controls.branchName.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.branchName.touched || submitted) 
+                        && FormBranchAdd.controls.branchName.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.branchName.touched || submitted) 
+                        && FormBranchAdd.controls.branchName.errors?.maxlength">
+                            Máximo 55 caracteres.
+                        </div>
+                    </div>
+
+                    <!-- Campo Teléfono de contacto -->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Teléfono de contacto:</label>
+
+                        <input class="form-control form-reminder-input" formControlName="phoneNumber" name="phone" placeholder="3511234567" [ngClass]="{'is-invalid': (FormBranchAdd.controls.phoneNumber.touched || submitted)  
+                        && FormBranchAdd.controls.phoneNumber.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.phoneNumber.touched || submitted) 
+                        && FormBranchAdd.controls.phoneNumber.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.phoneNumber.touched || submitted) 
+                        && FormBranchAdd.controls.phoneNumber.errors?.pattern">
+                            Número de teléfono inválido.
+                        </div>
+                    </div>
+
+                    <!-- Campo Horario de atención -->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Horario de atención:</label>
+
+                        <textarea type="text" class="form-control form-reminder-input" formControlName="businessHours" placeholder="Escribe aquí el horario de atención." [ngClass]="{'is-invalid':    (FormBranchAdd.controls.businessHours.touched || submitted)  
+                        && FormBranchAdd.controls.businessHours.errors}"></textarea>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.businessHours.touched || submitted) 
+                        && FormBranchAdd.controls.businessHours.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.businessHours.touched || submitted) 
+                        && FormBranchAdd.controls.businessHours.errors?.maxlength">
+                            Máximo 200 caracteres.
+                        </div>
+                    </div>
+
+                    <!-- Campo Dirección -->
+                    <div class="mb-3">
+                        <label class="pill-label-reminder">Dirección del local:</label>
+
+                        <input #mapSearchField matInput type="text" class="form-control form-reminder-input" formControlName="realAddress" placeholder="Buscar" [ngClass]="{'is-invalid':    (FormBranchAdd.controls.realAddress.touched || submitted)  
+                        && FormBranchAdd.controls.realAddress.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.realAddress.touched || submitted) 
+                        && FormBranchAdd.controls.realAddress.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormBranchAdd.controls.realAddress.touched || submitted) 
+                        && FormBranchAdd.controls.realAddress.errors?.maxlength">
+                            Máximo 55 caracteres.
+                        </div>
+                    </div>
+
+                    <div class="map-container mb-4">
+                        <google-map width="100%" height="50vh" [center]="initialCoordinates" [options]="mapConfigurations"></google-map>
+                    </div>
+
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newBranch'">Registrar sucursal</button>
+
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'modifyBranch'">Modificar sucursal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

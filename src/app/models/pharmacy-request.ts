@@ -1,4 +1,5 @@
 export class PharmacyRequest {
+    id: string;
     pharmacyName: string;
     address: string;
     phoneNumber: number;

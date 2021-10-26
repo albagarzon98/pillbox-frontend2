@@ -2,10 +2,6 @@
     margin: 5% 0;
 }
 
-.container {
-    animation: fadeInRight 500ms;
-}
-
 img {
     width: 25%;
     display: block;

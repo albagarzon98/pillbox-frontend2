@@ -49,6 +49,7 @@ export class AuthService {
     localStorage.removeItem('fullName');
     localStorage.removeItem('id');
     localStorage.removeItem('branchId');
+    localStorage.removeItem('profilePharmacy');
 
     this.roleAs = '';
 

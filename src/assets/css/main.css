@@ -258,6 +258,10 @@ input[type='image'] {
     text-align: center !important;
 }
 
+.container .reminder-image {
+    margin: 25px auto;
+}
+
 .unit-image {
     width: 15px;
 }

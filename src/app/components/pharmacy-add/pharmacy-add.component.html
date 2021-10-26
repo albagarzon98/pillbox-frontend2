@@ -5,6 +5,10 @@
             <div class="col-md-6 col-xs-12">
                 <form class="pharm-form" (ngSubmit)="onSubmit( FormPharmacyAdd )" name="FormPharmacyAdd" [formGroup]='FormPharmacyAdd'>
 
+                    <a class="pill-back-button" routerLink="/pharmacyRequests">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
+
                     <span class="pharm-form-title">
                         Registrar farmacia
                     </span>
@@ -27,7 +31,6 @@
                         && FormPharmacyAdd.controls.pharmacyName.errors?.maxlength">
                             Máximo 55 caracteres.
                         </div>
-
                     </div>
 
                     <!-- Campo Correo electrónico -->
@@ -67,11 +70,29 @@
 
                     </div>
 
-                    <!-- Campo Dirección -->
+                    <!-- Campo Horario de atención -->
                     <div class="mb-4">
+                        <label class="pill-label-reminder">Horario de atención:</label>
+
+                        <textarea type="text" class="form-control form-reminder-input" formControlName="businessHours" placeholder="Escribe aquí el horario de atención." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.businessHours.touched || submitted)  
+                        && FormPharmacyAdd.controls.businessHours.errors}"></textarea>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.businessHours.touched || submitted) 
+                        && FormPharmacyAdd.controls.businessHours.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.businessHours.touched || submitted) 
+                        && FormPharmacyAdd.controls.businessHours.errors?.maxlength">
+                            Máximo 200 caracteres.
+                        </div>
+                    </div>
+
+                    <!-- Campo Dirección -->
+                    <div class="mb-3">
                         <label class="pill-label-reminder">Dirección del local:</label>
 
-                        <input matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Buscar" [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.address.touched || submitted)  
+                        <input #mapSearchField matInput type="text" class="form-control form-reminder-input" formControlName="address" placeholder="Buscar" [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.address.touched || submitted)  
                         && FormPharmacyAdd.controls.address.errors}" />
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.address.touched || submitted) 
@@ -82,6 +103,23 @@
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.address.touched || submitted) 
                         && FormPharmacyAdd.controls.address.errors?.maxlength">
                             Máximo 55 caracteres.
+                        </div>
+                    </div>
+
+                    <div class="map-container mb-4">
+                        <google-map width="100%" height="50vh" [center]="initialCoordinates" [options]="mapConfigurations"></google-map>
+                    </div>
+
+                    <!-- Campo url imagen-->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder">Url imagen (opcional):</label>
+
+                        <input matInput type="text" class="form-control form-reminder-input" formControlName="urlLogo" placeholder="Ingresa el enlace de la imagen." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.urlLogo.touched || submitted)  
+                        && FormPharmacyAdd.controls.urlLogo.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormPharmacyAdd.controls.urlLogo.touched || submitted) 
+                        && FormPharmacyAdd.controls.urlLogo.errors?.pattern">
+                            Enlace inválido.
                         </div>
                     </div>
 

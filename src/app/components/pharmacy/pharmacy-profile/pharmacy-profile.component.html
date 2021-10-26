@@ -1,0 +1,146 @@
+<div id="carouselExampleControls" class="carousel slide animated fadeIn" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="../../../../assets/images/publicidad1.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../../../../assets/images/publicidad2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="../../../../assets/images/publicidad3.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="login-background">
+    <div class="container animated fadeInUp">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="img">
+                    <div class="cont-img-pharm">
+                        <img [src]="pharmacy.urlLogo">
+                    </div>
+                </div>
+
+                <div class="box-pharm">
+                    <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
+                    <span>
+                        <mat-icon class="material-icons-outlined">add_location</mat-icon>
+                        &nbsp; Dirección: {{userAction == 'branches' ? pharmacy.address : branchSelected.realAddress}}
+                    </span>
+                    <span>
+                        <mat-icon class="material-icons-outlined">phone</mat-icon>
+                        &nbsp; Teléfono: {{userAction == 'branches' ? pharmacy.phoneNumber : branchSelected.phoneNumber}}
+                    </span>
+                    <span class="mb-4">
+                        <mat-icon class="material-icons-outlined">mail</mat-icon>
+                        &nbsp; Mail: {{pharmacy.contactEmail}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div *ngIf="userAction == 'branches'">
+                    <span class="home-title">
+                        Sucursales
+                    </span>
+
+                    <div class="cont-search-input animated fadeInUp">
+                        <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                        <input class="search-input" type="text" placeholder="Buscar...">
+                    </div>
+
+                    <div class="container-login100-form-btn" *ngIf="role == 'admin'">
+                        <button class="new-reminder-btn" (click)="addBranch()">
+                            <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                            &nbsp; Nueva sucursal
+                        </button>
+                    </div>
+
+                    <div class="box-pharm" *ngFor="let branch of branches">
+                        <div class="branch-data" (click)="branchSelect(branch)">
+                            <span class="branch-name">{{branch.branchName}}</span>
+                            <span class="branch-address">
+                                <mat-icon class="material-icons-outlined">add_location</mat-icon>
+                                Dirección: {{branch.realAddress}}
+                            </span>
+                        </div>
+                        <div class="options" *ngIf="role == 'admin'">
+                            <button mat-icon-button matTooltip="Modificar sucursal" matTooltipPosition="above" (click)="modifyBranch(branch)">
+                                <mat-icon class="material-icons-outlined">
+                                    edit
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Eliminar Sucursal" matTooltipPosition="above" (click)="deleteBranch(branch)">
+                                <mat-icon class="material-icons-outlined">
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="medications" *ngIf="userAction == 'branchMedications'">
+                    <a class="pill-back-button" (click)="back()">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
+
+                    <span class="home-title">
+                        {{branchSelected.branchName}}
+                    </span>
+                    <div class="cont-search-input animated fadeInUp">
+                        <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                        <input class="search-input" type="text" placeholder="Buscar...">
+                    </div>
+
+                    <div *ngFor="let medication of branchMedications">
+                        <div class="box-pharm" [@expand]="medication.state">
+                            <div class="cont-med-name">
+                                <mat-icon svgIcon="pill-icon"></mat-icon>
+                                <span class="med-name">{{medication.medicationName}}</span>
+                                <button mat-icon-button>
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'in' || !medication.state">
+                                        expand_more
+                                    </mat-icon>
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'out'">
+                                        expand_less
+                                    </mat-icon>
+                                </button>
+                            </div>
+
+                            <div class="med-data">
+                                <span>
+                                    Descripción: {{medication.description}}
+                                </span>
+                                <span> 
+                                    Unidad: {{medication.unit}}
+                                </span>
+                                <span> 
+                                    Gramaje: {{medication['grammage'] == null ? '--' : medication.grammage}}
+                                </span>
+                            </div>
+
+                            <div class="add-med" *ngIf="role == 'paciente' || role == 'tutor'">
+                                <button mat-raised-button (click)="addReminder(medication)">
+                                    <mat-icon style="transform: scale(0.7)" svgIcon="mas"></mat-icon>
+                                    Crear recordatorio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+    </div>
+</div>

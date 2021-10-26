@@ -34,6 +34,10 @@ export class MedicationService {
   get ( branchId: string ) {
     return this.httpClient.get(`${ url }branchMedication/byBranchId/${ branchId }`);
   }
+
+  getMedication ( medicationId: string ) {
+    return this.httpClient.get(`${ url }branchMedication/${ medicationId }`);
+  }
   
   post( medication: Medication ) {
     return this.httpClient.post(`${ url }branchMedication/`, medication);

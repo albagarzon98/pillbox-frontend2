@@ -14,62 +14,91 @@
     </div>
 
     <div class="container" *ngIf="requests.length != 0">
+
         <div class="container-home-title">
             <span class="home-title">
             Solicitudes de registro
             </span>
         </div>
+
+        <div class="search">
+            <button mat-raised-button [matMenuTriggerFor]="belowMenu">Estado{{': ' + filter}} 
+                <mat-icon class="material-icons-outlined">
+                    expand_more
+                </mat-icon>
+            </button>
+            <mat-menu #belowMenu="matMenu" yPosition="below">
+                <button mat-menu-item (click)="getRequests()">Todas</button>
+                <button mat-menu-item (click)="filterPendent()">Pendiente</button>
+                <button mat-menu-item (click)="filterApproved()">Aprobada</button>
+                <button mat-menu-item (click)="filterRejected()">Rechazada</button>
+            </mat-menu>
+        </div>
+
+
         <div class="row justify-content-md-center">
             <div class="col-lg-6 col-xs-12 center-col">
-                <div class="box-pharm" *ngFor="let request of requests">
+                <div *ngFor="let request of requests">
 
-                    <div class="pharm-name">
-                        <span class="box-pharm-name">
-                            {{request.pharmacyName}}
-                        </span>
+                    <div class="box-pharm" [@expand]="request.state">
 
-                        <button mat-icon-button>
-                            <mat-icon class="material-icons-outlined" (click)="expandData(request)" *ngIf="!request.expand">
-                                expand_more
-                            </mat-icon>
-                            <mat-icon class="material-icons-outlined" (click)="expandData(request)" *ngIf="request.expand">
-                                expand_less
-                            </mat-icon>
-                        </button>
-                    </div>
+                        <div class="pharm-name">
+                            <span class="box-pharm-name">
+                                {{request.pharmacyName}}
+                            </span>
 
-                    <div class="pharm-data" *ngIf="request.expand">
-                        <span>
-                            <mat-icon class="material-icons-outlined location-icon">add_location</mat-icon>
-                            Dirección: {{request.address}}
-                        </span>
-                        <span> 
-                            <mat-icon class="material-icons-outlined location-icon">email</mat-icon>
-                            Email: {{request.contactEmail}}
-                        </span>
-                        <span> 
-                            <mat-icon class="material-icons-outlined location-icon">phone</mat-icon>
-                            Teléfono: {{request.phoneNumber}}
-                        </span>
-                        <span> 
-                            <mat-icon svgIcon="pharmacy"></mat-icon>
-                            Sucursales: {{request.branchesNumber}}
-                        </span>
-
-                        <div class="buttons">
-                            <button type="button" class="btn btn-success" (click)="addPharmacy(request)">
-                                <mat-icon class="material-icons-outlined">add</mat-icon>
-                                Registrar farmacia
+                            <button mat-icon-button>
+                                <mat-icon class="material-icons-outlined" (click)="expandData(request)" *ngIf="!request.expand">
+                                    expand_more
+                                </mat-icon>
+                                <mat-icon class="material-icons-outlined" (click)="expandData(request)" *ngIf="request.expand">
+                                    expand_less
+                                </mat-icon>
                             </button>
-                            <button type="button" class="btn btn-danger">
-                                <mat-icon class="material-icons-outlined">close</mat-icon>
-                                Anular solicitud
-                            </button>
+                        </div>
+
+                        <div class="pharm-data">
+                            <span>
+                                <mat-icon class="material-icons-outlined location-icon">add_location</mat-icon>
+                                Dirección: {{request.address}}
+                            </span>
+                            <span> 
+                                <mat-icon class="material-icons-outlined location-icon">email</mat-icon>
+                                Email: {{request.contactEmail}}
+                            </span>
+                            <span> 
+                                <mat-icon class="material-icons-outlined location-icon">phone</mat-icon>
+                                Teléfono: {{request.phoneNumber}}
+                            </span>
+                            <span> 
+                                <mat-icon svgIcon="pharmacy"></mat-icon>
+                                Sucursales: {{request.branchesNumber}}
+                            </span>
+
+                            <div class="buttons" *ngIf="request.status == 'pendiente'">
+                                <button type="button" class="btn btn-success" (click)="addPharmacy(request)">
+                                    <mat-icon class="material-icons-outlined">add</mat-icon>
+                                    Registrar farmacia
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <mat-icon class="material-icons-outlined">close</mat-icon>
+                                    Anular solicitud
+                                </button>
+                            </div>
+
+                            <div class="approved" *ngIf="request.status == 'aprobado'">
+                                Solicitud Aprobada &nbsp;
+                                <mat-icon class="material-icons-outlined">
+                                    done
+                                </mat-icon>
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>
