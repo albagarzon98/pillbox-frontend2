@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { MedicationService } from '../../services/medication.service';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,15 @@ export class HomeComponent implements OnInit {
   name: string;
   role: string;
 
-  constructor( private authService: AuthService ) { }
+  constructor( 
+    private authService: AuthService,
+    private medicationService: MedicationService
+  ) { }
 
   ngOnInit(): void {
     this.getNombre();
     this.setRole();
+    this.medicationService.setUserAction('');
   }
 
   getNombre () {

@@ -92,6 +92,7 @@ export class ReminderComponent implements OnInit {
     this.FormReminder.reset();
     this.FormReminder.enable();
     this.endingType = 0;
+    this.medicationService.setUserAction('');
   }
   
   getFrequencies() {
