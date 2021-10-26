@@ -282,6 +282,15 @@ export class ReminderComponent implements OnInit {
     
     let reminder = { ...this.FormReminder.value };
 
+    if ( this.medicationService.getUserAction() == 'addReminder' ) {
+      let medication = this.medicationService.getMedicationData();
+      reminder['medicationName'] = medication['medicationName'];
+      reminder['unit'] = medication['unit'];
+      if ( medication['grammage'] ) {
+        reminder['grammage'] = medication['grammage'];
+      }
+    }
+
     this.submitted = true;
     if ( form.invalid ) { return; }
 
