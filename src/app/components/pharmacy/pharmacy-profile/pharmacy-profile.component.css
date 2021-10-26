@@ -216,3 +216,7 @@
     bottom: 6px;
     left: 3px;
 }
+
+.medications .pill-back-button .back {
+    margin: 0 0 20px 0;
+}

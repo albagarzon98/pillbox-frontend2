@@ -5,6 +5,7 @@ import { ReminderService } from '../../services/reminder.service';
 import { Reminder } from '../../models/reminder';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { MedicationService } from '../../services/medication.service';
 
 @Component({
   selector: 'app-reminder',
@@ -45,7 +46,8 @@ export class ReminderComponent implements OnInit {
   constructor(
     private router: Router,
     private reminderService: ReminderService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private medicationService: MedicationService
   ) { }
 
   ngOnInit(): void {
@@ -67,10 +69,15 @@ export class ReminderComponent implements OnInit {
       inventory: ['', [Validators.pattern('[0-9]{1,5}')]]
     });
     
-    
     this.getUnits();
     this.getReminders();
     this.getFrequencies();
+
+    if ( this.medicationService.getUserAction() == 'addReminder' ) {
+      let medication = this.medicationService.getMedicationData();
+      this.addReminder();
+      this.patchMedicationValues(medication);
+    }
   }
 
   addReminder() {
@@ -150,6 +157,19 @@ export class ReminderComponent implements OnInit {
     })
   }
   
+  patchMedicationValues ( medication ) {
+    this.FormReminder.patchValue({
+      medicationName: medication['medicationName'],
+      unit: medication['unit']
+    });
+    this.FormReminder.controls['medicationName'].disable();
+    this.FormReminder.controls['unit'].disable();
+    if (medication['grammage']) {
+      this.FormReminder.controls['grammage'].setValue(medication['grammage']);
+      this.FormReminder.controls['grammage'].disable();
+    }
+  }
+  
   setFormValues (reminder) {
     
     if ( reminder['endDate'] === null) {
@@ -163,7 +183,7 @@ export class ReminderComponent implements OnInit {
       this.endingType = 2;
     }
 
-    this.FormReminder.patchValue({ 
+    this.FormReminder.patchValue({
       dose: reminder['dose'],
       startDate: moment(reminder['startDate'], "DD/MM/YYYY"),
       frequency: reminder['frequency'],
@@ -249,6 +269,9 @@ export class ReminderComponent implements OnInit {
   
   onSubmit( form: FormGroup ) {
 
+    this.submitted = true;
+    if ( form.invalid ) { return; }
+
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
     
@@ -259,8 +282,6 @@ export class ReminderComponent implements OnInit {
       this.FormReminder.patchValue({daysAmount: 1})
     }
     
-    this.submitted = true;
-    if ( form.invalid ) { return; }
     let reminder = { ...this.FormReminder.value };
 
     if ( this.endingType == 1 ) {

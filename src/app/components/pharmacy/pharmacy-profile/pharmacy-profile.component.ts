@@ -71,6 +71,16 @@ export class PharmacyProfileComponent implements OnInit {
       medication.state = medication.state === 'out' ? 'in' : 'out';
   }
 
+  back () {
+    this.userAction = 'branches';
+  }
+
+  addReminder ( medication ) {
+    this.medicationService.setUserAction('addReminder');
+    this.medicationService.setMedicationData( medication );
+    this.router.navigateByUrl('/reminder');
+  }
+
   branchSelect ( branch:Branch ) {
     let branchId = branch.branchId;
     this.branchSelected = branch;

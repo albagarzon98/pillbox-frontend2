@@ -52,7 +52,7 @@
                         Sucursales
                     </span>
 
-                    <div class="cont-search-input">
+                    <div class="cont-search-input animated fadeInUp">
                         <mat-icon style="transform: scale(1.1);">search</mat-icon>
                         <input class="search-input" type="text" placeholder="Buscar...">
                     </div>
@@ -87,10 +87,14 @@
                     </div>
                 </div>
                 <div class="medications" *ngIf="userAction == 'branchMedications'">
+                    <a class="pill-back-button" (click)="back()">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
+
                     <span class="home-title">
                         {{branchSelected.branchName}}
                     </span>
-                    <div class="cont-search-input">
+                    <div class="cont-search-input animated fadeInUp">
                         <mat-icon style="transform: scale(1.1);">search</mat-icon>
                         <input class="search-input" type="text" placeholder="Buscar...">
                     </div>
@@ -122,8 +126,8 @@
                                 </span>
                             </div>
 
-                            <div class="add-med">
-                                <button mat-raised-button>
+                            <div class="add-med" *ngIf="role == 'paciente' || role == 'tutor'">
+                                <button mat-raised-button (click)="addReminder(medication)">
                                     <mat-icon style="transform: scale(0.7)" svgIcon="mas"></mat-icon>
                                     Crear recordatorio
                                 </button>
