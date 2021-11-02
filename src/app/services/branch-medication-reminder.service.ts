@@ -14,4 +14,16 @@ export class BranchMedicationReminderService {
   post ( branchMedicationReminder ) {
     return this.httpClient.post(`${ url }branchMedicationReminder/`, branchMedicationReminder);
   }
+  
+  get () {
+    return this.httpClient.get(`${ url }branchMedicationReminder/`);
+  }
+
+  delete ( id:string ) {
+    return this.httpClient.delete(`${ url }branchMedicationReminder/${id}`);
+  }
+
+  patch ( id:string, branchMedicationReminder ) {
+    return this.httpClient.patch(`${ url }branchMedicationReminder/${id}`, branchMedicationReminder);
+  }
 }

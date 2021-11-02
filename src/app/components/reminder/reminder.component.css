@@ -22,6 +22,90 @@
     border-radius: 2px;
 }
 
+.box-pharm {
+    margin: 15px 0;
+    align-items: center;
+    width: auto;
+    height: auto;
+}
+
+.box-pharm:hover {
+    background-color: rgba(240, 240, 240, 0.938);
+    cursor: default;
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+}
+
+.reminder-box img {
+    margin: 0 auto;
+}
+
+.empty-medications {
+    text-align: center;
+}
+
+.empty-medications span {
+    display: block;
+    font-size: 20px;
+    margin: 0 0 15px 0;
+}
+
+.empty-medications .pill-back-button-reminder {
+    font-size: 20px;
+}
+
+.pill-back-button-reminder .mat-icon {
+    font-size: 21px;
+    position: relative;
+    right: 4px;
+    top: 2px;
+}
+
+.empty-medications .pill-back-button-reminder:hover {
+    font-size: 20px;
+}
+
+.reminder-title {
+    font-size: 36px;
+}
+
+.box-reminder-title {
+    text-align: center;
+    padding: 40px;
+}
+
+.box-reminder-title span {
+    display: block;
+    margin: 15px 0;
+    font-size: 18px;
+    height: auto;
+    width: 100%;
+}
+
+.box-reminder-title .box-pharm span {
+    margin: 15px 15px 15px 0;
+}
+
+.home-reminder-button {
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.box-reminder-title .box-pharm img {
+    width: 60px;
+    margin: 10px 20px 10px 10px;
+}
+
+.box-reminder-title .box-pharm {
+    text-align: left;
+}
+
+.box-reminder-title .box-pharm:hover {
+    transition: 300ms;
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px #6626db;
+    cursor: pointer;
+}
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .form-reminder-container {
         margin-top: 5%;

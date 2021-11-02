@@ -163,7 +163,6 @@ nav .navbar-nav li a {
 .pill-back-button-reminder:hover {
     font-family: Poppins-Regular;
     color: #6626db;
-    font-size: 102%;
     transition: 200ms;
     cursor: pointer;
 }
@@ -461,7 +460,7 @@ input[type='image'] {
 
 .home-title-2 {
     font-family: Poppins-Bold;
-    font-size: 30px;
+    font-size: 30px !important;
     color: #1a1b73;
     line-height: 1.2;
     width: 100%;

@@ -220,3 +220,7 @@
 .medications .pill-back-button .back {
     margin: 0 0 20px 0;
 }
+
+.medications .home-title {
+    margin: 10px 0 25px 0;
+}
