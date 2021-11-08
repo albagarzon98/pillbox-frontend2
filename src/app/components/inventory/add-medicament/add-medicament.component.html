@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- Campo Descripción-->
-                    <div class="mb-5">
+                    <div class="mb-4">
                         <label class="pill-label-reminder">Dscripción:</label>
 
                         <input matInput type="text" class="form-control form-reminder-input" formControlName="description" placeholder="Escribe aquí la descripción" [ngClass]="{'is-invalid':    (FormMedication.controls.description.touched || submitted)  
@@ -58,6 +58,38 @@
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.description.touched || submitted) 
                         && FormMedication.controls.description.errors?.maxlength">
                             Máximo 100 caracteres.
+                        </div>
+
+                    </div>
+
+                    <!-- Campo unidad -->
+                    <div class="mb-3">
+                        <label class="pill-label-reminder" for="unit">Unidad:</label>
+
+                        <mat-select class="form-control" name="unit" formControlName="unit" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormMedication.controls.unit.touched || submitted)  
+                        && FormMedication.controls.unit.errors}">
+                            <mat-option class="poppins-regular" *ngFor="let unit of units" [value]="unit.description">
+                                {{unit.description}}
+                            </mat-option>
+                        </mat-select>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.unit.touched || submitted) 
+                        && FormMedication.controls.unit.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+                    </div>
+
+                    <!--campo Composición-->
+                    <div class="mb-5">
+                        <label class="pill-label-reminder">Composición, en mg (opcional):</label>
+
+                        <input class="form-control form-reminder-input" formControlName="grammage" name="grammage" [placeholder]="userAction == 'viewMedication' ? '':'Ingrese aquí el gramaje'" [ngClass]="{'is-invalid': (FormMedication.controls.grammage.touched || submitted)  
+                        && FormMedication.controls.grammage.errors}" />
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.grammage.touched || submitted) 
+                        && FormMedication.controls.grammage.errors?.pattern">
+                            Dato numérico.
+                            <br> Máximo 5 caracteres.
                         </div>
 
                     </div>

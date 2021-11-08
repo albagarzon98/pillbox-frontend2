@@ -5,6 +5,7 @@ import { MedicationService } from '../../../services/medication.service';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ReminderService } from '../../../services/reminder.service';
 
 @Component({
   selector: 'app-add-medicament',
@@ -17,30 +18,52 @@ export class AddMedicamentComponent implements OnInit {
   FormMedication: FormGroup;
   userAction: string;
   medication: Medication;
+  units = [];
   
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
     private medicationService: MedicationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private reminderService: ReminderService
   ) { }
 
   ngOnInit(): void {
     this.FormMedication = this.formBuilder.group({
       medicationName: ['', [Validators.required, Validators.maxLength(55)]],
-      description: ['', [Validators.required, Validators.maxLength(100)]]
+      description: ['', [Validators.required, Validators.maxLength(100)]],
+      grammage: ['',[Validators.pattern('[0-9]{1,5}')]],
+      unit: ['', [Validators.required]]
     });
 
     this.userAction = this.medicationService.getUserAction();
     this.medication = this.medicationService.getMedicationData();
+    this.getUnits();
     this.setFormValues();
   }
 
+  getUnits() {
+    this.reminderService.getUnits().subscribe(res=>{
+      this.units = res['units'];
+    },err=>{
+      console.log(err.message);
+  
+      Swal.fire({
+        icon: 'error',
+        text: err.message,
+        title: 'Error al obtener las unidades.'
+      });
+    })
+  }
+  
   setFormValues () {
     if ( this.userAction != 'newMedication' ) {
       this.FormMedication.patchValue({
           medicationName: this.medication.medicationName,
-          description: this.medication.description
+          description: this.medication.description,
+          grammage: this.medication.grammage,
+          unit: this.medication.unit
+
       });
     };
     if ( this.userAction == 'viewMedication' ) {

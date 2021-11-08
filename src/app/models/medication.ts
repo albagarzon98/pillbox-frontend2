@@ -3,5 +3,7 @@ export class Medication {
     description: string;
     branchId: string;
     isManualInsert: boolean;
-    id: string
+    id: string;
+    grammage: string;
+    unit: string
 }
