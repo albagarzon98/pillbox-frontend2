@@ -1,0 +1,14 @@
+img {
+    width: 25%;
+    display: block;
+    margin: 20px auto 40px auto;
+}
+
+.pharm-form {
+    margin: 30px 0;
+}
+
+.inputDate {
+    width: 80%;
+    margin-right: 25px;
+}

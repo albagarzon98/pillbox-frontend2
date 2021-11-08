@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -14,8 +15,14 @@ export class AppointmentComponent implements OnInit {
   
   constructor(
     private appointmentService: AppointmentService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private router: Router
+  ) {
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+      };
+      this.router.onSameUrlNavigation = 'reload';
+    }
 
   ngOnInit(): void {
     Swal.fire({
@@ -25,6 +32,15 @@ export class AppointmentComponent implements OnInit {
     });
     Swal.showLoading();
     this.getAppointments();
+  }
+
+  route () {
+    return this.router.url;
+  }
+
+  newAppointment () {
+    this.appointmentService.setUserAction('newAppointment');
+    this.router.navigateByUrl('/appointment/addAppointment');
   }
 
   getAppointments () {

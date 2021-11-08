@@ -1,1 +1,80 @@
-<p>appointment-form works!</p>
+<div class="login-background">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 col-xs-12">
+                <form class="pharm-form animated fadeInRight" (ngSubmit)="onSubmit( FormAppointment )" name="FormAppointment" [formGroup]='FormAppointment'>
+
+                    <div class="cont-back">
+                        <a class="pill-back-button mb-4" routerLink="/appointment">
+                            <span class="back">&lt;</span> &nbsp;Regresar
+                        </a>
+                    </div>
+
+                    <span class="pharm-form-title" *ngIf="userAction == 'newAppointment'">
+                        Registrar turno
+                    </span>
+
+                    <span class="pharm-form-title" *ngIf="userAction == 'modifyAppointment'">
+                        Modificar turno
+                    </span>
+
+                    <img src="../../../../assets/images/deadline.png" alt="">
+
+                    <!-- Campo Fecha -->
+                    <div class="mb-3">
+
+                        <label class="pill-label-reminder">Fecha del turno:</label>
+
+                        <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;" formControlName="reservationDate" name="reservationDate" placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormAppointment.controls.reservationDate.touched || submitted)  
+                        && FormAppointment.controls.reservationDate.errors}" />
+                        <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker" style="color:#6626db;"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormAppointment.controls.reservationDate.touched || submitted) 
+                        && FormAppointment.controls.reservationDate.errors?.required">
+                            Este campo es obligatorio. <br>Dato fecha, formato DD/MM/AAAA.
+                        </div>
+
+                    </div>
+
+                    <!-- Campo Hora de inicio -->
+                    <div class="mb-3">
+                        <label class="pill-label-reminder" for="unit">Hora de inicio:</label>
+
+                        <input class="form-control form-reminder-input" formControlName="startTime" mask="Hh:m0" name="startTime" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormAppointment.controls.startTime.touched || submitted)  
+                        && FormAppointment.controls.startTime.errors}">
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormAppointment.controls.startTime.touched || submitted) 
+                        && FormAppointment.controls.startTime.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormAppointment.controls.startTime.touched || submitted) 
+                        && FormAppointment.controls.startTime.errors?.pattern">
+                            Dato hora, formato HH:mm
+                        </div>
+                    </div>
+
+                    <!-- Campo Hora de fin -->
+                    <div class="mb-4">
+                        <label class="pill-label-reminder" for="unit">Hora de fin:</label>
+
+                        <input class="form-control form-reminder-input" formControlName="endTime" mask="Hh:m0" name="endTime" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormAppointment.controls.endTime.touched || submitted)  
+                        && FormAppointment.controls.endTime.errors}">
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormAppointment.controls.endTime.touched || submitted) 
+                        && FormAppointment.controls.endTime.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormAppointment.controls.endTime.touched || submitted) 
+                        && FormAppointment.controls.endTime.errors?.pattern">
+                            Dato hora, formato HH:mm
+                        </div>
+                    </div>
+
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newAppointment'">Crear turno</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

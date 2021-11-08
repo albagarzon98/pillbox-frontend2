@@ -98,8 +98,8 @@ export class InventoryComponent implements OnInit {
   ) {  
       this.router.routeReuseStrategy.shouldReuseRoute = function() {
         return false;
-    };
-    this.router.onSameUrlNavigation = 'reload';
+      };
+      this.router.onSameUrlNavigation = 'reload';
    }
 
   ngOnInit(): void {
