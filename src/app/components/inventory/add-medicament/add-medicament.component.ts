@@ -32,7 +32,7 @@ export class AddMedicamentComponent implements OnInit {
     this.FormMedication = this.formBuilder.group({
       medicationName: ['', [Validators.required, Validators.maxLength(55)]],
       description: ['', [Validators.required, Validators.maxLength(100)]],
-      grammage: ['',[Validators.pattern('[0-9]{1,5}')]],
+      grammage: ['',[Validators.maxLength(20)]],
       unit: ['', [Validators.required]]
     });
 

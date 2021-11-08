@@ -87,9 +87,8 @@
                         && FormMedication.controls.grammage.errors}" />
 
                         <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormMedication.controls.grammage.touched || submitted) 
-                        && FormMedication.controls.grammage.errors?.pattern">
-                            Dato numérico.
-                            <br> Máximo 5 caracteres.
+                        && FormMedication.controls.grammage.errors?.maxlength">
+                            Máximo 5 caracteres.
                         </div>
 
                     </div>
