@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Appointment } from '../../models/appointment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-appointment',
@@ -11,7 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AppointmentComponent implements OnInit {
 
-  appointments = [];
+  appointments: Appointment[] = [];
+  byDate = [];
   
   constructor(
     private appointmentService: AppointmentService,
@@ -43,13 +46,60 @@ export class AppointmentComponent implements OnInit {
     this.router.navigateByUrl('/appointment/addAppointment');
   }
 
+  orderByDate ( appointments ) {
+    
+    let format = 'DD/MM/YYYY';
+    let hour = 'HH:mm';
+    
+    for (let i = 0; i < appointments.length; i++) {
+      let dayName = moment(appointments[i]['reservationDate']).utc().locale('es').format('dddd');
+      dayName = dayName.slice(0, 1).toUpperCase() + dayName.slice(1);
+
+      let dateAppointment = moment(appointments[i]['reservationDate']).utc().format(format);
+      appointments[i]['reservationDate'] = `${dayName} ${dateAppointment}`;
+      appointments[i]['startTime'] = moment(appointments[i]['startTime']).utc().format(hour);
+      appointments[i]['endTime'] = moment(appointments[i]['endTime']).utc().format(hour);
+    }
+    
+    let dates = [];
+
+    for (let i = 0; i < appointments.length; i++) {
+      
+      let date = appointments[i]['reservationDate'];
+
+      if ( i == 0 ) {
+        dates.push(date);
+        let firstDate = {
+          name: date,
+          dayAppointments: [appointments[i]]
+        }
+        this.byDate.push(firstDate);
+      }
+
+      if ( i != 0 && dates.indexOf(date) == -1 ) {
+        dates.push(date);
+        let newDate = {
+          name: date,
+          dayAppointments: [appointments[i]]
+        }
+        this.byDate.push(newDate);
+      } else if ( i != 0 && dates.indexOf(date) != -1 ) {
+        let position = dates.indexOf(date);
+        this.byDate[position]['dayAppointments'].push(appointments[i]);
+      }
+    }
+  }
+
   getAppointments () {
     let branchId = this.authService.getBranchId();
 
     this.appointmentService.get(branchId).subscribe(res=>{
-      
+
       this.appointments = res['reservation'];
       console.log(this.appointments);
+
+      this.orderByDate(this.appointments);
+
       Swal.close();
     },err=>{
       Swal.fire({

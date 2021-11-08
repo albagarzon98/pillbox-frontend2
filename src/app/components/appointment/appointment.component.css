@@ -19,3 +19,38 @@
 .home-title-2 {
     margin: 0 auto 35px auto;
 }
+
+.col-lg-6 .box-pharm {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    border-radius: 15px;
+}
+
+.col-lg-6 .box:hover {
+    background-color: rgba(240, 240, 240, 0.938);
+    cursor: default;
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+}
+
+.col-lg-6 .box-pharm span {
+    font-family: Poppins-Bold;
+    font-size: 18px;
+    margin: 10px 0 10px 0;
+    color: #1a1b73;
+}
+
+.col-lg-6 .box-pharm .box-pharm span {
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    margin: 0;
+    color: black;
+}
+
+.col-lg-6 .box-pharm .box-pharm {
+    margin: 10px 0 10px 40px;
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 10px;
+}

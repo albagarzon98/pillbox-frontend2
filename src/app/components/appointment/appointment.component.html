@@ -34,7 +34,16 @@
         </div>
         <div class="row justify-content-md-center">
             <div class="col-lg-6 col-xs-12">
-                <div class="box-pharm" *ngFor="let appointment of appointments"></div>
+                <div class="box-pharm box" *ngFor="let date of byDate">
+                    <span class="date">
+                        {{date.name}}
+                    </span>
+                    <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
+                        <span>
+                            de: {{appointment.startTime}} hs &nbsp; a: {{appointment.endTime}} hs
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
