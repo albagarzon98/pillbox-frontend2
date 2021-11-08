@@ -48,4 +48,8 @@ export class PharmacyService {
   getPharmacyBranches ( pharmacyId: string ) {
     return this.httpClient.get(`${url}pharmacy/branches/${pharmacyId}`);
   }
+
+  deleteBranch ( pharmacyId:string, branchId ) {
+    return this.httpClient.delete(`${url}pharmacy/branches/${pharmacyId}`, branchId);
+  }
 }

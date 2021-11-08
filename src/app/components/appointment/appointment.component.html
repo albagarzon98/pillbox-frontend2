@@ -1,0 +1,36 @@
+<div class="login-background animated fadeInUp">
+    <div class="container-home" *ngIf="appointments.length == 0">
+        <div class="box-reminder-title">
+            <div class="cont-back">
+                <a class="pill-back-button mb-4" routerLink="/home">
+                    <span class="back">&lt;</span> &nbsp;Regresar
+                </a>
+            </div>
+
+            <span class="home-title-2">
+                ¡Aún no tienes turnos cargados!            
+            </span>
+
+            <button class="new-reminder-btn">
+                <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                Crear turno
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-8 col-xs-12">
+                <span class="home-title">
+                    Turnos
+                </span>
+
+                <button class="new-reminder-btn">
+                    <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                    Crear turno
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

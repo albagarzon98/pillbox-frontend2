@@ -38,6 +38,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { BranchFormComponent } from './components/pharmacy/branch-form/branch-fo
     InventoryComponent,
     AddMedicamentComponent,
     PharmacyProfileComponent,
-    BranchFormComponent
+    BranchFormComponent,
+    AppointmentComponent,
+    AppointmentFormComponent
   ],
   imports: [
     BrowserModule,

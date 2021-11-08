@@ -15,6 +15,8 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { AddMedicamentComponent } from './components/inventory/add-medicament/add-medicament.component';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 
 
 
@@ -61,6 +63,17 @@ const routes: Routes = [
   canActivateChild: [AuthGuard],
   children: [
     {path: 'addMedicament', component: AddMedicamentComponent}
+  ]
+}, 
+{
+  path: 'appointment', component: AppointmentComponent,
+  canActivate: [AuthGuard],
+  data: {
+    role: ['farmaceutico']
+  },
+  canActivateChild: [AuthGuard],
+  children: [
+    {path: 'addAppointment', component: AppointmentFormComponent}
   ]
 },
   { path:'**', redirectTo:'homepage' }

@@ -29,6 +29,11 @@
             <span class="box-title">Inventario</span>
         </div>
 
+        <div class="home-box" routerLink="/appointment" (mouseover)="showDescAppointment=true" (mouseout)="showDescAppointment=false" *ngIf="role == 'farmaceutico'">
+            <img class="box-image" src="../../../assets/images/deadline.png" alt="">
+            <span class="box-title">Turnos</span>
+        </div>
+
     </div>
 
     <div class="description-limiter" *ngIf="screenWidth() > 1024">
@@ -43,6 +48,7 @@
 
         <!-- Descripción farmacéutico -->
         <span class="box-description" *ngIf="showDescMedicament && role == 'farmaceutico'">Aquí puedes gestionar el inventario de tu farmacia.</span>
+        <span class="box-description" *ngIf="showDescAppointment && role == 'farmaceutico'">Gestiona los turnos de tu farmacia y de los usuarios que quieren reaizar un pedido.</span>
 
     </div>
 

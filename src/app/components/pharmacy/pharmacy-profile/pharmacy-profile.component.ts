@@ -156,12 +156,23 @@ export class PharmacyProfileComponent implements OnInit {
         Swal.showLoading();
     
         this.branchService.delete( branchId ).subscribe(  res=>{
+          
+          let branch = {
+            branchId: branchId
+          }
+          this.pharmacyService.deleteBranch(this.pharmacy.id, branch).subscribe(res=>{
+
+          },errr=>{
+
+          })
+          
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
             text:'!Sucursal eliminada con éxito!',
             showConfirmButton: false,
           });
+
           setTimeout(()=>{
             this.router.navigateByUrl('/pharmacy/profile');
           },1200);
