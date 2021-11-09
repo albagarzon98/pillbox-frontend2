@@ -139,6 +139,39 @@ export class PharmacyRequestsComponent implements OnInit {
     request.expand = !request.expand;
   }
 
+  rejectRequest ( request ) {
+    let rejected = {
+      pharmacyRequestId: request['id'],
+      status: 'rechazado'
+    }
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.pharmacyRequestService.patch(rejected).subscribe(res=>{
+      console.log(res);
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'success',
+        text:'Solicitud rechazada',
+        showConfirmButton: false,
+      });
+      setTimeout(()=>{
+        this.router.navigateByUrl('/pharmacyRequests');
+      },1200);
+    },err=>{
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al eliminar el medicamento'
+      });
+    });
+  }
+  
   addPharmacy( request ) {
     
     let pharmacy = new Pharmacy();

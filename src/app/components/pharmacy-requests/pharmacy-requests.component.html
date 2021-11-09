@@ -80,9 +80,9 @@
                                     <mat-icon class="material-icons-outlined">add</mat-icon>
                                     Registrar farmacia
                                 </button>
-                                <button type="button" class="btn btn-danger">
+                                <button type="button" class="btn btn-danger" (click)="rejectRequest(request)">
                                     <mat-icon class="material-icons-outlined">close</mat-icon>
-                                    Anular solicitud
+                                    Rechazar solicitud
                                 </button>
                             </div>
 
@@ -90,6 +90,13 @@
                                 Solicitud Aprobada &nbsp;
                                 <mat-icon class="material-icons-outlined">
                                     done
+                                </mat-icon>
+                            </div>
+
+                            <div class="approved" *ngIf="request.status == 'rechazado'">
+                                Solicitud Rechazada &nbsp;
+                                <mat-icon class="material-icons-outlined">
+                                    close
                                 </mat-icon>
                             </div>
 
