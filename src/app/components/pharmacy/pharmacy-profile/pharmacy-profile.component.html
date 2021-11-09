@@ -24,27 +24,46 @@
     <div class="container animated fadeInUp">
         <div class="row justify-content-center">
             <div class="col-md-3">
-                <div class="img">
-                    <div class="cont-img-pharm">
-                        <img [src]="pharmacy.urlLogo">
+                <div class="cont-profile">
+                    <div class="img">
+                        <div class="cont-img-pharm">
+                            <img [src]="pharmacy.urlLogo">
+                        </div>
+                    </div>
+
+                    <div class="box-pharm">
+                        <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
+                        <span>
+                            <mat-icon class="material-icons-outlined">add_location</mat-icon>
+                            &nbsp; Dirección:
+                        </span>
+                        <p>
+                            {{userAction == 'branches' ? pharmacy.address : branchSelected.realAddress}}
+                        </p>
+                        <span>
+                            <mat-icon class="material-icons-outlined">phone</mat-icon>
+                            &nbsp; Teléfono:
+                        </span>
+                        <p>
+                            {{userAction == 'branches' ? pharmacy.phoneNumber : branchSelected.phoneNumber}}
+                        </p>
+                        <span>
+                            <mat-icon class="material-icons-outlined">mail</mat-icon>
+                            &nbsp; Mail:
+                        </span>
+                        <p>
+                            {{pharmacy.contactEmail}}
+                        </p>
+                        <span>
+                            <mat-icon class="material-icons-outlined">watch_later</mat-icon>
+                            &nbsp; Horario de atención:
+                        </span>
+                        <p class="mb-4">
+                            {{userAction == 'branches' ? branches[0].businessHours : branchSelected.businessHours}}
+                        </p>
                     </div>
                 </div>
 
-                <div class="box-pharm">
-                    <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
-                    <span>
-                        <mat-icon class="material-icons-outlined">add_location</mat-icon>
-                        &nbsp; Dirección: {{userAction == 'branches' ? pharmacy.address : branchSelected.realAddress}}
-                    </span>
-                    <span>
-                        <mat-icon class="material-icons-outlined">phone</mat-icon>
-                        &nbsp; Teléfono: {{userAction == 'branches' ? pharmacy.phoneNumber : branchSelected.phoneNumber}}
-                    </span>
-                    <span class="mb-4">
-                        <mat-icon class="material-icons-outlined">mail</mat-icon>
-                        &nbsp; Mail: {{pharmacy.contactEmail}}
-                    </span>
-                </div>
             </div>
             <div class="col-md-6">
                 <div *ngIf="userAction == 'branches'">
@@ -52,7 +71,7 @@
                         Sucursales
                     </span>
 
-                    <div class="cont-search-input animated fadeInUp">
+                    <div class="cont-search-input">
                         <mat-icon style="transform: scale(1.1);">search</mat-icon>
                         <input class="search-input" type="text" placeholder="Buscar...">
                     </div>

@@ -87,6 +87,10 @@
     margin: 2px 0 0 0;
 }
 
+.cont-profile .box-pharm span .mat-icon {
+    margin: 0;
+}
+
 .home-title {
     margin: 0 0 25px 0;
 }
@@ -107,6 +111,11 @@
     padding: 10px 20px;
 }
 
+.cont-profile {
+    position: sticky;
+    top: 82px;
+}
+
 .col-md-3 .box-pharm:hover {
     background-color: rgba(240, 240, 240, 0.938);
     cursor: default;
@@ -122,6 +131,12 @@
 
 .col-md-3 .box-pharm span {
     margin: 5px 0;
+    font-size: 14px;
+    font-family: Poppins-Bold;
+}
+
+.col-md-3 .box-pharm p {
+    margin: 5px 0 5px 35px;
     font-size: 14px;
 }
 
@@ -152,7 +167,7 @@
 }
 
 .cont-med-name button .mat-icon {
-    margin: 0 0 7px 0 !important;
+    margin: 0 0 9px 0 !important;
     animation: fadeIn 500ms;
 }
 
@@ -223,4 +238,8 @@
 
 .medications .home-title {
     margin: 10px 0 25px 0;
+}
+
+.home-title {
+    text-align: center;
 }
