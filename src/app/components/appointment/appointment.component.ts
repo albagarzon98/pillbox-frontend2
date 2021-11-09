@@ -45,11 +45,17 @@ export class AppointmentComponent implements OnInit {
     this.appointmentService.setUserAction('newAppointment');
     this.router.navigateByUrl('/appointment/addAppointment');
   }
-
+  
   orderByDate ( appointments ) {
     
     let format = 'DD/MM/YYYY';
     let hour = 'HH:mm';
+    
+    appointments.sort(function(a, b){
+      a['reservationDate'] = new Date(a['reservationDate']);
+      b['reservationDate'] = new Date(b['reservationDate']);
+      return (a['reservationDate']) - (b['reservationDate']);
+    });
     
     for (let i = 0; i < appointments.length; i++) {
       let dayName = moment(appointments[i]['reservationDate']).utc().locale('es').format('dddd');
@@ -88,6 +94,16 @@ export class AppointmentComponent implements OnInit {
         this.byDate[position]['dayAppointments'].push(appointments[i]);
       }
     }
+
+    this.orderByHour(this.byDate);
+  }
+
+  orderByHour ( byDate ) {
+    for(let i = 0; i < byDate.length; i++){
+      byDate[i]['dayAppointments'].sort(function(a, b){
+        return (a['startTime'].slice(0, 2) + a['startTime'].slice(3)) - (b['startTime'].slice(0, 2) + b['startTime'].slice(3));
+      });
+    }
   }
 
   getAppointments () {
@@ -96,7 +112,6 @@ export class AppointmentComponent implements OnInit {
     this.appointmentService.get(branchId).subscribe(res=>{
 
       this.appointments = res['reservation'];
-      console.log(this.appointments);
 
       this.orderByDate(this.appointments);
 
