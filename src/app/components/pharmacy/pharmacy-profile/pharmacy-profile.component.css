@@ -130,14 +130,14 @@
 }
 
 .col-md-3 .box-pharm span {
-    margin: 5px 0;
+    margin: 0;
     font-size: 14px;
     font-family: Poppins-Bold;
 }
 
 .col-md-3 .box-pharm p {
     margin: 5px 0 5px 35px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .carousel {
