@@ -134,7 +134,7 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   deleteBranch ( branch ) {
-    let branchId = branch.id;
+    let branchId1 = branch.id;
     Swal.fire({
       title: '¿Está seguro?',
       text: "La sucursal se eliminará de forma permanente.",
@@ -155,37 +155,44 @@ export class PharmacyProfileComponent implements OnInit {
         });
         Swal.showLoading();
     
-        this.branchService.delete( branchId ).subscribe(  res=>{
+        let branchDelete = branch['branchId'];
+
+        console.log(branchDelete);
+        console.log(this.pharmacy.id);
+        
+        this.pharmacyService.deleteBranch(this.pharmacy.id, branchDelete).subscribe(res=>{
+          console.log(res);
+          this.branchService.delete( branchId1 ).subscribe(  res=>{
           
-          let branch = {
-            branchId: branchId
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'success',
+              text:'!Sucursal eliminada con éxito!',
+              showConfirmButton: false,
+            });
+  
+            setTimeout(()=>{
+              this.router.navigateByUrl('/pharmacy/profile');
+            },1200);
+  
+          }, err=>{
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              text: err.error.message,
+              title: 'Error al eliminar la sucursal'
+            });
           }
-          this.pharmacyService.deleteBranch(this.pharmacy.id, branch).subscribe(res=>{
-
-          },errr=>{
-
-          })
-          
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'success',
-            text:'!Sucursal eliminada con éxito!',
-            showConfirmButton: false,
-          });
-
-          setTimeout(()=>{
-            this.router.navigateByUrl('/pharmacy/profile');
-          },1200);
-
-        }, err=>{
+        );
+        },err=>{
           console.log(err);
           Swal.fire({
             icon: 'error',
             text: err.error.message,
-            title: 'Error al eliminar la sucursal'
+            title: 'Error al eliminar la sucursal del listado'
           });
-        }
-      );
+        })
+        
       }
     })
   }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -50,6 +50,14 @@ export class PharmacyService {
   }
 
   deleteBranch ( pharmacyId:string, branchId ) {
-    return this.httpClient.delete(`${url}pharmacy/branches/${pharmacyId}`, branchId);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        branchId
+      }
+    }
+    return this.httpClient.delete(`${url}pharmacy/branches/${pharmacyId}`, options);
   }
 }
