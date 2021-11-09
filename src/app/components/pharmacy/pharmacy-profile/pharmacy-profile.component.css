@@ -138,6 +138,7 @@
 .col-md-3 .box-pharm p {
     margin: 5px 0 5px 35px;
     font-size: 12px;
+    overflow: hidden;
 }
 
 .carousel {
