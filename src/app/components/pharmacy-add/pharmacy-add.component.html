@@ -5,12 +5,15 @@
             <div class="col-md-6 col-xs-12">
                 <form class="pharm-form" (ngSubmit)="onSubmit( FormPharmacyAdd )" name="FormPharmacyAdd" [formGroup]='FormPharmacyAdd'>
 
-                    <a class="pill-back-button" routerLink="/pharmacyRequests">
+                    <a class="pill-back-button" *ngIf="userAction == 'newPharmacy'" routerLink="/pharmacyRequests">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
+                    <a class="pill-back-button" *ngIf="userAction == 'modifyPharmacy'" routerLink="/pharmacy/profile">
                         <span class="back">&lt;</span> &nbsp;Regresar
                     </a>
 
                     <span class="pharm-form-title">
-                        Registrar farmacia
+                        {{userAction == 'newPharmacy' ? 'Registrar ' : 'Modificar ' }} farmacia
                     </span>
 
                     <img src="../../../assets/images/pharmacy.png" alt="">
@@ -71,7 +74,7 @@
                     </div>
 
                     <!-- Campo Horario de atención -->
-                    <div class="mb-4">
+                    <div class="mb-4" *ngIf="userAction == 'newPharmacy'">
                         <label class="pill-label-reminder">Horario de atención:</label>
 
                         <textarea type="text" class="form-control form-reminder-input" formControlName="businessHours" placeholder="Escribe aquí el horario de atención." [ngClass]="{'is-invalid':    (FormPharmacyAdd.controls.businessHours.touched || submitted)  
@@ -122,8 +125,9 @@
                             Enlace inválido.
                         </div>
                     </div>
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newPharmacy'">Registrar Farmacia</button>
 
-                    <button type="submit" class="pill-form-btn">Registrar Farmacia</button>
+                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'modifyPharmacy'">Modificar Farmacia</button>
 
                 </form>
             </div>

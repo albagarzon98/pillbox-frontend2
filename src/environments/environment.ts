@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url:"https://pillbox-back.herokuapp.com/v1/"
+  url:"http://localhost:3000/v1/"
 };
 
 /*

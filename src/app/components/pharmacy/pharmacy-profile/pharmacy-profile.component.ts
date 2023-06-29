@@ -218,4 +218,80 @@ export class PharmacyProfileComponent implements OnInit {
     });
   }
 
+  modifyPharmacy( pharmacy ) {
+    
+    this.pharmacyService.setUserAction('modifyPharmacy');
+    this.pharmacyService.setPharmacyData(pharmacy);
+    
+    this.router.navigateByUrl('/pharmacyRequests/add');
+  }
+
+  deletePharmacy ( pharmacy ) {
+    let pharmacyId1 = pharmacy.id;
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "Se eliminará la farmacia y todas las sucursales asociadas de forma permanente.",
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
+
+    }).then((result)=>{
+      if(result.isConfirmed){
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text:'Espere por favor...'
+        });
+        Swal.showLoading();
+    
+        console.log('pharmacy',pharmacy);
+
+        this.branches.forEach(branch => {
+          console.log('branch', branch);
+          (this.branchService.delete( branch.id ).subscribe(  res=>{
+            console.log(res);
+
+          }, err=>{
+            console.log(err);
+          })
+    )});
+
+        let pharmacyDelete = pharmacy['pharmacyId'];
+
+        console.log(pharmacyDelete);
+        console.log(this.pharmacy.id);
+
+          this.pharmacyService.delete( pharmacyId1 ).subscribe(  res=>{
+            console.log(res);
+
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'success',
+              text:'!Farmacia eliminada con éxito!',
+              showConfirmButton: false,
+            });
+  
+            setTimeout(()=>{
+              this.router.navigateByUrl('/pharmacy');
+            },1200);
+  
+          }, err=>{
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              text: err.error.message,
+              title: 'Error al eliminar la farmcia'
+            });
+          }
+        );
+        
+      }
+    })
+  }
+
+
 }

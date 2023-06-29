@@ -27,40 +27,52 @@
                 <div class="cont-profile">
                     <div class="img">
                         <div class="cont-img-pharm">
-                            <img [src]="pharmacy.urlLogo">
+                            <img [src]="pharmacy?.urlLogo">
                         </div>
                     </div>
 
                     <div class="box-pharm">
-                        <span class="pharm-name">{{pharmacy.pharmacyName}}</span>
+                        <span class="pharm-name">{{pharmacy?.pharmacyName}}</span>
                         <span>
                             <mat-icon class="material-icons-outlined">add_location</mat-icon>
                             &nbsp; Dirección:
                         </span>
                         <p>
-                            {{userAction == 'branches' ? pharmacy.address : branchSelected.realAddress}}
+                            {{userAction == 'branches' ? pharmacy?.address : branchSelected?.realAddress}}
                         </p>
                         <span>
                             <mat-icon class="material-icons-outlined">phone</mat-icon>
                             &nbsp; Teléfono:
                         </span>
                         <p>
-                            {{userAction == 'branches' ? pharmacy.phoneNumber : branchSelected.phoneNumber}}
+                            {{userAction == 'branches' ? pharmacy?.phoneNumber : branchSelected?.phoneNumber}}
                         </p>
                         <span>
                             <mat-icon class="material-icons-outlined">mail</mat-icon>
                             &nbsp; Mail:
                         </span>
                         <p>
-                            {{pharmacy.contactEmail}}
+                            {{pharmacy?.contactEmail}}
                         </p>
                         <span>
                             <mat-icon class="material-icons-outlined">watch_later</mat-icon>
                             &nbsp; Horario de atención:
                         </span>
                         <p class="mb-4">
-                            {{userAction == 'branches' ? branches[0].businessHours : branchSelected.businessHours}}
+                            {{userAction == 'branches' ? branches[0]?.businessHours : branchSelected?.businessHours}}
                         </p>
+                        <div class="options" *ngIf="role == 'admin'">
+                            <button mat-icon-button matTooltip="Modificar farmacia" matTooltipPosition="above" (click)="modifyPharmacy(pharmacy)">
+                                <mat-icon class="material-icons-outlined">
+                                    edit
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Eliminar farmacia" matTooltipPosition="above" (click)="deletePharmacy(pharmacy)">
+                                <mat-icon class="material-icons-outlined">
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

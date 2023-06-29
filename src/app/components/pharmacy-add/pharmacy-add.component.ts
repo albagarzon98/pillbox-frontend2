@@ -30,6 +30,9 @@ export class PharmacyAddComponent implements OnInit {
   
   submitted: boolean = false;
   FormPharmacyAdd: FormGroup;
+  userAction: string;
+  pharmacy: Pharmacy;
+
   
   constructor(
     public formBuilder: FormBuilder,
@@ -52,7 +55,35 @@ export class PharmacyAddComponent implements OnInit {
       urlLogo: ['',[Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)]]
     })
 
-    this.getPharmacyAdd();
+    this.userAction = this.pharmacyService.getUserAction();
+
+    if(this.userAction == 'modifyPharmacy'){
+
+      this.pharmacy = this.pharmacyService.getPharmacyData();
+      this.FormPharmacyAdd.removeControl('businessHours');
+      this.setFormValues();
+    
+    }
+
+    if(this.userAction != 'modifyPharmacy'){
+      
+      this.getPharmacyAdd();
+    }
+
+ 
+  }
+
+  setFormValues () {
+    if ( this.userAction != 'newPharmacy' ) {
+      
+      this.FormPharmacyAdd.patchValue({
+        pharmacyName: this.pharmacy.pharmacyName,
+        phoneNumber: this.pharmacy.phoneNumber,
+        contactEmail: this.pharmacy.contactEmail,
+        address: this.pharmacy.address,
+        urlLogo: this.pharmacy.urlLogo
+      });
+    };
   }
 
   ngAfterViewInit():void {
@@ -88,81 +119,124 @@ export class PharmacyAddComponent implements OnInit {
       pharmacyName: pharmacy.pharmacyName,
       phoneNumber: pharmacy.phoneNumber,
       contactEmail: pharmacy.contactEmail,
-      address: pharmacy.address
+      address: pharmacy.address,
+      urlLogo: pharmacy.urlLogo
     });
   }
 
-  onSubmit( form: FormGroup ) { 
-    
+  onSubmit(form: FormGroup): void { 
     this.submitted = true;
-    if ( form.invalid ) { return; }
+    if (form.invalid) {
+      return;
+    }
 
-    let pharmacy: Pharmacy = {...this.FormPharmacyAdd.value};
+    if (this.userAction === 'newPharmacy') {
+      this.createNewPharmacy();
+    }
+
+    if (this.userAction === 'modifyPharmacy') {
+      this.modifyExistingPharmacy();
+    }
+  }
+  createNewPharmacy(): void {
+    const pharmacy: Pharmacy = { ...this.FormPharmacyAdd.value };
     delete pharmacy['businessHours'];
-    console.log(pharmacy);
     pharmacy.branches = [];
-
-    let branch: Branch = new Branch();
-    branch.branchName = pharmacy.pharmacyName;
-    branch.phoneNumber = pharmacy.phoneNumber;
-    branch.realAddress = pharmacy.address;
-    branch.businessHours = this.FormPharmacyAdd.value['businessHours'];
+    console.log(pharmacy);
 
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...'
     });
     Swal.showLoading();
-    
-    this.pharmacyService.post(pharmacy).subscribe(res => {
 
-      console.log(res);
-      let pharmacyId = res['id'];
-
-      this.branchService.post(branch, pharmacyId).subscribe(res=>{
+    this.pharmacyService.post(pharmacy).subscribe(
+      res => {
+        const pharmacyId = res['id'];
         
-        console.log(res);
-        
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'success',
-          title: '¡Farmacia registrada con éxito!',
-          showConfirmButton: false
-        });
+        let branch: Branch = new Branch();
+        branch.branchName = pharmacy.pharmacyName;
+        branch.phoneNumber = pharmacy.phoneNumber;
+        branch.realAddress = pharmacy.address;
+        branch.businessHours = this.FormPharmacyAdd.value['businessHours'];
 
-        let requestId = this.pharmacyService.getRequestId();
-        let pharmacyRequest = {
-          pharmacyRequestId: requestId,
-          status: 'aprobado'
-        }
+        this.branchService.post(branch, pharmacyId).subscribe(
+          res => {
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'success',
+              title: '¡Farmacia registrada con éxito!',
+              showConfirmButton: false
+            });
 
-        this.pharmacyRequestService.patch(pharmacyRequest).subscribe(res=>{
-          console.log(res);
-        },err=>{
-          console.log(err);
-        });
+            const requestId = this.pharmacyService.getRequestId();
+            const pharmacyRequest = {
+              pharmacyRequestId: requestId,
+              status: 'aprobado'
+            };
 
-        setTimeout(()=>{
-          this.router.navigateByUrl('/pharmacyRequests');
-        },1200);      
-      
-      },err=>{
+            this.pharmacyRequestService.patch(pharmacyRequest).subscribe(
+              res => {
+                setTimeout(() => {
+                  this.router.navigateByUrl('/pharmacyRequests');
+                }, 1200);
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          },
+          err => {
+            Swal.fire({
+              icon: 'error',
+              text: err.error.message,
+              title: 'Error al registrar la sucursal.'
+            });
+          }
+        );
+      },
+      err => {
         Swal.fire({
           icon: 'error',
           text: err.error.message,
-          title: 'Error al registrar la sucursal.'
+          title: 'Error al registrar la farmacia.'
         });
-      });
-      
-    }, err => {
-      console.log(err.error.message);
-      Swal.fire({
-        icon: 'error',
-        text: err.error.message,
-        title: 'Error al registrar la farmacia.'
-      });
+      }
+    );
+  }
+
+  modifyExistingPharmacy(): void {
+    const pharmacy: Pharmacy = { ...this.FormPharmacyAdd.value };
+
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Espere por favor...'
     });
+    Swal.showLoading();
+
+    const pharmacyId = this.pharmacy.id;
+    this.pharmacyService.patch(pharmacy, pharmacyId).subscribe(
+      res => {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text: 'Farmacia modificada con éxito!',
+          showConfirmButton: false
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl('/pharmacy/profile');
+        }, 1200);
+      },
+      err => {
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al modificar la farmacia'
+        });
+      }
+    );
   }
 
 }
