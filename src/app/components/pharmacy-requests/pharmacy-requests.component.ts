@@ -179,11 +179,12 @@ export class PharmacyRequestsComponent implements OnInit {
     pharmacy.address = request.address;
     pharmacy.contactEmail = request.contactEmail;
     pharmacy.phoneNumber = request.phoneNumber;
+    pharmacy.urlLogo = request.urlLogo;
 
     let requestId = request.id;
 
     this.pharmacyService.addPharmacy(pharmacy, requestId);
-
+    this.pharmacyService.setUserAction('newPharmacy');    
     this.router.navigateByUrl('/pharmacyRequests/add');
   }
 

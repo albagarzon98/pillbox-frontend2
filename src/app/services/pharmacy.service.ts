@@ -13,6 +13,8 @@ export class PharmacyService {
 
   pharmacyAdd: Pharmacy;
   requestId: string;
+  pharmacyData: Pharmacy;
+  userAction: string;
   
   constructor( private httpClient: HttpClient ) { }
   
@@ -59,5 +61,29 @@ export class PharmacyService {
       }
     }
     return this.httpClient.delete(`${url}pharmacy/branches/${pharmacyId}`, options);
+  }
+  
+  setUserAction (userAction: string) {
+    this.userAction = userAction;
+  }
+  getUserAction () {
+    return this.userAction;
+  }
+
+  setPharmacyData ( pharmacy: Pharmacy ) {
+    this.pharmacyData = pharmacy;    
+  }
+
+  getPharmacyData () {
+    return this.pharmacyData;
+  }
+
+
+  patch ( pharmacy: Pharmacy, pharmacyId: string ) {
+    return this.httpClient.patch(`${url}pharmacy/${pharmacyId}`, pharmacy);
+  }
+
+  delete ( pharmacyId: string ) {
+    return this.httpClient.delete(`${url}pharmacy/${pharmacyId}`);
   }
 }
