@@ -15,7 +15,7 @@ export class AuthService {
   userToken: string;
   roleAs: string;
   branchId: string;
-  
+  userId: string;
   //Esta variable me permite mostrar ciertos <nav-link> del navBar según si el usuario está o no autenticado.
   isAuth: boolean;
   
@@ -146,6 +146,11 @@ export class AuthService {
   getRole() {
     this.roleAs = localStorage.getItem('role');
     return this.roleAs;
+  }
+
+  getUserId() {
+    this.userId = localStorage.getItem('id');
+    return this.userId;
   }
 
   getBranchId() {

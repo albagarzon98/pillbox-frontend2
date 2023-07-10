@@ -5,7 +5,7 @@
                 <form class="pharm-form animated fadeInRight" (ngSubmit)="onSubmit( FormAppointment )" name="FormAppointment" [formGroup]='FormAppointment'>
 
                     <div class="cont-back">
-                        <a class="pill-back-button mb-4" routerLink="/appointment">
+                        <a class="pill-back-button mb-4" (click)="volver()">
                             <span class="back">&lt;</span> &nbsp;Regresar
                         </a>
                     </div>
@@ -69,6 +69,29 @@
                         && FormAppointment.controls.endTime.errors?.pattern">
                             Dato hora, formato HH:mm
                         </div>
+                    </div>
+                    <!-- Campo Asignado a -->
+                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                        <label class="pill-label-reminder">Usuario solicitante:</label>
+                        <input class="form-control form-reminder-input" formControlName="assignedUser" readonly />
+                    </div>
+                    
+                    <!-- Campo Nombre de sucursal -->
+                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                        <label class="pill-label-reminder">Nombre de sucursal:</label>
+                        <input class="form-control form-reminder-input" formControlName="branchName" readonly />
+                    </div>
+                    
+                    <!-- Campo Usuario farmacéutico -->
+                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                        <label class="pill-label-reminder">Usuario farmacéutico:</label>
+                        <input class="form-control form-reminder-input" formControlName="pharmacistUser" readonly />
+                    </div>
+                    
+                    <!-- Campo Estado -->
+                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                        <label class="pill-label-reminder">Estado:</label>
+                        <input class="form-control form-reminder-input" formControlName="status" readonly />
                     </div>
 
                     <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newAppointment'">Crear turno</button>

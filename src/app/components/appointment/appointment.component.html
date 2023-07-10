@@ -8,10 +8,10 @@
             </div>
 
             <span class="home-title-2">
-                ¡Aún no tienes turnos cargados!            
+                ¡Aún no {{userAction == 'newAppointment' ? 'tienes' : 'existen' }} turnos cargados!            
             </span>
 
-            <button class="new-reminder-btn" (click)="newAppointment()">
+            <button class="new-reminder-btn" *ngIf="userAction == 'newAppointment'" (click)="newAppointment()">
                 <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
                 Crear turno
             </button>
@@ -19,33 +19,61 @@
     </div>
 
     <div class="container animated fadeInUp" *ngIf="appointments.length != 0">
-        <div class="row justify-content-md-center mb-4">
-            <div class="col-lg-6 col-xs-12">
-                <span class="home-title">
-                    Turnos
+      <div class="row justify-content-md-center">
+        <div class="col-lg-6 col-xs-12">
+            <span class="home-title">Turnos Disponibles</span>
+            <button class="new-reminder-btn" *ngIf="userAction == 'newAppointment'" (click)="newAppointment()">
+                <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
+                Crear turno
+            </button>
+            <div class="box-pharm box" *ngFor="let date of availableByDate">
+                <span class="date">
+                  {{ date.name }}
                 </span>
-
-                <button class="new-reminder-btn" (click)="newAppointment()">
-                    <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
-                    Crear turno
-                </button>
-
+                <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && selectAppointment(appointment)">
+                  <span>
+                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs
+                  </span>
+                </div>
             </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-lg-6 col-xs-12">
-                <div class="box-pharm box" *ngFor="let date of byDate">
-                    <span class="date">
-                        {{date.name}}
+            <div class="container-home" *ngIf="availableByDate.length == 0">
+                <div class="box-reminder-title">
+                    <span class="home-title-2">
+                        ¡Aún no {{userAction == 'newAppointment' ? 'tienes' : 'existen' }} turnos cargados!            
                     </span>
-                    <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
-                        <span>
-                            de: {{appointment.startTime}} hs &nbsp; a: {{appointment.endTime}} hs
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>
+  
+        <div class="col-lg-6 col-xs-12">
+            <span class="home-title">Próximos Turnos</span>
+            <div class="box-pharm box" *ngFor="let date of upcomingByDate">
+                <span class="date">
+                    {{ date.name }}
+                </span>
+                <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
+                    <span>
+                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs
+                        <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Ver detalles" matTooltipPosition="above" (click)="viewDetails(appointment)">
+                            <mat-icon class="material-icons-outlined">
+                                visibility
+                            </mat-icon>
+                        </button>
+                        <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Rechazar turno" matTooltipPosition="above" color="warn" (click)="rejectAppointment(appointment)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="container-home" *ngIf="upcomingByDate.length == 0">
+                <div class="box-reminder-title">
+                    <span class="home-title-2">
+                        ¡No {{userAction == 'newAppointment' ? 'existen' : 'tienes' }} turnos solicitados!            
+                    </span>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
 </div>
 <router-outlet></router-outlet>

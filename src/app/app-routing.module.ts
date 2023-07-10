@@ -69,7 +69,7 @@ const routes: Routes = [
   path: 'appointment', component: AppointmentComponent,
   canActivate: [AuthGuard],
   data: {
-    role: ['farmaceutico']
+    role: ['farmaceutico','paciente','tutor']
   },
   canActivateChild: [AuthGuard],
   children: [

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { BranchService } from '../../../services/branch.service';
 import { Medication } from 'src/app/models/medication';
 import { MedicationService } from '../../../services/medication.service';
+import { AppointmentService } from '../../../services/appointment.service';
+
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -43,7 +45,8 @@ export class PharmacyProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private branchService: BranchService,
-    private medicationService: MedicationService
+    private medicationService: MedicationService,
+    private appointmentService: AppointmentService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -52,7 +55,12 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userAction = localStorage.getItem('userAction');
+    const branchData = JSON.parse(localStorage.getItem('branchData'));
 
+    this.appointmentService.setUserAction(userAction);
+    this.appointmentService.setBranchData(branchData);
+    
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
@@ -291,6 +299,17 @@ export class PharmacyProfileComponent implements OnInit {
         
       }
     })
+  }
+
+  takeAppointment ( branch ) {
+    
+    this.appointmentService.setUserAction('takeAppointment');
+    this.appointmentService.setBranchData( branch );
+
+    localStorage.setItem('userAction', 'takeAppointment');
+    localStorage.setItem('branchData', JSON.stringify(branch));
+
+    this.router.navigateByUrl('/appointment');
   }
 
 

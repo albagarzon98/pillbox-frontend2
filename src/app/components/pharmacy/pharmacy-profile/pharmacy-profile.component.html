@@ -79,6 +79,9 @@
             </div>
             <div class="col-md-6">
                 <div *ngIf="userAction == 'branches'">
+                    <a class="pill-back-button" routerLink="/pharmacy">
+                        <span class="back">&lt;</span> &nbsp;Regresar
+                    </a>
                     <span class="home-title">
                         Sucursales
                     </span>
@@ -130,6 +133,13 @@
                         <input class="search-input" type="text" placeholder="Buscar...">
                     </div>
 
+                    <div class="container-home" *ngIf="branchMedications.length == 0">
+                        <div class="box-reminder-title">
+                            <span class="home-title-2">
+                                ¡No existen medicamentos cargados en esta sucursal!            
+                            </span>
+                        </div>
+                    </div>
                     <div *ngFor="let medication of branchMedications">
                         <div class="box-pharm" [@expand]="medication.state">
                             <div class="cont-med-name">
@@ -170,7 +180,13 @@
                 </div>
             </div>
             <div class="col-md-3">
-
+                <!-- Botón a la derecha -->
+                <div class="add-med" *ngIf="(role == 'paciente' || role == 'tutor') && userAction == 'branchMedications'">
+                    <button mat-raised-button (click)="takeAppointment(branchSelected)">
+                        <mat-icon style="transform: scale(0.7)" svgIcon="mas"></mat-icon>
+                        Solicitar un turno
+                    </button>
+                </div>
             </div>
         </div>
     </div>
