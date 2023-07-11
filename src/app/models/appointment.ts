@@ -1,3 +1,5 @@
+import { UserModel } from '../models/user';
+
 export class Appointment {
     id: string;
     startTime: string;
@@ -5,6 +7,7 @@ export class Appointment {
     reservationDate: string;
     branchId: string;
     branchName: string;
-    pharmacistUser: string;
-    status: string
+    pharmacistUser: UserModel;
+    status: string;
+    assignedUser: UserModel;
 }

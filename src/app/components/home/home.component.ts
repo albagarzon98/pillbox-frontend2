@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { MedicationService } from '../../services/medication.service';
+import { AppointmentService } from '../../services/appointment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,10 @@ export class HomeComponent implements OnInit {
 
   constructor( 
     private authService: AuthService,
-    private medicationService: MedicationService
+    private medicationService: MedicationService,
+    private appointmentService: AppointmentService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +56,14 @@ export class HomeComponent implements OnInit {
 
   screenWidth () {
     return window.screen.width;
+  }
+
+  newAppointment () {    
+    this.appointmentService.setUserAction('newAppointment');
+
+    localStorage.setItem('userAction', 'newAppointment');
+    
+    this.router.navigateByUrl('/appointment');
   }
 
 }

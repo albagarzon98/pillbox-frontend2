@@ -14,7 +14,14 @@ import * as moment from 'moment';
 export class AppointmentComponent implements OnInit {
 
   appointments: Appointment[] = [];
+  selectedAppointment: Appointment;
   byDate = [];
+  userAction: string;
+  role: string;
+  availableAppointments: Appointment[] = [];
+  upcomingAppointments: Appointment[] = [];
+  availableByDate: any[] = [];
+  upcomingByDate: any[] = [];
   
   constructor(
     private appointmentService: AppointmentService,
@@ -28,6 +35,17 @@ export class AppointmentComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    this.setRole();
+
+    const userAction = localStorage.getItem('userAction');
+    const branchData = JSON.parse(localStorage.getItem('branchData'));
+
+    this.appointmentService.setUserAction(userAction);
+    this.appointmentService.setBranchData(branchData);
+
+    this.userAction = this.appointmentService.getUserAction();
+    
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
@@ -36,6 +54,11 @@ export class AppointmentComponent implements OnInit {
     Swal.showLoading();
     this.getAppointments();
   }
+
+  setRole() {
+    this.role = this.authService.getRole();
+  }
+
 
   route () {
     return this.router.url;
@@ -50,7 +73,11 @@ export class AppointmentComponent implements OnInit {
     
     let format = 'DD/MM/YYYY';
     let hour = 'HH:mm';
-    
+
+    this.availableAppointments = [];
+    this.upcomingAppointments = [];
+
+
     appointments.sort(function(a, b){
       a['reservationDate'] = new Date(a['reservationDate']);
       b['reservationDate'] = new Date(b['reservationDate']);
@@ -58,13 +85,25 @@ export class AppointmentComponent implements OnInit {
     });
     
     for (let i = 0; i < appointments.length; i++) {
-      let dayName = moment(appointments[i]['reservationDate']).utc().locale('es').format('dddd');
+      let dayName = moment(appointments[i]['reservationDate']).utcOffset(-3).locale('es').format('dddd');
       dayName = dayName.slice(0, 1).toUpperCase() + dayName.slice(1);
 
-      let dateAppointment = moment(appointments[i]['reservationDate']).utc().format(format);
+      let dateAppointment = moment(appointments[i]['reservationDate']).utcOffset(-3).format(format);
       appointments[i]['reservationDate'] = `${dayName} ${dateAppointment}`;
-      appointments[i]['startTime'] = moment(appointments[i]['startTime']).utc().format(hour);
-      appointments[i]['endTime'] = moment(appointments[i]['endTime']).utc().format(hour);
+      appointments[i]['startTime'] = moment(appointments[i]['startTime']).utcOffset(-3).format(hour);
+      appointments[i]['endTime'] = moment(appointments[i]['endTime']).utcOffset(-3).format(hour);
+
+      if (appointments[i].status === 'active') {
+        this.availableAppointments.push(appointments[i]);
+      } else if (appointments[i].status === 'taken' && this.role == "farmaceutico") {        
+        this.upcomingAppointments.push(appointments[i]);
+
+      } else if (appointments[i].status === 'taken' && appointments[i].assignedUser.id == this.authService.getUserId()) {
+        this.upcomingAppointments.push(appointments[i]);
+      }
+
+      this.availableByDate = this.groupByDate(this.availableAppointments);
+      this.upcomingByDate = this.groupByDate(this.upcomingAppointments);
     }
     
     let dates = [];
@@ -106,10 +145,38 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-  getAppointments () {
-    let branchId = this.authService.getBranchId();
+  groupByDate(appointments) {
+    const byDate = [];
+  
+    for (let i = 0; i < appointments.length; i++) {
+      const date = appointments[i].reservationDate;
+  
+      const existingDate = byDate.find((item) => item.name === date);
+  
+      if (existingDate) {
+        existingDate.dayAppointments.push(appointments[i]);
+      } else {
+        byDate.push({
+          name: date,
+          dayAppointments: [appointments[i]],
+        });
+      }
+    }
+  
+    return byDate;
+  }
 
-    this.appointmentService.get(branchId).subscribe(res=>{
+  getAppointments () {
+    let branchId;
+    let status="";
+
+    if (this.appointmentService.getUserAction() === 'takeAppointment') {
+      branchId = this.appointmentService.branchData.branchId;
+    }else{
+      branchId = this.authService.getBranchId();
+    }
+
+    this.appointmentService.get(branchId,status).subscribe(res=>{
 
       this.appointments = res['reservation'];
 
@@ -125,5 +192,71 @@ export class AppointmentComponent implements OnInit {
     })
 
   }
+
+  selectAppointment(appointment) {
+    let appointmentId = appointment.id;
+    Swal.fire({
+      title: 'Confirmar Turno',
+      text: "Usted esta solicitando un turno para el dia: " + appointment.reservationDate + " en la siguiente franja horaria: " + appointment.startTime+ " a " + appointment.endTime,
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
+
+    }).then((result)=>{
+      if(result.isConfirmed){
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text:'Espere por favor...',
+          showCancelButton: true,
+          showConfirmButton: false,
+        });
+        Swal.showLoading();
+        this.appointmentService.takeAppointment(appointmentId).subscribe( res => {
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton:true,
+            icon: 'success',
+            text:'!Turno solicitado con éxito! Recibirá un correo con la información del mismo',
+            showConfirmButton: false,
+          }).finally(()=>{
+            this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/appointment']);
+            });          });
+
+        }, (err) => {
+          console.log(err.error.message);
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al solicitar el turno'
+          });
+        }
+        );
+      }
+    })
+    
+}
+
+viewDetails(appointment: Appointment) {
+
+  this.appointmentService.setUserAction('detailsAppointment');
+  this.appointmentService.setAppointmentData(appointment);
+
+  localStorage.setItem('userAction', 'detailsAppointment');
+  localStorage.setItem('appointmentData', JSON.stringify(appointment));
+  
+  this.router.navigateByUrl('/appointment/addAppointment')
+}
+
+rejectAppointment(appointment: Appointment) {
+ 
+}
 
 }

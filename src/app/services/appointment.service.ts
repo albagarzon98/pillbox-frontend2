@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Appointment } from '../models/appointment';
+import { Branch } from '../models/branch';
 
 const url = environment.url;
 
@@ -12,6 +13,7 @@ export class AppointmentService {
 
   userAction: string;
   appointmentData: Appointment;
+  branchData: Branch
   
   constructor( private httpClient: HttpClient ) { }
 
@@ -31,11 +33,23 @@ export class AppointmentService {
     this.appointmentData = appointment;
   }
   
-  get ( branchId: string ) {
-    return this.httpClient.get(`${ url }reservation/byBranchId/${ branchId }`);
+  get ( branchId: string, status: string ) {
+    const params = { status: status };
+    return this.httpClient.get(`${ url }reservation/byBranchId/${ branchId }`, { params: params });
   }
 
   post ( appointment ) {
     return this.httpClient.post(`${ url }reservation`, appointment);
+  }
+
+  setBranchData ( branch: Branch ) {
+    this.branchData = branch;
+  }
+
+  takeAppointment ( appointmentId ) {
+    const body = {
+      reservationId: appointmentId
+    };
+    return this.httpClient.patch(`${ url }reservation/take`, body);
   }
 }
