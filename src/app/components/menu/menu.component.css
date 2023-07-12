@@ -53,6 +53,19 @@
     text-align: center !important;
 }
 
+.role-data {
+    height: 36px;
+    width: auto;
+    color: #5cf3ba;
+    font-family: Poppins-Regular;
+    text-align: center;
+    display: inline-block;
+    padding: 2px 20px;
+    font-size: 14px;
+    transition: 300ms !important;
+    margin-right: 15px;
+}
+
 @media only screen and (min-width:320px) and (max-width:480px) {
     .pharmacy-register-button {
         display: inline-block;
