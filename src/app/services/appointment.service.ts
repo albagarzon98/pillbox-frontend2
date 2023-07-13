@@ -52,4 +52,11 @@ export class AppointmentService {
     };
     return this.httpClient.patch(`${ url }reservation/take`, body);
   }
+
+  rejectAppointment ( appointmentId ) {
+    const body = {
+      reservationId: appointmentId
+    };
+    return this.httpClient.patch(`${ url }reservation/reject`, body);
+  }
 }

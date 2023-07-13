@@ -21,7 +21,8 @@ export class AppointmentFormComponent implements OnInit {
   statusTranslations: { [key: string]: string } = {
     taken: 'Reservado',
     active: 'Activo',
-    inactive: 'Inactivo'
+    inactive: 'Inactivo',
+    rejected: 'Rechazado'
   };
 
   constructor(

@@ -19,8 +19,11 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end " id="navbarNavAltMarkup" [attr.data-bs-toggle]="screenWidth() <= 768 ? 'collapse':''" [attr.data-bs-target]="screenWidth() <= 768 ? '.navbar-collapse':''" *ngIf="isAuthenticated()">
             <div class="navbar-nav">
-
-                <button class="pharmacy-register-button" routerLink="/pharmacyRegister">
+                <span class="role-data">
+                    <mat-icon style="transform: scale(0.8)">person</mat-icon>
+                    Rol: {{getRole()}}
+                </span>
+                <button class="pharmacy-register-button" routerLink="/pharmacyRegister" *ngIf="!isAuthenticated()" >
                     <mat-icon class="pharmacy-icon" svgIcon="pharmacy"></mat-icon>
                     Registrá tu farmacia
                 </button>

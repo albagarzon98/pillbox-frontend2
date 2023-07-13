@@ -162,6 +162,7 @@ export class AppointmentComponent implements OnInit {
         });
       }
     }
+    this.orderByHour(byDate);
   
     return byDate;
   }
@@ -240,9 +241,8 @@ export class AppointmentComponent implements OnInit {
         }
         );
       }
-    })
-    
-}
+    })   
+  }
 
 viewDetails(appointment: Appointment) {
 
@@ -256,7 +256,53 @@ viewDetails(appointment: Appointment) {
 }
 
 rejectAppointment(appointment: Appointment) {
- 
+  let appointmentId = appointment.id;
+  Swal.fire({
+    title: 'Rechazar Turno',
+    text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
+    icon: 'warning',
+    confirmButtonText: 'Confirmar',
+    confirmButtonColor: 'green',
+    cancelButtonText: 'Cancelar',
+    cancelButtonColor: 'red',
+    showCancelButton: true,
+    reverseButtons: true
+
+  }).then((result)=>{
+    if(result.isConfirmed){
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...',
+        showCancelButton: true,
+        showConfirmButton: false,
+      });
+      Swal.showLoading();
+      this.appointmentService.rejectAppointment(appointmentId).subscribe( res => {
+        Swal.fire({
+          allowOutsideClick: false,
+          showCloseButton:true,
+          icon: 'success',
+          text:'!Turno rechazado! El usuario solicitante recibirá un correo con la información de rechazo.',
+          showConfirmButton: false,
+        }).finally(()=>{
+          this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/appointment']);
+          });          });
+
+      }, (err) => {
+        console.log(err.error.message);
+        Swal.fire({
+          allowOutsideClick: false,
+          showCloseButton: true,
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al rechazar el turno'
+        });
+      }
+      );
+    }
+  })   
 }
 
 }

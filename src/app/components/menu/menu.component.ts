@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class MenuComponent implements OnInit {
 
   navbarOpen = false;
+  role: string;
 
   constructor( private auth: AuthService,
                private router: Router) { }
@@ -45,6 +46,7 @@ export class MenuComponent implements OnInit {
   //Esta función obtiene el rol del localStorage
   getRole ():string {
     if( localStorage.getItem('role') ){
+      this.role = localStorage.getItem('role');
       return localStorage.getItem('role');
     }
     else {
