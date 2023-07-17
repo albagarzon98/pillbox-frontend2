@@ -59,4 +59,12 @@ export class AppointmentService {
     };
     return this.httpClient.patch(`${ url }reservation/reject`, body);
   }
+
+  delete (id) {
+    return this.httpClient.delete(`${url}reservation/${id}`)
+  }
+
+  patch (id, reservation) {
+    return this.httpClient.patch(`${url}reservation/${id}`, reservation)
+  }
 }

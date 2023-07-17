@@ -35,8 +35,8 @@ export class AppointmentFormComponent implements OnInit {
   ngOnInit(): void {
     this.FormAppointment = this.formBuilder.group({
       reservationDate: ['', [Validators.required]],
-      startTime: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
-      endTime: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
+      startTime: ['', [Validators.required, Validators.pattern('^([0-1]?[0-9]|2[0-3])(:?[0-5][0-9])?$')]],
+      endTime: ['', [Validators.required, Validators.pattern('^([0-1]?[0-9]|2[0-3])(:?[0-5][0-9])?$')]],
       assignedUser: [''],
       branchName: [''],
       pharmacistUser: [''],
@@ -54,7 +54,7 @@ export class AppointmentFormComponent implements OnInit {
 
     this.setFormValues();
 
-    if(this.userAction == 'newAppointment'){
+    if(this.userAction == 'newAppointment' || this.userAction == 'modifyAppointment'){
 
       this.FormAppointment.removeControl('assignedUser');
       this.FormAppointment.removeControl('branchName');
@@ -67,12 +67,12 @@ export class AppointmentFormComponent implements OnInit {
 
   setFormValues () {
     if ( this.userAction != 'newAppointment' ) {
-      
+
       this.FormAppointment.patchValue({
           reservationDate: moment(this.appointment.reservationDate, 'DD/MM/YYYY').toDate(),
           startTime: this.appointment.startTime,
           endTime: this.appointment.endTime,
-          assignedUser: this.appointment.assignedUser.name,
+          assignedUser: this.appointment.assignedUser?.name,
           branchName: this.appointment.branchName,
           pharmacistUser: this.appointment.pharmacistUser.name,
           status: this.getStatusTranslation(this.appointment.status),
@@ -90,6 +90,14 @@ export class AppointmentFormComponent implements OnInit {
 
   onSubmit ( form: FormGroup ) {
     this.submitted = true;
+    if ( this.userAction == 'modifyAppointment' ) { 
+      this.FormAppointment.patchValue({
+        startTime: this.FormAppointment.value.startTime.replace(':', ''),
+        endTime: this.FormAppointment.value.endTime.replace(':', '')
+      });
+      
+    }
+
     if ( form.invalid ) {
       return;
     }
@@ -103,35 +111,68 @@ export class AppointmentFormComponent implements OnInit {
     appointment['reservationDate'] = moment(appointment['reservationDate']).format(format);
     appointment['startTime'] = appointment['startTime'].slice(0,2) + ':' + appointment['startTime'].slice(2,4);
     appointment['endTime'] = appointment['endTime'].slice(0,2) + ':' + appointment['endTime'].slice(2,4);
-    console.log(appointment);
-    
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.appointmentService.post( appointment ).subscribe(res=>{
-      
-      console.log(res);
+
+    if ( this.userAction == 'newAppointment' ) { 
       Swal.fire({
         allowOutsideClick: false,
-        icon: 'success',
-        text:'¡Turno creado con éxito!',
-        showConfirmButton: false
+        icon: 'info',
+        text:'Espere por favor...'
       });
-      setTimeout(()=>{
-        this.router.navigateByUrl('/appointment');
-      },1200);
+      Swal.showLoading();
+      this.appointmentService.post( appointment ).subscribe(res=>{
+        
+        console.log(res);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'¡Turno creado con éxito!',
+          showConfirmButton: false
+        });
+        setTimeout(()=>{
+          this.router.navigateByUrl('/appointment');
+        },1200);
+  
+      },err=>{
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al crear el turno'
+        });
+      })
+    }
 
-    },err=>{
-      console.log(err);
+    if ( this.userAction == 'modifyAppointment' ) { 
       Swal.fire({
-        icon: 'error',
-        text: err.error.message,
-        title: 'Error al crear el turno'
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...'
       });
-    })
+      Swal.showLoading();
+      this.appointmentService.patch( this.appointment.id, appointment).subscribe(res=>{
+        
+        console.log(res);
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'¡Turno editado con éxito!',
+          showConfirmButton: false
+        });
+        setTimeout(()=>{
+          this.volver();
+        },1200);
+  
+      },err=>{
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al editar el turno'
+        });
+      })
+    }
+
+
   }
 
   volver() {

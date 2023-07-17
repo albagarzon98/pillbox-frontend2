@@ -305,4 +305,63 @@ rejectAppointment(appointment: Appointment) {
   })   
 }
 
+modifyAppointment(appointment: Appointment) {
+
+  this.appointmentService.setUserAction('modifyAppointment');
+  this.appointmentService.setAppointmentData(appointment);
+
+  localStorage.setItem('userAction', 'modifyAppointment');
+  localStorage.setItem('appointmentData', JSON.stringify(appointment));
+  
+  this.router.navigateByUrl('/appointment/addAppointment')
+}
+
+deleteAppointment(appointment: Appointment) {
+  let appointmentId = appointment.id;
+  Swal.fire({
+    title: 'Eliminar Turno',
+    text: "Usted está por eliminar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
+    icon: 'warning',
+    confirmButtonText: 'Confirmar',
+    confirmButtonColor: 'green',
+    cancelButtonText: 'Cancelar',
+    cancelButtonColor: 'red',
+    showCancelButton: true,
+    reverseButtons: true
+
+  }).then((result)=>{
+    if(result.isConfirmed){
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...',
+        showCancelButton: true,
+        showConfirmButton: false,
+      });
+      Swal.showLoading();
+      this.appointmentService.delete(appointmentId).subscribe( res => {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'success',
+          text:'!Turno Eliminado!',
+          showConfirmButton: false,
+        })
+        setTimeout(()=>{
+          this.router.navigateByUrl('/appointment');
+        },1500);
+
+      }, (err) => {
+        console.log(err.error.message);
+        Swal.fire({
+          allowOutsideClick: false,
+          showCloseButton: true,
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al eliminar el turno'
+        });
+      }
+      );
+    }
+  })
+}
 }
