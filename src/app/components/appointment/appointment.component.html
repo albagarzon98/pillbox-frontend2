@@ -32,7 +32,7 @@
                 </span>
                 <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && selectAppointment(appointment)">
                   <span>
-                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs
+                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
                     <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Editar turno" matTooltipPosition="above" (click)="modifyAppointment(appointment)">
                         <mat-icon class="material-icons-outlined">
                             edit
@@ -61,7 +61,7 @@
                 </span>
                 <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
                     <span>
-                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs
+                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
                         <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Ver detalles" matTooltipPosition="above" (click)="viewDetails(appointment)">
                             <mat-icon class="material-icons-outlined">
                                 visibility
