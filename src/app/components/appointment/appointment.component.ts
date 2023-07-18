@@ -364,4 +364,23 @@ deleteAppointment(appointment: Appointment) {
     }
   })
 }
+
+
+getTimeRemaining(appointment: Appointment): string {
+  const appointmentDateTime = moment(
+    `${appointment.reservationDate} ${appointment.startTime}`,
+    'DD/MM/YYYY HH:mm'
+  );
+  const now = moment();
+  const diff = appointmentDateTime.diff(now);
+  moment.locale('es');
+
+  if (diff < 0) {
+    return 'Tiempo transcurrido';
+  } else {
+    const duration = moment.duration(diff);
+      return `En ${duration.humanize()}`;
+    }
+  }
 }
+
