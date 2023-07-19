@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
 import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../models/patient';
+import { Pharmacist } from 'src/app/models/pharmacist';
+import { Tutor } from 'src/app/models/tutor';
+import { PharmacistService } from 'src/app/services/pharmacist.service';
+import { TutorService } from 'src/app/services/tutor.service';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +23,8 @@ export class RegisterComponent implements OnInit {
   
   user: UserModel = new UserModel();
   patient: Patient = new Patient();
+  pharmacist: Pharmacist = new Pharmacist();
+  tutor: Tutor = new Tutor();
 
   rememberAccount: boolean = false;
   submitted: boolean = false;
@@ -31,6 +37,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private patientService: PatientService,
+    private pharmacistService: PharmacistService,
+    private tutorService: TutorService,
     private roleService: RoleService,
     public formBuilder: FormBuilder
   ) { }
@@ -189,12 +197,31 @@ export class RegisterComponent implements OnInit {
       this.user.pharmacyCode = this.FormRegister.value['PharmacyCode'];
     }
 
-    //Asignamos los valores del form al objeto patient
+    if (this.user.role == 'paciente') {
+  
+      //Asignamos los valores del form al objeto patient
     this.patient.fullName = `${this.FormRegister.value['Name']} ${this.FormRegister.value['LastName']}`;
     this.patient.email = this.FormRegister.value['Email'];
     this.patient.document = this.FormRegister.value['Document'];
     this.patient.gender = this.FormRegister.value['Gender'];
     this.patient.phoneNumber = this.FormRegister.value['Phone'];
+    }else if (this.user.role == 'farmaceutico') {
+    
+      //Asignamos los valores del form al objeto farmaceutico
+    this.pharmacist.fullName = `${this.FormRegister.value['Name']} ${this.FormRegister.value['LastName']}`;
+    this.pharmacist.email = this.FormRegister.value['Email'];
+    this.pharmacist.document = this.FormRegister.value['Document'];
+    this.pharmacist.gender = this.FormRegister.value['Gender'];
+    this.pharmacist.phoneNumber = this.FormRegister.value['Phone'];
+    }else if (this.user.role == 'tutor') {
+    
+      //Asignamos los valores del form al objeto tutor
+    this.tutor.fullName = `${this.FormRegister.value['Name']} ${this.FormRegister.value['LastName']}`;
+    this.tutor.email = this.FormRegister.value['Email'];
+    this.tutor.document = this.FormRegister.value['Document'];
+    this.tutor.gender = this.FormRegister.value['Gender'];
+    this.tutor.phoneNumber = this.FormRegister.value['Phone'];
+    }
         
     //Asignamos el valor del form a la variable rememberAccount
     this.rememberAccount = this.FormRegister.value['RememberAccount'];
@@ -210,12 +237,30 @@ export class RegisterComponent implements OnInit {
     .subscribe( resp => {
       console.log(resp);
 
-      this.patientService.post( this.patient ).subscribe( res => {
-        console.log(res);
+      if (this.user.role == 'paciente') {
+        this.patientService.post( this.patient ).subscribe( res => {
+          console.log(res);
+        }, (err) => {
+          console.log(err);
+        });
 
-      }, (err) => {
-        console.log(err);
-      });
+      }else if (this.user.role == 'farmaceutico') {
+        this.pharmacistService.post( this.pharmacist ).subscribe( res => {
+          console.log(res);
+  
+        }, (err) => {
+          console.log(err);
+        });
+      }else if (this.user.role == 'tutor') {
+        this.tutorService.post( this.tutor ).subscribe( res => {
+          console.log(res);
+  
+        }, (err) => {
+          console.log(err);
+        });
+      }
+
+
       Swal.close();
 
       //Si el usuario marcó el check "Recordar cuenta" se almacena su email
