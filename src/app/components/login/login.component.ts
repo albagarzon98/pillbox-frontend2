@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PharmacistService } from 'src/app/services/pharmacist.service';
+import { TutorService } from 'src/app/services/tutor.service';
 import Swal from 'sweetalert2';
 import { UserModel } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
@@ -23,11 +25,14 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   user: UserModel = new UserModel();
+  role = '';
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private patientService: PatientService,
+    private pharmacistService: PharmacistService,
+    private tutorService: TutorService,
     public formBuilder: FormBuilder
   ) {}
 
@@ -85,11 +90,26 @@ export class LoginComponent implements OnInit {
       .subscribe( resp => {
         
         console.log(resp);
-        
-        this.patientService.get().subscribe(res => {
-          localStorage.setItem('gender', res['patient']['0']['gender']);
-          localStorage.setItem('fullName', res['patient']['0']['fullName']);
-        });
+        this.role = this.auth.getRole();
+
+        if (this.role == 'paciente') {
+          this.patientService.get().subscribe(res => {
+            localStorage.setItem('gender', res['patient']['0']['gender']);
+            localStorage.setItem('fullName', res['patient']['0']['fullName']);
+          });
+        }else if (this.role == 'farmaceutico') {
+          this.pharmacistService.get().subscribe(res => {
+            localStorage.setItem('gender', res['pharmacist']['0']['gender']);
+            localStorage.setItem('fullName', res['pharmacist']['0']['fullName']);
+          });
+          
+        } else if (this.role == 'tutor') {
+          this.tutorService.get().subscribe(res => {
+            localStorage.setItem('gender', res['tutor']['0']['gender']);
+            localStorage.setItem('fullName', res['tutor']['0']['fullName']);
+          });
+
+        }
 
         //Se cierra el Loading...
         Swal.close();
