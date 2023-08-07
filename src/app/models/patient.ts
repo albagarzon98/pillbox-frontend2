@@ -1,7 +1,9 @@
 export class Patient {
+    id: string;
     fullName: string;
     email: string;
     phoneNumber: number;
     document: number;
-    gender: string
+    gender: string;
+    user: string;
 }

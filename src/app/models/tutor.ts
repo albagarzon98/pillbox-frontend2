@@ -1,4 +1,5 @@
 export class Tutor {
+    id: string;
     fullName: string;
     email: string;
     phoneNumber: number;
