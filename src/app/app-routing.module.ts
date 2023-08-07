@@ -17,6 +17,7 @@ import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
+import { PatientsComponent } from './components/patients/patients.component';
 
 
 
@@ -75,6 +76,16 @@ const routes: Routes = [
   children: [
     {path: 'addAppointment', component: AppointmentFormComponent}
   ]
+},
+{ path: 'patients', component: PatientsComponent,
+canActivate: [ AuthGuard ],
+data: {
+  role: ['tutor']
+},
+canActivateChild: [AuthGuard],
+children: [
+  {path: 'assignPatient', component: AppointmentFormComponent}
+]
 },
   { path:'**', redirectTo:'homepage' }
 ];

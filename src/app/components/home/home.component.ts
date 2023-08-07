@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   showDescPharmacy: boolean = false;
   showDescAppointment: boolean = false;
   showDescRequest: boolean = false;
+  showDescPatients: boolean = false;
   
   name: string;
   role: string;
