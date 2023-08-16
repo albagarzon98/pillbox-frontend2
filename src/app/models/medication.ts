@@ -5,5 +5,5 @@ export class Medication {
     isManualInsert: boolean;
     id: string;
     grammage: string;
-    unit: string
+    unit: string;
 }

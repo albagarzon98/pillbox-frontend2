@@ -6,5 +6,6 @@ export class Reminder {
     medicationName: string;
     dose: number;
     inventory: number;
-    grammage: number
+    grammage: number;
+    isTutorAssigned: boolean;
 }

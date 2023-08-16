@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Patient } from '../models/patient';
 import { throwError } from 'rxjs';
+import { Reminder } from '../models/reminder';
 
 const url = environment.url;
 
@@ -109,6 +110,18 @@ export class TutorService {
   getUserReminders(patient: Patient) {
     const params = new HttpParams().set('userId', patient.user);
     return this.httpClient.get(`${url}tutor/userReminders`, { params });
+  }
+
+  postUserReminder( reminder: Reminder, patient: Patient ) {
+    const params = new HttpParams().set('userId', patient.user);
+    return this.httpClient.post(`${ url }tutor/userReminders`, reminder, { params });
+  }
+
+  postBranchMedicationReminderOfPatient( branchMedicationReminder ) {
+    const patientData = JSON.parse(localStorage.getItem('patientData'));
+
+    const params = new HttpParams().set('userId', patientData.user);
+    return this.httpClient.post(`${ url }tutor/branchMedicationReminder`, branchMedicationReminder, { params });
   }
 
 }

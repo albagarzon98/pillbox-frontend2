@@ -326,6 +326,8 @@ input[type='image'] {
     margin: 8px;
     transition: 300ms;
     animation: fadeInUp 600ms;
+    position: relative;
+
 }
 
 .reminder-box:hover,
@@ -395,6 +397,15 @@ input[type='image'] {
     box-shadow: 1px 1px 10px 1px #8153d6;
 }
 
+.assigned-by-tutor {
+    background-color: #5cf3ba;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ home ]*/

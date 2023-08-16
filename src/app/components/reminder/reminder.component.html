@@ -69,7 +69,10 @@
                               <span class="poppins-regular">Eliminar medicamento</span>
                             </button>
                     </mat-menu>
-
+                    <!-- Agregar etiqueta si isTutorAssigned es true -->
+                    <div class="assigned-by-tutor box-reminder-medication" *ngIf="reminder.isTutorAssigned">
+                        Asignado por tutor
+                    </div>
                     <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
                     <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="reminder.unit == 'comprimido(s)'">
                     <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="reminder.unit == 'cápsula(s)'">
@@ -147,7 +150,9 @@
                               <span class="poppins-regular">Eliminar medicamento</span>
                             </button>
                     </mat-menu>
-
+                    <div class="assigned-by-tutor box-reminder-medication" *ngIf="medication['isTutorAssigned']">
+                        Asignado por tutor
+                    </div>
                     <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
                     <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'comprimido(s)'">
                     <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'cápsula(s)'">
