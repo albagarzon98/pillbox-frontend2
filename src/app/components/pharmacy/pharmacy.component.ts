@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PharmacyService } from '../../services/pharmacy.service';
 import { Pharmacy } from '../../models/pharmacy';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
+import { TutorService } from 'src/app/services/tutor.service';
 
 @Component({
   selector: 'app-pharmacy',
@@ -15,11 +17,22 @@ export class PharmacyComponent implements OnInit {
   
   constructor(
     private pharmacyService: PharmacyService,
+    private tutorService: TutorService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     
+    this.router.events
+.pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+.subscribe((events: RoutesRecognized[]) => {
+  if (events[0].urlAfterRedirects == '/home' && events[1].urlAfterRedirects == '/pharmacy') {
+    localStorage.removeItem('userAction')
+    localStorage.removeItem('patientData')
+    this.tutorService.setUserAction('')
+  }
+});
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',

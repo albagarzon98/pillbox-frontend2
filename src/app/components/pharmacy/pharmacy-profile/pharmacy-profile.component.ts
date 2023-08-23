@@ -11,6 +11,7 @@ import { MedicationService } from '../../../services/medication.service';
 import { AppointmentService } from '../../../services/appointment.service';
 
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TutorService } from 'src/app/services/tutor.service';
 
 @Component({
   selector: 'app-pharmacy-profile',
@@ -46,7 +47,9 @@ export class PharmacyProfileComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private medicationService: MedicationService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private tutorService: TutorService,
+
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -86,7 +89,11 @@ export class PharmacyProfileComponent implements OnInit {
   addReminder ( medication ) {
     this.medicationService.setUserAction('addReminder');
     this.medicationService.setMedicationData( medication );
-    this.router.navigateByUrl('/reminder');
+    if(this.tutorService.getUserAction() == 'assignBranchMedication'){
+      this.router.navigateByUrl('/patients');
+    }else{
+      this.router.navigateByUrl('/reminder');
+    }
   }
 
   branchSelect ( branch:Branch ) {

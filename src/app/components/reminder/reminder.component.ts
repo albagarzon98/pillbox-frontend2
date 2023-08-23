@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { MedicationService } from '../../services/medication.service';
 import { BranchMedicationReminderService } from '../../services/branch-medication-reminder.service';
+import { TutorService } from 'src/app/services/tutor.service';
 
 @Component({
   selector: 'app-reminder',
@@ -50,6 +51,7 @@ export class ReminderComponent implements OnInit {
   constructor(
     private router: Router,
     private reminderService: ReminderService,
+    private tutorService: TutorService,
     public formBuilder: FormBuilder,
     private medicationService: MedicationService,
     private branchMedicationReminderService: BranchMedicationReminderService
@@ -62,6 +64,10 @@ export class ReminderComponent implements OnInit {
 
   ngOnInit(): void {
     
+    localStorage.removeItem('userAction')
+    localStorage.removeItem('patientData')
+    this.tutorService.setUserAction('')
+
     this.FormReminder = this.formBuilder.group({
       medicationName: [
         '',
