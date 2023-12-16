@@ -54,13 +54,6 @@
                         <p>
                             {{pharmacy?.contactEmail}}
                         </p>
-                        <span>
-                            <mat-icon class="material-icons-outlined">watch_later</mat-icon>
-                            &nbsp; Horario de atención:
-                        </span>
-                        <p class="mb-4">
-                            {{userAction == 'branches' ? branches[0]?.businessHours : branchSelected?.businessHours}}
-                        </p>
                         <div class="options" *ngIf="role == 'admin'">
                             <button mat-icon-button matTooltip="Modificar farmacia" matTooltipPosition="above" (click)="modifyPharmacy(pharmacy)">
                                 <mat-icon class="material-icons-outlined">
@@ -104,6 +97,14 @@
                             <span class="branch-address">
                                 <mat-icon class="material-icons-outlined">add_location</mat-icon>
                                 Dirección: {{branch.realAddress}}
+                            </span>
+                            <span class="branch-address">
+                                <mat-icon class="material-icons-outlined">phone</mat-icon>
+                                Teléfono: {{branch.phoneNumber}}
+                            </span>
+                            <span class="branch-address">
+                                <mat-icon class="material-icons-outlined">watch_later</mat-icon>
+                                Horario de atención: {{branch.businessHours}}
                             </span>
                         </div>
                         <div class="options" *ngIf="role == 'admin'">
