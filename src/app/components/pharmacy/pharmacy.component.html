@@ -18,7 +18,11 @@
                 <div class="box-pharm" *ngFor="let pharmacy of pharmacies" (click)="pharmacyProfile(pharmacy)">
 
                     <div class="cont-img-pharm">
-                        <img [src]="pharmacy.urlLogo" alt="">
+                        <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo" alt="Logo farmacia">
+
+                        <ng-template #defaultImage>
+                            <img src="../../../../assets/images/pharmacyProfile.png" alt="Default Image">
+                        </ng-template>
                     </div>
 
                     <div class="cont-text-pharm">
