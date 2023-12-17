@@ -27,7 +27,11 @@
                 <div class="cont-profile">
                     <div class="img">
                         <div class="cont-img-pharm">
-                            <img [src]="pharmacy?.urlLogo">
+                            <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo" alt="Logo farmacia">
+
+                            <ng-template #defaultImage>
+                                <img src="../../../../assets/images/pharmacyProfile.png" alt="Default Image">
+                            </ng-template>
                         </div>
                     </div>
 
