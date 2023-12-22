@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { PharmacyRequestService } from '../../services/pharmacy-request.service';
 import { PharmacyRequest } from '../../models/pharmacy-request';
 import { Router } from '@angular/router';
+import { resetValidators } from '../../../utils/formUtils';
 
 @Component({
   selector: 'app-pharmacy-register',
@@ -38,8 +39,6 @@ export class PharmacyRegisterComponent implements OnInit {
     this.FormPharmacy = this.formBuilder.group({
       pharmacyName: ['',[Validators.required, Validators.maxLength(55)]],
       branchesNumber: ['',[Validators.required]],
-      // ownerName: ['',[Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
-      // ownerLastName: ['', [Validators.required, Validators.maxLength(55), Validators.pattern('^[a-zA-Z\u00C0-\u00FF \']*$')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       contactEmail: ['',[Validators.required, Validators.email]],
       address: ['',[Validators.required, Validators.maxLength(55)]]
@@ -94,8 +93,9 @@ export class PharmacyRegisterComponent implements OnInit {
         text:'Nos pondremos en contacto contigo una vez que hayamos verificado tus datos.'
       });
 
-      this.router.navigateByUrl('/pharmacyRegister');
-
+      this.resetForm();
+      resetValidators(this.FormPharmacy);
+      
     }, (err) => {
       console.log(err.error.message);
       Swal.fire({
@@ -106,4 +106,15 @@ export class PharmacyRegisterComponent implements OnInit {
     })
   }
 
+  resetForm() {
+    this.FormPharmacy.setValue({
+      pharmacyName: '',
+      branchesNumber: '',
+      phoneNumber: '',
+      contactEmail: '',
+      address: ''
+    });
+
+    this.submitted = false;
+  }
 }
