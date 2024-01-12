@@ -24,14 +24,14 @@ export class PharmacyComponent implements OnInit {
   ngOnInit(): void {
     
     this.router.events
-.pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
-.subscribe((events: RoutesRecognized[]) => {
-  if (events[0].urlAfterRedirects == '/home' && events[1].urlAfterRedirects == '/pharmacy') {
-    localStorage.removeItem('userAction')
-    localStorage.removeItem('patientData')
-    this.tutorService.setUserAction('')
-  }
-});
+      .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+      .subscribe((events: RoutesRecognized[]) => {
+        if (events[0].urlAfterRedirects == '/home' && events[1].urlAfterRedirects == '/pharmacy') {
+          localStorage.removeItem('userAction')
+          localStorage.removeItem('patientData')
+          this.tutorService.setUserAction('')
+        }
+      });
 
     Swal.fire({
       allowOutsideClick: false,
