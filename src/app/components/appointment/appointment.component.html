@@ -19,69 +19,78 @@
     </div>
 
     <div class="container animated fadeInUp" *ngIf="appointments.length != 0">
-      <div class="row justify-content-md-center">
-        <div class="col-lg-6 col-xs-12">
-            <span class="home-title">Turnos Disponibles</span>
-            <button class="new-reminder-btn" *ngIf="userAction == 'newAppointment'" (click)="newAppointment()">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6 col-xs-12">
+                <span class="home-title">Turnos Disponibles</span>
+                <button class="new-reminder-btn" *ngIf="userAction == 'newAppointment'" (click)="newAppointment()">
                 <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>
-                Crear turno
-            </button>
-            <div class="box-pharm box" *ngFor="let date of availableByDate">
-                <span class="date">
+                    Crear turno
+                </button>
+                <div class="box-pharm box" *ngFor="let date of availableByDate">
+                    <span class="date">
                   {{ date.name }}
                 </span>
-                <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && selectAppointment(appointment)">
-                  <span>
-                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
-                    <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Editar turno" matTooltipPosition="above" (click)="modifyAppointment(appointment)">
-                        <mat-icon class="material-icons-outlined">
-                            edit
-                        </mat-icon>
-                    </button>
-                    <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Eliminar turno" matTooltipPosition="above" color="warn" (click)="deleteAppointment(appointment)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                  </span>
+                    <div class="box-pharm cursor-pointer" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && selectAppointment(appointment)">
+                        <span>
+                            de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
+                        </span>
+                        <div class="options">
+                            <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Editar turno" matTooltipPosition="above" (click)="modifyAppointment(appointment)">
+                                <mat-icon class="material-icons-outlined">
+                                    edit
+                                </mat-icon>
+                            </button>
+                            <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Eliminar turno" matTooltipPosition="above" color="warn" (click)="deleteAppointment(appointment)">
+                                <mat-icon>
+                                    delete
+                                </mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="container-home" *ngIf="availableByDate.length == 0">
-                <div class="box-reminder-title">
-                    <span class="home-title-2">
+                <div class="container-home" *ngIf="availableByDate.length == 0">
+                    <div class="box-reminder-title">
+                        <span class="home-title-2">
                         ¡Aún no {{userAction == 'newAppointment' ? 'tienes' : 'existen' }} turnos cargados!            
                     </span>
+                    </div>
                 </div>
             </div>
-        </div>
-  
-        <div class="col-lg-6 col-xs-12">
-            <span class="home-title">Próximos Turnos</span>
-            <div class="box-pharm box" *ngFor="let date of upcomingByDate">
-                <span class="date">
-                    {{ date.name }}
-                </span>
-                <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
-                    <span>
-                    de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
-                        <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Ver detalles" matTooltipPosition="above" (click)="viewDetails(appointment)">
-                            <mat-icon class="material-icons-outlined">
-                                visibility
-                            </mat-icon>
-                        </button>
-                        <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Rechazar turno" matTooltipPosition="above" color="warn" (click)="rejectAppointment(appointment)">
-                            <mat-icon>cancel</mat-icon>
-                        </button>
+
+            <div class="col-lg-6 col-xs-12">
+                <span class="home-title">Próximos Turnos</span>
+                <div class="box-pharm box" *ngFor="let date of upcomingByDate">
+                    <span class="date">
+                        {{ date.name }}
                     </span>
+                    <div class="box-pharm" *ngFor="let appointment of date['dayAppointments']">
+                        <span>
+                            de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
+                        </span>
+                        <div class="options">
+                            <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Ver detalles" matTooltipPosition="above" (click)="viewDetails(appointment)">
+                                <mat-icon class="material-icons-outlined">
+                                    visibility
+                                </mat-icon>
+                            </button>
+                            <button *ngIf="role == 'farmaceutico'" mat-icon-button matTooltip="Rechazar turno" matTooltipPosition="above" color="warn" (click)="rejectAppointment(appointment)" style="margin-left: auto;">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button *ngIf="role == 'paciente'" mat-icon-button matTooltip="Rechazar turno" matTooltipPosition="above" color="warn" (click)="rejectAppointmentPatient(appointment)" style="margin-left: auto;">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="container-home" *ngIf="upcomingByDate.length == 0">
-                <div class="box-reminder-title">
-                    <span class="home-title-2">
+                <div class="container-home" *ngIf="upcomingByDate.length == 0">
+                    <div class="box-reminder-title">
+                        <span class="home-title-2">
                         ¡No {{userAction == 'newAppointment' ? 'existen' : 'tienes' }} turnos solicitados!            
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
     </div>
 </div>
 <router-outlet></router-outlet>
