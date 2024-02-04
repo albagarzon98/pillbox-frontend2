@@ -28,6 +28,17 @@
     border-radius: 15px;
 }
 
+.col-lg-6 .box-pharm .box-pharm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 60px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .col-lg-6 .box:hover {
     background-color: rgba(240, 240, 240, 0.938);
     cursor: default;
@@ -53,4 +64,8 @@
     width: auto;
     padding: 10px 20px;
     border-radius: 10px;
+}
+
+.options {
+    margin-left: auto;
 }
