@@ -305,6 +305,56 @@ rejectAppointment(appointment: Appointment) {
   })   
 }
 
+rejectAppointmentPatient(appointment: Appointment) {
+  let appointmentId = appointment.id;
+  Swal.fire({
+    title: 'Rechazar Turno',
+    text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
+    icon: 'warning',
+    confirmButtonText: 'Confirmar',
+    confirmButtonColor: 'green',
+    cancelButtonText: 'Cancelar',
+    cancelButtonColor: 'red',
+    showCancelButton: true,
+    reverseButtons: true
+
+  }).then((result)=>{
+    if(result.isConfirmed){
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...',
+        showCancelButton: true,
+        showConfirmButton: false,
+      });
+      Swal.showLoading();
+      this.appointmentService.rejectPatientAppointment(appointmentId).subscribe( res => {
+        Swal.fire({
+          allowOutsideClick: false,
+          showCloseButton:true,
+          icon: 'success',
+          text:'!Turno cancelado! Recibirás un correo con la confirmación.',
+          showConfirmButton: false,
+        }).finally(()=>{
+          this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/appointment']);
+          });          
+        });
+      }, (err) => {
+        console.log(err.error.message);
+        Swal.fire({
+          allowOutsideClick: false,
+          showCloseButton: true,
+          icon: 'error',
+          text: err.error.message,
+          title: 'Error al rechazar el turno'
+        });
+      }
+      );
+    }
+  })   
+}
+
 modifyAppointment(appointment: Appointment) {
 
   this.appointmentService.setUserAction('modifyAppointment');
