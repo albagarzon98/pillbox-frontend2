@@ -60,6 +60,13 @@ export class AppointmentService {
     return this.httpClient.patch(`${ url }reservation/reject`, body);
   }
 
+  rejectPatientAppointment ( appointmentId ) {
+    const body = {
+      reservationId: appointmentId
+    };
+    return this.httpClient.patch(`${ url }reservation/cancel`, body);
+  }
+
   delete (id) {
     return this.httpClient.delete(`${url}reservation/${id}`)
   }
