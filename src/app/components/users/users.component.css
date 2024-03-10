@@ -1,0 +1,15 @@
+.user-email {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-pharm {
+    height: 50px;
+    padding: 2% 5%;
+}
+
+.options button {
+    position: relative;
+    bottom: 8px;
+}
