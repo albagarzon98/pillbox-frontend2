@@ -12,6 +12,7 @@
             <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
             <span class="box-title">Medicamentos</span>
         </div>
+
         <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false" *ngIf="role != 'farmaceutico'">
             <img class="box-image" src="../../../assets/images/pharmacy.png" alt="">
             <span class="box-title">Farmacias</span>
@@ -21,6 +22,11 @@
         <div class="home-box" routerLink="/pharmacyRequests" (mouseover)="showDescRequest=true" (mouseout)="showDescRequest=false" *ngIf="role == 'admin'">
             <img class="box-image" src="../../../assets/images/request.png" alt="">
             <span class="box-title">Solicitudes</span>
+        </div>
+
+        <div class="home-box" routerLink="/users" (mouseover)="showDescUsers=true" (mouseout)="showDescUsers=false" *ngIf="role == 'admin'">
+            <img class="box-image" src="../../../assets/images/user.png" alt="">
+            <span class="box-title">Usuarios</span>
         </div>
 
         <!-- Vista farmacéutico -->
@@ -58,6 +64,9 @@
 
         <!-- Descripción tutor -->
         <span class="box-description" *ngIf="showDescPatients && role == 'tutor'">Aquí puedes administrar tus pacientes a cargo y gestionar los recordatorios para ellos.</span>
+
+        <!-- Descripción tutor -->
+        <span class="box-description" *ngIf="showDescUsers && role == 'admin'">Aquí puedes administrar los usuarios de la aplicaión.</span>
     </div>
 
 </div>
