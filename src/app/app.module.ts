@@ -41,6 +41,7 @@ import { BranchFormComponent } from './components/pharmacy/branch-form/branch-fo
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { PatientsComponent } from './components/patients/patients.component';
     BranchFormComponent,
     AppointmentComponent,
     AppointmentFormComponent,
-    PatientsComponent
+    PatientsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
