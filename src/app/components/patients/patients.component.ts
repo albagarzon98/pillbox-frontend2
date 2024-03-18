@@ -230,7 +230,7 @@ export class PatientsComponent implements OnInit {
         
         setTimeout(()=>{
           this.router.navigateByUrl('/patients');
-        },1500);
+        },5000);
         
       },err=>{
         console.log(err.error.message);
