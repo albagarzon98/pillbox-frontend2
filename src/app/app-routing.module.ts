@@ -96,7 +96,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       role: ['admin']
-    }
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'profile/:role/:id', component: ProfileComponent}
+    ]
   },
   { path:'**', redirectTo:'homepage' }
 ];
