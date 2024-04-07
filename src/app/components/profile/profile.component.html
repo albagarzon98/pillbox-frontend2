@@ -2,7 +2,7 @@
     <div class="login-container">
 
         <!-- Regresar link -->
-        <a class="pill-back-button mb-4" routerLink="/home">
+        <a class="pill-back-button mb-4" (click)="volver()">
             <span class="back">&lt;</span> &nbsp;Regresar
         </a>
 
@@ -14,26 +14,24 @@
             </button>
         </div>
         <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="before">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="modifyProfile()">
+                <mat-icon>edit</mat-icon>
+                <span class="poppins-regular">Modificar datos</span>
+            </button>
+            <button mat-menu-item (click)="changeUserStatus()">
               <mat-icon>person_off</mat-icon>
-              <span class="poppins-regular">Desactivar cuenta</span>
+              <span class="poppins-regular">{{this.roleModel.isEnabled ? "Desactivar" : "Activar"}} cuenta</span>
             </button>
         </mat-menu>
 
         <span class="reminder-title">
-            Mi cuenta
+            {{roleModel.fullName}}
         </span>
 
 
-        <img src="../../../assets/images/male.png" alt="" *ngIf="patient.gender == 'Masculino'">
-        <img src="../../../assets/images/female.png" alt="" *ngIf="patient.gender == 'Femenino'">
-        <img src="../../../assets/images/other.png" alt="" *ngIf="patient.gender == 'Otro'">
-
-
-        <button class="modify-btn" mat-raised-button (click)="modifyProfile()">
-            <mat-icon>edit</mat-icon>
-            &nbsp; Modificar datos
-        </button>
+        <img src="../../../assets/images/male.png" alt="Masculino" *ngIf="roleModel.gender == 'Masculino'">
+        <img src="../../../assets/images/female.png" alt="femenino" *ngIf="roleModel.gender == 'Femenino'">
+        <img src="../../../assets/images/other.png" alt="Otro" *ngIf="roleModel.gender == 'Otro'">
 
         <form (ngSubmit)="onSubmit( FormProfile )" name="FormProfile" [formGroup]='FormProfile'>
 

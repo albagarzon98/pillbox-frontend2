@@ -5,11 +5,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../models/user';
-import { Pharmacist } from 'src/app/models/pharmacist';
-import { Tutor } from 'src/app/models/tutor';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { TutorService } from 'src/app/services/tutor.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
+const roleTranslate = {
+  paciente: "patient",
+  farmaceutico: "pharmacist",
+}
 
 @Component({
   selector: 'app-profile',
@@ -22,20 +26,27 @@ export class ProfileComponent implements OnInit {
   submitted: boolean = false;
 
   user: UserModel = new UserModel();
-  patient: Patient = new Patient();
-  pharmacist: Pharmacist = new Pharmacist();
-  tutor: Tutor = new Tutor();
+  roleModel: Patient = new Patient();
+  id: string;
 
   genders = [];
   role ='';
   modify:boolean = false;
 
+  services = {
+    paciente: this.patientService,
+    farmaceutico: this.pharmacistService,
+    tutor: this.tutorService,
+  };
+
   constructor(
+    private router: Router,
     private patientService: PatientService,
     private pharmacistService: PharmacistService,
     private tutorService: TutorService,
     private authService: AuthService,
     private userService: UserService,
+    private route: ActivatedRoute,
     public formBuilder: FormBuilder
   ) { }
 
@@ -50,16 +61,33 @@ export class ProfileComponent implements OnInit {
     });
 
     this.getGenders();
-    this.role = this.authService.getRole();
 
-    if (this.role == 'paciente') {
-      this.getPatient();
-    }else if (this.role == 'farmaceutico') {      
-      this.getPharmacist();
-    } else if (this.role == 'tutor') {
-      this.getTutor();
+    const id = this.route.snapshot.paramMap.get('id');
+    const role = this.route.snapshot.paramMap.get('role');
+
+    if (id) {
+      this.id = id;
+      this.role = role;
+    } else {
+      this.role = this.authService.getRole();
+      this.id = this.authService.getUserId();
     }
-    this.FormProfile.disable();
+
+    if (this.role === "admin") {
+      this.getAdminData();
+      return;
+    }
+
+    this.getUserDataById(this.id, this.role, this.services);
+  }
+
+  volver() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.router.navigateByUrl('users');
+    } else {
+      this.router.navigateByUrl('home');
+    }
   }
 
   getGenders() {
@@ -68,116 +96,155 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getPatient () {
-    
+  getAdminData() {
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
       text:'Espere por favor...'
     });
     Swal.showLoading();
-    this.patientService.get().subscribe(res => {   
+
+    this.userService.get(this.id).subscribe(res => {
+      this.FormProfile.disable();
+
       this.FormProfile.patchValue({
-        fullName: res['patient']['0']['fullName'],
-        dni: res['patient']['0']['dni'],
-        gender: res['patient']['0']['gender'],
-        phoneNumber: res['patient']['0']['phoneNumber'],
-        email: res['patient']['0']['email']
+        fullName: res["name"],
+        dni: "",
+        gender: "",
+        phoneNumber: "",
+        email: res["email"]
       });
 
-      this.patient.document = res['patient']['0']['dni'];
-      this.patient.email = res['patient']['0']['email'];
-      this.patient.fullName = res['patient']['0']['fullName'];
-      this.patient.gender = res['patient']['0']['gender'];
-      this.patient.phoneNumber = res['patient']['0']['phoneNumber'];
-
+      this.roleModel.fullName = res["name"];
+      this.roleModel.isEnabled = res["isEnabled"];
       Swal.close();
     }, err => {
-      console.log(err);
       Swal.fire({
         icon: 'error',
         text: err.error.message,
         title: 'Error al cargar sus datos'
       });
-    });
+    })
   }
 
-  getPharmacist () {
-    
+  getUserDataById (id, role, services) {
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
       text:'Espere por favor...'
     });
     Swal.showLoading();
-    this.pharmacistService.get().subscribe(res => {   
+
+    services[`${role}`].getByUserId(id).subscribe(res => {
+      this.FormProfile.disable();
+
+      if (res[roleTranslate[`${role}`]].length === 0) {
+        Swal.fire({
+          icon: 'info',
+          text: `No se han encontrado datos para el ${role} seleccionado.`,
+          title: 'Información',
+        })
+        return;
+      }
+
       this.FormProfile.patchValue({
-        fullName: res['pharmacist']['0']['fullName'],
-        dni: res['pharmacist']['0']['dni'],
-        gender: res['pharmacist']['0']['gender'],
-        phoneNumber: res['pharmacist']['0']['phoneNumber'],
-        email: res['pharmacist']['0']['email']
+        fullName: res[roleTranslate[`${role}`]]['0']['fullName'],
+        dni: res[roleTranslate[`${role}`]]['0']['dni'],
+        gender: res[roleTranslate[`${role}`]]['0']['gender'],
+        phoneNumber: res[roleTranslate[`${role}`]]['0']['phoneNumber'],
+        email: res[roleTranslate[`${role}`]]['0']['email']
       });
 
-      this.pharmacist.document = res['pharmacist']['0']['dni'];
-      this.pharmacist.email = res['pharmacist']['0']['email'];
-      this.pharmacist.fullName = res['pharmacist']['0']['fullName'];
-      this.pharmacist.gender = res['pharmacist']['0']['gender'];
-      this.pharmacist.phoneNumber = res['pharmacist']['0']['phoneNumber'];
+      this.roleModel.gender = res[roleTranslate[`${role}`]]['0']['gender'];
+      this.roleModel.isEnabled = res[roleTranslate[`${role}`]]['0']['user']['isEnabled'];
+      this.roleModel.fullName = res[roleTranslate[`${role}`]]['0']['fullName'];
 
       Swal.close();
     }, err => {
-      console.log(err);
       Swal.fire({
         icon: 'error',
         text: err.error.message,
-        title: 'Error al cargar sus datos'
+        title: 'Error al cargar los datos del usuario'
       });
-    });
-  }
-
-  getTutor () {
-    
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.tutorService.get().subscribe(res => {   
-      this.FormProfile.patchValue({
-        fullName: res['tutor']['0']['fullName'],
-        dni: res['tutor']['0']['dni'],
-        gender: res['tutor']['0']['gender'],
-        phoneNumber: res['tutor']['0']['phoneNumber'],
-        email: res['tutor']['0']['email']
-      });
-
-      this.tutor.document = res['tutor']['0']['dni'];
-      this.tutor.email = res['tutor']['0']['email'];
-      this.tutor.fullName = res['tutor']['0']['fullName'];
-      this.tutor.gender = res['tutor']['0']['gender'];
-      this.tutor.phoneNumber = res['tutor']['0']['phoneNumber'];
-
-      Swal.close();
-    }, err => {
-      console.log(err);
-      Swal.fire({
-        icon: 'error',
-        text: err.error.message,
-        title: 'Error al cargar sus datos'
-      });
-    });
+    })
   }
 
   modifyProfile() {
     this.modify = !this.modify;
     if (this.modify) {
       this.FormProfile.enable();
+      this.FormProfile.controls['email'].disable();
     }
     if (!this.modify) {
       this.FormProfile.disable();
     }
+  }
+
+  updateRoleUser() {
+    const role = roleTranslate[`${this.role}`];
+
+    if (this.role !== "admin") {
+      this.services[`${this.role}`].patch(this.roleModel).subscribe( res => {
+        localStorage.setItem('fullName', res[role]['fullName']);
+        localStorage.setItem('name', res[role]['fullName']);
+        localStorage.setItem('gender', res[role]['gender']);
+      }, (err)=>{
+        console.log(err.error.message);
+      });
+    }
+  }
+
+  changeUserStatus() {
+    const messagePart = this.roleModel.isEnabled ? "desactivado" : "activado";
+
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: `El usuario será ${messagePart}.`,
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
+
+    }).then((result)=>{
+      if(result.isConfirmed){
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text:'Espere por favor...'
+        });
+        Swal.showLoading();
+    
+        this.userService.changeUserStatus( this.id, !this.roleModel.isEnabled ).subscribe(  res=>{
+          
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'success',
+            text:`!Usuario ${messagePart} con éxito!`,
+            showConfirmButton: false,
+          });
+          setTimeout(()=>{
+            Swal.close();
+            this.router.navigate(['/users'])
+            .then(() => {
+              window.location.reload();
+            });
+          },1200);
+
+        }, err=>{
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al eliminar asignación'
+          });
+        }
+      );
+      }
+    })
   }
 
   onSubmit( form: FormGroup ) {
@@ -187,19 +254,8 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    if (this.role == 'paciente') {
-      this.patient = { ...this.FormProfile.value }; 
-
-    }else if (this.role == 'farmaceutico') {
-      this.pharmacist = { ...this.FormProfile.value }; 
-
-    }else if (this.role == 'tutor') {
-      this.tutor = { ...this.FormProfile.value }; 
-    }
-    this.user.email = this.FormProfile.value.email;
+    this.roleModel = { ...this.FormProfile.value }; 
     this.user.name = this.FormProfile.value.fullName;
-
-    const id = this.userService.readId();
 
     Swal.fire({
       allowOutsideClick: false,
@@ -208,38 +264,10 @@ export class ProfileComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.userService.patch(this.user, id).subscribe(res => {
-      if (this.role == 'paciente') {
-        this.patientService.patch(this.patient).subscribe( res => {
-          
-          localStorage.setItem('fullName', res['patient']['fullName']);
-          localStorage.setItem('name', res['patient']['fullName']);
-          localStorage.setItem('gender', res['patient']['gender']);
-        }, (err)=>{
-          console.log(err.error.message);
-        });
-      }else if (this.role == 'farmaceutico') {
-        this.pharmacistService.patch(this.pharmacist).subscribe( res => {
-          
-          localStorage.setItem('fullName', res['pharmacist']['fullName']);
-          localStorage.setItem('name', res['pharmacist']['fullName']);
-          localStorage.setItem('gender', res['pharmacist']['gender']);
-        }, (err)=>{
-          console.log(err.error.message);
-        });
-      }else if (this.role == 'tutor') {
-        this.tutorService.patch(this.tutor).subscribe( res => {
-          
-          localStorage.setItem('fullName', res['tutor']['fullName']);
-          localStorage.setItem('name', res['tutor']['fullName']);
-          localStorage.setItem('gender', res['tutor']['gender']);
-        }, (err)=>{
-          console.log(err.error.message);
-        });
-      }
-
-
-      console.log(res);
+    this.userService.patch(this.user, this.id).subscribe(res => {
+      
+      this.updateRoleUser();
+      
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
@@ -250,13 +278,13 @@ export class ProfileComponent implements OnInit {
 
       setTimeout(()=>{
         
-        if (this.role == 'paciente') {
-          this.getPatient();
-        }else if (this.role == 'farmaceutico') {
-          this.getPharmacist();
-        }else if (this.role == 'tutor') {
-          this.getTutor();
+        if (this.role === "admin") {
+          this.getAdminData();
+          return;
         }
+
+        this.getUserDataById(this.id, this.role, this.services);
+
       },1200);
 
       this.submitted = false;
@@ -272,7 +300,6 @@ export class ProfileComponent implements OnInit {
 
       this.submitted = false;
     });
-
   }
 
 }
