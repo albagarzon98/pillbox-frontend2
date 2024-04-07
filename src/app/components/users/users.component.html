@@ -1,4 +1,4 @@
-<div class="login-background">
+<div class="login-background" *ngIf="route() == '/users'">
 
     <!-- Este elemento se muestra cuando no hay solicitudes registradas -->
     <div class="container-home" *ngIf="users.length == 0">
@@ -30,33 +30,22 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-6 col-xs-12 center-col">
                 <div *ngFor="let user of users">
-                    <div class="box-pharm">
+                    <div class="box-pharm" [routerLink]="['/users/profile', user.role, user.id]" *ngIf="user.role !== 'admin'">
                         <div class="user-email">
                             <span class="box-pharm-name">
                                 {{user.email}}
                             </span>
-                            <div class="options">
-                                <button mat-icon-button matTooltip="Ver usuario" matTooltipPosition="above">
-                                    <mat-icon class="material-icons-outlined">
-                                        visibility
-                                    </mat-icon>
-                                </button>
-                                <button mat-icon-button matTooltip="Modificar usuario" matTooltipPosition="above">
-                                    <mat-icon class="material-icons-outlined">
-                                        edit
-                                    </mat-icon>
-                                </button>
-                                <button mat-icon-button matTooltip="Eliminar usuario" matTooltipPosition="above">
-                                    <mat-icon class="material-icons-outlined">
-                                        delete
-                                    </mat-icon>
-                                </button>
-                            </div>
+                        </div>
+                        <div class="assigned-by-tutor box-reminder-medication" *ngIf="user.isEnabled">
+                            Activo
+                        </div>
+                        <div class="inactive box-reminder-medication" *ngIf="!user.isEnabled">
+                            Inactivo
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+<router-outlet></router-outlet>

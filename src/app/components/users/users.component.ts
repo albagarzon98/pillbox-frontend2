@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -10,17 +11,19 @@ import Swal from 'sweetalert2';
 })
 export class UsersComponent implements OnInit {
 
-  users = [];
+  users: UserModel[] = [];
 
   constructor(
     private userService: UserService,
     private router: Router
-  ) {
-    this.router.onSameUrlNavigation = 'reload';
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  route () {
+    return this.router.url;
   }
 
   getUsers() {
@@ -31,8 +34,16 @@ export class UsersComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.users = this.userService.getAll().results;
-
-    Swal.close();
+    this.userService.getAll().subscribe(res=>{
+      this.users = res['results'];
+      Swal.close();
+    },err=>{
+      console.log(err.error.message);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        title: 'Error al obtener los usuarios'
+      });
+    });
   }
 }
