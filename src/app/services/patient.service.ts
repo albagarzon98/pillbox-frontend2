@@ -55,4 +55,8 @@ export class PatientService {
   getGenders() {
     return this.httpClient.get(`${ url }users/genders`);
   }
+
+  getByUserId(userId) {
+    return this.httpClient.get(`${ url }patient/userId/${ userId }`);
+  }
 }

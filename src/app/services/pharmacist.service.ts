@@ -49,4 +49,8 @@ export class PharmacistService {
   get () {
     return this.httpClient.get(`${ url }pharmacist/`);
   }
+
+  getByUserId(userId) {
+    return this.httpClient.get(`${ url }pharmacist/userId/${ userId }`);
+  }
 }
