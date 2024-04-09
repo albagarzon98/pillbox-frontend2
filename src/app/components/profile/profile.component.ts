@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 const roleTranslate = {
   paciente: "patient",
   farmaceutico: "pharmacist",
+  tutor: "tutor",
 }
 
 @Component({

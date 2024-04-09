@@ -72,6 +72,10 @@ export class TutorService {
     return this.httpClient.get(`${ url }tutor/`);
   }
 
+  getByUserId(userId) {
+    return this.httpClient.get(`${ url }tutor/userId/${ userId }`);
+  }
+
   getAssignedPatients (tutorId) {
     return this.httpClient.get(`${ url }tutor/patients/${tutorId}`);
   }
