@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
   id: string;
 
   genders = [];
-  role ='';
-  modify:boolean = false;
+  role = '';
+  modify: boolean = false;
 
   services = {
     paciente: this.patientService,
@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getGenders() {
-    this.patientService.getGenders().subscribe( res => {
+    this.patientService.getGenders().subscribe(res => {
       this.genders = res['genders'];
     });
   }
@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit {
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...'
     });
     Swal.showLoading();
 
@@ -128,12 +128,12 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  getUserDataById (id, role, services) {
+  getUserDataById(id, role, services) {
 
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...'
     });
     Swal.showLoading();
 
@@ -186,11 +186,11 @@ export class ProfileComponent implements OnInit {
     const role = roleTranslate[`${this.role}`];
 
     if (this.role !== "admin") {
-      this.services[`${this.role}`].patch(this.roleModel).subscribe( res => {
+      this.services[`${this.role}`].patchById(this.id, this.roleModel).subscribe(res => {
         localStorage.setItem('fullName', res[role]['fullName']);
         localStorage.setItem('name', res[role]['fullName']);
         localStorage.setItem('gender', res[role]['gender']);
-      }, (err)=>{
+      }, (err) => {
         console.log(err.error.message);
       });
     }
@@ -210,32 +210,32 @@ export class ProfileComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-    
-        this.userService.changeUserStatus( this.id, !this.roleModel.isEnabled ).subscribe(  res=>{
-          
+
+        this.userService.changeUserStatus(this.id, !this.roleModel.isEnabled).subscribe(res => {
+
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:`!Usuario ${messagePart} con éxito!`,
+            text: `!Usuario ${messagePart} con éxito!`,
             showConfirmButton: false,
           });
-          setTimeout(()=>{
+          setTimeout(() => {
             Swal.close();
             this.router.navigate(['/users'])
-            .then(() => {
-              window.location.reload();
-            });
-          },1200);
+              .then(() => {
+                window.location.reload();
+              });
+          }, 1200);
 
-        }, err=>{
+        }, err => {
           console.log(err);
           Swal.fire({
             icon: 'error',
@@ -243,42 +243,42 @@ export class ProfileComponent implements OnInit {
             title: 'Error al eliminar asignación'
           });
         }
-      );
+        );
       }
     })
   }
 
-  onSubmit( form: FormGroup ) {
-    
+  onSubmit(form: FormGroup) {
+
     this.submitted = true;
-    if ( form.invalid ) {
+    if (form.invalid) {
       return;
     }
 
-    this.roleModel = { ...this.FormProfile.value }; 
+    this.roleModel = { ...this.FormProfile.value };
     this.user.name = this.FormProfile.value.fullName;
 
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...'
     });
     Swal.showLoading();
 
     this.userService.patch(this.user, this.id).subscribe(res => {
-      
+
       this.updateRoleUser();
-      
+
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
-        text:'¡Datos modificados correctamente!',
+        text: '¡Datos modificados correctamente!',
         showConfirmButton: false,
         timer: 1000
       });
 
-      setTimeout(()=>{
-        
+      setTimeout(() => {
+
         if (this.role === "admin") {
           this.getAdminData();
           return;
@@ -286,7 +286,7 @@ export class ProfileComponent implements OnInit {
 
         this.getUserDataById(this.id, this.role, this.services);
 
-      },1200);
+      }, 1200);
 
       this.submitted = false;
       this.modifyProfile();
