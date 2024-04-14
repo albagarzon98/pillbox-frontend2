@@ -15,35 +15,35 @@ const url = environment.url;
 export class TutorService {
 
   patientData: Patient;
-  userAction:string;
+  userAction: string;
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) { }
 
-  setUserAction (userAction: string) {
+  setUserAction(userAction: string) {
     this.userAction = userAction;
   }
 
-  getUserAction () {
+  getUserAction() {
     return this.userAction;
   }
-  
-  setPatientData ( patient: Patient ) {
+
+  setPatientData(patient: Patient) {
     this.patientData = patient;
   }
 
-  getPatientData () {
+  getPatientData() {
     return this.patientData;
   }
-  
-  private saveGender ( gender: string ) {
+
+  private saveGender(gender: string) {
     localStorage.setItem('gender', gender);
   }
-  
-  private saveFullName ( fullName: string ) {
+
+  private saveFullName(fullName: string) {
     localStorage.setItem('fullName', fullName);
   }
-  
-  post( tutor: Tutor ) {
+
+  post(tutor: Tutor) {
 
     const authData = {
       fullName: tutor.fullName,
@@ -54,7 +54,7 @@ export class TutorService {
     };
 
     return this.httpClient.post(
-      `${ url }tutor/`, 
+      `${url}tutor/`,
       authData).pipe(
         map(res => {
           console.log(res);
@@ -64,29 +64,29 @@ export class TutorService {
       );
   }
 
-  patch ( tutor: Tutor) {
-    return this.httpClient.patch(`${ url }tutor/`, tutor)
+  patch(tutor: Tutor) {
+    return this.httpClient.patch(`${url}tutor/`, tutor)
   }
 
-  get () {
-    return this.httpClient.get(`${ url }tutor/`);
+  get() {
+    return this.httpClient.get(`${url}tutor/`);
   }
 
   getByUserId(userId) {
-    return this.httpClient.get(`${ url }tutor/userId/${ userId }`);
+    return this.httpClient.get(`${url}tutor/userId/${userId}`);
   }
 
-  getAssignedPatients (tutorId) {
-    return this.httpClient.get(`${ url }tutor/patients/${tutorId}`);
+  getAssignedPatients(tutorId) {
+    return this.httpClient.get(`${url}tutor/patients/${tutorId}`);
   }
 
-  sendAssignedPatientEmail( patient: Patient ) {
+  sendAssignedPatientEmail(patient: Patient) {
 
     const body = {
       patientEmail: patient.email,
-    };    
+    };
     return this.httpClient.post(
-      `${ url }tutor/send-assigned-patient-email/`, 
+      `${url}tutor/send-assigned-patient-email/`,
       body).pipe(
         map(res => {
           console.log(res);
@@ -95,8 +95,8 @@ export class TutorService {
       );
   }
 
-  deleteTutorPatient(patient: Patient, tutorId: string){
-    const urlAPI = `${ url }/tutor/patients/${tutorId}`;
+  deleteTutorPatient(patient: Patient, tutorId: string) {
+    const urlAPI = `${url}/tutor/patients/${tutorId}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -116,16 +116,19 @@ export class TutorService {
     return this.httpClient.get(`${url}tutor/userReminders`, { params });
   }
 
-  postUserReminder( reminder: Reminder, patient: Patient ) {
+  postUserReminder(reminder: Reminder, patient: Patient) {
     const params = new HttpParams().set('userId', patient.user);
-    return this.httpClient.post(`${ url }tutor/userReminders`, reminder, { params });
+    return this.httpClient.post(`${url}tutor/userReminders`, reminder, { params });
   }
 
-  postBranchMedicationReminderOfPatient( branchMedicationReminder ) {
+  postBranchMedicationReminderOfPatient(branchMedicationReminder) {
     const patientData = JSON.parse(localStorage.getItem('patientData'));
 
     const params = new HttpParams().set('userId', patientData.user);
-    return this.httpClient.post(`${ url }tutor/branchMedicationReminder`, branchMedicationReminder, { params });
+    return this.httpClient.post(`${url}tutor/branchMedicationReminder`, branchMedicationReminder, { params });
   }
 
+  patchById(userId, body) {
+    return this.httpClient.patch(`${url}tutor/userId/${userId}`, body);
+  }
 }

@@ -11,17 +11,17 @@ const url = environment.url;
 })
 export class PharmacistService {
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) { }
 
-  private saveGender ( gender: string ) {
+  private saveGender(gender: string) {
     localStorage.setItem('gender', gender);
   }
-  
-  private saveFullName ( fullName: string ) {
+
+  private saveFullName(fullName: string) {
     localStorage.setItem('fullName', fullName);
   }
-  
-  post( pharmacist: Pharmacist ) {
+
+  post(pharmacist: Pharmacist) {
 
     const authData = {
       fullName: pharmacist.fullName,
@@ -32,7 +32,7 @@ export class PharmacistService {
     };
 
     return this.httpClient.post(
-      `${ url }pharmacist/`, 
+      `${url}pharmacist/`,
       authData).pipe(
         map(res => {
           console.log(res);
@@ -42,15 +42,19 @@ export class PharmacistService {
       );
   }
 
-  patch ( pharmacist: Pharmacist) {
-    return this.httpClient.patch(`${ url }pharmacist/`, pharmacist)
+  patch(pharmacist: Pharmacist) {
+    return this.httpClient.patch(`${url}pharmacist/`, pharmacist)
   }
 
-  get () {
-    return this.httpClient.get(`${ url }pharmacist/`);
+  get() {
+    return this.httpClient.get(`${url}pharmacist/`);
   }
 
   getByUserId(userId) {
-    return this.httpClient.get(`${ url }pharmacist/userId/${ userId }`);
+    return this.httpClient.get(`${url}pharmacist/userId/${userId}`);
+  }
+
+  patchById(userId, body) {
+    return this.httpClient.patch(`${url}pharmacist/userId/${userId}`, body);
   }
 }
