@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  url:"https://pillbox-back.herokuapp.com/v1/"
+  url:"https://pillboxbackendv2.onrender.com/v1/"
 };

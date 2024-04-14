@@ -1,0 +1,51 @@
+<div class="login-background" *ngIf="route() == '/users'">
+
+    <!-- Este elemento se muestra cuando no hay solicitudes registradas -->
+    <div class="container-home" *ngIf="users.length == 0">
+        <div class="box-reminder-title">
+            <span class="home-title-2 ">
+                No hay usuarios registrados.            
+            </span>
+
+            <a class="pill-back-button-reminder" routerLink="/home">
+                <br><br><span class="back">&lt; </span> &nbsp;Regresar al inicio
+            </a>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="users.length != 0">
+        <div class="container-home-title">
+            <span class="home-title">
+                Usuarios
+            </span>
+        </div>
+
+        <div class="container-login100-form-btn mb-4">
+            <div class="cont-search-input">
+                <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                <input class="search-input" type="text" placeholder="Buscar...">
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6 col-xs-12 center-col">
+                <div *ngFor="let user of users">
+                    <div class="box-pharm" [routerLink]="['/users/profile', user.role, user.id]" *ngIf="user.role !== 'admin'">
+                        <div class="user-email">
+                            <span class="box-pharm-name">
+                                {{user.email}}
+                            </span>
+                        </div>
+                        <div class="assigned-by-tutor box-reminder-medication" *ngIf="user.isEnabled">
+                            Activo
+                        </div>
+                        <div class="inactive box-reminder-medication" *ngIf="!user.isEnabled">
+                            Inactivo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

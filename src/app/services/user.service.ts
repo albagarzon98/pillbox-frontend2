@@ -32,4 +32,15 @@ export class UserService {
   get (id) {
     return this.httpClient.get(`${url}users/${id}`);
   }
+
+  getAll() {
+    return this.httpClient.get(`${url}users/?limit=100`);
+  }
+
+  changeUserStatus(id, status=false) {
+    const body = {
+      "status": status,
+    };
+    return this.httpClient.post(`${url}users/changeStatus/${id}`, body);
+  }
 }

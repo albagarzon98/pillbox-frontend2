@@ -327,7 +327,6 @@ input[type='image'] {
     transition: 300ms;
     animation: fadeInUp 600ms;
     position: relative;
-
 }
 
 .reminder-box:hover,
@@ -406,6 +405,7 @@ input[type='image'] {
     top: 8px;
     right: 8px;
 }
+
 
 /*//////////////////////////////////////////////////////////////////
 [ home ]*/
@@ -612,7 +612,7 @@ input[type='image'] {
 .cont-search-input {
     margin: 0 auto;
     padding: 5px 5px;
-    border: #6626db solid 2px;
+    border: #6626db solid 3px;
     border-radius: 40px;
     color: #6626db;
     font-family: Poppins-Regular;

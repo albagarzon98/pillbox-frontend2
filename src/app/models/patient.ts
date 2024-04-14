@@ -6,4 +6,5 @@ export class Patient {
     document: number;
     gender: string;
     user: string;
+    isEnabled: boolean;
 }

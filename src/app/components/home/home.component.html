@@ -2,40 +2,54 @@
 
     <div class="container-home-title">
         <span class="home-title">
-        ¡{{getGender() == 'Femenino' ? 'Bienvenida':'Bienvenido'}} {{name}}!
+            ¡{{getGender() == 'Femenino' ? 'Bienvenida':'Bienvenido'}} {{name}}!
         </span>
     </div>
     <div class="container-home">
 
         <!-- Vista paciente -->
-        <div class="home-box" routerLink="/reminder" (mouseover)="showDescMedicament=true" (mouseout)="showDescMedicament=false" *ngIf="role == 'paciente' || role == 'tutor'">
+        <div class="home-box" routerLink="/reminder" (mouseover)="showDescMedicament=true"
+            (mouseout)="showDescMedicament=false" *ngIf="role == 'paciente' || role == 'tutor'">
             <img class="box-image" src="../../../assets/images/vaccine.png" alt="">
             <span class="box-title">Medicamentos</span>
         </div>
-        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true" (mouseout)="showDescPharmacy=false" *ngIf="role != 'farmaceutico'">
+
+        <div class="home-box" routerLink="/pharmacy" (mouseover)="showDescPharmacy=true"
+            (mouseout)="showDescPharmacy=false" *ngIf="role != 'farmaceutico'">
             <img class="box-image" src="../../../assets/images/pharmacy.png" alt="">
             <span class="box-title">Farmacias</span>
         </div>
 
         <!-- Vista admin -->
-        <div class="home-box" routerLink="/pharmacyRequests" (mouseover)="showDescRequest=true" (mouseout)="showDescRequest=false" *ngIf="role == 'admin'">
+        <div class="home-box" routerLink="/pharmacyRequests" (mouseover)="showDescRequest=true"
+            (mouseout)="showDescRequest=false" *ngIf="role == 'admin'">
             <img class="box-image" src="../../../assets/images/request.png" alt="">
             <span class="box-title">Solicitudes</span>
         </div>
 
+        <div class="home-box" routerLink="/users" (mouseover)="showDescUsers=true" (mouseout)="showDescUsers=false"
+            *ngIf="role == 'admin'">
+            <img class="box-image" src="../../../assets/images/user.png" alt="">
+            <span class="box-title">Usuarios</span>
+        </div>
+
         <!-- Vista farmacéutico -->
-        <div class="home-box" routerLink="/inventory" (mouseover)="showDescMedicament=true" (mouseout)="showDescMedicament=false" *ngIf="role == 'farmaceutico'">
+        <div class="home-box" routerLink="/inventory" (mouseover)="showDescMedicament=true"
+            (mouseout)="showDescMedicament=false" *ngIf="role == 'farmaceutico'">
             <img class="box-image" src="../../../assets/images/medicamento.png" alt="">
             <span class="box-title">Inventario</span>
         </div>
 
-        <div class="home-box" routerLink="/appointment" (click)="newAppointment()" (mouseover)="showDescAppointment=true" (mouseout)="showDescAppointment=false" *ngIf="role == 'farmaceutico'">
+        <div class="home-box" routerLink="/appointment" (click)="newAppointment()"
+            (mouseover)="showDescAppointment=true" (mouseout)="showDescAppointment=false"
+            *ngIf="role == 'farmaceutico'">
             <img class="box-image" src="../../../assets/images/deadline.png" alt="">
             <span class="box-title">Turnos</span>
         </div>
 
         <!--Vista para tutores -->
-        <div class="home-box" routerLink="/patients" (mouseover)="showDescPatients=true" (mouseout)="showDescPatients=false" *ngIf="role == 'tutor'">
+        <div class="home-box" routerLink="/patients" (mouseover)="showDescPatients=true"
+            (mouseout)="showDescPatients=false" *ngIf="role == 'tutor'">
             <img class="box-image" src="../../../assets/images/paciente.png" alt="">
             <span class="box-title">Pacientes a cargo</span>
         </div>
@@ -45,19 +59,30 @@
     <div class="description-limiter" *ngIf="screenWidth() > 1024">
 
         <!-- Descripción paciente -->
-        <span class="box-description" *ngIf="showDescMedicament && (role == 'paciente' || role == 'tutor')">Aquí puedes administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
-        <span class="box-description" *ngIf="showDescPharmacy && role != 'admin'">Busca entre las farmacias registradas y encuentra tu farmacia de preferencia.</span>
+        <span class="box-description" *ngIf="showDescMedicament && (role == 'paciente' || role == 'tutor')">Aquí puedes
+            administrar tus medicamentos y gestionar los recordatorios para tus tomas.</span>
+        <span class="box-description" *ngIf="showDescPharmacy && role != 'admin'">Busca entre las farmacias registradas
+            y encuentra tu farmacia de preferencia.</span>
 
         <!-- Descripción admin -->
-        <span class="box-description" *ngIf="showDescPharmacy && role == 'admin'">Aquí puedes administrar las farmacias que se encuentran registradas en la aplicación.</span>
-        <span class="box-description" *ngIf="showDescRequest">Gestiona las solicitudes de las farmacias que quieren registrarse en la aplicación.</span>
+        <span class="box-description" *ngIf="showDescPharmacy && role == 'admin'">Aquí puedes administrar las farmacias
+            que se encuentran registradas en la aplicación.</span>
+        <span class="box-description" *ngIf="showDescRequest">Gestiona las solicitudes de las farmacias que quieren
+            registrarse en la aplicación.</span>
 
         <!-- Descripción farmacéutico -->
-        <span class="box-description" *ngIf="showDescMedicament && role == 'farmaceutico'">Aquí puedes gestionar el inventario de tu farmacia.</span>
-        <span class="box-description" *ngIf="showDescAppointment && role == 'farmaceutico'">Gestiona los turnos de tu farmacia y de los usuarios que quieren realizar un pedido.</span>
+        <span class="box-description" *ngIf="showDescMedicament && role == 'farmaceutico'">Aquí puedes gestionar el
+            inventario de tu farmacia.</span>
+        <span class="box-description" *ngIf="showDescAppointment && role == 'farmaceutico'">Gestiona los turnos de tu
+            farmacia y de los usuarios que quieren realizar un pedido.</span>
 
         <!-- Descripción tutor -->
-        <span class="box-description" *ngIf="showDescPatients && role == 'tutor'">Aquí puedes administrar tus pacientes a cargo y gestionar los recordatorios para ellos.</span>
+        <span class="box-description" *ngIf="showDescPatients && role == 'tutor'">Aquí puedes administrar tus pacientes
+            a cargo y gestionar los recordatorios para ellos.</span>
+
+        <!-- Descripción tutor -->
+        <span class="box-description" *ngIf="showDescUsers && role == 'admin'">Aquí puedes administrar los usuarios de
+            la aplicación.</span>
     </div>
 
 </div>

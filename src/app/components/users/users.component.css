@@ -1,0 +1,39 @@
+.user-email {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-pharm {
+    height: 50px;
+    padding: 2% 5%;
+    display: flex;
+}
+
+.box-pharm:hover {
+    cursor: pointer;
+}
+
+.assigned-by-tutor {
+    position: static;
+    padding: 0 10px;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.inactive {
+    background-color: rgb(230, 60, 60);
+    color: black;
+    padding: 0 10px;
+    border-radius: 4px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.options button {
+    position: relative;
+    bottom: 8px;
+}

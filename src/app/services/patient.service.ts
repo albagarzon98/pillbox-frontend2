@@ -12,18 +12,18 @@ const url = environment.url;
 })
 export class PatientService {
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) { }
 
-  
-  private saveGender ( gender: string ) {
+
+  private saveGender(gender: string) {
     localStorage.setItem('gender', gender);
   }
 
-  private saveFullName ( fullName: string ) {
+  private saveFullName(fullName: string) {
     localStorage.setItem('fullName', fullName);
   }
-  
-  post( patient: Patient ) {
+
+  post(patient: Patient) {
 
     const authData = {
       fullName: patient.fullName,
@@ -34,7 +34,7 @@ export class PatientService {
     };
 
     return this.httpClient.post(
-      `${ url }patient/`, 
+      `${url}patient/`,
       authData).pipe(
         map(res => {
           console.log(res);
@@ -44,15 +44,23 @@ export class PatientService {
       );
   }
 
-  patch ( patient: Patient) {
-    return this.httpClient.patch(`${ url }patient/`, patient)
+  patch(patient: Patient) {
+    return this.httpClient.patch(`${url}patient/`, patient)
   }
 
-  get () {
-    return this.httpClient.get(`${ url }patient/`);
+  get() {
+    return this.httpClient.get(`${url}patient/`);
   }
 
   getGenders() {
-    return this.httpClient.get(`${ url }users/genders`);
+    return this.httpClient.get(`${url}users/genders`);
+  }
+
+  getByUserId(userId) {
+    return this.httpClient.get(`${url}patient/userId/${userId}`);
+  }
+
+  patchById(userId, body) {
+    return this.httpClient.patch(`${url}patient/userId/${userId}`, body);
   }
 }

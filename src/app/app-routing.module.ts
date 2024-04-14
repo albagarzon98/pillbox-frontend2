@@ -18,6 +18,7 @@ import { BranchFormComponent } from './components/pharmacy/branch-form/branch-fo
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 
@@ -46,47 +47,61 @@ const routes: Routes = [
     ]
   },  
   { path: 'pharmacyRequests', component: PharmacyRequestsComponent,
-  canActivate: [ AuthGuard ],
-  data: {
-    role: ['admin']
+    canActivate: [ AuthGuard ],
+    data: {
+      role: ['admin']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'add', component: PharmacyAddComponent}
+    ]
   },
-  canActivateChild: [AuthGuard],
-  children: [
-    {path: 'add', component: PharmacyAddComponent}
-  ]
-},
-{
-  path: 'inventory', component: InventoryComponent,
-  canActivate: [AuthGuard],
-  data: {
-    role: ['farmaceutico']
+  {
+    path: 'inventory', component: InventoryComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['farmaceutico']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'addMedicament', component: AddMedicamentComponent}
+    ]
+  }, 
+  {
+    path: 'appointment', component: AppointmentComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['farmaceutico','paciente','tutor']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'addAppointment', component: AppointmentFormComponent}
+    ]
   },
-  canActivateChild: [AuthGuard],
-  children: [
-    {path: 'addMedicament', component: AddMedicamentComponent}
-  ]
-}, 
-{
-  path: 'appointment', component: AppointmentComponent,
-  canActivate: [AuthGuard],
-  data: {
-    role: ['farmaceutico','paciente','tutor']
+  { 
+    path: 'patients', 
+    component: PatientsComponent,
+    canActivate: [ AuthGuard ],
+    data: {
+      role: ['tutor']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'assignPatient', component: AppointmentFormComponent}
+    ]
   },
-  canActivateChild: [AuthGuard],
-  children: [
-    {path: 'addAppointment', component: AppointmentFormComponent}
-  ]
-},
-{ path: 'patients', component: PatientsComponent,
-canActivate: [ AuthGuard ],
-data: {
-  role: ['tutor']
-},
-canActivateChild: [AuthGuard],
-children: [
-  {path: 'assignPatient', component: AppointmentFormComponent}
-]
-},
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['admin']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      {path: 'profile/:role/:id', component: ProfileComponent}
+    ]
+  },
   { path:'**', redirectTo:'homepage' }
 ];
 

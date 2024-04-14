@@ -1,10 +1,10 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+// URL LOCALHOST http://localhost:3000/v1/
 export const environment = {
   production: false,
-  url:"http://localhost:3000/v1/"
+  url:"https://pillboxbackendv2.onrender.com/v1/"
 };
 
 /*
