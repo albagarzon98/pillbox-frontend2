@@ -413,7 +413,7 @@ input[type='image'] {
     padding: 0 10%;
     align-items: center;
     text-align: center;
-    margin-top: 0.5%;
+    margin-top: 2%;
 }
 
 .box-description {
@@ -490,7 +490,6 @@ input[type='image'] {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    padding: 20px 10%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
