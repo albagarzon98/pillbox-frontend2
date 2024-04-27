@@ -155,6 +155,7 @@ export class PatientsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar tutor'
       });
     })
@@ -499,6 +500,7 @@ export class PatientsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos personales'
       });
     })

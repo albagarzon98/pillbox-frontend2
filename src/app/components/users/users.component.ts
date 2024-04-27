@@ -43,6 +43,7 @@ export class UsersComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener los usuarios'
       });
     });

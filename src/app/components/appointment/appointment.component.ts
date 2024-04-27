@@ -189,6 +189,7 @@ export class AppointmentComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar los turnos'
       });
     })

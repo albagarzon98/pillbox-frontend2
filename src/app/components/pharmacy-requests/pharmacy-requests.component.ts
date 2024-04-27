@@ -78,6 +78,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener las solicitudes'
       });
     });
@@ -101,6 +102,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener las solicitudes'
       });
     });
@@ -124,6 +126,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener las solicitudes'
       });
     });
@@ -171,6 +174,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al eliminar el medicamento'
       });
     });
@@ -213,6 +217,7 @@ export class PharmacyRequestsComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener las solicitudes'
       });
     });

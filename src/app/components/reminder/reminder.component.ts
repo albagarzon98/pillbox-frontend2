@@ -180,6 +180,7 @@ export class ReminderComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos personales'
       });
     })
@@ -208,6 +209,7 @@ export class ReminderComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos de farmacia'
       });
     });

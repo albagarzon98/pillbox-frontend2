@@ -65,6 +65,7 @@ export class PharmacyComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al obtener las farmacias'
       });
     });

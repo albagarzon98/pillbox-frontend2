@@ -102,6 +102,7 @@ export class PharmacyRegisterComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al registrar su solicitud.'
       });
     })
