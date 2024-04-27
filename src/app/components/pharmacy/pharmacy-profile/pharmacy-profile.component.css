@@ -47,6 +47,11 @@
     font-size: 20px;
 }
 
+.home-title-2 {
+    font-size: 20px !important;
+    color: #212529 !important;
+}
+
 .options {
     margin-left: auto;
     display: flex;
@@ -93,8 +98,16 @@
     margin: 0;
 }
 
+.container-home {
+    width: 100%;
+}
+
 .home-title {
     margin: 0 0 25px 0;
+}
+
+.box-reminder-title {
+    border-radius: 10px;
 }
 
 .cont-search-input {
