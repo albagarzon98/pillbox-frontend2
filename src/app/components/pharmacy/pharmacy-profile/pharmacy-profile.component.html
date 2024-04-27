@@ -11,12 +11,12 @@
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
     </button>
 </div>
 
@@ -27,7 +27,8 @@
                 <div class="cont-profile">
                     <div class="img">
                         <div class="cont-img-pharm">
-                            <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo" alt="Logo farmacia">
+                            <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo"
+                                alt="Logo farmacia">
 
                             <ng-template #defaultImage>
                                 <img src="../../../../assets/images/pharmacyProfile.png" alt="Default Image">
@@ -59,12 +60,14 @@
                             {{pharmacy?.contactEmail}}
                         </p>
                         <div class="options" *ngIf="role == 'admin'">
-                            <button mat-icon-button matTooltip="Modificar farmacia" matTooltipPosition="above" (click)="modifyPharmacy(pharmacy)">
+                            <button mat-icon-button matTooltip="Modificar farmacia" matTooltipPosition="above"
+                                (click)="modifyPharmacy(pharmacy)">
                                 <mat-icon class="material-icons-outlined">
                                     edit
                                 </mat-icon>
                             </button>
-                            <button mat-icon-button matTooltip="Eliminar farmacia" matTooltipPosition="above" (click)="deletePharmacy(pharmacy)">
+                            <button mat-icon-button matTooltip="Eliminar farmacia" matTooltipPosition="above"
+                                (click)="deletePharmacy(pharmacy)">
                                 <mat-icon class="material-icons-outlined">
                                     delete
                                 </mat-icon>
@@ -112,12 +115,14 @@
                             </span>
                         </div>
                         <div class="options" *ngIf="role == 'admin'">
-                            <button mat-icon-button matTooltip="Modificar sucursal" matTooltipPosition="above" (click)="modifyBranch(branch)">
+                            <button mat-icon-button matTooltip="Modificar sucursal" matTooltipPosition="above"
+                                (click)="modifyBranch(branch)">
                                 <mat-icon class="material-icons-outlined">
                                     edit
                                 </mat-icon>
                             </button>
-                            <button mat-icon-button matTooltip="Eliminar Sucursal" matTooltipPosition="above" (click)="deleteBranch(branch)">
+                            <button mat-icon-button matTooltip="Eliminar Sucursal" matTooltipPosition="above"
+                                (click)="deleteBranch(branch)">
                                 <mat-icon class="material-icons-outlined">
                                     delete
                                 </mat-icon>
@@ -141,7 +146,7 @@
                     <div class="container-home" *ngIf="branchMedications.length == 0">
                         <div class="box-reminder-title">
                             <span class="home-title-2">
-                                ¡No existen medicamentos cargados en esta sucursal!            
+                                No existen medicamentos cargados en esta sucursal.
                             </span>
                         </div>
                     </div>
@@ -151,10 +156,12 @@
                                 <mat-icon svgIcon="pill-icon"></mat-icon>
                                 <span class="med-name">{{medication.medicationName}}</span>
                                 <button mat-icon-button>
-                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'in' || !medication.state">
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)"
+                                        *ngIf="medication.state == 'in' || !medication.state">
                                         expand_more
                                     </mat-icon>
-                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)" *ngIf="medication.state == 'out'">
+                                    <mat-icon class="material-icons-outlined" (click)="expandData(medication)"
+                                        *ngIf="medication.state == 'out'">
                                         expand_less
                                     </mat-icon>
                                 </button>
@@ -164,10 +171,10 @@
                                 <span>
                                     Descripción: {{medication.description}}
                                 </span>
-                                <span> 
+                                <span>
                                     Unidad: {{medication.unit}}
                                 </span>
-                                <span> 
+                                <span>
                                     Gramaje: {{medication['grammage'] == null ? '--' : medication.grammage}}
                                 </span>
                             </div>
@@ -186,7 +193,8 @@
             </div>
             <div class="col-md-3">
                 <!-- Botón a la derecha -->
-                <div class="add-med" *ngIf="(role == 'paciente' || role == 'tutor') && userAction == 'branchMedications'">
+                <div class="add-med"
+                    *ngIf="(role == 'paciente' || role == 'tutor') && userAction == 'branchMedications'">
                     <button mat-raised-button (click)="takeAppointment(branchSelected)">
                         <mat-icon style="transform: scale(0.7)" svgIcon="mas"></mat-icon>
                         Solicitar un turno
