@@ -18,13 +18,13 @@ export class PharmacyRegisterComponent implements OnInit {
   @ViewChild('mapSearchField') searchField: ElementRef;
   @ViewChild(GoogleMap) map: GoogleMap;
   initialCoordinates = {
-    lat: -31.420211, 
+    lat: -31.420211,
     lng: -64.188854
   }
   mapConfigurations = {
     zoomControl: true
   }
-  
+
   pharmacyRequest: PharmacyRequest;
   FormPharmacy: FormGroup;
   submitted: boolean = false;
@@ -37,23 +37,23 @@ export class PharmacyRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.FormPharmacy = this.formBuilder.group({
-      pharmacyName: ['',[Validators.required, Validators.maxLength(55)]],
-      branchesNumber: ['',[Validators.required]],
+      pharmacyName: ['', [Validators.required, Validators.maxLength(55)]],
+      branchesNumber: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
-      contactEmail: ['',[Validators.required, Validators.email]],
-      address: ['',[Validators.required, Validators.maxLength(55)]]
+      contactEmail: ['', [Validators.required, Validators.email]],
+      address: ['', [Validators.required, Validators.maxLength(55)]]
     })
   }
 
-  ngAfterViewInit():void {
-    
+  ngAfterViewInit(): void {
+
     const searchBox = new google.maps.places.SearchBox(
       this.searchField.nativeElement,
     );
-    
+
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
-      if ( places.length === 0 ) {
+      if (places.length === 0) {
         return;
       }
       const bounds = new google.maps.LatLngBounds();
@@ -71,31 +71,32 @@ export class PharmacyRegisterComponent implements OnInit {
     });
   }
 
-  onSubmit( form: FormGroup ) {
+  onSubmit(form: FormGroup) {
     this.submitted = true;
-    if ( form.invalid ) { return; }
+    if (form.invalid) { return; }
 
-    this.pharmacyRequest = {...this.FormPharmacy.value};
+    this.pharmacyRequest = { ...this.FormPharmacy.value };
 
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
     this.pharmacyRequestService.post(this.pharmacyRequest).subscribe(res => {
-      
+
       console.log(res);
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
         title: '¡Solicitud registrada!',
-        text:'Nos pondremos en contacto contigo una vez que hayamos verificado tus datos.'
+        text: 'Nos pondremos en contacto contigo una vez que hayamos verificado tus datos.'
       });
 
       this.resetForm();
       resetValidators(this.FormPharmacy);
-      
+
     }, (err) => {
       console.log(err.error.message);
       Swal.fire({

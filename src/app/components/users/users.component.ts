@@ -16,13 +16,13 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUsers();
   }
 
-  route () {
+  route() {
     return this.router.url;
   }
 
@@ -30,14 +30,15 @@ export class UsersComponent implements OnInit {
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
 
-    this.userService.getAll().subscribe(res=>{
+    this.userService.getAll().subscribe(res => {
       this.users = res['results'];
       Swal.close();
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',

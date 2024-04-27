@@ -42,37 +42,38 @@ export class PharmacyRequestsComponent implements OnInit {
   requests = [];
   filter: string = "Todas";
 
-  constructor( private pharmacyRequestService: PharmacyRequestService,
-               private router: Router,
-               private pharmacyService: PharmacyService ) { 
-              
-              this.router.routeReuseStrategy.shouldReuseRoute = function() {
-                return false;
-              };
-              this.router.onSameUrlNavigation = 'reload';
+  constructor(private pharmacyRequestService: PharmacyRequestService,
+    private router: Router,
+    private pharmacyService: PharmacyService) {
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.router.onSameUrlNavigation = 'reload';
   }
-  
+
   ngOnInit(): void {
     this.getRequests();
   }
 
-  route () {
+  route() {
     return this.router.url;
   }
 
-  filterPendent () {
-    
+  filterPendent() {
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    this.pharmacyRequestService.getPendent().subscribe(res=>{
+    this.pharmacyRequestService.getPendent().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
       this.filter = "Pendiente";
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',
@@ -82,19 +83,20 @@ export class PharmacyRequestsComponent implements OnInit {
     });
   }
 
-  filterApproved () {
-    
+  filterApproved() {
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    this.pharmacyRequestService.getApproved().subscribe(res=>{
+    this.pharmacyRequestService.getApproved().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
       this.filter = "Aprobada";
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',
@@ -104,19 +106,20 @@ export class PharmacyRequestsComponent implements OnInit {
     });
   }
 
-  filterRejected () {
-    
+  filterRejected() {
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    this.pharmacyRequestService.getRejected().subscribe(res=>{
+    this.pharmacyRequestService.getRejected().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
       this.filter = "Rechazada";
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',
@@ -126,43 +129,44 @@ export class PharmacyRequestsComponent implements OnInit {
     });
   }
 
-  expandData( request ) {
-    if ( window.screen.width < 500) {
+  expandData(request) {
+    if (window.screen.width < 500) {
       request.state = request.state === 'mobileOut' ? 'mobileIn' : 'mobileOut';
     } else {
       request.state = request.state === 'out' ? 'in' : 'out';
     }
-    
+
     if (!request.expand) {
       request.expand = false;
     }
     request.expand = !request.expand;
   }
 
-  rejectRequest ( request ) {
+  rejectRequest(request) {
     let rejected = {
       pharmacyRequestId: request['id'],
       status: 'rechazado'
     }
-    
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    this.pharmacyRequestService.patch(rejected).subscribe(res=>{
+    this.pharmacyRequestService.patch(rejected).subscribe(res => {
       console.log(res);
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
-        text:'Solicitud rechazada',
+        text: 'Solicitud rechazada',
         showConfirmButton: false,
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         this.router.navigateByUrl('/pharmacyRequests');
-      },1200);
-    },err=>{
+      }, 1200);
+    }, err => {
       console.log(err);
       Swal.fire({
         icon: 'error',
@@ -171,9 +175,9 @@ export class PharmacyRequestsComponent implements OnInit {
       });
     });
   }
-  
-  addPharmacy( request ) {
-    
+
+  addPharmacy(request) {
+
     let pharmacy = new Pharmacy();
     pharmacy.pharmacyName = request.pharmacyName;
     pharmacy.address = request.address;
@@ -184,26 +188,27 @@ export class PharmacyRequestsComponent implements OnInit {
     let requestId = request.id;
 
     this.pharmacyService.addPharmacy(pharmacy, requestId);
-    this.pharmacyService.setUserAction('newPharmacy');    
+    this.pharmacyService.setUserAction('newPharmacy');
     this.router.navigateByUrl('/pharmacyRequests/add');
   }
 
   getRequests() {
-    
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    
-    this.pharmacyRequestService.get().subscribe(res=>{
-      
+
+    this.pharmacyRequestService.get().subscribe(res => {
+
       Swal.close();
       console.log(res);
       this.requests = res['results']
       this.filter = "Todas";
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',

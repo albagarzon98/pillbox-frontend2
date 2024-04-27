@@ -14,7 +14,7 @@ import { TutorService } from 'src/app/services/tutor.service';
 export class PharmacyComponent implements OnInit {
 
   pharmacies: Pharmacy[];
-  
+
   constructor(
     private pharmacyService: PharmacyService,
     private tutorService: TutorService,
@@ -22,7 +22,7 @@ export class PharmacyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.router.events
       .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
       .subscribe((events: RoutesRecognized[]) => {
@@ -36,30 +36,31 @@ export class PharmacyComponent implements OnInit {
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
     this.getPharmacies();
   }
 
-  route () {
+  route() {
     return this.router.url;
   }
 
-  pharmacyProfile ( pharm ) {
-    let pharmacyId:string = pharm['id'];
+  pharmacyProfile(pharm) {
+    let pharmacyId: string = pharm['id'];
 
-    this.pharmacyService.profilePharmacy( pharmacyId );
+    this.pharmacyService.profilePharmacy(pharmacyId);
     this.router.navigateByUrl('/pharmacy/profile');
   }
 
-  getPharmacies () {
-    this.pharmacyService.get().subscribe(res=>{
-      
+  getPharmacies() {
+    this.pharmacyService.get().subscribe(res => {
+
       console.log(res);
       this.pharmacies = res['pharmacies'];
       Swal.close();
-    },err=>{
+    }, err => {
       console.log(err.error.message);
       Swal.fire({
         icon: 'error',

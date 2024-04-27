@@ -22,17 +22,17 @@ export class AppointmentComponent implements OnInit {
   upcomingAppointments: Appointment[] = [];
   availableByDate: any[] = [];
   upcomingByDate: any[] = [];
-  
+
   constructor(
     private appointmentService: AppointmentService,
     private authService: AuthService,
     private router: Router
   ) {
-      this.router.routeReuseStrategy.shouldReuseRoute = function() {
-        return false;
-      };
-      this.router.onSameUrlNavigation = 'reload';
-    }
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.router.onSameUrlNavigation = 'reload';
+  }
 
   ngOnInit(): void {
 
@@ -45,11 +45,12 @@ export class AppointmentComponent implements OnInit {
     this.appointmentService.setBranchData(branchData);
 
     this.userAction = this.appointmentService.getUserAction();
-    
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
     this.getAppointments();
@@ -60,17 +61,17 @@ export class AppointmentComponent implements OnInit {
   }
 
 
-  route () {
+  route() {
     return this.router.url;
   }
 
-  newAppointment () {
+  newAppointment() {
     this.appointmentService.setUserAction('newAppointment');
     this.router.navigateByUrl('/appointment/addAppointment');
   }
-  
-  orderByDate ( appointments ) {
-    
+
+  orderByDate(appointments) {
+
     let format = 'DD/MM/YYYY';
     let hour = 'HH:mm';
 
@@ -78,12 +79,12 @@ export class AppointmentComponent implements OnInit {
     this.upcomingAppointments = [];
 
 
-    appointments.sort(function(a, b){
+    appointments.sort(function (a, b) {
       a['reservationDate'] = new Date(a['reservationDate']);
       b['reservationDate'] = new Date(b['reservationDate']);
       return (a['reservationDate']) - (b['reservationDate']);
     });
-    
+
     for (let i = 0; i < appointments.length; i++) {
       let dayName = moment(appointments[i]['reservationDate']).utcOffset(-3).locale('es').format('dddd');
       dayName = dayName.slice(0, 1).toUpperCase() + dayName.slice(1);
@@ -95,7 +96,7 @@ export class AppointmentComponent implements OnInit {
 
       if (appointments[i].status === 'active') {
         this.availableAppointments.push(appointments[i]);
-      } else if (appointments[i].status === 'taken' && this.role == "farmaceutico") {        
+      } else if (appointments[i].status === 'taken' && this.role == "farmaceutico") {
         this.upcomingAppointments.push(appointments[i]);
 
       } else if (appointments[i].status === 'taken' && appointments[i].assignedUser.id == this.authService.getUserId()) {
@@ -105,14 +106,14 @@ export class AppointmentComponent implements OnInit {
       this.availableByDate = this.groupByDate(this.availableAppointments);
       this.upcomingByDate = this.groupByDate(this.upcomingAppointments);
     }
-    
+
     let dates = [];
 
     for (let i = 0; i < appointments.length; i++) {
-      
+
       let date = appointments[i]['reservationDate'];
 
-      if ( i == 0 ) {
+      if (i == 0) {
         dates.push(date);
         let firstDate = {
           name: date,
@@ -121,14 +122,14 @@ export class AppointmentComponent implements OnInit {
         this.byDate.push(firstDate);
       }
 
-      if ( i != 0 && dates.indexOf(date) == -1 ) {
+      if (i != 0 && dates.indexOf(date) == -1) {
         dates.push(date);
         let newDate = {
           name: date,
           dayAppointments: [appointments[i]]
         }
         this.byDate.push(newDate);
-      } else if ( i != 0 && dates.indexOf(date) != -1 ) {
+      } else if (i != 0 && dates.indexOf(date) != -1) {
         let position = dates.indexOf(date);
         this.byDate[position]['dayAppointments'].push(appointments[i]);
       }
@@ -137,9 +138,9 @@ export class AppointmentComponent implements OnInit {
     this.orderByHour(this.byDate);
   }
 
-  orderByHour ( byDate ) {
-    for(let i = 0; i < byDate.length; i++){
-      byDate[i]['dayAppointments'].sort(function(a, b){
+  orderByHour(byDate) {
+    for (let i = 0; i < byDate.length; i++) {
+      byDate[i]['dayAppointments'].sort(function (a, b) {
         return (a['startTime'].slice(0, 2) + a['startTime'].slice(3)) - (b['startTime'].slice(0, 2) + b['startTime'].slice(3));
       });
     }
@@ -147,12 +148,12 @@ export class AppointmentComponent implements OnInit {
 
   groupByDate(appointments) {
     const byDate = [];
-  
+
     for (let i = 0; i < appointments.length; i++) {
       const date = appointments[i].reservationDate;
-  
+
       const existingDate = byDate.find((item) => item.name === date);
-  
+
       if (existingDate) {
         existingDate.dayAppointments.push(appointments[i]);
       } else {
@@ -163,28 +164,28 @@ export class AppointmentComponent implements OnInit {
       }
     }
     this.orderByHour(byDate);
-  
+
     return byDate;
   }
 
-  getAppointments () {
+  getAppointments() {
     let branchId;
-    let status="";
+    let status = "";
 
     if (this.appointmentService.getUserAction() === 'takeAppointment') {
       branchId = this.appointmentService.branchData.branchId;
-    }else{
+    } else {
       branchId = this.authService.getBranchId();
     }
 
-    this.appointmentService.get(branchId,status).subscribe(res=>{
+    this.appointmentService.get(branchId, status).subscribe(res => {
 
       this.appointments = res['reservation'];
 
       this.orderByDate(this.appointments);
 
       Swal.close();
-    },err=>{
+    }, err => {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
@@ -198,7 +199,7 @@ export class AppointmentComponent implements OnInit {
     let appointmentId = appointment.id;
     Swal.fire({
       title: 'Confirmar Turno',
-      text: "Usted esta solicitando un turno para el dia: " + appointment.reservationDate + " en la siguiente franja horaria: " + appointment.startTime+ " a " + appointment.endTime,
+      text: "Usted esta solicitando un turno para el dia: " + appointment.reservationDate + " en la siguiente franja horaria: " + appointment.startTime + " a " + appointment.endTime,
       icon: 'warning',
       confirmButtonText: 'Confirmar',
       confirmButtonColor: 'green',
@@ -207,27 +208,28 @@ export class AppointmentComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...',
+          text: 'Espere por favor...',
           showCancelButton: true,
           showConfirmButton: false,
         });
         Swal.showLoading();
-        this.appointmentService.takeAppointment(appointmentId).subscribe( res => {
+        this.appointmentService.takeAppointment(appointmentId).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
-            showCloseButton:true,
+            showCloseButton: true,
             icon: 'success',
-            text:'!Turno solicitado con éxito! Recibirá un correo con la información del mismo',
+            text: '!Turno solicitado con éxito! Recibirá un correo con la información del mismo',
             showConfirmButton: false,
-          }).finally(()=>{
+          }).finally(() => {
             this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/appointment']);
-            });          });
+            });
+          });
 
         }, (err) => {
           console.log(err.error.message);
@@ -241,194 +243,195 @@ export class AppointmentComponent implements OnInit {
         }
         );
       }
-    })   
+    })
   }
 
-viewDetails(appointment: Appointment) {
+  viewDetails(appointment: Appointment) {
 
-  this.appointmentService.setUserAction('detailsAppointment');
-  this.appointmentService.setAppointmentData(appointment);
+    this.appointmentService.setUserAction('detailsAppointment');
+    this.appointmentService.setAppointmentData(appointment);
 
-  localStorage.setItem('userAction', 'detailsAppointment');
-  localStorage.setItem('appointmentData', JSON.stringify(appointment));
-  
-  this.router.navigateByUrl('/appointment/addAppointment')
-}
+    localStorage.setItem('userAction', 'detailsAppointment');
+    localStorage.setItem('appointmentData', JSON.stringify(appointment));
 
-rejectAppointment(appointment: Appointment) {
-  let appointmentId = appointment.id;
-  Swal.fire({
-    title: 'Rechazar Turno',
-    text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
-    icon: 'warning',
-    confirmButtonText: 'Confirmar',
-    confirmButtonColor: 'green',
-    cancelButtonText: 'Cancelar',
-    cancelButtonColor: 'red',
-    showCancelButton: true,
-    reverseButtons: true
+    this.router.navigateByUrl('/appointment/addAppointment')
+  }
 
-  }).then((result)=>{
-    if(result.isConfirmed){
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text:'Espere por favor...',
-        showCancelButton: true,
-        showConfirmButton: false,
-      });
-      Swal.showLoading();
-      this.appointmentService.rejectAppointment(appointmentId).subscribe( res => {
+  rejectAppointment(appointment: Appointment) {
+    let appointmentId = appointment.id;
+    Swal.fire({
+      title: 'Rechazar Turno',
+      text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime + " a " + appointment.endTime,
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
+
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
-          showCloseButton:true,
-          icon: 'success',
-          text:'!Turno rechazado! El usuario solicitante recibirá un correo con la información de rechazo.',
+          icon: 'info',
+          text: 'Espere por favor...',
+          showCancelButton: true,
           showConfirmButton: false,
-        }).finally(()=>{
-          this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/appointment']);
-          });          });
-
-      }, (err) => {
-        console.log(err.error.message);
-        Swal.fire({
-          allowOutsideClick: false,
-          showCloseButton: true,
-          icon: 'error',
-          text: err.error.message,
-          title: 'Error al rechazar el turno'
         });
+        Swal.showLoading();
+        this.appointmentService.rejectAppointment(appointmentId).subscribe(res => {
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'success',
+            text: '!Turno rechazado! El usuario solicitante recibirá un correo con la información de rechazo.',
+            showConfirmButton: false,
+          }).finally(() => {
+            this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/appointment']);
+            });
+          });
+
+        }, (err) => {
+          console.log(err.error.message);
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al rechazar el turno'
+          });
+        }
+        );
       }
-      );
-    }
-  })   
-}
+    })
+  }
 
-rejectAppointmentPatient(appointment: Appointment) {
-  let appointmentId = appointment.id;
-  Swal.fire({
-    title: 'Rechazar Turno',
-    text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
-    icon: 'warning',
-    confirmButtonText: 'Confirmar',
-    confirmButtonColor: 'green',
-    cancelButtonText: 'Cancelar',
-    cancelButtonColor: 'red',
-    showCancelButton: true,
-    reverseButtons: true
+  rejectAppointmentPatient(appointment: Appointment) {
+    let appointmentId = appointment.id;
+    Swal.fire({
+      title: 'Rechazar Turno',
+      text: "Usted está por rechazar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime + " a " + appointment.endTime,
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
 
-  }).then((result)=>{
-    if(result.isConfirmed){
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text:'Espere por favor...',
-        showCancelButton: true,
-        showConfirmButton: false,
-      });
-      Swal.showLoading();
-      this.appointmentService.rejectPatientAppointment(appointmentId).subscribe( res => {
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
-          showCloseButton:true,
-          icon: 'success',
-          text:'!Turno cancelado! Recibirás un correo con la confirmación.',
+          icon: 'info',
+          text: 'Espere por favor...',
+          showCancelButton: true,
           showConfirmButton: false,
-        }).finally(()=>{
-          this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/appointment']);
-          });          
         });
-      }, (err) => {
-        console.log(err.error.message);
-        Swal.fire({
-          allowOutsideClick: false,
-          showCloseButton: true,
-          icon: 'error',
-          text: err.error.message,
-          title: 'Error al rechazar el turno'
-        });
+        Swal.showLoading();
+        this.appointmentService.rejectPatientAppointment(appointmentId).subscribe(res => {
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'success',
+            text: '!Turno cancelado! Recibirás un correo con la confirmación.',
+            showConfirmButton: false,
+          }).finally(() => {
+            this.router.navigateByUrl('/appointment', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/appointment']);
+            });
+          });
+        }, (err) => {
+          console.log(err.error.message);
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al rechazar el turno'
+          });
+        }
+        );
       }
-      );
-    }
-  })   
-}
+    })
+  }
 
-modifyAppointment(appointment: Appointment) {
+  modifyAppointment(appointment: Appointment) {
 
-  this.appointmentService.setUserAction('modifyAppointment');
-  this.appointmentService.setAppointmentData(appointment);
+    this.appointmentService.setUserAction('modifyAppointment');
+    this.appointmentService.setAppointmentData(appointment);
 
-  localStorage.setItem('userAction', 'modifyAppointment');
-  localStorage.setItem('appointmentData', JSON.stringify(appointment));
-  
-  this.router.navigateByUrl('/appointment/addAppointment')
-}
+    localStorage.setItem('userAction', 'modifyAppointment');
+    localStorage.setItem('appointmentData', JSON.stringify(appointment));
 
-deleteAppointment(appointment: Appointment) {
-  let appointmentId = appointment.id;
-  Swal.fire({
-    title: 'Eliminar Turno',
-    text: "Usted está por eliminar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime+ " a " + appointment.endTime,
-    icon: 'warning',
-    confirmButtonText: 'Confirmar',
-    confirmButtonColor: 'green',
-    cancelButtonText: 'Cancelar',
-    cancelButtonColor: 'red',
-    showCancelButton: true,
-    reverseButtons: true
+    this.router.navigateByUrl('/appointment/addAppointment')
+  }
 
-  }).then((result)=>{
-    if(result.isConfirmed){
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text:'Espere por favor...',
-        showCancelButton: true,
-        showConfirmButton: false,
-      });
-      Swal.showLoading();
-      this.appointmentService.delete(appointmentId).subscribe( res => {
+  deleteAppointment(appointment: Appointment) {
+    let appointmentId = appointment.id;
+    Swal.fire({
+      title: 'Eliminar Turno',
+      text: "Usted está por eliminar el turno para el día: " + appointment.reservationDate + " horario: " + appointment.startTime + " a " + appointment.endTime,
+      icon: 'warning',
+      confirmButtonText: 'Confirmar',
+      confirmButtonColor: 'green',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: 'red',
+      showCancelButton: true,
+      reverseButtons: true
+
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
-          icon: 'success',
-          text:'!Turno Eliminado!',
+          icon: 'info',
+          text: 'Espere por favor...',
+          showCancelButton: true,
           showConfirmButton: false,
-        })
-        setTimeout(()=>{
-          this.router.navigateByUrl('/appointment');
-        },1500);
-
-      }, (err) => {
-        console.log(err.error.message);
-        Swal.fire({
-          allowOutsideClick: false,
-          showCloseButton: true,
-          icon: 'error',
-          text: err.error.message,
-          title: 'Error al eliminar el turno'
         });
+        Swal.showLoading();
+        this.appointmentService.delete(appointmentId).subscribe(res => {
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'success',
+            text: '!Turno Eliminado!',
+            showConfirmButton: false,
+          })
+          setTimeout(() => {
+            this.router.navigateByUrl('/appointment');
+          }, 1500);
+
+        }, (err) => {
+          console.log(err.error.message);
+          Swal.fire({
+            allowOutsideClick: false,
+            showCloseButton: true,
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al eliminar el turno'
+          });
+        }
+        );
       }
-      );
-    }
-  })
-}
+    })
+  }
 
 
-getTimeRemaining(appointment: Appointment): string {
-  const appointmentDateTime = moment(
-    `${appointment.reservationDate} ${appointment.startTime}`,
-    'DD/MM/YYYY HH:mm'
-  );
-  const now = moment();
-  const diff = appointmentDateTime.diff(now);
-  moment.locale('es');
+  getTimeRemaining(appointment: Appointment): string {
+    const appointmentDateTime = moment(
+      `${appointment.reservationDate} ${appointment.startTime}`,
+      'DD/MM/YYYY HH:mm'
+    );
+    const now = moment();
+    const diff = appointmentDateTime.diff(now);
+    moment.locale('es');
 
-  if (diff < 0) {
-    return 'Tiempo transcurrido';
-  } else {
-    const duration = moment.duration(diff);
+    if (diff < 0) {
+      return 'Tiempo transcurrido';
+    } else {
+      const duration = moment.duration(diff);
       return `En ${duration.humanize()}`;
     }
   }

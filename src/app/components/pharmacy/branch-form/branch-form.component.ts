@@ -17,13 +17,13 @@ export class BranchFormComponent implements OnInit {
   @ViewChild('mapSearchField') searchField: ElementRef;
   @ViewChild(GoogleMap) map: GoogleMap;
   initialCoordinates = {
-    lat: -31.420211, 
+    lat: -31.420211,
     lng: -64.188854
   }
   mapConfigurations = {
     zoomControl: true
   }
-  
+
   submitted: boolean = false;
   FormBranchAdd: FormGroup;
   userAction: string;
@@ -38,10 +38,10 @@ export class BranchFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.FormBranchAdd = this.formBuilder.group({
-      branchName: ['',[Validators.required, Validators.maxLength(55)]],
+      branchName: ['', [Validators.required, Validators.maxLength(55)]],
       phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10,11}')]],
       businessHours: ['', [Validators.required, Validators.maxLength(200)]],
-      realAddress: ['',[Validators.required, Validators.maxLength(55)]]
+      realAddress: ['', [Validators.required, Validators.maxLength(55)]]
     });
 
     this.userAction = this.branchService.getUserAction();
@@ -49,26 +49,26 @@ export class BranchFormComponent implements OnInit {
     this.setFormValues();
   }
 
-  setFormValues () {
-    if ( this.userAction != 'newBranch' ) {
+  setFormValues() {
+    if (this.userAction != 'newBranch') {
       this.FormBranchAdd.patchValue({
-          branchName: this.branch.branchName,
-          phoneNumber: this.branch.phoneNumber,
-          businessHours: this.branch.businessHours,
-          realAddress: this.branch.realAddress
+        branchName: this.branch.branchName,
+        phoneNumber: this.branch.phoneNumber,
+        businessHours: this.branch.businessHours,
+        realAddress: this.branch.realAddress
       });
     };
   }
 
-  ngAfterViewInit():void {
-    
+  ngAfterViewInit(): void {
+
     const searchBox = new google.maps.places.SearchBox(
       this.searchField.nativeElement,
     );
-    
+
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
-      if ( places.length === 0 ) {
+      if (places.length === 0) {
         return;
       }
       const bounds = new google.maps.LatLngBounds();
@@ -86,35 +86,36 @@ export class BranchFormComponent implements OnInit {
     });
   }
 
-  onSubmit( form: FormGroup ) { 
+  onSubmit(form: FormGroup) {
     this.submitted = true;
-    if ( form.invalid ) {
+    if (form.invalid) {
       return;
     }
 
-    let branch: Branch = {...this.FormBranchAdd.value};
+    let branch: Branch = { ...this.FormBranchAdd.value };
     let pharmacyId: string = localStorage.getItem('profilePharmacy');
 
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...'
+      text: 'Espere por favor...',
+      heightAuto: false
     });
     Swal.showLoading();
-    if ( this.userAction == 'newBranch' ) { 
-      
-      this.branchService.post( branch, pharmacyId ).subscribe(res=>{
+    if (this.userAction == 'newBranch') {
+
+      this.branchService.post(branch, pharmacyId).subscribe(res => {
         console.log(res);
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'¡Sucursal creada con éxito!',
+          text: '¡Sucursal creada con éxito!',
           showConfirmButton: false
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           this.router.navigateByUrl('/pharmacy/profile');
-        },1200);
-      },err=>{
+        }, 1200);
+      }, err => {
         console.log(err);
         Swal.fire({
           icon: 'error',
@@ -124,20 +125,20 @@ export class BranchFormComponent implements OnInit {
       });
     }
 
-    if ( this.userAction == 'modifyBranch' ) { 
+    if (this.userAction == 'modifyBranch') {
       let branchId = this.branch.id;
-      this.branchService.patch(branch, branchId).subscribe(res=>{
+      this.branchService.patch(branch, branchId).subscribe(res => {
         console.log(res);
         Swal.fire({
           allowOutsideClick: false,
           icon: 'success',
-          text:'¡Sucursal modificada con éxito!',
+          text: '¡Sucursal modificada con éxito!',
           showConfirmButton: false
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           this.router.navigateByUrl('/pharmacy/profile');
-        },1200);
-      },err=>{
+        }, 1200);
+      }, err => {
         console.log(err);
         Swal.fire({
           icon: 'error',
