@@ -5,6 +5,7 @@ import { Medication } from 'src/app/models/medication';
 import { MedicationService } from '../../services/medication.service';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-inventory',
@@ -267,13 +268,7 @@ export class InventoryComponent implements OnInit {
   getMedications() {
     let branchId = this.authService.getBranchId();
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.medicationService.get(branchId).subscribe(res => {
 
       this.medications = res['branchMedication'];

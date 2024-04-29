@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { MedicationService } from '../../services/medication.service';
 import { BranchMedicationReminderService } from '../../services/branch-medication-reminder.service';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-reminder',
@@ -86,13 +87,7 @@ export class ReminderComponent implements OnInit {
       restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]]
     });
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.getReminders();
     this.getUnits();
     this.getFrequencies();
@@ -464,13 +459,7 @@ export class ReminderComponent implements OnInit {
     reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
     reminder['timeNotification'] = reminder['timeNotification'].slice(0, 2) + ':' + reminder['timeNotification'].slice(2, 4);
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     if (this.reminderAction === 'newReminder') {
 

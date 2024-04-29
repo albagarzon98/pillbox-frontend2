@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-pharmacy',
@@ -33,13 +34,7 @@ export class PharmacyComponent implements OnInit {
         }
       });
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.getPharmacies();
   }
 

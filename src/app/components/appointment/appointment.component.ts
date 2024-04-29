@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Appointment } from '../../models/appointment';
 import * as moment from 'moment';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-appointment',
@@ -46,13 +47,7 @@ export class AppointmentComponent implements OnInit {
 
     this.userAction = this.appointmentService.getUserAction();
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.getAppointments();
   }
 

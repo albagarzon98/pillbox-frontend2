@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Branch } from 'src/app/models/branch';
 import Swal from 'sweetalert2';
 import { BranchService } from '../../../services/branch.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-branch-form',
@@ -95,13 +96,7 @@ export class BranchFormComponent implements OnInit {
     let branch: Branch = { ...this.FormBranchAdd.value };
     let pharmacyId: string = localStorage.getItem('profilePharmacy');
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     if (this.userAction == 'newBranch') {
 
       this.branchService.post(branch, pharmacyId).subscribe(res => {

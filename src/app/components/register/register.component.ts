@@ -11,6 +11,7 @@ import { Pharmacist } from 'src/app/models/pharmacist';
 import { Tutor } from 'src/app/models/tutor';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-register',
@@ -226,13 +227,7 @@ export class RegisterComponent implements OnInit {
     //Asignamos el valor del form a la variable rememberAccount
     this.rememberAccount = this.FormRegister.value['RememberAccount'];
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     this.auth.signIn(this.user)
       .subscribe(resp => {

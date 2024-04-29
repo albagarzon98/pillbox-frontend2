@@ -5,7 +5,8 @@ import Swal from 'sweetalert2';
 import { PharmacyRequestService } from '../../services/pharmacy-request.service';
 import { PharmacyRequest } from '../../models/pharmacy-request';
 import { Router } from '@angular/router';
-import { resetValidators } from '../../../utils/formUtils';
+import { resetValidators } from '../../utils/formUtils';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-pharmacy-register',
@@ -77,13 +78,7 @@ export class PharmacyRegisterComponent implements OnInit {
 
     this.pharmacyRequest = { ...this.FormPharmacy.value };
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.pharmacyRequestService.post(this.pharmacyRequest).subscribe(res => {
 
       console.log(res);

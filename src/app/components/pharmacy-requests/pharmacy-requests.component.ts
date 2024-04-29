@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PharmacyService } from '../../services/pharmacy.service';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { state, trigger, style, transition, animate } from '@angular/animations';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-pharmacy-requests',
@@ -62,13 +63,7 @@ export class PharmacyRequestsComponent implements OnInit {
 
   filterPendent() {
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.pharmacyRequestService.getPendent().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
@@ -86,13 +81,7 @@ export class PharmacyRequestsComponent implements OnInit {
 
   filterApproved() {
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.pharmacyRequestService.getApproved().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
@@ -110,13 +99,7 @@ export class PharmacyRequestsComponent implements OnInit {
 
   filterRejected() {
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.pharmacyRequestService.getRejected().subscribe(res => {
       Swal.close();
       this.requests = res['results'];
@@ -151,13 +134,7 @@ export class PharmacyRequestsComponent implements OnInit {
       status: 'rechazado'
     }
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.pharmacyRequestService.patch(rejected).subscribe(res => {
       console.log(res);
       Swal.fire({
@@ -198,13 +175,7 @@ export class PharmacyRequestsComponent implements OnInit {
 
   getRequests() {
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     this.pharmacyRequestService.get().subscribe(res => {
 

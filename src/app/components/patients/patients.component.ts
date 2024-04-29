@@ -12,6 +12,7 @@ import { BranchMedicationReminderService } from '../../services/branch-medicatio
 import { TutorService } from 'src/app/services/tutor.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Tutor } from 'src/app/models/tutor';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-patients',
@@ -210,13 +211,7 @@ export class PatientsComponent implements OnInit {
     this.submitted = true;
     if (form.invalid) { return; }
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     if (this.tutorAction === 'assignPatient') {
       this.tutorService.sendAssignedPatientEmail(patient).subscribe(resp => {

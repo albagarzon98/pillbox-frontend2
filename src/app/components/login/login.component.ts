@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { UserModel } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { PatientService } from '../../services/patient.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-login',
@@ -78,13 +79,7 @@ export class LoginComponent implements OnInit {
     this.rememberAccount = this.FormLogin.value['RememberAccount'];
 
     //Alerta de SweetAlert
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     //Se llama al login del servicio
     this.auth.login(this.user)

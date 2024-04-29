@@ -12,6 +12,7 @@ import { AppointmentService } from '../../../services/appointment.service';
 
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-pharmacy-profile',
@@ -64,13 +65,7 @@ export class PharmacyProfileComponent implements OnInit {
     this.appointmentService.setUserAction(userAction);
     this.appointmentService.setBranchData(branchData);
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.setRole();
     this.getPharmacyProfile();
   }
@@ -101,13 +96,7 @@ export class PharmacyProfileComponent implements OnInit {
     let branchId = branch.branchId;
     this.branchSelected = branch;
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
     this.medicationService.get(branchId).subscribe(res => {
       console.log(res);
       this.branchMedications = res['branchMedication'];

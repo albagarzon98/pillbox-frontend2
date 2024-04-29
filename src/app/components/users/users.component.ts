@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { loader } from 'src/app/utils/swalUtils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,13 +28,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text: 'Espere por favor...',
-      heightAuto: false
-    });
-    Swal.showLoading();
+    loader();
 
     this.userService.getAll().subscribe(res => {
       this.users = res['results'];
