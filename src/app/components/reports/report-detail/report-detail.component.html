@@ -1,0 +1,36 @@
+<div class="login-background" *ngIf="route().includes('/reports/reportDetail')">
+    <div class="container box-pharm fadeInRight">
+        <div class="row home-title">
+            {{this.title}}
+        </div>
+        <div class="row box-pharm">
+            <div class="row home-title">
+                Filtros
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label class="pill-label-reminder">Desde:</label>
+
+                    <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;"
+                        formControlName="startDate" name="startDate" placeholder="dd/mm/aaaa"
+                        (dateChange)="startDateChanged($event)" [matDatepickerFilter]="minDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.startDate.touched || submitted)  
+                        && FormReport.controls.startDate.errors}" />
+                    <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker"
+                        style="color:#6626db;"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </div>
+                <div class="col-3">
+                    <label class="pill-label-reminder">Hasta:</label>
+
+                    <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;"
+                        formControlName="endDate" name="endDate" placeholder="dd/mm/aaaa"
+                        (dateChange)="endDateChanged($event)" [matDatepickerFilter]="maxDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.endDate.touched || submitted)  
+                        && FormReport.controls.endDate.errors}" />
+                    <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd"
+                        style="color:#6626db;"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #pickerEnd></mat-datepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

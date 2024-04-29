@@ -20,6 +20,7 @@ import { AppointmentFormComponent } from './components/appointment/appointment-f
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
 
 
 
@@ -30,7 +31,18 @@ const routes: Routes = [
   { path: 'pharmacyRegister', component: PharmacyRegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['paciente', 'tutor', 'admin', 'farmaceutico']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      { path: 'reportDetail', component: ReportDetailComponent }
+    ]
+  },
   {
     path: 'reminder', component: ReminderComponent,
     canActivate: [AuthGuard],
