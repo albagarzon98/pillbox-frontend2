@@ -1,0 +1,46 @@
+.box-pharm {
+    margin: 2% auto;
+    border-radius: 20px;
+    display: block;
+    width: 50%;
+    text-align: center;
+}
+
+.box-pharm:hover {
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+}
+
+.login-background {
+    padding: 1% 0;
+    min-height: calc(100vh - 102px);
+}
+
+.home-title {
+    animation: none;
+    margin-bottom: 3%;
+}
+
+.box-pharm img {
+    width: 40px;
+    margin: auto 15px;
+}
+
+.row .box-pharm {
+    animation: none;
+    margin: 2% auto;
+    width: 80%;
+    border-radius: 5px;
+    display: flex;
+}
+
+.row .box-pharm:hover {
+    cursor: pointer;
+    transition: 300ms;
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px #6626db;
+}
+
+.box-pharm span {
+    margin: auto 0;
+}
