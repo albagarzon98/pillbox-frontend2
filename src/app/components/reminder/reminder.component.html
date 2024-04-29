@@ -1,10 +1,11 @@
 <div class="limiter login-background">
 
     <!-- Esto se muestra cuando el usuario no tiene recordatorios registrados -->
-    <div class="container-home" *ngIf="userReminders.length == 0 && branchMedications.length == 0 && reminderAction == 'reminderList'">
+    <div class="container-home"
+        *ngIf="userReminders.length == 0 && branchMedications.length == 0 && reminderAction == 'reminderList'">
         <div class="box-reminder-title">
             <span class="home-title-2">
-                ¡Aún no tienes medicamentos!            
+                ¡Aún no tienes medicamentos!
             </span>
 
             <div class="box-pharm mt-4" (click)="addReminder()">
@@ -26,7 +27,8 @@
     </div>
 
     <!-- Cuando el usuario tiene recordatorios registrados se muestran estos recordatorios -->
-    <div class="container-reminder" *ngIf="(userReminders.length != 0 || branchMedications.length != 0) && reminderAction == 'reminderList'">
+    <div class="container-reminder"
+        *ngIf="(userReminders.length != 0 || branchMedications.length != 0) && reminderAction == 'reminderList'">
 
         <div class="container">
             <div class="row justify-content-center box-pharm">
@@ -51,43 +53,52 @@
                 <div class="reminder-box" *ngFor="let reminder of userReminders">
 
                     <button mat-icon-button [matMenuTriggerFor]="menu">
-                                <mat-icon>
-                                    more_horiz
-                                </mat-icon>
-                        </button>
+                        <mat-icon>
+                            more_horiz
+                        </mat-icon>
+                    </button>
                     <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="after">
                         <button mat-menu-item (click)="checkReminder(reminder)">
-                                <mat-icon >visibility</mat-icon>
-                                <span class="poppins-regular">Ver medicamento</span>
-                            </button>
+                            <mat-icon>visibility</mat-icon>
+                            <span class="poppins-regular">Ver medicamento</span>
+                        </button>
                         <button mat-menu-item (click)="modifyReminder(reminder)">
-                                <mat-icon >edit</mat-icon>
-                                <span class="poppins-regular">Modificar medicamento</span>
-                              </button>
+                            <mat-icon>edit</mat-icon>
+                            <span class="poppins-regular">Modificar medicamento</span>
+                        </button>
                         <button mat-menu-item (click)="deleteReminder(reminder['id'])">
-                              <mat-icon >delete</mat-icon>
-                              <span class="poppins-regular">Eliminar medicamento</span>
-                            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span class="poppins-regular">Eliminar medicamento</span>
+                        </button>
                     </mat-menu>
                     <!-- Agregar etiqueta si isTutorAssigned es true -->
                     <div class="assigned-by-tutor box-reminder-medication" *ngIf="reminder.isTutorAssigned">
                         Asignado por tutor
                     </div>
                     <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
-                    <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="reminder.unit == 'comprimido(s)'">
-                    <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="reminder.unit == 'cápsula(s)'">
-                    <img class="reminder-image" src="../../../assets/images/syringe.png" alt="" *ngIf="reminder.unit == 'inyección(es)'">
-                    <img class="reminder-image" src="../../../assets/images/cuentagotas.png" alt="" *ngIf="reminder.unit == 'gota(s)'">
-                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="reminder.unit == 'miligramo(s)'">
-                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="reminder.unit == 'gramo(s)'">
-                    <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="reminder.unit == 'mililitro(s)'">
-                    <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="reminder.unit == 'unidad(es)'">
+                    <img class="reminder-image" src="../../../assets/images/pills.png" alt=""
+                        *ngIf="reminder.unit == 'comprimido(s)'">
+                    <img class="reminder-image" src="../../../assets/images/medicine.png" alt=""
+                        *ngIf="reminder.unit == 'cápsula(s)'">
+                    <img class="reminder-image" src="../../../assets/images/syringe.png" alt=""
+                        *ngIf="reminder.unit == 'inyección(es)'">
+                    <img class="reminder-image" src="../../../assets/images/cuentagotas.png" alt=""
+                        *ngIf="reminder.unit == 'gota(s)'">
+                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                        *ngIf="reminder.unit == 'miligramo(s)'">
+                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                        *ngIf="reminder.unit == 'gramo(s)'">
+                    <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt=""
+                        *ngIf="reminder.unit == 'mililitro(s)'">
+                    <img class="reminder-image" src="../../../assets/images/drugs.png" alt=""
+                        *ngIf="reminder.unit == 'unidad(es)'">
 
                     <!-- Se muestran los datos del recordatorio -->
-                    <p class="box-reminder-medication-name">{{reminder.medicationName}} {{reminder['grammage'] == null ? '':reminder['grammage'] + 'mg'}}</p>
-                    <span class="box-reminder-medication"> 
-                            <mat-icon svgIcon="pill-icon"></mat-icon>
-                            &nbsp; Dosis: {{reminder.dose}}</span>
+                    <p class="box-reminder-medication-name">{{reminder.medicationName}} {{reminder['grammage'] == null ?
+                        '':reminder['grammage'] + 'mg'}}</p>
+                    <span class="box-reminder-medication">
+                        <mat-icon svgIcon="pill-icon"></mat-icon>
+                        &nbsp; Dosis: {{reminder.dose}}</span>
                     <span class="box-reminder-medication">{{reminder.unit}}</span>
                     <p class="box-reminder-medication">
                         <mat-icon class="material-icons-outlined">watch_later</mat-icon>
@@ -103,7 +114,8 @@
                     </p>
                     <p class="box-reminder-medication">
                         <mat-icon>event</mat-icon>
-                        &nbsp; Fecha de finalización: {{reminder.endDate}} <span *ngIf="!reminder.endDate">--/--/--</span>
+                        &nbsp; Fecha de finalización: {{reminder.endDate}} <span
+                            *ngIf="!reminder.endDate">--/--/--</span>
                     </p>
                     <p class="box-reminder-medication">
                         <mat-icon class="material-icons-outlined">medication</mat-icon>
@@ -132,42 +144,52 @@
                 <div class="reminder-box" *ngFor="let medication of branchMedications">
 
                     <button mat-icon-button [matMenuTriggerFor]="menu">
-                                <mat-icon>
-                                    more_horiz
-                                </mat-icon>
+                        <mat-icon>
+                            more_horiz
+                        </mat-icon>
                     </button>
                     <mat-menu #menu="matMenu" class="box-reminder-menu" xPosition="after">
                         <button mat-menu-item (click)="checkReminder(medication)">
-                                <mat-icon >visibility</mat-icon>
-                                <span class="poppins-regular">Ver medicamento</span>
+                            <mat-icon>visibility</mat-icon>
+                            <span class="poppins-regular">Ver medicamento</span>
                         </button>
                         <button mat-menu-item (click)="modifyReminder(medication)">
-                                <mat-icon >edit</mat-icon>
-                                <span class="poppins-regular">Modificar medicamento</span>
-                              </button>
+                            <mat-icon>edit</mat-icon>
+                            <span class="poppins-regular">Modificar medicamento</span>
+                        </button>
                         <button mat-menu-item (click)="deleteBranchMedication(medication['id'])">
-                              <mat-icon >delete</mat-icon>
-                              <span class="poppins-regular">Eliminar medicamento</span>
-                            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span class="poppins-regular">Eliminar medicamento</span>
+                        </button>
                     </mat-menu>
                     <div class="assigned-by-tutor box-reminder-medication" *ngIf="medication['isTutorAssigned']">
                         Asignado por tutor
                     </div>
                     <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
-                    <img class="reminder-image" src="../../../assets/images/pills.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'comprimido(s)'">
-                    <img class="reminder-image" src="../../../assets/images/medicine.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'cápsula(s)'">
-                    <img class="reminder-image" src="../../../assets/images/syringe.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'inyección(es)'">
-                    <img class="reminder-image" src="../../../assets/images/cuentagotas.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'gota(s)'">
-                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'miligramo(s)'">
-                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'gramo(s)'">
-                    <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'mililitro(s)'">
-                    <img class="reminder-image" src="../../../assets/images/drugs.png" alt="" *ngIf="medication['branchMedication']['unit'] == 'unidad(es)'">
+                    <img class="reminder-image" src="../../../assets/images/pills.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'comprimido(s)'">
+                    <img class="reminder-image" src="../../../assets/images/medicine.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'cápsula(s)'">
+                    <img class="reminder-image" src="../../../assets/images/syringe.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'inyección(es)'">
+                    <img class="reminder-image" src="../../../assets/images/cuentagotas.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'gota(s)'">
+                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'miligramo(s)'">
+                    <img class="reminder-image" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'gramo(s)'">
+                    <img class="reminder-image" src="../../../assets/images/vaso-medidor.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'mililitro(s)'">
+                    <img class="reminder-image" src="../../../assets/images/drugs.png" alt=""
+                        *ngIf="medication['branchMedication']['unit'] == 'unidad(es)'">
 
                     <!-- Se muestran los datos del recordatorio -->
-                    <p class="box-reminder-medication-name">{{medication['branchMedication']['medicationName']}} {{medication['branchMedication']['grammage'] == null ? '':medication['branchMedication']['grammage'] }}</p>
-                    <span class="box-reminder-medication"> 
-                            <mat-icon svgIcon="pill-icon"></mat-icon>
-                            &nbsp; Dosis: {{medication['dose']}}</span>
+                    <p class="box-reminder-medication-name">{{medication['branchMedication']['medicationName']}}
+                        {{medication['branchMedication']['grammage'] == null ?
+                        '':medication['branchMedication']['grammage'] }}</p>
+                    <span class="box-reminder-medication">
+                        <mat-icon svgIcon="pill-icon"></mat-icon>
+                        &nbsp; Dosis: {{medication['dose']}}</span>
                     <span class="box-reminder-medication">{{medication['branchMedication']['unit']}}</span>
                     <p class="box-reminder-medication">
                         <mat-icon class="material-icons-outlined">watch_later</mat-icon>
@@ -183,7 +205,8 @@
                     </p>
                     <p class="box-reminder-medication">
                         <mat-icon>event</mat-icon>
-                        &nbsp; Fecha de finalización: {{medication['endDate']}} <span *ngIf="!medication['endDate']">--/--/--</span>
+                        &nbsp; Fecha de finalización: {{medication['endDate']}} <span
+                            *ngIf="!medication['endDate']">--/--/--</span>
                     </p>
                     <p class="box-reminder-medication">
                         <mat-icon class="material-icons-outlined">medication</mat-icon>
@@ -208,26 +231,34 @@
                 <span class="back">&lt;</span> &nbsp;Regresar
             </a>
 
-            <span class="form-reminder-title mt-4 mb-4" *ngIf="reminderAction == 'newReminder'">
+            <span class="form-reminder-title mt-1 mb-4" *ngIf="reminderAction == 'newReminder'">
                 Nuevo medicamento
             </span>
 
             <span class="form-reminder-title p-b-15 p-t-10" *ngIf="reminderAction != 'newReminder'">
-                {{ medName }} {{ modifyGrammage == null ? '' : modifyGrammage }} 
+                {{ medName }} {{ modifyGrammage == null ? '' : modifyGrammage }}
                 {{isBranchMedication ? '': modifyGrammage == null ? '':'mg'}}
             </span>
 
             <!-- Según el tipo de unidad se muestra la imagen correspondiente -->
-            <img class="reminder-image mb-4" src="../../../assets/images/pills.png" alt="" *ngIf="unit == 'comprimido(s)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/medicine.png" alt="" *ngIf="unit == 'cápsula(s)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/syringe.png" alt="" *ngIf="unit == 'inyección(es)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/cuentagotas.png" alt="" *ngIf="unit == 'gota(s)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="unit == 'miligramo(s)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt="" *ngIf="unit == 'gramo(s)'">
-            <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt="" *ngIf="unit == 'mililitro(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/pills.png" alt=""
+                *ngIf="unit == 'comprimido(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/medicine.png" alt=""
+                *ngIf="unit == 'cápsula(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/syringe.png" alt=""
+                *ngIf="unit == 'inyección(es)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/cuentagotas.png" alt=""
+                *ngIf="unit == 'gota(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                *ngIf="unit == 'miligramo(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/balanza-de-cocina.png" alt=""
+                *ngIf="unit == 'gramo(s)'">
+            <img class="reminder-image mb-4" src="../../../assets/images/vaso-medidor.png" alt=""
+                *ngIf="unit == 'mililitro(s)'">
             <img class="reminder-image mb-4" src="../../../assets/images/drugs.png" alt="" *ngIf="unit == 'unidad(es)'">
 
-            <img class="reminder-image mb-5" src="../../../assets/images/vaccine.png" alt="" *ngIf="reminderAction == 'newReminder'">
+            <img class="reminder-image mb-5" src="../../../assets/images/vaccine.png" alt=""
+                *ngIf="reminderAction == 'newReminder'">
 
 
             <form (ngSubmit)="onSubmit( FormReminder )" name="FormReminder" [formGroup]='FormReminder'>
@@ -243,7 +274,8 @@
                         <div class="mb-3" *ngIf="reminderAction != 'checkReminder'">
                             <label class="pill-label-reminder" for="medicationName">Nombre del medicamento:</label>
 
-                            <input matInput type="text" class="form-control form-reminder-input" formControlName="medicationName" placeholder="Ingrese aquí el nombre" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
+                            <input matInput type="text" class="form-control form-reminder-input"
+                                formControlName="medicationName" placeholder="Ingrese aquí el nombre" [ngClass]="{'is-invalid':    (FormReminder.controls.medicationName.touched || submitted)  
                             && FormReminder.controls.medicationName.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.medicationName.touched || submitted) 
@@ -263,9 +295,11 @@
                         <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Unidad:</label>
 
-                            <mat-select class="form-control" name="unit" formControlName="unit" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
+                            <mat-select class="form-control" name="unit" formControlName="unit"
+                                placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.unit.touched || submitted)  
                             && FormReminder.controls.unit.errors}">
-                                <mat-option class="poppins-regular" *ngFor="let unit of units" [value]="unit.description">
+                                <mat-option class="poppins-regular" *ngFor="let unit of units"
+                                    [value]="unit.description">
                                     {{unit.description}}
                                 </mat-option>
                             </mat-select>
@@ -280,7 +314,8 @@
                         <div class="mb-3">
                             <label class="pill-label-reminder">Dosis:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="dose" name="dose" placeholder="Escribe aquí la dosis" [ngClass]="{'is-invalid': (FormReminder.controls.dose.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="dose" name="dose"
+                                placeholder="Escribe aquí la dosis" [ngClass]="{'is-invalid': (FormReminder.controls.dose.touched || submitted)  
                             && FormReminder.controls.dose.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.dose.touched || submitted) 
@@ -300,7 +335,9 @@
                         <div class="mt-3">
                             <label class="pill-label-reminder">Gramaje, en mg (opcional):</label>
 
-                            <input class="form-control form-reminder-input" formControlName="grammage" name="grammage" [placeholder]="reminderAction == 'checkReminder' || isBranchMedication ? '':'Ingrese aquí el gramaje'" [ngClass]="{'is-invalid': (FormReminder.controls.grammage.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="grammage" name="grammage"
+                                [placeholder]="reminderAction == 'checkReminder' || isBranchMedication ? '':'Ingrese aquí el gramaje'"
+                                [ngClass]="{'is-invalid': (FormReminder.controls.grammage.touched || submitted)  
                             && FormReminder.controls.grammage.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.grammage.touched || submitted) 
@@ -315,7 +352,8 @@
                         <div class="mt-3">
                             <label class="pill-label-reminder">Stock (opcional):</label>
 
-                            <input class="form-control form-reminder-input" formControlName="inventory" name="inventory" [placeholder]="reminderAction == 'checkReminder' ? '':'Cantidad de unidades'" [ngClass]="{'is-invalid': (FormReminder.controls.inventory.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="inventory" name="inventory"
+                                [placeholder]="reminderAction == 'checkReminder' ? '':'Cantidad de unidades'" [ngClass]="{'is-invalid': (FormReminder.controls.inventory.touched || submitted)  
                             && FormReminder.controls.inventory.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.inventory.touched || submitted) 
@@ -339,9 +377,12 @@
 
                             <label class="pill-label-reminder">Fecha de inicio:</label>
 
-                            <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;" formControlName="startDate" name="startDate" placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
+                            <input matInput [matDatepicker]="picker" class="form-control inputDate"
+                                style="display:inline;" formControlName="startDate" name="startDate"
+                                placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormReminder.controls.startDate.touched || submitted)  
                             && FormReminder.controls.startDate.errors}" />
-                            <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker" style="color:#6626db;"></mat-datepicker-toggle>
+                            <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker"
+                                style="color:#6626db;"></mat-datepicker-toggle>
                             <mat-datepicker touchUi #picker></mat-datepicker>
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.startDate.touched || submitted) 
@@ -355,9 +396,11 @@
                         <div class="mb-3">
 
                             <label class="pill-label-reminder" for="unit">Finalización:</label>
-                            <mat-select class="form-control" formControlName="endingType" name="endingType" placeholder="Seleccione una opción" [(value)]="endingType" [ngClass]="{'is-invalid': (FormReminder.controls.endingType.touched || submitted)  
+                            <mat-select class="form-control" formControlName="endingType" name="endingType"
+                                placeholder="Seleccione una opción" [(value)]="endingType" [ngClass]="{'is-invalid': (FormReminder.controls.endingType.touched || submitted)  
                             && FormReminder.controls.endingType.errors}">
-                                <mat-option class="poppins-regular" *ngFor="let endingType of endingTypes" [value]="endingType.id">
+                                <mat-option class="poppins-regular" *ngFor="let endingType of endingTypes"
+                                    [value]="endingType.id">
                                     {{endingType.description}}
                                 </mat-option>
                             </mat-select>
@@ -374,9 +417,12 @@
 
                             <label class="pill-label-reminder">Fecha de finalización:</label>
 
-                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate" style="display:inline;" formControlName="endDate" name="endDate" placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
+                            <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate"
+                                style="display:inline;" formControlName="endDate" name="endDate"
+                                placeholder="dd/mm/aaaa" [ngClass]="{'is-invalid': (FormReminder.controls.endDate.touched || submitted)  
                             && FormReminder.controls.endDate.errors}" />
-                            <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd" style="color:#6626db;"></mat-datepicker-toggle>
+                            <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd"
+                                style="color:#6626db;"></mat-datepicker-toggle>
                             <mat-datepicker touchUi #pickerEnd></mat-datepicker>
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.endDate.touched || submitted) 
@@ -390,7 +436,8 @@
                         <div *ngIf="endingType == 3">
                             <label class="pill-label-reminder">Cantidad de días:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="daysAmount" name="daysAmount" placeholder="Ingrese la cantidad de días" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="daysAmount"
+                                name="daysAmount" placeholder="Ingrese la cantidad de días" [ngClass]="{'is-invalid': (FormReminder.controls.daysAmount.touched || submitted)  
                             && FormReminder.controls.daysAmount.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.daysAmount.touched || submitted) 
@@ -418,9 +465,11 @@
                         <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Frecuencia:</label>
 
-                            <mat-select class="form-control poppins-regular" name="frequency" formControlName="frequency" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.frequency.touched || submitted)  
+                            <mat-select class="form-control poppins-regular" name="frequency"
+                                formControlName="frequency" placeholder="Seleccione una opción" [ngClass]="{'is-invalid':    (FormReminder.controls.frequency.touched || submitted)  
                             && FormReminder.controls.frequency.errors}">
-                                <mat-option class="poppins-regular" *ngFor="let frequency of frequencies" [value]="frequency.description">
+                                <mat-option class="poppins-regular" *ngFor="let frequency of frequencies"
+                                    [value]="frequency.description">
                                     {{frequency.description}}
                                 </mat-option>
                             </mat-select>
@@ -436,7 +485,8 @@
                         <div class="mb-3">
                             <label class="pill-label-reminder" for="unit">Hora:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="timeNotification" mask="Hh:m0" name="timeNotification" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="timeNotification"
+                                mask="Hh:m0" name="timeNotification" placeholder="HH:mm" [ngClass]="{'is-invalid':    (FormReminder.controls.timeNotification.touched || submitted)  
                             && FormReminder.controls.timeNotification.errors}">
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification.touched || submitted) 
@@ -453,7 +503,8 @@
                         <div *ngIf="isBranchMedication">
                             <label class="pill-label-reminder">Nivel de reposición:</label>
 
-                            <input class="form-control form-reminder-input" formControlName="restockLimit" name="restockLimit" placeholder="Ingrese un número" [ngClass]="{'is-invalid': (FormReminder.controls.restockLimit.touched || submitted)  
+                            <input class="form-control form-reminder-input" formControlName="restockLimit"
+                                name="restockLimit" placeholder="Ingrese un número" [ngClass]="{'is-invalid': (FormReminder.controls.restockLimit.touched || submitted)  
                             && FormReminder.controls.restockLimit.errors}" />
 
                             <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.restockLimit.touched || submitted) 
