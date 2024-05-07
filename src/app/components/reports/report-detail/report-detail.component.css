@@ -51,3 +51,20 @@
     animation: none;
     padding: 1.2%;
 }
+
+.btn-container {
+    padding-top: 3%;
+    padding-bottom: 1%;
+}
+
+.pill-form-btn {
+    border-radius: var(--bs-border-radius);
+    text-transform: none;
+    height: 46px;
+    font-family: Poppins-Regular;
+
+}
+
+.submit-container {
+    justify-content: center;
+}
