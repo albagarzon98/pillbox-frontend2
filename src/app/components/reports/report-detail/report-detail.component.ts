@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { reportTypes } from 'src/app/const/reportTypes';
 import { PharmacyRequestService } from 'src/app/services/pharmacy-request.service';
-import { loader } from 'src/app/utils/swalUtils';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-report-detail',
@@ -14,8 +12,7 @@ import Swal from 'sweetalert2';
 export class ReportDetailComponent implements OnInit {
 
   FormReport: FormGroup;
-  reportName: string;
-  title: string;
+  report: any;
   minDate: Date;
   maxDate: Date = new Date();
 
@@ -34,15 +31,30 @@ export class ReportDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.reportName = params['name'];
+      let reportName = params['name'];
+      this.report = reportTypes[reportName];
     });
 
-    this.title = reportTypes[this.reportName].title;
+    this.FormReport = this.formBuilder.group(
+      this.createFormBuilderGroup()
+    );
+  }
 
-    this.FormReport = this.formBuilder.group({
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+  createFormBuilderGroup() {
+    let group = {}
+
+    if (this.report.hasPeriodfilter) {
+      group = {
+        startDate: [''],
+        endDate: [''],
+      }
+    }
+
+    this.report.filters.forEach(filter => {
+      group[filter.formGroupName] = [''];
     });
+
+    return group;
   }
 
   minDateFilter = (date: Date | null): boolean => {
@@ -72,4 +84,8 @@ export class ReportDetailComponent implements OnInit {
     return this.router.url;
   }
 
+  onSubmit(form: FormGroup) {
+    this.submitted = true;
+    if (form.invalid) { return; }
+  }
 }
