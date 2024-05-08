@@ -13,9 +13,9 @@
                         <label class="pill-label-reminder">Desde:</label>
 
                         <input matInput [matDatepicker]="picker" class="form-control inputDate" style="display:inline;"
-                            formControlName="startDate" name="startDate" placeholder="dd/mm/aaaa"
-                            (dateChange)="startDateChanged($event)" [matDatepickerFilter]="minDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.startDate.touched || submitted)  
-                            && FormReport.controls.startDate.errors}" />
+                            formControlName="createdStartDate" name="createdStartDate" placeholder="dd/mm/aaaa"
+                            (dateChange)="startDateChanged($event)" [matDatepickerFilter]="minDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.createdStartDate.touched || submitted)  
+                            && FormReport.controls.createdStartDate.errors}" />
                         <mat-datepicker-toggle class="m-l-10" matSuffix [for]="picker"
                             style="color:#6626db;"></mat-datepicker-toggle>
                         <mat-datepicker touchUi #picker></mat-datepicker>
@@ -24,9 +24,10 @@
                         <label class="pill-label-reminder">Hasta:</label>
 
                         <input matInput [matDatepicker]="pickerEnd" class="form-control inputDate"
-                            style="display:inline;" formControlName="endDate" name="endDate" placeholder="dd/mm/aaaa"
-                            (dateChange)="endDateChanged($event)" [matDatepickerFilter]="maxDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.endDate.touched || submitted)  
-                            && FormReport.controls.endDate.errors}" />
+                            style="display:inline;" formControlName="createdEndDate" name="createdEndDate"
+                            placeholder="dd/mm/aaaa" (dateChange)="endDateChanged($event)"
+                            [matDatepickerFilter]="maxDateFilter" [ngClass]="{'is-invalid': (FormReport.controls.createdEndDate.touched || submitted)  
+                            && FormReport.controls.createdEndDate.errors}" />
                         <mat-datepicker-toggle class="m-l-10" matSuffix [for]="pickerEnd"
                             style="color:#6626db;"></mat-datepicker-toggle>
                         <mat-datepicker touchUi #pickerEnd></mat-datepicker>
@@ -34,7 +35,7 @@
                     <div class="col-3" *ngFor="let filter of this.report.filters">
                         <div *ngIf="filter.type == 'select'">
                             <label class="pill-label-reminder">{{filter.label}}</label>
-                            <mat-select class="form-control" formControlName="requestStatus"
+                            <mat-select class="form-control" [formControlName]="filter.formGroupName"
                                 placeholder="Seleccione una opción">
                                 <mat-option *ngFor="let value of filter.values" [value]="value.value">
                                     {{value.viewValue}}
@@ -49,6 +50,9 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="row box-pharm" *ngIf="this.submitted">
+
         </div>
     </div>
 </div>
