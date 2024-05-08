@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { reportTypes } from 'src/app/const/reportTypes';
 import { PharmacyRequestService } from 'src/app/services/pharmacy-request.service';
+import { ReportService } from 'src/app/services/report.service';
+import { loader } from 'src/app/utils/swalUtils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-report-detail',
@@ -26,7 +30,8 @@ export class ReportDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private pharmacyRequestService: PharmacyRequestService,
     public formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private reportService: ReportService
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +50,8 @@ export class ReportDetailComponent implements OnInit {
 
     if (this.report.hasPeriodfilter) {
       group = {
-        startDate: [''],
-        endDate: [''],
+        createdStartDate: [''],
+        createdEndDate: [''],
       }
     }
 
@@ -87,5 +92,34 @@ export class ReportDetailComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.submitted = true;
     if (form.invalid) { return; }
+
+    const formValues = this.createFormValuesObject();
+
+    loader();
+    this.reportService.getPharmacyRequests(formValues).subscribe(res => {
+      console.log("EXITO!!!", res)
+      Swal.close();
+    }, err => {
+      console.log("ERROR!!!", err)
+    });
+  }
+
+  createFormValuesObject() {
+    let formValues = {};
+
+    const keys = Object.keys(this.FormReport.controls);
+
+    for (let i = 0; i < keys.length; i++) {
+      const control = this.FormReport.get(keys[i]);
+      if (control.value) {
+        if (moment.isMoment(control.value)) {
+          formValues[keys[i]] = control.value.format("YYYY-MM-DD");
+          continue;
+        }
+        formValues[keys[i]] = control.value;
+      }
+    }
+
+    return formValues;
   }
 }
