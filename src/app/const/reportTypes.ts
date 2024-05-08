@@ -1,18 +1,18 @@
 export const reportTypes = {
     pharmacyRequestReport: {
-        service: "pharmacyRequestService",
+        serviceFunction: "getPharmacyRequests",
         title: "Reporte de solicitudes de farmacia",
         hasPeriodfilter: true,
         filters: [
             {
                 label: "Estado: ",
-                formGroupName: "requestStatus",
+                formGroupName: "status",
                 type: "select",
                 values: [
                     { value: "todas", viewValue: "Todas" },
-                    { value: "aprobado", viewValue: "Pendientes" },
-                    { value: "rechazado", viewValue: "Aprobadas" },
-                    { value: "pendiente", viewValue: "Rechazadas" },
+                    { value: "aprobado", viewValue: "Aprobadas" },
+                    { value: "rechazado", viewValue: "Rechazadas" },
+                    { value: "pendiente", viewValue: "Pendientes" },
                 ]
             }
         ]
