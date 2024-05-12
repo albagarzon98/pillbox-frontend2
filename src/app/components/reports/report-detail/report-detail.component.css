@@ -68,3 +68,11 @@
 .submit-container {
     justify-content: center;
 }
+
+.mat-table {
+    border-radius: 20px;
+    overflow: hidden !important;
+    width: 100%;
+    font-family: Poppins-Regular;
+    text-align: start;
+}
