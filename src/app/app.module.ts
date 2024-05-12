@@ -44,6 +44,7 @@ import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { ReportDetailComponent } from './components/reports/report-detail/report
     MatDividerModule,
     NgxMaskModule.forRoot(),
     GoogleMapsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ],
   providers: [
     {
