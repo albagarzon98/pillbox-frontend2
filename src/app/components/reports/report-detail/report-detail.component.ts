@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { reportTypes } from 'src/app/const/reportTypes';
+import { PharmacyRequest } from 'src/app/models/pharmacy-request';
 import { PharmacyRequestService } from 'src/app/services/pharmacy-request.service';
 import { ReportService } from 'src/app/services/report.service';
 import { loader } from 'src/app/utils/swalUtils';
@@ -19,6 +20,7 @@ export class ReportDetailComponent implements OnInit {
   report: any;
   minDate: Date;
   maxDate: Date = new Date();
+  reportData: any[] = [];
 
   submitted: boolean = false;
 
@@ -96,12 +98,45 @@ export class ReportDetailComponent implements OnInit {
     const formValues = this.createFormValuesObject();
 
     loader();
-    this.reportService.getPharmacyRequests(formValues).subscribe(res => {
-      console.log("EXITO!!!", res)
+    this.reportService[this.report.serviceFunction](formValues).subscribe(res => {
+      this.reportData = this.mapToReportType(res.results);
+
       Swal.close();
     }, err => {
       console.log("ERROR!!!", err)
     });
+  }
+
+  mapToReportType(data: any[]) {
+    switch (this.report.model) {
+      case PharmacyRequest:
+        return data.map(item => this.mapToObject(item));
+      default:
+        return null;
+    }
+  }
+
+  mapToObject(obj: any) {
+    const keys = Object.keys(obj);
+
+    const result = this.createInstance();
+
+    for (const key of keys) {
+      if (obj.hasOwnProperty(key) && key in result) {
+        result[key] = obj[key];
+      }
+    }
+
+    return result;
+  }
+
+  createInstance() {
+    switch (this.report.model) {
+      case PharmacyRequest:
+        return new PharmacyRequest();
+      default:
+        return null;
+    }
   }
 
   createFormValuesObject() {
@@ -121,5 +156,9 @@ export class ReportDetailComponent implements OnInit {
     }
 
     return formValues;
+  }
+
+  getObjectKeys(object: any) {
+    return Object.keys(object);
   }
 }
