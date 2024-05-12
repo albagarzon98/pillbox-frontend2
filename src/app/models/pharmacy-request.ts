@@ -4,5 +4,16 @@ export class PharmacyRequest {
     address: string;
     phoneNumber: number;
     contactEmail: string;
-    branchesNumber: number
+    branchesNumber: number;
+    creationDate: string;
+
+    constructor() {
+        this.id = "";
+        this.pharmacyName = "";
+        this.address = "";
+        this.phoneNumber = 0;
+        this.contactEmail = "";
+        this.branchesNumber = 0;
+        this.creationDate = "";
+    }
 }
