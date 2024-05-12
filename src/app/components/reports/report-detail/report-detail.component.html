@@ -51,8 +51,17 @@
                 </div>
             </form>
         </div>
-        <div class="row box-pharm" *ngIf="this.submitted">
+        <table mat-table [dataSource]="this.reportData" class="mat-elevation-z8" multiTemplateDataRows
+            *ngIf="this.submitted && this.reportData.length > 0">
+            <div *ngFor="let key of getObjectKeys(this.report.tableTitles)">
+                <ng-container [matColumnDef]="key">
+                    <th mat-header-cell *matHeaderCellDef> {{this.report.tableTitles[key]}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[key]}} </td>
+                </ng-container>
+            </div>
 
-        </div>
+            <tr mat-header-row *matHeaderRowDef="getObjectKeys(this.report.tableTitles)"></tr>
+            <tr mat-row *matRowDef="let row; columns: getObjectKeys(this.report.tableTitles);"></tr>
+        </table>
     </div>
 </div>
