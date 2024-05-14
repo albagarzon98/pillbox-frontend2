@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { reportTypes } from 'src/app/const/reportTypes';
@@ -8,6 +9,7 @@ import { PharmacyRequestService } from 'src/app/services/pharmacy-request.servic
 import { ReportService } from 'src/app/services/report.service';
 import { loader } from 'src/app/utils/swalUtils';
 import Swal from 'sweetalert2';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-report-detail',
@@ -24,6 +26,12 @@ export class ReportDetailComponent implements OnInit {
 
   submitted: boolean = false;
 
+  // MatPaginator Inputs
+  length: number;
+  pageSize: number = 10;
+  pageIndex: number = 0;
+  pageSizeOptions: number[] = [5, 10, 25];
+
   services = {
     pharmacyRequestService: this.pharmacyRequestService,
   };
@@ -33,8 +41,11 @@ export class ReportDetailComponent implements OnInit {
     private pharmacyRequestService: PharmacyRequestService,
     public formBuilder: FormBuilder,
     private router: Router,
-    private reportService: ReportService
-  ) { }
+    private reportService: ReportService,
+    private paginatorIntl: MatPaginatorIntl
+  ) {
+    this.paginatorIntl.itemsPerPageLabel = 'Items por página';
+  }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -62,6 +73,13 @@ export class ReportDetailComponent implements OnInit {
     });
 
     return group;
+  }
+
+  onPageChange(event: PageEvent): void {
+    const pageSize = event.pageSize;
+    const pageIndex = event.pageIndex;
+    const previousPageIndex = event.previousPageIndex;
+
   }
 
   minDateFilter = (date: Date | null): boolean => {
@@ -95,6 +113,10 @@ export class ReportDetailComponent implements OnInit {
     this.submitted = true;
     if (form.invalid) { return; }
 
+    this.updateReportData();
+  }
+
+  private updateReportData() {
     const formValues = this.createFormValuesObject();
 
     loader();
@@ -103,7 +125,7 @@ export class ReportDetailComponent implements OnInit {
 
       Swal.close();
     }, err => {
-      console.log("ERROR!!!", err)
+      console.log("ERROR!!!", err);
     });
   }
 
@@ -123,7 +145,11 @@ export class ReportDetailComponent implements OnInit {
 
     for (const key of keys) {
       if (obj.hasOwnProperty(key) && key in result) {
-        result[key] = obj[key];
+        if (result[key] instanceof Date) {
+          result[key] = new Date(obj[key]);
+        } else {
+          result[key] = obj[key];
+        }
       }
     }
 
@@ -140,7 +166,10 @@ export class ReportDetailComponent implements OnInit {
   }
 
   createFormValuesObject() {
-    let formValues = {};
+    let formValues = {
+      // page: this.pageIndex,
+      // limit: this.pageSize
+    };
 
     const keys = Object.keys(this.FormReport.controls);
 
@@ -160,5 +189,13 @@ export class ReportDetailComponent implements OnInit {
 
   getObjectKeys(object: any) {
     return Object.keys(object);
+  }
+
+  formatDate(date: Date): string {
+    return moment(date).format('DD/MM/YYYY');
+  }
+
+  formatDateIfDate(value: any): any {
+    return value instanceof Date ? this.formatDate(value) : value;
   }
 }

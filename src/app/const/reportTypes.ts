@@ -25,6 +25,7 @@ export const reportTypes = {
             phoneNumber: "Teléfono",
             contactEmail: "Email",
             branchesNumber: "Número de sucursales",
+            status: "Estado",
         }
     }
 }

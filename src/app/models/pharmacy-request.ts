@@ -5,7 +5,8 @@ export class PharmacyRequest {
     phoneNumber: number;
     contactEmail: string;
     branchesNumber: number;
-    creationDate: string;
+    creationDate: Date;
+    status: string;
 
     constructor() {
         this.id = "";
@@ -14,6 +15,7 @@ export class PharmacyRequest {
         this.phoneNumber = 0;
         this.contactEmail = "";
         this.branchesNumber = 0;
-        this.creationDate = "";
+        this.creationDate = new Date();
+        this.status = "";
     }
 }

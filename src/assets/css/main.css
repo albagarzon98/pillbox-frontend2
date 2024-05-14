@@ -767,11 +767,11 @@ input[type='image'] {
     margin-bottom: 15px;
 }
 
-mat-select {
+/* mat-select {
     background-color: honeydew !important;
     font-family: Poppins-Regular !important;
     height: 42px;
-}
+} */
 
 mat-select .mat-select-placeholder {
     font-size: 15px !important;

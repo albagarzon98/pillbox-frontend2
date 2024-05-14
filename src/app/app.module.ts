@@ -45,6 +45,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { MatTableModule } from '@angular/material/table';
     NgxMaskModule.forRoot(),
     GoogleMapsModule,
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     {

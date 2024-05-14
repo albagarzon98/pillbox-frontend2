@@ -41,6 +41,20 @@
     font-size: 14px;
 }
 
+.inputDate.mat-input-element {
+    font-family: Poppins-Regular;
+    background-color: honeydew !important;
+    line-height: 1.2;
+    font-size: 18px;
+    display: inline;
+    width: 70%;
+    background: transparent;
+    height: 40px;
+    margin-top: 0px !important;
+    padding-left: 10px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
 .box-pharm:hover {
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 5px 1px #bfb3d6;
@@ -75,4 +89,13 @@
     width: 100%;
     font-family: Poppins-Regular;
     text-align: start;
+}
+
+.mat-paginator.box-pharm {
+    justify-content: center;
+    font-family: Poppins-Regular;
+}
+
+.mat-form-field.mat-select {
+    height: 14px;
 }
