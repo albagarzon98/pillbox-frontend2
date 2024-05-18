@@ -64,7 +64,7 @@
             <tr mat-row *matRowDef="let row; columns: getObjectKeys(this.report.tableTitles);"></tr>
         </table>
         <mat-paginator class="box-pharm" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-            (page)="onPageChange($event)" aria-label="Select page">
+            (page)="onPageChange($event)" aria-label="Select page" *ngIf="this.submitted && this.reportData.length > 0">
         </mat-paginator>
 
     </div>

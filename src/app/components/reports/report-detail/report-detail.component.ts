@@ -27,9 +27,9 @@ export class ReportDetailComponent implements OnInit {
   submitted: boolean = false;
 
   // MatPaginator Inputs
-  length: number;
+  length: number = 10;
   pageSize: number = 10;
-  pageIndex: number = 0;
+  pageIndex: number = 1;
   pageSizeOptions: number[] = [5, 10, 25];
 
   services = {
@@ -76,10 +76,10 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    const pageSize = event.pageSize;
-    const pageIndex = event.pageIndex;
-    const previousPageIndex = event.previousPageIndex;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex + 1;
 
+    this.updateReportData();
   }
 
   minDateFilter = (date: Date | null): boolean => {
@@ -122,10 +122,16 @@ export class ReportDetailComponent implements OnInit {
     loader();
     this.reportService[this.report.serviceFunction](formValues).subscribe(res => {
       this.reportData = this.mapToReportType(res.results);
+      this.length = res.totalResults;
 
       Swal.close();
     }, err => {
-      console.log("ERROR!!!", err);
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        heightAuto: false,
+        title: 'Error al cargar el reporte'
+      });
     });
   }
 
@@ -167,8 +173,8 @@ export class ReportDetailComponent implements OnInit {
 
   createFormValuesObject() {
     let formValues = {
-      // page: this.pageIndex,
-      // limit: this.pageSize
+      page: this.pageIndex,
+      limit: this.pageSize
     };
 
     const keys = Object.keys(this.FormReport.controls);
