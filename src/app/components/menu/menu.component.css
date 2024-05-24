@@ -41,6 +41,7 @@
 }
 
 .navbar {
+    height: 56px;
     background-color: #6626db !important;
     z-index: 1;
     position: fixed;

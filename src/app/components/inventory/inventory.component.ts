@@ -5,6 +5,7 @@ import { Medication } from 'src/app/models/medication';
 import { MedicationService } from '../../services/medication.service';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-inventory',
@@ -12,12 +13,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./inventory.component.css'],
   animations: [
     trigger('fade', [
-      
+
       transition('void => *', [
         style({ opacity: 0, transform: 'translate3d(0, -20%, 0)' }),
         animate(200)
       ]),
-      
+
       transition('* => void', [
         animate(200, style({ opacity: 0, transform: 'translate3d(0, -20%, 0)' }))
       ]),
@@ -79,14 +80,14 @@ import Swal from 'sweetalert2';
 })
 export class InventoryComponent implements OnInit {
 
-  @ViewChild('inputFile', {static: false})
+  @ViewChild('inputFile', { static: false })
   InputFile: ElementRef;
 
   expand: boolean = false;
   medications: Medication[] = [];
   state: string;
   stateBox: string;
-  divider:string;
+  divider: string;
   files: File[] = [];
   inputState: string = 'isEmpty';
   uploaded: boolean = false;
@@ -95,15 +96,15 @@ export class InventoryComponent implements OnInit {
     private router: Router,
     private medicationService: MedicationService,
     private authService: AuthService
-  ) {  
-      this.router.routeReuseStrategy.shouldReuseRoute = function() {
-        return false;
-      };
-      this.router.onSameUrlNavigation = 'reload';
-   }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.router.onSameUrlNavigation = 'reload';
+  }
 
   ngOnInit(): void {
-    if ( this.route()=='/inventory' ) {
+    if (this.route() == '/inventory') {
       this.getMedications();
     }
     this.state = 'in';
@@ -111,58 +112,58 @@ export class InventoryComponent implements OnInit {
     this.divider = 'in';
   }
 
-  screenWidth () {
+  screenWidth() {
     return window.screen.width;
   }
-  
-  route () {
+
+  route() {
     return this.router.url;
   }
 
-  resetInput () {
+  resetInput() {
     this.InputFile.nativeElement.value = "";
     this.inputState = 'isEmpty';
     this.files = [];
     this.uploaded = false;
   }
-  
-  expands () {
-    
-    if ( this.state == 'CSV') {
+
+  expands() {
+
+    if (this.state == 'CSV') {
       this.state = 'in';
       this.divider = 'in';
 
-      setTimeout(()=>{
+      setTimeout(() => {
         this.resetInput();
-      },600);
+      }, 600);
     } else {
       this.state = this.state === 'out' ? 'in' : 'out';
       this.divider = this.divider === 'out' ? 'in' : 'out';
       this.resetInput();
     }
 
-    if ( this.stateBox == 'CSVBox') {
+    if (this.stateBox == 'CSVBox') {
       this.stateBox = 'inBox'
       this.files = [];
 
-      setTimeout(()=>{
+      setTimeout(() => {
         this.InputFile.nativeElement.value = "";
         this.uploaded = false;
-      },600);
+      }, 600);
     } else {
       this.stateBox = this.stateBox === 'outBox' ? 'inBox' : 'outBox';
       this.resetInput();
     }
-    
+
     this.expand = !this.expand;
   }
 
-  infoCSV () {
+  infoCSV() {
     let text: string = `El formato del archivo debe ser CSV (extensión .csv)`;
     Swal.fire({
       icon: 'info',
       html:
-      `<div class="csv-info">
+        `<div class="csv-info">
         <span>Un archivo CSV (Comma Separated Values)
         es un archivo de texto plano que contiene valores separados por comas.</span><br><br>
         <span>La extensión del archivo debe ser .csv , por ejemplo:</span><br>
@@ -172,28 +173,28 @@ export class InventoryComponent implements OnInit {
         <p>Los valores aquí mostrados son a modo de ejemplo</p>
       </div>`
       ,
-    footer: '<a href="https://support.google.com/google-ads/editor/answer/56368">Para más información visite este sitio.</a>'
+      footer: '<a href="https://support.google.com/google-ads/editor/answer/56368">Para más información visite este sitio.</a>'
     })
   }
 
   addCSV() {
     this.state = this.state === 'CSV' ? 'out' : 'CSV';
     this.stateBox = this.stateBox === 'CSVBox' ? 'outBox' : 'CSVBox';
-    if ( this.state == 'out' || this.stateBox == 'outBox') {
-      setTimeout(()=>{
+    if (this.state == 'out' || this.stateBox == 'outBox') {
+      setTimeout(() => {
         this.uploaded = false;
-      },300);
+      }, 300);
     }
   }
 
   captureFile(event): any {
     this.files = [];
-    this.files.push( event.target.files[0] );
-    if ( !this.files[0] ) {
+    this.files.push(event.target.files[0]);
+    if (!this.files[0]) {
       this.uploaded = true;
       this.inputState = 'isEmpty';
     }
-    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv' ) {
+    if (this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv') {
       this.uploaded = true;
       this.inputState = 'incorrectFile';
       console.log(this.files[0].type);
@@ -201,41 +202,41 @@ export class InventoryComponent implements OnInit {
       this.inputState = '';
     }
   }
-  
+
   uploadFile(): any {
 
     this.uploaded = true;
-    if ( this.files.length === 0 || !this.files[0] ) {
+    if (this.files.length === 0 || !this.files[0]) {
       this.inputState = 'isEmpty';
       return;
     }
-    if ( this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv' ) {
+    if (this.files[0] && this.files[0].type != 'application/vnd.ms-excel' && this.files[0].type != 'text/csv') {
       return;
     }
 
     let branchId = this.authService.getBranchId();
     console.log(this.files[0]);
-  
+
     Swal.fire({
       allowOutsideClick: false,
       icon: 'info',
-      text:'Espere por favor...',
+      text: 'Espere por favor...',
       title: 'Cargando archivo'
     });
     Swal.showLoading();
-    this.medicationService.postCSV(this.files[0], branchId).subscribe(res=>{
+    this.medicationService.postCSV(this.files[0], branchId).subscribe(res => {
       Swal.fire({
         allowOutsideClick: false,
         icon: 'success',
-        text:'!Medicamentos cargados con éxito!',
+        text: '!Medicamentos cargados con éxito!',
         showConfirmButton: false,
       });
-      
-      setTimeout(()=>{
-        this.router.navigateByUrl('/inventory');
-      },1200);
 
-    },err=>{
+      setTimeout(() => {
+        this.router.navigateByUrl('/inventory');
+      }, 1200);
+
+    }, err => {
       console.log(err);
       Swal.fire({
         icon: 'error',
@@ -247,50 +248,46 @@ export class InventoryComponent implements OnInit {
 
   }
 
-  viewMedication ( medication: Medication ) {
+  viewMedication(medication: Medication) {
     this.medicationService.setMedicationData(medication);
     this.medicationService.setUserAction('viewMedication');
     this.router.navigateByUrl('/inventory/addMedicament');
   }
 
-  modifyMedication ( medication: Medication) {
+  modifyMedication(medication: Medication) {
     this.medicationService.setMedicationData(medication);
     this.medicationService.setUserAction('modifyMedication');
     this.router.navigateByUrl('/inventory/addMedicament');
   }
 
-  newMedication () {
+  newMedication() {
     this.medicationService.setUserAction('newMedication');
     this.router.navigateByUrl('/inventory/addMedicament');
   }
 
-  getMedications () {
+  getMedications() {
     let branchId = this.authService.getBranchId();
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.medicationService.get(branchId).subscribe(res=>{
-      
+    loader();
+    this.medicationService.get(branchId).subscribe(res => {
+
       this.medications = res['branchMedication'];
       console.log(this.medications);
       Swal.close();
-    },err=>{
+    }, err => {
       console.log(err);
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos'
       });
     });
   }
-  
-  
-  deleteMedication ( medication: Medication ) {
-    
+
+
+  deleteMedication(medication: Medication) {
+
     Swal.fire({
       title: '¿Está seguro?',
       text: "El medicamento se eliminará de forma permanente.",
@@ -302,27 +299,27 @@ export class InventoryComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-    
-        this.medicationService.delete( medication.id ).subscribe(  res=>{
+
+        this.medicationService.delete(medication.id).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'!Medicamento eliminado con éxito!',
+            text: '!Medicamento eliminado con éxito!',
             showConfirmButton: false,
           });
-          setTimeout(()=>{
+          setTimeout(() => {
             this.router.navigateByUrl('/inventory');
-          },1200);
+          }, 1200);
 
-        }, err=>{
+        }, err => {
           console.log(err);
           Swal.fire({
             icon: 'error',
@@ -330,7 +327,7 @@ export class InventoryComponent implements OnInit {
             title: 'Error al eliminar el medicamento'
           });
         }
-      );
+        );
       }
     })
   }

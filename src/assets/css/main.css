@@ -75,13 +75,13 @@ iframe {
 
 body {
     padding-top: 52px;
-    padding-bottom: 56px;
+    padding-bottom: 46px;
 }
+
 
 input:disabled {
     color: gray;
 }
-
 
 /*//////////////////////////////////////////////////////////////////
 [ Alerts ]*/
@@ -105,7 +105,7 @@ body::-webkit-scrollbar-thumb {
 .divBody {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 .nav-link-user {
@@ -355,7 +355,6 @@ input[type='image'] {
     border-radius: 40px;
     width: auto;
     height: auto;
-    margin: 50px;
     padding: 5% 10% 5% 10%;
     background-color: rgba(240, 240, 240, 0.938);
     box-shadow: 0px 0px 10px 1px #bfb3d6;
@@ -411,10 +410,10 @@ input[type='image'] {
 [ home ]*/
 
 .description-limiter {
-    padding: 0px 300px 0px 300px;
+    padding: 0 10%;
     align-items: center;
     text-align: center;
-    margin-top: 1.5%;
+    margin-top: 2%;
 }
 
 .box-description {
@@ -491,7 +490,6 @@ input[type='image'] {
     flex-wrap: wrap;
     justify-content: center !important;
     align-items: center !important;
-    padding: 20px 10%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -523,12 +521,12 @@ input[type='image'] {
     background: linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
     background: -moz-linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
     background: -webkit-linear-gradient(270deg, hsla(157, 86%, 66%, 1) 0%, hsla(0, 0%, 100%, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5CF3BA", endColorstr="#FFFFFF", GradientType=1);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#5CF3BA", endColorstr="#FFFFFF", GradientType=1);
 }
 
 .limiter {
     width: 100%;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .container-login100 {
@@ -769,11 +767,11 @@ input[type='image'] {
     margin-bottom: 15px;
 }
 
-mat-select {
+/* mat-select {
     background-color: honeydew !important;
     font-family: Poppins-Regular !important;
     height: 42px;
-}
+} */
 
 mat-select .mat-select-placeholder {
     font-size: 15px !important;
@@ -1064,35 +1062,34 @@ input:focus {
     }
 }
 
-
 /*//////////////////////////////////////////////////////////////////
 [ Footer ]*/
 
 footer {
     position: relative;
     bottom: 0px;
-    height: 56px;
+    height: 46px;
     background-color: #371bba;
-    padding: 16px;
+    padding: 10px;
     width: 100%;
 }
 
 .span-footer {
     font-family: Poppins-Regular;
     color: #5cf3ba;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .span-footer-gray {
     font-family: Poppins-Regular;
     color: rgb(190, 174, 174);
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .logo-footer {
-    width: 35px;
+    width: 30px;
     position: relative;
-    top: -3px;
+    top: 0px;
     right: 8px;
 }
 
@@ -1277,6 +1274,7 @@ footer {
     .new-reminder-btn {
         font-size: 120%;
     }
+
     .role-image {
         width: 320px;
         padding-bottom: 60px;
@@ -1284,65 +1282,82 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
+
     .img-role {
         width: 60%;
     }
+
     .login-container {
         width: auto;
         padding: 10%;
     }
+
     .container-home {
         padding: 0px 5% 15px 5%;
         height: auto;
         width: 100%;
     }
+
     .container-reminder {
         padding: 5% 3% 10% 3%;
     }
+
     .container-home-title {
         padding: 3% 10%;
     }
+
     .home-box {
         margin: 3% 0;
         width: 100%;
         padding: 15% 20%;
     }
+
     .reminder-title {
         font-size: 180%;
     }
+
     .form-reminder-title {
         font-size: 30px;
     }
+
     .form-reminder-container {
         width: 100%;
     }
+
     .box-reminder-title {
         border-radius: 25px;
     }
+
     .pill-reminder-btn {
         width: 100%;
     }
+
     .reminder-box {
         height: auto;
         width: 100%;
     }
+
     .pharmacy-register-button {
         width: 75%;
         margin: 0 auto;
     }
+
     .pharmacy-icon {
         transform: scale(0.75);
         margin: 0 5px 0 0;
     }
+
     .logo-pharm-register {
         width: 70%;
         margin: 5% auto;
     }
+
     .reg-pharm-title {
         font-size: 160%;
         color: #041d41;
         margin: 5% 0;
     }
+
     .cont-pharm-reg {
         background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../images/farmaceutica.jpg");
         height: 100%;
@@ -1352,11 +1367,13 @@ footer {
         padding: 10% 5% 20% 5%;
         width: 100%;
     }
+
     .cont-pharm-form {
         position: absolute;
         padding: 0 5%;
         top: 52%;
     }
+
     .pharm-form-title {
         font-family: Poppins-Bold;
         font-size: 180%;
@@ -1366,20 +1383,25 @@ footer {
         display: block;
         width: 100%;
     }
+
     .pharm-form {
         padding-bottom: 10%;
     }
+
     .cont-pharmacy {
         background-image: none;
     }
+
     .cont-search-input {
         width: 90%;
         padding: 0 3%;
     }
+
     .box-pharm-name {
         font-size: 12px;
         height: 22%;
     }
+
     .box-pharm-name {
         margin: 0;
     }
@@ -1403,9 +1425,11 @@ footer {
     .login-container {
         width: 300px;
     }
+
     .img-role {
         width: 160px;
     }
+
     .role-image {
         width: 260px;
         padding-bottom: 60px;
@@ -1413,29 +1437,36 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
+
     .login100-form-title {
         font-size: 25px;
     }
+
     .carousel-paragraph {
         margin-left: 20px;
         margin-right: 20px;
     }
+
     .home-title {
         font-size: 25px;
         margin-right: 20px;
         margin-left: 20px;
     }
+
     .home-title-2 {
         font-size: 25px;
     }
+
     .home-reminder-button {
         font-size: 15px;
         padding: 2px 15px 2px 15px;
         margin-top: 25px;
     }
+
     .btn-reminder-image {
         width: 15px;
     }
+
     .cont-pharm-form {
         padding: 0 3%;
     }
@@ -1448,7 +1479,14 @@ footer {
     .container-home {
         padding: 15px 15px 15px;
     }
+
     .home-box {
         margin: 0px;
+    }
+}
+
+@media (min-width: 1080px) {
+    .container-login100 {
+        min-height: calc(100vh - 102px);
     }
 }

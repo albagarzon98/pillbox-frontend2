@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { UserModel } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { PatientService } from '../../services/patient.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,10 @@ import { PatientService } from '../../services/patient.service';
 export class LoginComponent implements OnInit {
 
   FormLogin: FormGroup;
-  
+
   //Este booleano representa el valor del check "Recordar cuenta"
   rememberAccount = false;
-  
+
   //Este booleano me sirve para mostrar las validaciones de los campos del form solo si el
   //form está submitted
   submitted = false;
@@ -34,14 +35,14 @@ export class LoginComponent implements OnInit {
     private pharmacistService: PharmacistService,
     private tutorService: TutorService,
     public formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
-    if ( localStorage.getItem('token') ) {
+    if (localStorage.getItem('token')) {
       this.router.navigateByUrl('/home');
     }
-    
+
     //Se inicializan las variables de control del formulario, con sus validadores
     this.FormLogin = this.formBuilder.group({
       Email: [
@@ -54,41 +55,36 @@ export class LoginComponent implements OnInit {
       ],
       RememberAccount: [false]
     });
-    
+
     //Si se encuentra almacenada una cuenta de email en el localStorage, se asigna ese mail al usuario,
     //se setea el check "Recordar cuenta" en true, y se muestran estos valores en el form
-    if ( localStorage.getItem('email') ){
+    if (localStorage.getItem('email')) {
       this.user.email = localStorage.getItem('email');
       this.rememberAccount = true;
-      this.FormLogin.patchValue({RememberAccount: this.rememberAccount});
-      this.FormLogin.patchValue({Email: this.user.email});
+      this.FormLogin.patchValue({ RememberAccount: this.rememberAccount });
+      this.FormLogin.patchValue({ Email: this.user.email });
     }
   }
 
-  login (form: FormGroup) {
+  login(form: FormGroup) {
 
     this.submitted = true;
-    if ( form.invalid ) { return; }
+    if (form.invalid) { return; }
 
     //Asignamos los valores del form al objeto user
     this.user.email = this.FormLogin.value['Email'];
     this.user.password = this.FormLogin.value['Password'];
-    
+
     //Asignamos el valor del check "Recordar cuenta" a la variable rememberAccount
     this.rememberAccount = this.FormLogin.value['RememberAccount'];
 
     //Alerta de SweetAlert
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
+    loader();
 
     //Se llama al login del servicio
-    this.auth.login( this.user )
-      .subscribe( resp => {
-        
+    this.auth.login(this.user)
+      .subscribe(resp => {
+
         console.log(resp);
         this.role = this.auth.getRole();
 
@@ -97,12 +93,12 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('gender', res['patient']['0']['gender']);
             localStorage.setItem('fullName', res['patient']['0']['fullName']);
           });
-        }else if (this.role == 'farmaceutico') {
+        } else if (this.role == 'farmaceutico') {
           this.pharmacistService.get().subscribe(res => {
             localStorage.setItem('gender', res['pharmacist']['0']['gender']);
             localStorage.setItem('fullName', res['pharmacist']['0']['fullName']);
           });
-          
+
         } else if (this.role == 'tutor') {
           this.tutorService.get().subscribe(res => {
             localStorage.setItem('gender', res['tutor']['0']['gender']);
@@ -115,7 +111,7 @@ export class LoginComponent implements OnInit {
         Swal.close();
 
         //Si el usuario seleccionó el check "Recordar mi cuenta", se almacena su email en el localStorage
-        if( this.rememberAccount ){
+        if (this.rememberAccount) {
           localStorage.setItem('email', this.user.email);
         }
 
@@ -123,7 +119,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/home');
 
       }, (err) => {
-        
+
         console.log(err.error.message);
         //Se muestra el error en un alert
         Swal.fire({

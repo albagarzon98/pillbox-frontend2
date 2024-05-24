@@ -1,0 +1,18 @@
+<div class="login-background" *ngIf="route() == '/reports'">
+    <div class="container box-pharm">
+        <div class="row home-title">
+            <div class="col-12">
+                Reportes
+            </div>
+        </div>
+        <div class="row">
+            <div class="box-pharm" *ngIf="role == 'admin'" (click)="navigateToReportDetail('pharmacyRequestReport')">
+                <img src="../../../assets/images/health-report.png" alt="health report">
+                <span>
+                    Reporte de solicitudes de farmacia
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

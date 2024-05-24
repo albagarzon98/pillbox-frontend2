@@ -54,6 +54,13 @@
             <span class="box-title">Pacientes a cargo</span>
         </div>
 
+        <!--Reportes -->
+        <div class="home-box" routerLink="/reports" (mouseover)="showDescReports=true"
+            (mouseout)="showDescReports=false">
+            <img class="box-image" src="../../../assets/images/bar-graph.png" alt="">
+            <span class="box-title">Reportes</span>
+        </div>
+
     </div>
 
     <div class="description-limiter" *ngIf="screenWidth() > 1024">
@@ -83,6 +90,8 @@
         <!-- Descripción tutor -->
         <span class="box-description" *ngIf="showDescUsers && role == 'admin'">Aquí puedes administrar los usuarios de
             la aplicación.</span>
+
+        <span class="box-description" *ngIf="showDescReports">Aquí puedes ver tus reportes y gráficos.</span>
     </div>
 
 </div>

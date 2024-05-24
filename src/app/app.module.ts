@@ -35,13 +35,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { IconModule } from '../app/icon.module';
 import { GoogleMapsModule } from '@angular/google-maps';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -66,7 +70,9 @@ import { UsersComponent } from './components/users/users.component';
     AppointmentComponent,
     AppointmentFormComponent,
     PatientsComponent,
-    UsersComponent
+    UsersComponent,
+    ReportsComponent,
+    ReportDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +82,7 @@ import { UsersComponent } from './components/users/users.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule, 
+    MatMomentDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -87,7 +93,9 @@ import { UsersComponent } from './components/users/users.component';
     MatDividerModule,
     NgxMaskModule.forRoot(),
     GoogleMapsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     {
@@ -95,7 +103,7 @@ import { UsersComponent } from './components/users/users.component';
       useClass: InterceptorService,
       multi: true
     },
-    {provide: MAT_DATE_LOCALE, useValue: 'es'}
+    { provide: MAT_DATE_LOCALE, useValue: 'es' }
   ],
   bootstrap: [AppComponent]
 })

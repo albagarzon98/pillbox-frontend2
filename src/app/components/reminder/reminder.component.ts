@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { MedicationService } from '../../services/medication.service';
 import { BranchMedicationReminderService } from '../../services/branch-medication-reminder.service';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-reminder',
@@ -15,18 +16,18 @@ import { TutorService } from 'src/app/services/tutor.service';
   styleUrls: ['./reminder.component.css']
 })
 export class ReminderComponent implements OnInit {
-    
-  userReminders:Reminder[] = [];
-  branchMedications:[] = [];
-  reminderAction:string = 'reminderList';
+
+  userReminders: Reminder[] = [];
+  branchMedications: [] = [];
+  reminderAction: string = 'reminderList';
 
   modifyId: string = '';
-  
+
   FormReminder: FormGroup;
-  submitted:boolean = false;
-  medName:string = '';
-  modifyGrammage:string='';
-  unit:string = '';
+  submitted: boolean = false;
+  medName: string = '';
+  modifyGrammage: string = '';
+  unit: string = '';
   units = [];
   frequencies = [];
   endingType: any;
@@ -37,17 +38,17 @@ export class ReminderComponent implements OnInit {
     },
     {
       id: 2,
-      description: "Hasta" 
+      description: "Hasta"
     },
     {
       id: 3,
-      description: "Cantidad de días" 
+      description: "Cantidad de días"
     }
   ];
   isBranchMedication: boolean = false;
   branchMedicationId: string;
-  pharmmacyName:string;
-  
+  pharmmacyName: string;
+
   constructor(
     private router: Router,
     private reminderService: ReminderService,
@@ -55,15 +56,15 @@ export class ReminderComponent implements OnInit {
     public formBuilder: FormBuilder,
     private medicationService: MedicationService,
     private branchMedicationReminderService: BranchMedicationReminderService
-  ) { 
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
     this.router.onSameUrlNavigation = 'reload';
   }
 
   ngOnInit(): void {
-    
+
     localStorage.removeItem('userAction')
     localStorage.removeItem('patientData')
     this.tutorService.setUserAction('')
@@ -73,30 +74,25 @@ export class ReminderComponent implements OnInit {
         '',
         [Validators.required, Validators.maxLength(55)]
       ],
-      startDate: ['' , [Validators.required]],
+      startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       dose: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
-      unit: ['', [Validators.required] ],
+      unit: ['', [Validators.required]],
       endingType: ['', [Validators.required]],
       daysAmount: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
-      frequency: ['', [Validators.required] ],
+      frequency: ['', [Validators.required]],
       timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
       grammage: ['', [Validators.pattern('[0-9]{1,5}')]],
       inventory: ['', [Validators.pattern('[0-9]{1,5}')]],
       restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]]
     });
-    
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
+
+    loader();
     this.getReminders();
     this.getUnits();
     this.getFrequencies();
 
-    if ( this.medicationService.getUserAction() == 'addReminder' ) {
+    if (this.medicationService.getUserAction() == 'addReminder') {
       this.isBranchMedication = true;
       let medication = this.medicationService.getMedicationData();
       this.branchMedicationId = medication['id'];
@@ -112,7 +108,7 @@ export class ReminderComponent implements OnInit {
   }
 
   volver() {
-    if ( this.isBranchMedication && this.reminderAction == 'newReminder' ) {
+    if (this.isBranchMedication && this.reminderAction == 'newReminder') {
       this.router.navigateByUrl('pharmacy/profile');
     }
     this.reminderAction = 'reminderList';
@@ -123,28 +119,28 @@ export class ReminderComponent implements OnInit {
     this.medicationService.setUserAction('');
     this.isBranchMedication = false;
   }
-  
+
   getFrequencies() {
-    this.reminderService.getFrequencies().subscribe( res => {
+    this.reminderService.getFrequencies().subscribe(res => {
       this.frequencies = res['frequencies'];
     });
   }
-  
+
   getUnits() {
-    this.reminderService.getUnits().subscribe( res => {
-        
+    this.reminderService.getUnits().subscribe(res => {
+
       this.units = res['units'];
 
     }, (err) => {
       console.log(err.message);
-  
+
       Swal.fire({
         icon: 'error',
         text: err.message,
         title: 'No hay conexión con el servidor.'
       });
       this.router.navigateByUrl('/');
-  
+
     });
   }
 
@@ -152,22 +148,22 @@ export class ReminderComponent implements OnInit {
     return moment(date).format(format);
   }
 
-  formatedHour (hour, format) {
+  formatedHour(hour, format) {
     return moment(hour).utc().format(format);
   }
 
   getReminders() {
 
-    this.reminderService.get().subscribe( res =>{
-        
+    this.reminderService.get().subscribe(res => {
+
       let format = "DD/MM/YYYY";
       let hour = "HH:mm";
 
-      for(var i = 0; i < res['reminders'].length; i++){
-        res['reminders'][i]['startDate'] = this.formatedDate(res['reminders'][i]['startDate'],format);
+      for (var i = 0; i < res['reminders'].length; i++) {
+        res['reminders'][i]['startDate'] = this.formatedDate(res['reminders'][i]['startDate'], format);
         res['reminders'][i]['timeNotification'] = this.formatedHour(res['reminders'][i]['timeNotification'], hour);
-        if(res['reminders'][i]['endDate']){
-          res['reminders'][i]['endDate'] = this.formatedDate(res['reminders'][i]['endDate'],format);
+        if (res['reminders'][i]['endDate']) {
+          res['reminders'][i]['endDate'] = this.formatedDate(res['reminders'][i]['endDate'], format);
         }
       }
 
@@ -179,22 +175,23 @@ export class ReminderComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos personales'
       });
     })
   }
 
-  getBranchMedications () {
-    this.branchMedicationReminderService.get().subscribe(res=>{
-      
+  getBranchMedications() {
+    this.branchMedicationReminderService.get().subscribe(res => {
+
       let format = "DD/MM/YYYY";
       let hour = "HH:mm";
 
-      for(var i = 0; i < res['branchMedicationReminders'].length; i++){
-        res['branchMedicationReminders'][i]['startDate'] = this.formatedDate(res['branchMedicationReminders'][i]['startDate'],format);
+      for (var i = 0; i < res['branchMedicationReminders'].length; i++) {
+        res['branchMedicationReminders'][i]['startDate'] = this.formatedDate(res['branchMedicationReminders'][i]['startDate'], format);
         res['branchMedicationReminders'][i]['timeNotification'] = this.formatedHour(res['branchMedicationReminders'][i]['timeNotification'], hour);
-        if(res['branchMedicationReminders'][i]['endDate']){
-          res['branchMedicationReminders'][i]['endDate'] = this.formatedDate(res['branchMedicationReminders'][i]['endDate'],format);
+        if (res['branchMedicationReminders'][i]['endDate']) {
+          res['branchMedicationReminders'][i]['endDate'] = this.formatedDate(res['branchMedicationReminders'][i]['endDate'], format);
         }
       };
 
@@ -202,17 +199,18 @@ export class ReminderComponent implements OnInit {
       console.log(this.branchMedications);
       Swal.close();
 
-    },err=>{
+    }, err => {
       console.log(err.message);
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus medicamentos de farmacia'
       });
     });
   }
-  
-  patchMedicationValues ( medication ) {
+
+  patchMedicationValues(medication) {
     this.FormReminder.patchValue({
       medicationName: medication['medicationName'],
       unit: medication['unit']
@@ -224,12 +222,12 @@ export class ReminderComponent implements OnInit {
     }
     this.FormReminder.controls['grammage'].disable();
   }
-  
-  modifyReminder (reminder) {
+
+  modifyReminder(reminder) {
     this.reminderAction = 'modifyReminder';
     this.submitted = false;
 
-    if ( reminder['branchMedication'] ) {
+    if (reminder['branchMedication']) {
       this.isBranchMedication = true;
 
       this.setMedicationValues(reminder);
@@ -252,9 +250,9 @@ export class ReminderComponent implements OnInit {
     this.modifyId = reminder['id'];
   }
 
-  checkReminder( reminder ) {
-        
-    if ( reminder['branchMedication'] ) {
+  checkReminder(reminder) {
+
+    if (reminder['branchMedication']) {
       this.isBranchMedication = true;
 
       this.setMedicationValues(reminder);
@@ -269,44 +267,44 @@ export class ReminderComponent implements OnInit {
       this.unit = reminder['unit'];
       this.modifyGrammage = reminder['grammage'];
     }
-    
+
     this.FormReminder.disable();
-    
+
     this.reminderAction = 'checkReminder';
   }
 
-  setMedicationValues ( medication ) {
-    if ( medication['endDate'] === null) {
+  setMedicationValues(medication) {
+    if (medication['endDate'] === null) {
       this.FormReminder.controls['endDate'].setValue(null);
       this.FormReminder.controls['endingType'].setValue(1);
       this.endingType = 1;
-    } else if ( medication['endDate'] !== null ) {
+    } else if (medication['endDate'] !== null) {
       let endDate = moment(medication['endDate'], "DD/MM/YYYY");
       this.FormReminder.controls['endDate'].setValue(endDate);
       this.FormReminder.controls['endingType'].setValue(2);
       this.endingType = 2;
     }
-    
+
     this.FormReminder.patchValue({
       dose: medication['dose'],
       startDate: moment(medication['startDate'], "DD/MM/YYYY"),
       frequency: medication['frequency'],
       medicationName: medication['branchMedication']['medicationName'],
       unit: medication['branchMedication']['unit'],
-      timeNotification: medication['timeNotification'].replace(':',''),
+      timeNotification: medication['timeNotification'].replace(':', ''),
       inventory: medication['inventory'],
       grammage: medication['branchMedication']['grammage'],
       restockLimit: medication['restockLimit']
     });
   }
-  
-  setFormValues (reminder) {
-    
-    if ( reminder['endDate'] === null) {
+
+  setFormValues(reminder) {
+
+    if (reminder['endDate'] === null) {
       this.FormReminder.controls['endDate'].setValue(null);
       this.FormReminder.controls['endingType'].setValue(1);
       this.endingType = 1;
-    } else if ( reminder['endDate'] !== null ) {
+    } else if (reminder['endDate'] !== null) {
       let endDate = moment(reminder['endDate'], "DD/MM/YYYY");
       this.FormReminder.controls['endDate'].setValue(endDate);
       this.FormReminder.controls['endingType'].setValue(2);
@@ -319,13 +317,13 @@ export class ReminderComponent implements OnInit {
       frequency: reminder['frequency'],
       medicationName: reminder['medicationName'],
       unit: reminder['unit'],
-      timeNotification: reminder['timeNotification'].replace(':',''),
+      timeNotification: reminder['timeNotification'].replace(':', ''),
       inventory: reminder['inventory'],
       grammage: reminder['grammage']
     });
   }
 
-  deleteReminder (id) {
+  deleteReminder(id) {
     Swal.fire({
       title: '¿Está seguro?',
       text: "El medicamento se eliminará de forma permanente.",
@@ -337,25 +335,25 @@ export class ReminderComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-        this.reminderService.delete(id).subscribe( res => {
+        this.reminderService.delete(id).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'!Medicamento eliminado con éxito!',
+            text: '!Medicamento eliminado con éxito!',
             showConfirmButton: false,
           });
 
-          setTimeout(()=>{
+          setTimeout(() => {
             this.router.navigateByUrl('/reminder');
-          },1500);
+          }, 1500);
 
         }, (err) => {
           console.log(err.error.message);
@@ -370,7 +368,7 @@ export class ReminderComponent implements OnInit {
     })
   }
 
-  deleteBranchMedication (id) {
+  deleteBranchMedication(id) {
     Swal.fire({
       title: '¿Está seguro?',
       text: "El medicamento se eliminará de forma permanente.",
@@ -382,25 +380,25 @@ export class ReminderComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-        this.branchMedicationReminderService.delete(id).subscribe( res => {
+        this.branchMedicationReminderService.delete(id).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'!Medicamento eliminado con éxito!',
+            text: '!Medicamento eliminado con éxito!',
             showConfirmButton: false,
           });
 
-          setTimeout(()=>{
+          setTimeout(() => {
             this.router.navigateByUrl('/reminder');
-          },1500);
+          }, 1500);
 
         }, (err) => {
           console.log(err.error.message);
@@ -414,83 +412,78 @@ export class ReminderComponent implements OnInit {
       }
     })
   }
-  
-  onSubmit( form: FormGroup ) {
+
+  onSubmit(form: FormGroup) {
 
     const format = "DD-MM-YYYY";
     const today = moment().toDate();
-    
-    if ( this.FormReminder.value.endDate == null || this.FormReminder.value.endDate == '' && this.endingType != 2) {
-      this.FormReminder.patchValue({endDate: today});
+
+    if (this.FormReminder.value.endDate == null || this.FormReminder.value.endDate == '' && this.endingType != 2) {
+      this.FormReminder.patchValue({ endDate: today });
     }
-    if ( this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null && this.endingType != 3) {
-      this.FormReminder.patchValue({daysAmount: 1})
+    if (this.FormReminder.value.daysAmount == '' || this.FormReminder.value.daysAmount == null && this.endingType != 3) {
+      this.FormReminder.patchValue({ daysAmount: 1 })
     }
 
-    if ( !this.isBranchMedication ) {
-      this.FormReminder.patchValue({restockLimit: 1});
+    if (!this.isBranchMedication) {
+      this.FormReminder.patchValue({ restockLimit: 1 });
     }
-    
+
     let reminder = { ...this.FormReminder.value };
 
     this.submitted = true;
-    if ( form.invalid ) { return; }
+    if (form.invalid) { return; }
 
-    if ( this.endingType == 1 ) {
+    if (this.endingType == 1) {
       delete reminder.endDate;
     }
-    else if ( this.endingType == 2 ) { 
-      reminder['endDate'] = this.formatedDate(reminder['endDate'], format); 
+    else if (this.endingType == 2) {
+      reminder['endDate'] = this.formatedDate(reminder['endDate'], format);
     }
-    else if ( this.endingType == 3 ) { 
+    else if (this.endingType == 3) {
       reminder['endDate'] = moment(reminder['startDate']).add(reminder['daysAmount'], 'days').format(format)
     }
     delete reminder.daysAmount;
     delete reminder.endingType;
 
-    if ( reminder['grammage'] == '' || reminder['grammage'] == null) {
+    if (reminder['grammage'] == '' || reminder['grammage'] == null) {
       delete reminder.grammage;
     }
-    if ( reminder['inventory'] == '' || reminder['inventory'] == null ) {
+    if (reminder['inventory'] == '' || reminder['inventory'] == null) {
       delete reminder.inventory;
     }
-    if ( !this.isBranchMedication ) {
+    if (!this.isBranchMedication) {
       delete reminder.restockLimit;
     }
 
     reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
-    reminder['timeNotification'] = reminder['timeNotification'].slice(0,2) + ':' + reminder['timeNotification'].slice(2,4);
+    reminder['timeNotification'] = reminder['timeNotification'].slice(0, 2) + ':' + reminder['timeNotification'].slice(2, 4);
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    
+    loader();
+
     if (this.reminderAction === 'newReminder') {
-      
-      if ( this.isBranchMedication ) {
+
+      if (this.isBranchMedication) {
         reminder.branchMedication = this.branchMedicationId;
-        this.branchMedicationReminderService.post(reminder).subscribe(resp=>{
-          
+        this.branchMedicationReminderService.post(reminder).subscribe(resp => {
+
           console.log(resp);
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'¡Medicamento creado con éxito!',
+            text: '¡Medicamento creado con éxito!',
             showConfirmButton: false,
           });
-    
+
           this.submitted = false;
           this.medicationService.setUserAction('');
           this.medicationService.setMedicationData(null);
-          
-          setTimeout(()=>{
+
+          setTimeout(() => {
             this.router.navigateByUrl('/reminder');
-          },1500);
-          
-        },err=>{
+          }, 1500);
+
+        }, err => {
           console.log(err.error.message);
           Swal.fire({
             icon: 'error',
@@ -500,46 +493,46 @@ export class ReminderComponent implements OnInit {
         });
       } else {
         this.reminderService.post(reminder)
-        .subscribe( resp => {
-    
-          console.log(resp);
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'success',
-            text:'¡Medicamento creado con éxito!',
-            showConfirmButton: false,
+          .subscribe(resp => {
+
+            console.log(resp);
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'success',
+              text: '¡Medicamento creado con éxito!',
+              showConfirmButton: false,
+            });
+
+            setTimeout(() => {
+              this.router.navigateByUrl('/reminder');
+            }, 1500);
+
+          }, (err) => {
+            console.log(err.error.message);
+            Swal.fire({
+              icon: 'error',
+              text: err.error.message,
+              title: 'Error al crear el medicamento'
+            });
           });
-    
-          setTimeout(()=>{
-            this.router.navigateByUrl('/reminder');
-          },1500);
-      
-        }, (err)=> {
-          console.log(err.error.message);
-          Swal.fire({
-            icon: 'error',
-            text: err.error.message,
-            title: 'Error al crear el medicamento'
-          });
-        });
       }
 
     } else if (this.reminderAction === 'modifyReminder') {
-      
-      if ( this.isBranchMedication ) {
-        this.branchMedicationReminderService.patch(this.modifyId, reminder).subscribe(res=>{
+
+      if (this.isBranchMedication) {
+        this.branchMedicationReminderService.patch(this.modifyId, reminder).subscribe(res => {
           console.log(res);
           Swal.fire({
             allowOutsideClick: false,
             icon: 'success',
-            text:'¡Medicamento modificado con éxito!',
+            text: '¡Medicamento modificado con éxito!',
             showConfirmButton: false,
           });
-    
-          setTimeout(()=>{
+
+          setTimeout(() => {
             this.router.navigateByUrl('/reminder');
-          },1500);
-        },err=>{
+          }, 1500);
+        }, err => {
           console.log(err.error.message);
           Swal.fire({
             icon: 'error',
@@ -550,32 +543,32 @@ export class ReminderComponent implements OnInit {
 
       } else {
         this.reminderService.patch(this.modifyId, reminder)
-        .subscribe(resp => {
-          
-          console.log(resp);
-  
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'success',
-            text:'¡Medicamento modificado con éxito!',
-            showConfirmButton: false,
-          });
-    
-          setTimeout(()=>{
-            this.router.navigateByUrl('/reminder');
-          },1500);
-    
-        }, (err) => {
-          
-          console.log(err.error.message);
-          Swal.fire({
-            icon: 'error',
-            text: err.error.message,
-            title: 'Error al modificar el medicamento'
-          });
-        })
+          .subscribe(resp => {
+
+            console.log(resp);
+
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'success',
+              text: '¡Medicamento modificado con éxito!',
+              showConfirmButton: false,
+            });
+
+            setTimeout(() => {
+              this.router.navigateByUrl('/reminder');
+            }, 1500);
+
+          }, (err) => {
+
+            console.log(err.error.message);
+            Swal.fire({
+              icon: 'error',
+              text: err.error.message,
+              title: 'Error al modificar el medicamento'
+            });
+          })
       }
-      
+
     }
 
   }

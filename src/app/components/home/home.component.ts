@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit {
   showDescRequest: boolean = false;
   showDescPatients: boolean = false;
   showDescUsers: boolean = false;
-  
+  showDescReports: boolean = false;
+
   name: string;
   role: string;
 
-  constructor( 
+  constructor(
     private authService: AuthService,
     private medicationService: MedicationService,
     private appointmentService: AppointmentService,
@@ -35,20 +36,20 @@ export class HomeComponent implements OnInit {
     this.medicationService.setUserAction('');
   }
 
-  getNombre () {
-    if ( localStorage.getItem('name') ) {
+  getNombre() {
+    if (localStorage.getItem('name')) {
       this.name = localStorage.getItem('name');
-    } 
+    }
   }
 
   getGender() {
-    if ( localStorage.getItem('gender') ) {
+    if (localStorage.getItem('gender')) {
       return localStorage.getItem('gender');
     }
     return '';
   }
 
-  getPathName () {
+  getPathName() {
     return window.location.pathname;
   }
 
@@ -56,15 +57,15 @@ export class HomeComponent implements OnInit {
     this.role = this.authService.getRole();
   }
 
-  screenWidth () {
+  screenWidth() {
     return window.screen.width;
   }
 
-  newAppointment () {    
+  newAppointment() {
     this.appointmentService.setUserAction('newAppointment');
 
     localStorage.setItem('userAction', 'newAppointment');
-    
+
     this.router.navigateByUrl('/appointment');
   }
 

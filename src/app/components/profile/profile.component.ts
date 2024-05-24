@@ -123,6 +123,7 @@ export class ProfileComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar sus datos'
       });
     })
@@ -166,6 +167,7 @@ export class ProfileComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al cargar los datos del usuario'
       });
     })
@@ -296,6 +298,7 @@ export class ProfileComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         text: err.error.message,
+        heightAuto: false,
         title: 'Error al modificar sus datos'
       });
 

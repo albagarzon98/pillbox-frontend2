@@ -12,6 +12,7 @@ import { AppointmentService } from '../../../services/appointment.service';
 
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TutorService } from 'src/app/services/tutor.service';
+import { loader } from 'src/app/utils/swalUtils';
 
 @Component({
   selector: 'app-pharmacy-profile',
@@ -40,7 +41,7 @@ export class PharmacyProfileComponent implements OnInit {
   branchMedications = [];
   userAction: string = 'branches';
   role: string;
-  
+
   constructor(
     private pharmacyService: PharmacyService,
     private authService: AuthService,
@@ -51,7 +52,7 @@ export class PharmacyProfileComponent implements OnInit {
     private tutorService: TutorService,
 
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
     this.router.onSameUrlNavigation = 'reload';
@@ -63,13 +64,8 @@ export class PharmacyProfileComponent implements OnInit {
 
     this.appointmentService.setUserAction(userAction);
     this.appointmentService.setBranchData(branchData);
-    
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
+
+    loader();
     this.setRole();
     this.getPharmacyProfile();
   }
@@ -78,39 +74,34 @@ export class PharmacyProfileComponent implements OnInit {
     this.role = this.authService.getRole();
   }
 
-  expandData( medication ) {
-      medication.state = medication.state === 'out' ? 'in' : 'out';
+  expandData(medication) {
+    medication.state = medication.state === 'out' ? 'in' : 'out';
   }
 
-  back () {
+  back() {
     this.userAction = 'branches';
   }
 
-  addReminder ( medication ) {
+  addReminder(medication) {
     this.medicationService.setUserAction('addReminder');
-    this.medicationService.setMedicationData( medication );
-    if(this.tutorService.getUserAction() == 'assignBranchMedication'){
+    this.medicationService.setMedicationData(medication);
+    if (this.tutorService.getUserAction() == 'assignBranchMedication') {
       this.router.navigateByUrl('/patients');
-    }else{
+    } else {
       this.router.navigateByUrl('/reminder');
     }
   }
 
-  branchSelect ( branch:Branch ) {
+  branchSelect(branch: Branch) {
     let branchId = branch.branchId;
     this.branchSelected = branch;
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: 'info',
-      text:'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.medicationService.get(branchId).subscribe(res=>{
+    loader();
+    this.medicationService.get(branchId).subscribe(res => {
       console.log(res);
       this.branchMedications = res['branchMedication'];
       Swal.close();
-    },err=>{
+    }, err => {
       console.log(err);
       Swal.fire({
         icon: 'error',
@@ -118,18 +109,18 @@ export class PharmacyProfileComponent implements OnInit {
         title: 'Error al cargar los medicamentos.'
       });
     });
-    
+
     this.userAction = 'branchMedications';
   }
 
-  getPharmacyProfile () {
-    if ( localStorage.getItem('profilePharmacy') ) {
+  getPharmacyProfile() {
+    if (localStorage.getItem('profilePharmacy')) {
       let pharmacyId = localStorage.getItem('profilePharmacy');
-      this. pharmacyService.getPharmacy( pharmacyId ).subscribe(res=>{
+      this.pharmacyService.getPharmacy(pharmacyId).subscribe(res => {
         console.log(res);
         this.pharmacy = res['pharmacy'];
         this.getPharmacyBranches();
-        },err=>{
+      }, err => {
         console.log(err);
         Swal.fire({
           icon: 'error',
@@ -142,13 +133,13 @@ export class PharmacyProfileComponent implements OnInit {
     }
   }
 
-  modifyBranch( branch ) {
+  modifyBranch(branch) {
     this.branchService.setUserAction('modifyBranch');
     this.branchService.setBranchData(branch);
     this.router.navigateByUrl('/pharmacy/addBranch');
   }
 
-  deleteBranch ( branch ) {
+  deleteBranch(branch) {
     let branchId1 = branch.id;
     Swal.fire({
       title: '¿Está seguro?',
@@ -161,36 +152,36 @@ export class PharmacyProfileComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-    
+
         let branchDelete = branch['branchId'];
 
         console.log(branchDelete);
         console.log(this.pharmacy.id);
-        
-        this.pharmacyService.deleteBranch(this.pharmacy.id, branchDelete).subscribe(res=>{
+
+        this.pharmacyService.deleteBranch(this.pharmacy.id, branchDelete).subscribe(res => {
           console.log(res);
-          this.branchService.delete( branchId1 ).subscribe(  res=>{
-          
+          this.branchService.delete(branchId1).subscribe(res => {
+
             Swal.fire({
               allowOutsideClick: false,
               icon: 'success',
-              text:'!Sucursal eliminada con éxito!',
+              text: '!Sucursal eliminada con éxito!',
               showConfirmButton: false,
             });
-  
-            setTimeout(()=>{
+
+            setTimeout(() => {
               this.router.navigateByUrl('/pharmacy/profile');
-            },1200);
-  
-          }, err=>{
+            }, 1200);
+
+          }, err => {
             console.log(err);
             Swal.fire({
               icon: 'error',
@@ -198,8 +189,8 @@ export class PharmacyProfileComponent implements OnInit {
               title: 'Error al eliminar la sucursal'
             });
           }
-        );
-        },err=>{
+          );
+        }, err => {
           console.log(err);
           Swal.fire({
             icon: 'error',
@@ -207,23 +198,23 @@ export class PharmacyProfileComponent implements OnInit {
             title: 'Error al eliminar la sucursal del listado'
           });
         })
-        
+
       }
     })
   }
 
-  addBranch (  ) {
+  addBranch() {
     this.branchService.setUserAction('newBranch');
     this.router.navigateByUrl('/pharmacy/addBranch');
   }
 
-  getPharmacyBranches () {
+  getPharmacyBranches() {
     let pharmacyId = this.pharmacy.id;
-    this.pharmacyService.getPharmacyBranches( pharmacyId ).subscribe(res=>{
+    this.pharmacyService.getPharmacyBranches(pharmacyId).subscribe(res => {
       console.log(res);
       this.branches = res['branches'];
       Swal.close();
-    },err=>{
+    }, err => {
       console.log(err);
       Swal.fire({
         icon: 'error',
@@ -233,15 +224,15 @@ export class PharmacyProfileComponent implements OnInit {
     });
   }
 
-  modifyPharmacy( pharmacy ) {
-    
+  modifyPharmacy(pharmacy) {
+
     this.pharmacyService.setUserAction('modifyPharmacy');
     this.pharmacyService.setPharmacyData(pharmacy);
-    
+
     this.router.navigateByUrl('/pharmacyRequests/add');
   }
 
-  deletePharmacy ( pharmacy ) {
+  deletePharmacy(pharmacy) {
     let pharmacyId1 = pharmacy.id;
     Swal.fire({
       title: '¿Está seguro?',
@@ -254,64 +245,65 @@ export class PharmacyProfileComponent implements OnInit {
       showCancelButton: true,
       reverseButtons: true
 
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text:'Espere por favor...'
+          text: 'Espere por favor...'
         });
         Swal.showLoading();
-    
-        console.log('pharmacy',pharmacy);
+
+        console.log('pharmacy', pharmacy);
 
         this.branches.forEach(branch => {
           console.log('branch', branch);
-          (this.branchService.delete( branch.id ).subscribe(  res=>{
+          (this.branchService.delete(branch.id).subscribe(res => {
             console.log(res);
 
-          }, err=>{
+          }, err => {
             console.log(err);
           })
-    )});
+          )
+        });
 
         let pharmacyDelete = pharmacy['pharmacyId'];
 
         console.log(pharmacyDelete);
         console.log(this.pharmacy.id);
 
-          this.pharmacyService.delete( pharmacyId1 ).subscribe(  res=>{
-            console.log(res);
+        this.pharmacyService.delete(pharmacyId1).subscribe(res => {
+          console.log(res);
 
-            Swal.fire({
-              allowOutsideClick: false,
-              icon: 'success',
-              text:'!Farmacia eliminada con éxito!',
-              showConfirmButton: false,
-            });
-  
-            setTimeout(()=>{
-              this.router.navigateByUrl('/pharmacy');
-            },1200);
-  
-          }, err=>{
-            console.log(err);
-            Swal.fire({
-              icon: 'error',
-              text: err.error.message,
-              title: 'Error al eliminar la farmcia'
-            });
-          }
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'success',
+            text: '!Farmacia eliminada con éxito!',
+            showConfirmButton: false,
+          });
+
+          setTimeout(() => {
+            this.router.navigateByUrl('/pharmacy');
+          }, 1200);
+
+        }, err => {
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            text: err.error.message,
+            title: 'Error al eliminar la farmcia'
+          });
+        }
         );
-        
+
       }
     })
   }
 
-  takeAppointment ( branch ) {
-    
+  takeAppointment(branch) {
+
     this.appointmentService.setUserAction('takeAppointment');
-    this.appointmentService.setBranchData( branch );
+    this.appointmentService.setBranchData(branch);
 
     localStorage.setItem('userAction', 'takeAppointment');
     localStorage.setItem('branchData', JSON.stringify(branch));

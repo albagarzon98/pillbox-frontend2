@@ -19,41 +19,58 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
 
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'pharmacyRegister', component: PharmacyRegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'reminder', component: ReminderComponent,
-    canActivate: [ AuthGuard ],
+  {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['paciente', 'tutor', 'admin', 'farmaceutico']
+    },
+    canActivateChild: [AuthGuard],
+    children: [
+      { path: 'reportDetail', component: ReportDetailComponent }
+    ]
+  },
+  {
+    path: 'reminder', component: ReminderComponent,
+    canActivate: [AuthGuard],
     data: {
       role: ['paciente', 'tutor']
     }
   },
-  { path: 'pharmacy', component: PharmacyComponent, 
-    canActivate: [ AuthGuard ],
+  {
+    path: 'pharmacy', component: PharmacyComponent,
+    canActivate: [AuthGuard],
     data: {
       role: ['paciente', 'tutor', 'admin']
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'profile', component: PharmacyProfileComponent},
-      {path: 'addBranch', component: BranchFormComponent}
+      { path: 'profile', component: PharmacyProfileComponent },
+      { path: 'addBranch', component: BranchFormComponent }
     ]
-  },  
-  { path: 'pharmacyRequests', component: PharmacyRequestsComponent,
-    canActivate: [ AuthGuard ],
+  },
+  {
+    path: 'pharmacyRequests', component: PharmacyRequestsComponent,
+    canActivate: [AuthGuard],
     data: {
       role: ['admin']
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'add', component: PharmacyAddComponent}
+      { path: 'add', component: PharmacyAddComponent }
     ]
   },
   {
@@ -64,30 +81,30 @@ const routes: Routes = [
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'addMedicament', component: AddMedicamentComponent}
+      { path: 'addMedicament', component: AddMedicamentComponent }
     ]
-  }, 
+  },
   {
     path: 'appointment', component: AppointmentComponent,
     canActivate: [AuthGuard],
     data: {
-      role: ['farmaceutico','paciente','tutor']
+      role: ['farmaceutico', 'paciente', 'tutor']
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'addAppointment', component: AppointmentFormComponent}
+      { path: 'addAppointment', component: AppointmentFormComponent }
     ]
   },
-  { 
-    path: 'patients', 
+  {
+    path: 'patients',
     component: PatientsComponent,
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     data: {
       role: ['tutor']
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'assignPatient', component: AppointmentFormComponent}
+      { path: 'assignPatient', component: AppointmentFormComponent }
     ]
   },
   {
@@ -99,10 +116,10 @@ const routes: Routes = [
     },
     canActivateChild: [AuthGuard],
     children: [
-      {path: 'profile/:role/:id', component: ProfileComponent}
+      { path: 'profile/:role/:id', component: ProfileComponent }
     ]
   },
-  { path:'**', redirectTo:'homepage' }
+  { path: '**', redirectTo: 'homepage' }
 ];
 
 @NgModule({

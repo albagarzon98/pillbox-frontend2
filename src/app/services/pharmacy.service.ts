@@ -15,27 +15,27 @@ export class PharmacyService {
   requestId: string;
   pharmacyData: Pharmacy;
   userAction: string;
-  
-  constructor( private httpClient: HttpClient ) { }
-  
-  get () {
-    return this.httpClient.get(`${ url }pharmacy/`);
+
+  constructor(private httpClient: HttpClient) { }
+
+  get() {
+    return this.httpClient.get(`${url}pharmacy/?limit=100`);
   }
 
-  getPharmacy ( pharmacyId: string ) {
-    return this.httpClient.get(`${ url }pharmacy/${pharmacyId}`);
+  getPharmacy(pharmacyId: string) {
+    return this.httpClient.get(`${url}pharmacy/${pharmacyId}`);
   }
 
-  post (pharmacy: Pharmacy) {
-    return this.httpClient.post(`${ url }pharmacy/`, pharmacy);
+  post(pharmacy: Pharmacy) {
+    return this.httpClient.post(`${url}pharmacy/`, pharmacy);
   }
 
-  addPharmacy ( pharmacy: Pharmacy, requestId: string ) {
+  addPharmacy(pharmacy: Pharmacy, requestId: string) {
     this.pharmacyAdd = pharmacy;
     this.requestId = requestId;
   }
 
-  profilePharmacy ( pharmacyId: string ) {
+  profilePharmacy(pharmacyId: string) {
     localStorage.setItem('profilePharmacy', pharmacyId);
   }
 
@@ -43,15 +43,15 @@ export class PharmacyService {
     return this.pharmacyAdd;
   }
 
-  getRequestId () {
+  getRequestId() {
     return this.requestId;
   }
 
-  getPharmacyBranches ( pharmacyId: string ) {
+  getPharmacyBranches(pharmacyId: string) {
     return this.httpClient.get(`${url}pharmacy/branches/${pharmacyId}`);
   }
 
-  deleteBranch ( pharmacyId:string, branchId ) {
+  deleteBranch(pharmacyId: string, branchId) {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -62,28 +62,28 @@ export class PharmacyService {
     }
     return this.httpClient.delete(`${url}pharmacy/branches/${pharmacyId}`, options);
   }
-  
-  setUserAction (userAction: string) {
+
+  setUserAction(userAction: string) {
     this.userAction = userAction;
   }
-  getUserAction () {
+  getUserAction() {
     return this.userAction;
   }
 
-  setPharmacyData ( pharmacy: Pharmacy ) {
-    this.pharmacyData = pharmacy;    
+  setPharmacyData(pharmacy: Pharmacy) {
+    this.pharmacyData = pharmacy;
   }
 
-  getPharmacyData () {
+  getPharmacyData() {
     return this.pharmacyData;
   }
 
 
-  patch ( pharmacy: Pharmacy, pharmacyId: string ) {
+  patch(pharmacy: Pharmacy, pharmacyId: string) {
     return this.httpClient.patch(`${url}pharmacy/${pharmacyId}`, pharmacy);
   }
 
-  delete ( pharmacyId: string ) {
+  delete(pharmacyId: string) {
     return this.httpClient.delete(`${url}pharmacy/${pharmacyId}`);
   }
 }
