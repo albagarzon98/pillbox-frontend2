@@ -1,0 +1,8 @@
+.box-pharm {
+    border-radius: 10px;
+}
+
+.box-pharm:hover {
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+}
