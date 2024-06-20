@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,6 +25,7 @@ export class ReportDetailComponent implements OnInit {
   reportData: any[] = [];
 
   submitted: boolean = false;
+  selectedToggle: string;
 
   // MatPaginator Inputs
   length: number = 10;
@@ -114,6 +115,7 @@ export class ReportDetailComponent implements OnInit {
     if (form.invalid) { return; }
 
     this.updateReportData();
+    this.selectedToggle = 'report';
   }
 
   private updateReportData() {
