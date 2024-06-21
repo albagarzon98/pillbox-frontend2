@@ -75,7 +75,7 @@
             *ngIf="this.submitted && this.reportData.length > 0 && this.selectedToggle == 'report'">
         </mat-paginator>
 
-        <app-charts [chartType]="this.report.chartType" [data]="[]"
+        <app-charts [chartType]="this.report.chartType.name" [data]="this.chartData"
             *ngIf="this.submitted && this.reportData.length > 0 && this.selectedToggle == 'chart'"></app-charts>
     </div>
 </div>
