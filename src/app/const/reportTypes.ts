@@ -28,6 +28,9 @@ export const reportTypes = {
             branchesNumber: "Número de sucursales",
             status: "Estado",
         },
-        chartType: chartTypes.pieChart
+        chartType: {
+            name: chartTypes.pieChart.name,
+            propertyToCount: "status"
+        }
     }
 }
