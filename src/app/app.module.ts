@@ -48,6 +48,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChartsComponent } from './components/reports/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/reports/charts/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { ChartsComponent } from './components/reports/charts/charts.component';
     UsersComponent,
     ReportsComponent,
     ReportDetailComponent,
-    ChartsComponent
+    ChartsComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ import { ChartsComponent } from './components/reports/charts/charts.component';
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    NgxChartsModule
   ],
   providers: [
     {
