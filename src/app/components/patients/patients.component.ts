@@ -119,7 +119,9 @@ export class PatientsComponent implements OnInit {
       timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
       grammage: ['', [Validators.pattern('[0-9]{1,5}')]],
       inventory: ['', [Validators.pattern('[0-9]{1,5}')]],
-      restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]]
+      restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
+      notificationTimes: this.formBuilder.array([],),
+      timeNotification2: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
     });
 
     if (this.tutorService.getUserAction() == 'assignBranchMedication') {
@@ -205,6 +207,11 @@ export class PatientsComponent implements OnInit {
         this.FormReminder.patchValue({ restockLimit: 1 });
       }
 
+      if (this.FormReminder.value.timeNotification2 == null || this.FormReminder.value.timeNotification2 == '') {
+        this.FormReminder.patchValue({ timeNotification2: '1200' });
+      }
+  
+
       var reminder = { ...this.FormReminder.value };
     }
 
@@ -266,6 +273,14 @@ export class PatientsComponent implements OnInit {
       reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
       reminder['timeNotification'] = reminder['timeNotification'].slice(0, 2) + ':' + reminder['timeNotification'].slice(2, 4);
 
+      reminder['notificationTimes'] = [reminder['timeNotification']];
+      if (reminder['frequency'] === "2 veces al día") {
+          reminder['timeNotification2'] = reminder['timeNotification2'].slice(0, 2) + ':' + reminder['timeNotification2'].slice(2, 4);
+          reminder['notificationTimes'].push(reminder['timeNotification2']);
+          delete reminder.timeNotification2;
+      } else {
+          delete reminder.timeNotification2;
+      }
 
       if (this.isBranchMedication) {
         reminder.branchMedication = this.branchMedicationId;
@@ -349,7 +364,15 @@ export class PatientsComponent implements OnInit {
 
       reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
       reminder['timeNotification'] = reminder['timeNotification'].slice(0, 2) + ':' + reminder['timeNotification'].slice(2, 4);
-
+      
+      reminder['notificationTimes'] = [reminder['timeNotification']];
+      if (reminder['frequency'] === "2 veces al día") {
+          reminder['timeNotification2'] = reminder['timeNotification2'].slice(0, 2) + ':' + reminder['timeNotification2'].slice(2, 4);
+          reminder['notificationTimes'].push(reminder['timeNotification2']);
+          delete reminder.timeNotification2;
+      } else {
+          delete reminder.timeNotification2;
+      }
       if (this.isBranchMedication) {
         this.branchMedicationReminderService.patch(this.modifyId, reminder).subscribe(res => {
           console.log(res);
@@ -473,6 +496,11 @@ export class PatientsComponent implements OnInit {
         res['patientReminders'][i]['timeNotification'] = this.formatedHour(res['patientReminders'][i]['timeNotification'], hour);
         if (res['patientReminders'][i]['endDate']) {
           res['patientReminders'][i]['endDate'] = this.formatedDate(res['patientReminders'][i]['endDate'], format);
+        }
+        if (res['patientReminders'][i]['frequency'] === "2 veces al día") {
+          if (res['patientReminders'][i]['notificationTimes'] && res['patientReminders'][i]['notificationTimes'].length > 1) {
+            res['patientReminders'][i]['timeNotification2'] = this.formatedHour(res['patientReminders'][i]['notificationTimes'][1], hour);
+        }
         }
       }
 
@@ -610,6 +638,12 @@ export class PatientsComponent implements OnInit {
       this.endingType = 2;
     }
 
+    if (medication['frequency'] === "2 veces al día") {      
+      if (medication['notificationTimes'] && medication['notificationTimes'].length > 1) {
+        this.FormReminder.controls['timeNotification2'].setValue(medication['timeNotification2'].replace(':', ''));
+        }
+    }
+
     this.FormReminder.patchValue({
       dose: medication['dose'],
       startDate: moment(medication['startDate'], "DD/MM/YYYY"),
@@ -634,6 +668,13 @@ export class PatientsComponent implements OnInit {
       this.FormReminder.controls['endDate'].setValue(endDate);
       this.FormReminder.controls['endingType'].setValue(2);
       this.endingType = 2;
+    }
+
+    if (reminder['frequency'] === "2 veces al día") {
+      if (reminder['notificationTimes'] && reminder['notificationTimes'].length > 1) {
+        this.FormReminder.controls['timeNotification2'].setValue(reminder['timeNotification2'].replace(':', ''));
+    }
+    }else{
     }
 
     this.FormReminder.patchValue({

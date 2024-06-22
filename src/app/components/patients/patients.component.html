@@ -552,6 +552,23 @@
                             </div>
                         </div>
 
+                     <!-- Campo Hora de notificación 2 -->
+                    <div class="mb-3" *ngIf="FormReminder.get('frequency').value === '2 veces al día'">
+                        <label class="pill-label-reminder" for="unit">Hora 2:</label>
+
+                        <input class="form-control form-reminder-input" formControlName="timeNotification2"
+                            mask="Hh:m0" name="timeNotification2" placeholder="HH:mm" [ngClass]="{'is-invalid':(FormReminder.controls.timeNotification2.touched || submitted)  
+                        && FormReminder.controls.timeNotification2.errors}">
+
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification2.touched || submitted) 
+                        && FormReminder.controls.timeNotification2.errors?.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="pill-danger animated fadeIn mt-1" *ngIf="(FormReminder.controls.timeNotification2.touched || submitted) 
+                        && FormReminder.controls.timeNotification2.errors?.pattern">
+                            Dato hora, formato HH:mm
+                        </div>
+                    </div>
                         <!-- Campo Nivel de reposición -->
                         <div *ngIf="isBranchMedication">
                             <label class="pill-label-reminder">Nivel de reposición:</label>

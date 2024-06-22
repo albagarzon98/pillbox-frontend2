@@ -84,7 +84,10 @@ export class ReminderComponent implements OnInit {
       timeNotification: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
       grammage: ['', [Validators.pattern('[0-9]{1,5}')]],
       inventory: ['', [Validators.pattern('[0-9]{1,5}')]],
-      restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]]
+      restockLimit: ['', [Validators.required, Validators.pattern('[0-9]{1,5}')]],
+      notificationTimes: this.formBuilder.array([],),
+      timeNotification2: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$')]],
+
     });
 
     loader();
@@ -165,6 +168,12 @@ export class ReminderComponent implements OnInit {
         if (res['reminders'][i]['endDate']) {
           res['reminders'][i]['endDate'] = this.formatedDate(res['reminders'][i]['endDate'], format);
         }
+        if (res['reminders'][i]['frequency'] === "2 veces al día") {
+          if (res['reminders'][i]['notificationTimes'] && res['reminders'][i]['notificationTimes'].length > 1) {
+            res['reminders'][i]['timeNotification2'] = this.formatedHour(res['reminders'][i]['notificationTimes'][1], hour);
+        }
+        }
+
       }
 
       this.userReminders = res['reminders'];
@@ -192,6 +201,11 @@ export class ReminderComponent implements OnInit {
         res['branchMedicationReminders'][i]['timeNotification'] = this.formatedHour(res['branchMedicationReminders'][i]['timeNotification'], hour);
         if (res['branchMedicationReminders'][i]['endDate']) {
           res['branchMedicationReminders'][i]['endDate'] = this.formatedDate(res['branchMedicationReminders'][i]['endDate'], format);
+        }
+        if (res['branchMedicationReminders'][i]['frequency'] === "2 veces al día") {
+          if (res['branchMedicationReminders'][i]['notificationTimes'] && res['branchMedicationReminders'][i]['notificationTimes'].length > 1) {
+            res['branchMedicationReminders'][i]['timeNotification2'] = this.formatedHour(res['branchMedicationReminders'][i]['notificationTimes'][1], hour);
+        }
         }
       };
 
@@ -285,6 +299,12 @@ export class ReminderComponent implements OnInit {
       this.endingType = 2;
     }
 
+    if (medication['frequency'] === "2 veces al día") {      
+      if (medication['notificationTimes'] && medication['notificationTimes'].length > 1) {
+        this.FormReminder.controls['timeNotification2'].setValue(medication['timeNotification2'].replace(':', ''));
+        }
+    }
+    
     this.FormReminder.patchValue({
       dose: medication['dose'],
       startDate: moment(medication['startDate'], "DD/MM/YYYY"),
@@ -294,7 +314,7 @@ export class ReminderComponent implements OnInit {
       timeNotification: medication['timeNotification'].replace(':', ''),
       inventory: medication['inventory'],
       grammage: medication['branchMedication']['grammage'],
-      restockLimit: medication['restockLimit']
+      restockLimit: medication['restockLimit'],
     });
   }
 
@@ -309,6 +329,12 @@ export class ReminderComponent implements OnInit {
       this.FormReminder.controls['endDate'].setValue(endDate);
       this.FormReminder.controls['endingType'].setValue(2);
       this.endingType = 2;
+    }
+
+    if (reminder['frequency'] === "2 veces al día") {
+      if (reminder['notificationTimes'] && reminder['notificationTimes'].length > 1) {
+        this.FormReminder.controls['timeNotification2'].setValue(reminder['timeNotification2'].replace(':', ''));
+    }
     }
 
     this.FormReminder.patchValue({
@@ -429,6 +455,10 @@ export class ReminderComponent implements OnInit {
       this.FormReminder.patchValue({ restockLimit: 1 });
     }
 
+    if (this.FormReminder.value.timeNotification2 == null || this.FormReminder.value.timeNotification2 == '') {
+      this.FormReminder.patchValue({ timeNotification2: '1200' });
+    }
+
     let reminder = { ...this.FormReminder.value };
 
     this.submitted = true;
@@ -458,7 +488,15 @@ export class ReminderComponent implements OnInit {
 
     reminder['startDate'] = this.formatedDate(reminder['startDate'], format);
     reminder['timeNotification'] = reminder['timeNotification'].slice(0, 2) + ':' + reminder['timeNotification'].slice(2, 4);
-
+    
+    reminder['notificationTimes'] = [reminder['timeNotification']];
+    if (reminder['frequency'] === "2 veces al día") {
+        reminder['timeNotification2'] = reminder['timeNotification2'].slice(0, 2) + ':' + reminder['timeNotification2'].slice(2, 4);
+        reminder['notificationTimes'].push(reminder['timeNotification2']);
+        delete reminder.timeNotification2;
+    } else {
+        delete reminder.timeNotification2;
+    }
     loader();
 
     if (this.reminderAction === 'newReminder') {
