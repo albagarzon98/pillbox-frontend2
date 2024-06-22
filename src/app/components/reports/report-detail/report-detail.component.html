@@ -51,8 +51,15 @@
                 </div>
             </form>
         </div>
+
+        <mat-button-toggle-group *ngIf="this.submitted && this.reportData.length > 0" class="custom-toggle-group"
+            name="reportType" aria-label="Report Type" [(ngModel)]="selectedToggle">
+            <mat-button-toggle class="toggle-button" value="report">Reporte</mat-button-toggle>
+            <mat-button-toggle class="toggle-button" value="chart">Gráfico</mat-button-toggle>
+        </mat-button-toggle-group>
+
         <table mat-table [dataSource]="this.reportData" class="mat-elevation-z8" multiTemplateDataRows
-            *ngIf="this.submitted && this.reportData.length > 0">
+            *ngIf="this.submitted && this.reportData.length > 0 && this.selectedToggle == 'report'">
             <div *ngFor="let key of getObjectKeys(this.report.tableTitles)">
                 <ng-container [matColumnDef]="key">
                     <th mat-header-cell *matHeaderCellDef> {{this.report.tableTitles[key]}} </th>
@@ -64,8 +71,11 @@
             <tr mat-row *matRowDef="let row; columns: getObjectKeys(this.report.tableTitles);"></tr>
         </table>
         <mat-paginator class="box-pharm" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-            (page)="onPageChange($event)" aria-label="Select page" *ngIf="this.submitted && this.reportData.length > 0">
+            (page)="onPageChange($event)" aria-label="Select page"
+            *ngIf="this.submitted && this.reportData.length > 0 && this.selectedToggle == 'report'">
         </mat-paginator>
 
+        <app-charts [chartType]="this.report.chartType.name" [data]="this.chartData"
+            *ngIf="this.submitted && this.reportData.length > 0 && this.selectedToggle == 'chart'"></app-charts>
     </div>
 </div>

@@ -46,7 +46,10 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ChartsComponent } from './components/reports/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/reports/charts/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     PatientsComponent,
     UsersComponent,
     ReportsComponent,
-    ReportDetailComponent
+    ReportDetailComponent,
+    ChartsComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +100,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     GoogleMapsModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonToggleModule,
+    NgxChartsModule
   ],
   providers: [
     {

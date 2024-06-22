@@ -1,4 +1,5 @@
 import { PharmacyRequest } from "../models/pharmacy-request";
+import { chartTypes } from "./chartTypes";
 
 export const reportTypes = {
     pharmacyRequestReport: {
@@ -26,6 +27,10 @@ export const reportTypes = {
             contactEmail: "Email",
             branchesNumber: "Número de sucursales",
             status: "Estado",
+        },
+        chartType: {
+            name: chartTypes.pieChart.name,
+            propertyToCount: "status"
         }
     }
 }
