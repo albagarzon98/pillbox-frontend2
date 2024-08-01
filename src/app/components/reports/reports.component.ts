@@ -24,7 +24,7 @@ export class ReportsComponent implements OnInit {
   }
 
   navigateToReportDetail(name) {
-    this.router.navigate(['/reports/reportDetail'], { queryParams: { name: 'pharmacyRequestReport' } });
+    this.router.navigate(['/reports/reportDetail'], { queryParams: { name: name } });
   }
 
   route() {

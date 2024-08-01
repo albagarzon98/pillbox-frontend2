@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -118,7 +118,7 @@ export class ReportDetailComponent implements OnInit {
     if (form.invalid) { return; }
 
     this.updateReportData();
-    this.updateChartData();
+    this.report.chartType && this.updateChartData();
     this.selectedToggle = 'report';
   }
 
@@ -156,12 +156,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   mapToReportType(data: any[]) {
-    switch (this.report.model) {
-      case PharmacyRequest:
-        return data.map(item => this.mapToObject(item));
-      default:
-        return null;
-    }
+    return data.map(item => this.mapToObject(item));
   }
 
   mapToObject(obj: any) {
