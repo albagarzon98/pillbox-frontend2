@@ -12,6 +12,12 @@
                     Reporte de solicitudes de farmacia
                 </span>
             </div>
+            <div class="box-pharm" *ngIf="role == 'patient' || 'tutor'" (click)="navigateToReportDetail('reminderReport')">
+                <img src="../../../assets/images/health-report.png" alt="health report">
+                <span>
+                    Reporte de medicamentos tomados
+                </span>
+            </div>
         </div>
     </div>
 </div>
