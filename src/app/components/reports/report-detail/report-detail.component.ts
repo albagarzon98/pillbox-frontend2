@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { loader } from 'src/app/utils/swalUtils';
 import Swal from 'sweetalert2';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { countOccurrences } from 'src/app/utils/chartUtils';
+import { Reminder } from 'src/app/models/reminder';
 
 @Component({
   selector: 'app-report-detail',
@@ -118,7 +119,7 @@ export class ReportDetailComponent implements OnInit {
     if (form.invalid) { return; }
 
     this.updateReportData();
-    this.updateChartData();
+    this.report.chartType && this.updateChartData();
     this.selectedToggle = 'report';
   }
 
@@ -156,12 +157,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   mapToReportType(data: any[]) {
-    switch (this.report.model) {
-      case PharmacyRequest:
-        return data.map(item => this.mapToObject(item));
-      default:
-        return null;
-    }
+    return data.map(item => this.mapToObject(item));
   }
 
   mapToObject(obj: any) {
@@ -186,6 +182,8 @@ export class ReportDetailComponent implements OnInit {
     switch (this.report.model) {
       case PharmacyRequest:
         return new PharmacyRequest();
+      case Reminder:
+        return new Reminder();
       default:
         return null;
     }
@@ -226,8 +224,16 @@ export class ReportDetailComponent implements OnInit {
   }
 
   formatDateIfDate(value: any): any {
-    return value instanceof Date ? this.formatDate(value) : value;
+    if (value instanceof Date) {
+      const invalidDate = new Date(0); 
+      if (value.getTime() === invalidDate.getTime()) {
+        return "-";
+      }
+      return this.formatDate(value);
+    }
+      return value;
   }
+  
 
   mapDataToChart(reportData: any[]): any[] {
     switch (this.report.chartType.name) {

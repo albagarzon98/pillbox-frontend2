@@ -52,7 +52,7 @@
             </form>
         </div>
 
-        <mat-button-toggle-group *ngIf="this.submitted && this.reportData.length > 0" class="custom-toggle-group"
+        <mat-button-toggle-group *ngIf="this.submitted && this.reportData.length > 0 && this.report.chartType" class="custom-toggle-group"
             name="reportType" aria-label="Report Type" [(ngModel)]="selectedToggle">
             <mat-button-toggle class="toggle-button" value="report">Reporte</mat-button-toggle>
             <mat-button-toggle class="toggle-button" value="chart">Gráfico</mat-button-toggle>

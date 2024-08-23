@@ -41,18 +41,27 @@
     font-size: 14px;
 }
 
+.mat-select {
+    font-size: 15px;
+}
+
 .inputDate.mat-input-element {
     font-family: Poppins-Regular;
     background-color: honeydew !important;
     line-height: 1.2;
-    font-size: 18px;
+    font-size: 15px;
     display: inline;
     width: 70%;
     background: transparent;
-    height: 40px;
+    height: 42px;
     margin-top: 0px !important;
     padding-left: 10px;
     border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.inputDate.mat-input-element::placeholder {
+    color: gray;
+    font-size: 15px !important;
 }
 
 .box-pharm:hover {

@@ -4,7 +4,7 @@
 // URL LOCALHOST http://localhost:3000/v1/
 export const environment = {
   production: false,
-  url:"https://pillboxbackendv2.onrender.com/v1/"
+  url:"http://localhost:3000/v1/"
 };
 
 /*

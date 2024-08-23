@@ -187,52 +187,65 @@
         margin: 0 5%;
         width: 90%;
     }
+
     .col-lg-10 .box-pharm {
         width: 100%;
         overflow: hidden;
         margin: 10px 0;
     }
+
     .box-pharm span {
         width: 150px;
     }
+
     .box-pharm .mat-icon {
         margin: 2px 10px 0 10px;
         width: 15px;
     }
+
     .options button .mat-icon {
         font-size: 15px;
         margin: 0;
     }
+
     .box-reminder-title {
         padding: 5%;
         margin: 5% 0;
     }
+
     .box-reminder-title .box-pharm {
         width: 95%;
     }
+
     .cont-opt .home-reminder-button {
         font-size: 14px;
         height: 35px;
         padding: 0 15px;
     }
+
     .cont-opt .box-pharm {
         width: 90%;
     }
+
     .cont-opt .box-pharm .infoCSV {
         width: 25px;
         font-size: 25px;
     }
+
     .cont-opt .box-pharm img {
         width: 30px;
         height: 30px;
     }
+
     .cont-opt input {
         width: 90%;
         font-size: 12px;
     }
+
     .box-pharm span {
         font-size: 12px;
     }
+
     .box-pharm .options button {
         margin: 0;
     }
@@ -248,6 +261,7 @@
     .box-pharm span {
         width: 130px;
     }
+
     .box-pharm .options button {
         width: 30px;
     }
