@@ -1,6 +1,6 @@
 export class Reminder {
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
     unit: string;
     frequency: string;
     medicationName: string;
@@ -10,8 +10,8 @@ export class Reminder {
     isTutorAssigned: boolean;
 
     constructor() {
-        this.startDate = "";
-        this.endDate = "";
+        this.startDate = new Date();
+        this.endDate = new Date();
         this.unit = "";
         this.frequency = "";
         this.medicationName = "";
