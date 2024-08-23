@@ -11,6 +11,7 @@ import { loader } from 'src/app/utils/swalUtils';
 import Swal from 'sweetalert2';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { countOccurrences } from 'src/app/utils/chartUtils';
+import { Reminder } from 'src/app/models/reminder';
 
 @Component({
   selector: 'app-report-detail',
@@ -181,6 +182,8 @@ export class ReportDetailComponent implements OnInit {
     switch (this.report.model) {
       case PharmacyRequest:
         return new PharmacyRequest();
+      case Reminder:
+        return new Reminder();
       default:
         return null;
     }
