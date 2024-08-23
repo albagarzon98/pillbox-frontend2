@@ -224,8 +224,16 @@ export class ReportDetailComponent implements OnInit {
   }
 
   formatDateIfDate(value: any): any {
-    return value instanceof Date ? this.formatDate(value) : value;
+    if (value instanceof Date) {
+      const invalidDate = new Date(0); 
+      if (value.getTime() === invalidDate.getTime()) {
+        return "-";
+      }
+      return this.formatDate(value);
+    }
+      return value;
   }
+  
 
   mapDataToChart(reportData: any[]): any[] {
     switch (this.report.chartType.name) {
