@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row justify-content-md-center text-center">
+        <span class="reminder-label" style="margin-bottom: 4%;">
+            Confirmar turno
+        </span>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-10">
+                <mat-form-field style="display: inline;">
+                    <input matInput placeholder="Nombre del medicamento" [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let branchMedication of filteredOptions | async" 
+                            [value]="branchMedication"
+                        >
+                            {{ branchMedication.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <button mat-mini-fab 
+                    type="submit"
+                    class="custom-fab-button" 
+                    matTooltip="Añadir medicamento" 
+                    aria-label="Example icon button with a menu icon"
+                >
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="container-list">
+        <div class="box-pharm" *ngFor="let medication of selectedMedications">
+            <span class="medication-name">
+                {{ medication.name }}
+            </span>
+            <button mat-icon-button matTooltip="Eliminar" matTooltipPosition="above" color="warn" (click)="onDeleteMedication(medication)" style="margin-left: auto;">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
