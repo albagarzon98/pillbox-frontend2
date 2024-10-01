@@ -775,6 +775,11 @@ input[type='image'] {
     color: gray;
 }
 
+.mat-dialog-container {
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px !important;
+  }
+
 .form-reminder-input {
     font-family: Poppins-Regular;
     color: #403866;
