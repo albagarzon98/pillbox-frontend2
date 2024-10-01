@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
 import { AuthService } from '../../services/auth.service';
@@ -6,6 +6,17 @@ import { Router } from '@angular/router';
 import { Appointment } from '../../models/appointment';
 import * as moment from 'moment';
 import { loader } from 'src/app/utils/swalUtils';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BranchService } from 'src/app/services/branch.service';
+import { IdNameStructure } from 'src/app/const/genericTypes';
+import { formatBranchMedications } from 'src/app/utils/appointmentUtils';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+export interface DialogData {
+  branchMedications: IdNameStructure[];
+}
 
 @Component({
   selector: 'app-appointment',
@@ -23,11 +34,15 @@ export class AppointmentComponent implements OnInit {
   upcomingAppointments: Appointment[] = [];
   availableByDate: any[] = [];
   upcomingByDate: any[] = [];
+  selectedMedications: IdNameStructure[] = [];
+  branchMedications: IdNameStructure[] = [];
 
   constructor(
     private appointmentService: AppointmentService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+    private branchService: BranchService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -48,6 +63,7 @@ export class AppointmentComponent implements OnInit {
     this.userAction = this.appointmentService.getUserAction();
 
     loader();
+    this.branchMedications = formatBranchMedications(this.branchService.branchMedications);
     this.getAppointments();
   }
 
@@ -178,7 +194,6 @@ export class AppointmentComponent implements OnInit {
       this.appointments = res['reservation'];
 
       this.orderByDate(this.appointments);
-
       Swal.close();
     }, err => {
       Swal.fire({
@@ -188,7 +203,6 @@ export class AppointmentComponent implements OnInit {
         title: 'Error al cargar los turnos'
       });
     })
-
   }
 
   selectAppointment(appointment) {
@@ -431,5 +445,82 @@ export class AppointmentComponent implements OnInit {
       return `En ${duration.humanize()}`;
     }
   }
+
+  openDialog(appointment): void {
+    const dialogRef = this.dialog.open(AppointmentDialog, {
+      width: '400px',
+      data: {
+        branchMedications: this.branchMedications
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.selectedMedications = result;
+      console.log("SELECTED!!!", this.selectedMedications);
+    });
+  }
 }
 
+@Component({
+  selector: 'appointment-dialog',
+  templateUrl: 'appointment-dialog.html',
+  styleUrls: ['./appointment.component.css']
+})
+export class AppointmentDialog implements OnInit {
+
+  myControl = new FormControl();
+  filteredOptions: Observable<IdNameStructure[]>;
+  selectedMedications: IdNameStructure[] = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<AppointmentDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
+  }
+
+  private _filter(value: string): IdNameStructure[] {
+    const filterValue = value.toLowerCase();
+
+    if (!value) {
+      return this.data.branchMedications;
+    }
+
+    return this.data.branchMedications.filter(option =>
+      option.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onDeleteMedication(medication: IdNameStructure) {
+    this.selectedMedications = this.selectedMedications.filter(med => med !== medication);
+  }
+
+  displayFn(option: IdNameStructure): string {
+    return option && option.name ? option.name : '';
+  }
+
+  onSubmit() {
+    const selectedOption = this.myControl.value;
+    const exist = this.data.branchMedications.includes(selectedOption);
+    const existInArray = this.selectedMedications.includes(selectedOption);
+
+    if (selectedOption && !existInArray && exist) {
+      this.selectedMedications.push(selectedOption);
+    }
+    this.myControl.reset();
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    );
+  }
+}

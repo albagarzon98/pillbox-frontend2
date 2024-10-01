@@ -69,3 +69,43 @@
 .options {
     margin-left: auto;
 }
+
+.custom-fab-button {
+    color: white;
+    background-color: #6626db;
+}
+
+.medication-name {
+    margin: auto 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.container-list .box-pharm {
+    animation: none;
+    padding-left: 5%;
+}
+
+.container-list {
+    max-height: 175px;
+    overflow-y: auto;
+    padding: 0 3% 0 2%;
+}
+
+.container-list::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+.container-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.container-list::-webkit-scrollbar-thumb {
+    background: #6649b8;
+    border-radius: 2px;
+}
+
+.mat-input-element {
+    caret-color: #1a1b73; /* Color del texto */
+}

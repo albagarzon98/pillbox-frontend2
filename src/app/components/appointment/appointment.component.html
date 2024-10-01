@@ -28,9 +28,9 @@
                 </button>
                 <div class="box-pharm box" *ngFor="let date of availableByDate">
                     <span class="date">
-                  {{ date.name }}
-                </span>
-                    <div class="box-pharm cursor-pointer" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && selectAppointment(appointment)">
+                        {{ date.name }}
+                    </span>
+                    <div class="box-pharm cursor-pointer" *ngFor="let appointment of date['dayAppointments']" (click)="(role === 'paciente' || role === 'tutor') && openDialog(appointment)">
                         <span>
                             de: {{ appointment.startTime }} hs a: {{ appointment.endTime }} hs ({{ getTimeRemaining(appointment) }})
                         </span>
