@@ -55,12 +55,10 @@ export class AppointmentFormComponent implements OnInit {
     this.setFormValues();
 
     if(this.userAction == 'newAppointment' || this.userAction == 'modifyAppointment'){
-
       this.FormAppointment.removeControl('assignedUser');
       this.FormAppointment.removeControl('branchName');
       this.FormAppointment.removeControl('pharmacistUser');
       this.FormAppointment.removeControl('status');
-    
     }
 
   }
