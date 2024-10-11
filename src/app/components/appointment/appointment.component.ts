@@ -34,7 +34,6 @@ export class AppointmentComponent implements OnInit {
   upcomingAppointments: Appointment[] = [];
   availableByDate: any[] = [];
   upcomingByDate: any[] = [];
-  selectedMedications: IdNameStructure[] = [];
   branchMedications: IdNameStructure[] = [];
 
   constructor(
@@ -62,15 +61,16 @@ export class AppointmentComponent implements OnInit {
 
     this.userAction = this.appointmentService.getUserAction();
 
-    loader();
     this.branchMedications = formatBranchMedications(this.branchService.branchMedications);
-    this.getAppointments();
+    if (this.router.url === '/appointment') {
+      loader();
+      this.getAppointments();
+    } 
   }
 
   setRole() {
     this.role = this.authService.getRole();
   }
-
 
   route() {
     return this.router.url;
@@ -183,7 +183,7 @@ export class AppointmentComponent implements OnInit {
     let branchId;
     let status = "";
 
-    if (this.appointmentService.getUserAction() === 'takeAppointment') {
+    if (this.role !== 'farmaceutico') {
       branchId = this.appointmentService.branchData.branchId;
     } else {
       branchId = this.authService.getBranchId();
@@ -205,7 +205,7 @@ export class AppointmentComponent implements OnInit {
     })
   }
 
-  selectAppointment(appointment) {
+  selectAppointment(appointment, branchMedications) {
     let appointmentId = appointment.id;
     Swal.fire({
       title: 'Confirmar Turno',
@@ -220,15 +220,8 @@ export class AppointmentComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: 'Espere por favor...',
-          showCancelButton: true,
-          showConfirmButton: false,
-        });
-        Swal.showLoading();
-        this.appointmentService.takeAppointment(appointmentId).subscribe(res => {
+        loader();
+        this.appointmentService.takeAppointment(appointmentId, branchMedications).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
             showCloseButton: true,
@@ -282,14 +275,7 @@ export class AppointmentComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: 'Espere por favor...',
-          showCancelButton: true,
-          showConfirmButton: false,
-        });
-        Swal.showLoading();
+        loader();
         this.appointmentService.rejectAppointment(appointmentId).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
@@ -333,14 +319,7 @@ export class AppointmentComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: 'Espere por favor...',
-          showCancelButton: true,
-          showConfirmButton: false,
-        });
-        Swal.showLoading();
+        loader();
         this.appointmentService.rejectPatientAppointment(appointmentId).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
@@ -394,14 +373,7 @@ export class AppointmentComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: 'Espere por favor...',
-          showCancelButton: true,
-          showConfirmButton: false,
-        });
-        Swal.showLoading();
+        loader();
         this.appointmentService.delete(appointmentId).subscribe(res => {
           Swal.fire({
             allowOutsideClick: false,
@@ -455,9 +427,10 @@ export class AppointmentComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.selectedMedications = result;
-      console.log("SELECTED!!!", this.selectedMedications);
+      if (result) {
+        const requestMedications = result.map(medication => medication.id);
+        this.selectAppointment(appointment, requestMedications);
+      }
     });
   }
 }
@@ -522,5 +495,13 @@ export class AppointmentDialog implements OnInit {
       startWith(''),
       map(value => this._filter(value || ''))
     );
+  }
+
+  onCancelClick() {
+    this.dialogRef.close();
+  }
+
+  onAcceptClick() {
+    this.dialogRef.close(this.selectedMedications);
   }
 }
