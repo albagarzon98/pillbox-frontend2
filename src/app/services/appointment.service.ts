@@ -46,9 +46,10 @@ export class AppointmentService {
     this.branchData = branch;
   }
 
-  takeAppointment ( appointmentId ) {
+  takeAppointment ( appointmentId, branchMedications ) {
     const body = {
-      reservationId: appointmentId
+      reservationId: appointmentId,
+      branchMedications: branchMedications
     };
     return this.httpClient.patch(`${ url }reservation/take`, body);
   }
