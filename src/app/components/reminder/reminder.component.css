@@ -2,10 +2,6 @@
     margin-top: 20px;
 }
 
-.login-background {
-    padding: 3% 0;
-}
-
 .form-reminder-container {
     border-radius: 10px;
     width: 1200px;
@@ -31,6 +27,7 @@
     align-items: center;
     width: auto;
     height: auto;
+    border-radius: 15px;
 }
 
 .box-pharm:hover {

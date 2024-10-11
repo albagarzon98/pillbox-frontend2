@@ -20,11 +20,7 @@
 }
 
 .container .row .col-md-3 {
-    padding: 30px 15px;
-}
-
-.container .row .col-md-6 {
-    padding: 30px 15px;
+    margin: 2% 0;
 }
 
 .branch-name {
@@ -104,6 +100,7 @@
 
 .home-title {
     margin: 0 0 25px 0;
+    animation: none;
 }
 
 .box-reminder-title {
@@ -123,7 +120,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px 20px;
+    padding: 10%;
+    margin: 0;
+    border-radius: 15px;
 }
 
 .cont-profile {
@@ -140,7 +139,7 @@
 .pharm-name {
     font-family: Poppins-Bold;
     text-align: center;
-    margin: 20px 0 !important;
+    margin: 0 0 10% 0 !important;
     font-size: 20px !important;
 }
 
@@ -248,14 +247,19 @@
     left: 3px;
 }
 
-.medications .pill-back-button .back {
-    margin: 0 0 20px 0;
-}
-
 .medications .home-title {
     margin: 10px 0 25px 0;
 }
 
 .home-title {
     text-align: center;
+}
+
+.box-container {
+    border-radius: 15px;
+    padding: 2%;
+    height: auto;
+    background-color: rgba(240, 240, 240, 0.938);
+    box-shadow: 0px 0px 5px 1px #bfb3d6;
+    margin: 2% 0;
 }
