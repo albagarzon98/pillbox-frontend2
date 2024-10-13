@@ -33,9 +33,13 @@ export class AppointmentService {
     this.appointmentData = appointment;
   }
   
-  get ( branchId: string, status: string ) {
+  getReservationsByBranchId ( branchId: string, status: string ) {
     const params = { status: status };
     return this.httpClient.get(`${ url }reservation/byBranchId/${ branchId }`, { params: params });
+  }
+
+  getAllFromUser() {
+    return this.httpClient.get(`${ url }reservation`)
   }
 
   post ( appointment ) {
