@@ -77,7 +77,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   newAppointment() {
-    this.appointmentService.setUserAction('newAppointment');
+    localStorage.setItem('formUserAction', 'newAppointment')
     this.router.navigateByUrl('/appointment/addAppointment');
   }
 
@@ -109,8 +109,7 @@ export class AppointmentComponent implements OnInit {
         this.availableAppointments.push(appointments[i]);
       } else if (appointments[i].status === 'taken' && this.role == "farmaceutico") {
         this.upcomingAppointments.push(appointments[i]);
-
-      } else if (appointments[i].status === 'taken' && appointments[i].assignedUser.id == this.authService.getUserId()) {
+      } else if (appointments[i].status === 'taken' && (appointments[i].assignedUser.id == this.authService.getUserId() || appointments[i].assignedUser == this.authService.getUserId())) {
         this.upcomingAppointments.push(appointments[i]);
       }
 
@@ -183,13 +182,36 @@ export class AppointmentComponent implements OnInit {
     let branchId;
     let status = "";
 
+    if (this.userAction === "checkAppointment") {
+      this.getAllReservationsFromUser();
+    } else {
+      this.getBranchReservations(branchId, status);
+    }
+  }
+
+  private getAllReservationsFromUser() {
+    this.appointmentService.getAllFromUser().subscribe(res => {
+      this.appointments = res['reservations'];
+      this.orderByDate(this.appointments);
+      Swal.close();
+    }, err => {
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        heightAuto: false,
+        title: 'Error al cargar los turnos'
+      });
+    });
+  }
+
+  private getBranchReservations(branchId: any, status: string) {
     if (this.role !== 'farmaceutico') {
       branchId = this.appointmentService.branchData.branchId;
     } else {
       branchId = this.authService.getBranchId();
     }
 
-    this.appointmentService.get(branchId, status).subscribe(res => {
+    this.appointmentService.getReservationsByBranchId(branchId, status).subscribe(res => {
 
       this.appointments = res['reservation'];
 
@@ -202,7 +224,7 @@ export class AppointmentComponent implements OnInit {
         heightAuto: false,
         title: 'Error al cargar los turnos'
       });
-    })
+    });
   }
 
   selectAppointment(appointment, branchMedications) {
@@ -250,11 +272,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   viewDetails(appointment: Appointment) {
-
-    this.appointmentService.setUserAction('detailsAppointment');
-    this.appointmentService.setAppointmentData(appointment);
-
-    localStorage.setItem('userAction', 'detailsAppointment');
+    localStorage.setItem('formUserAction', 'detailsAppointment');
     localStorage.setItem('appointmentData', JSON.stringify(appointment));
 
     this.router.navigateByUrl('/appointment/addAppointment')
@@ -348,11 +366,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   modifyAppointment(appointment: Appointment) {
-
-    this.appointmentService.setUserAction('modifyAppointment');
-    this.appointmentService.setAppointmentData(appointment);
-
-    localStorage.setItem('userAction', 'modifyAppointment');
+    localStorage.setItem('formUserAction', 'modifyAppointment');
     localStorage.setItem('appointmentData', JSON.stringify(appointment));
 
     this.router.navigateByUrl('/appointment/addAppointment')

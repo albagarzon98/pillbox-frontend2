@@ -14,8 +14,8 @@
     </div>
 
     <div class="container animated fadeInUp" *ngIf="appointments.length != 0">
-        <div class="row justify-content-between">
-            <div class="col-lg-6 col-xs-12 box-container">
+        <div class="row" [ngClass]="userAction == 'checkAppointment' ? 'justify-content-md-center' : 'justify-content-between'">
+            <div class="col-lg-6 col-xs-12 box-container" *ngIf="userAction != 'checkAppointment'">
                 <span class="home-title">Turnos Disponibles</span>
                 <button class="new-reminder-btn" *ngIf="role == 'farmaceutico'" (click)="newAppointment()">
                 <mat-icon style="transform: scale(0.9)" svgIcon="mas"></mat-icon>

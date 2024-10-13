@@ -62,9 +62,13 @@ export class HomeComponent implements OnInit {
   }
 
   newAppointment() {
-    this.appointmentService.setUserAction('newAppointment');
-
-    localStorage.setItem('userAction', 'newAppointment');
+    if (this.role === 'farmaceutico') {
+      this.appointmentService.setUserAction('newAppointment');
+      localStorage.setItem('userAction', 'newAppointment');
+    } else {
+      this.appointmentService.setUserAction('checkAppointment');
+      localStorage.setItem('userAction', 'checkAppointment');
+    }
 
     this.router.navigateByUrl('/appointment');
   }
