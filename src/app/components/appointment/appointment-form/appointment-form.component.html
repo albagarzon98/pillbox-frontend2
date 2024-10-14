@@ -10,11 +10,11 @@
                         </a>
                     </div>
 
-                    <span class="pharm-form-title" *ngIf="userAction == 'newAppointment'">
+                    <span class="pharm-form-title" *ngIf="formUserAction == 'newAppointment'">
                         Registrar turno
                     </span>
 
-                    <span class="pharm-form-title" *ngIf="userAction == 'modifyAppointment'">
+                    <span class="pharm-form-title" *ngIf="formUserAction == 'modifyAppointment'">
                         Modificar turno
                     </span>
 
@@ -71,31 +71,37 @@
                         </div>
                     </div>
                     <!-- Campo Asignado a -->
-                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                    <div class="mb-3" *ngIf="formUserAction == 'detailsAppointment' && role == 'farmaceutico'">
                         <label class="pill-label-reminder">Usuario solicitante:</label>
                         <input class="form-control form-reminder-input" formControlName="assignedUser" readonly />
                     </div>
                     
                     <!-- Campo Nombre de sucursal -->
-                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                    <div class="mb-3" *ngIf="formUserAction == 'detailsAppointment'">
                         <label class="pill-label-reminder">Nombre de sucursal:</label>
                         <input class="form-control form-reminder-input" formControlName="branchName" readonly />
                     </div>
                     
                     <!-- Campo Usuario farmacéutico -->
-                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                    <div class="mb-3" *ngIf="formUserAction == 'detailsAppointment' && role == 'farmaceutico'">
                         <label class="pill-label-reminder">Usuario farmacéutico:</label>
                         <input class="form-control form-reminder-input" formControlName="pharmacistUser" readonly />
                     </div>
                     
                     <!-- Campo Estado -->
-                    <div class="mb-3" *ngIf="userAction == 'detailsAppointment'">
+                    <div class="mb-3" *ngIf="formUserAction == 'detailsAppointment'">
                         <label class="pill-label-reminder">Estado:</label>
                         <input class="form-control form-reminder-input" formControlName="status" readonly />
                     </div>
 
-                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'newAppointment'">Crear turno</button>
-                    <button type="submit" class="pill-form-btn" *ngIf="userAction == 'modifyAppointment'">Modificar turno</button>
+                    <!-- Campo Medicamentos -->
+                    <div class="mb-3" *ngIf="formUserAction == 'detailsAppointment' && appointment.branchMedications.length > 0">
+                        <label class="pill-label-reminder">Medicamentos seleccionados:</label>
+                        <textarea class="form-control form-textarea" formControlName="medications" readonly></textarea>
+                    </div>
+
+                    <button type="submit" class="pill-form-btn" *ngIf="formUserAction == 'newAppointment'">Crear turno</button>
+                    <button type="submit" class="pill-form-btn" *ngIf="formUserAction == 'modifyAppointment'">Modificar turno</button>
 
                 </form>
             </div>

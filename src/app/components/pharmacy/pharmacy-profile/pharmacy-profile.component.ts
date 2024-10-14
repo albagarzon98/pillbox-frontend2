@@ -100,6 +100,7 @@ export class PharmacyProfileComponent implements OnInit {
     this.medicationService.get(branchId).subscribe(res => {
       console.log(res);
       this.branchMedications = res['branchMedication'];
+      this.branchService.branchMedications = res['branchMedication'];
       Swal.close();
     }, err => {
       console.log(err);

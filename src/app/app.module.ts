@@ -38,7 +38,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
-import { AppointmentComponent } from './components/appointment/appointment.component';
+import { AppointmentComponent, AppointmentDialog } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
@@ -50,6 +50,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChartsComponent } from './components/reports/charts/charts.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/reports/charts/pie-chart/pie-chart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { PieChartComponent } from './components/reports/charts/pie-chart/pie-cha
     ReportsComponent,
     ReportDetailComponent,
     ChartsComponent,
-    PieChartComponent
+    PieChartComponent,
+    AppointmentDialog
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,9 @@ import { PieChartComponent } from './components/reports/charts/pie-chart/pie-cha
     MatTableModule,
     MatPaginatorModule,
     MatButtonToggleModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   providers: [
     {

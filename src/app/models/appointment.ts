@@ -1,4 +1,5 @@
 import { UserModel } from '../models/user';
+import { Medication } from './medication';
 
 export class Appointment {
     id: string;
@@ -10,4 +11,5 @@ export class Appointment {
     pharmacistUser: UserModel;
     status: string;
     assignedUser: UserModel;
+    branchMedications: Medication[];
 }

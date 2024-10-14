@@ -83,6 +83,10 @@ input:disabled {
     color: gray;
 }
 
+textarea:disabled {
+    color: gray;
+}
+
 input::placeholder {
     color: gray !important;
 }
@@ -774,6 +778,11 @@ input[type='image'] {
 .mat-select-placeholder {
     color: gray;
 }
+
+.mat-dialog-container {
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px !important;
+  }
 
 .form-reminder-input {
     font-family: Poppins-Regular;

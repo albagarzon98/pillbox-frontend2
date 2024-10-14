@@ -12,6 +12,7 @@ export class BranchService {
 
   branchData: Branch;
   userAction: string;
+  branchMedications = [];
 
   constructor( private httpClient: HttpClient ) { }
 
