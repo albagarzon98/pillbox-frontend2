@@ -10,6 +10,8 @@ import { ReportService } from 'src/app/services/report.service';
 import { loader } from 'src/app/utils/swalUtils';
 import Swal from 'sweetalert2';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { countOccurrences } from 'src/app/utils/chartUtils';
+import { Reminder } from 'src/app/models/reminder';
 
 @Component({
   selector: 'app-report-detail',
@@ -23,8 +25,10 @@ export class ReportDetailComponent implements OnInit {
   minDate: Date;
   maxDate: Date = new Date();
   reportData: any[] = [];
+  chartData: any[] = [];
 
   submitted: boolean = false;
+  selectedToggle: string;
 
   // MatPaginator Inputs
   length: number = 10;
@@ -110,21 +114,22 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+    this.pageIndex = 1;
     this.submitted = true;
     if (form.invalid) { return; }
 
     this.updateReportData();
+    this.report.chartType && this.updateChartData();
+    this.selectedToggle = 'report';
   }
 
   private updateReportData() {
-    const formValues = this.createFormValuesObject();
-
     loader();
+    const formValues = this.createFormValuesObject();
     this.reportService[this.report.serviceFunction](formValues).subscribe(res => {
       this.reportData = this.mapToReportType(res.results);
       this.length = res.totalResults;
-
-      Swal.close();
+      Swal.close()
     }, err => {
       Swal.fire({
         icon: 'error',
@@ -135,13 +140,24 @@ export class ReportDetailComponent implements OnInit {
     });
   }
 
+  private updateChartData() {
+    const formValuesWithoutPagination = this.createFormValuesObject(false);
+    this.reportService[this.report.serviceFunction](formValuesWithoutPagination).subscribe(res => {
+      let reportDataToMap = this.mapToReportType(res.results);
+      this.chartData = this.mapDataToChart(reportDataToMap);
+      Swal.close()
+    }, err => {
+      Swal.fire({
+        icon: 'error',
+        text: err.error.message,
+        heightAuto: false,
+        title: 'Error al cargar el gráfico'
+      });
+    });
+  }
+
   mapToReportType(data: any[]) {
-    switch (this.report.model) {
-      case PharmacyRequest:
-        return data.map(item => this.mapToObject(item));
-      default:
-        return null;
-    }
+    return data.map(item => this.mapToObject(item));
   }
 
   mapToObject(obj: any) {
@@ -166,16 +182,22 @@ export class ReportDetailComponent implements OnInit {
     switch (this.report.model) {
       case PharmacyRequest:
         return new PharmacyRequest();
+      case Reminder:
+        return new Reminder();
       default:
         return null;
     }
   }
 
-  createFormValuesObject() {
-    let formValues = {
-      page: this.pageIndex,
-      limit: this.pageSize
-    };
+  createFormValuesObject(withPagination = true) {
+    let formValues = {};
+
+    if (withPagination) {
+      formValues = {
+        page: this.pageIndex,
+        limit: this.pageSize
+      };
+    }
 
     const keys = Object.keys(this.FormReport.controls);
 
@@ -202,6 +224,23 @@ export class ReportDetailComponent implements OnInit {
   }
 
   formatDateIfDate(value: any): any {
-    return value instanceof Date ? this.formatDate(value) : value;
+    if (value instanceof Date) {
+      const invalidDate = new Date(0); 
+      if (value.getTime() === invalidDate.getTime()) {
+        return "-";
+      }
+      return this.formatDate(value);
+    }
+      return value;
+  }
+  
+
+  mapDataToChart(reportData: any[]): any[] {
+    switch (this.report.chartType.name) {
+      case "pieChart":
+        return countOccurrences(reportData, this.report.chartType.propertyToCount);
+      default:
+        return null;
+    }
   }
 }

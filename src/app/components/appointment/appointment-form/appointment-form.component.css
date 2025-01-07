@@ -11,4 +11,17 @@ img {
 .inputDate {
     width: 80%;
     margin-right: 25px;
+    background-color: honeydew;
+}
+
+.inputDate:disabled {
+    background-color: #e9ecef;
+}
+
+.form-textarea {
+    font-family: Poppins-Regular;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    height: auto;
 }

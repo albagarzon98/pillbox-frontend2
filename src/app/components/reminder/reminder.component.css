@@ -2,10 +2,6 @@
     margin-top: 20px;
 }
 
-.login-background {
-    padding: 3% 0;
-}
-
 .form-reminder-container {
     border-radius: 10px;
     width: 1200px;
@@ -31,6 +27,7 @@
     align-items: center;
     width: auto;
     height: auto;
+    border-radius: 15px;
 }
 
 .box-pharm:hover {
@@ -108,6 +105,10 @@
     background-color: white;
     box-shadow: 0px 0px 5px 1px #6626db;
     cursor: pointer;
+}
+
+.mat-select .mat-select-placeholder {
+    font-size: 18px;
 }
 
 @media only screen and (min-width:320px) and (max-width:480px) {

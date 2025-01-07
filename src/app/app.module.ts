@@ -38,7 +38,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PharmacyProfileComponent } from './components/pharmacy/pharmacy-profile/pharmacy-profile.component';
 import { BranchFormComponent } from './components/pharmacy/branch-form/branch-form.component';
-import { AppointmentComponent } from './components/appointment/appointment.component';
+import { AppointmentComponent, AppointmentDialog } from './components/appointment/appointment.component';
 import { AppointmentFormComponent } from './components/appointment/appointment-form/appointment-form.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users.component';
@@ -46,7 +46,12 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportDetailComponent } from './components/reports/report-detail/report-detail.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ChartsComponent } from './components/reports/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/reports/charts/pie-chart/pie-chart.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -72,7 +77,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     PatientsComponent,
     UsersComponent,
     ReportsComponent,
-    ReportDetailComponent
+    ReportDetailComponent,
+    ChartsComponent,
+    PieChartComponent,
+    AppointmentDialog
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     GoogleMapsModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonToggleModule,
+    NgxChartsModule,
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   providers: [
     {

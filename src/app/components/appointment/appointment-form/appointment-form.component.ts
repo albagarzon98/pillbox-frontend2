@@ -6,6 +6,7 @@ import { Appointment } from '../../../models/appointment';
 import { AppointmentService } from '../../../services/appointment.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { Medication } from 'src/app/models/medication';
 
 @Component({
   selector: 'app-appointment-form',
@@ -16,8 +17,9 @@ export class AppointmentFormComponent implements OnInit {
 
   submitted: boolean = false;
   FormAppointment: FormGroup;
-  userAction: string;
+  formUserAction: string;
   appointment: Appointment;
+  role: string;
   statusTranslations: { [key: string]: string } = {
     taken: 'Reservado',
     active: 'Activo',
@@ -40,33 +42,27 @@ export class AppointmentFormComponent implements OnInit {
       assignedUser: [''],
       branchName: [''],
       pharmacistUser: [''],
-      status: ['']
+      status: [''],
+      medications: [''],
     });
 
-    const userAction = localStorage.getItem('userAction');
-    const appointmentData = JSON.parse(localStorage.getItem('appointmentData'));
-    
-    this.appointmentService.setUserAction(userAction);
-    this.appointmentService.setAppointmentData(appointmentData);
-
-    this.userAction = this.appointmentService.getUserAction();
-    this.appointment = this.appointmentService.getAppointmentData();
+    this.role = this.authService.getRole();
+    this.formUserAction = localStorage.getItem('formUserAction');
+    this.appointment = JSON.parse(localStorage.getItem('appointmentData'));
 
     this.setFormValues();
 
-    if(this.userAction == 'newAppointment' || this.userAction == 'modifyAppointment'){
-
+    if(this.formUserAction == 'newAppointment' || this.formUserAction == 'modifyAppointment'){
       this.FormAppointment.removeControl('assignedUser');
       this.FormAppointment.removeControl('branchName');
       this.FormAppointment.removeControl('pharmacistUser');
       this.FormAppointment.removeControl('status');
-    
     }
 
   }
 
   setFormValues () {
-    if ( this.userAction != 'newAppointment' ) {
+    if ( this.formUserAction != 'newAppointment' ) {
 
       this.FormAppointment.patchValue({
           reservationDate: moment(this.appointment.reservationDate, 'DD/MM/YYYY').toDate(),
@@ -76,10 +72,10 @@ export class AppointmentFormComponent implements OnInit {
           branchName: this.appointment.branchName,
           pharmacistUser: this.appointment.pharmacistUser.name,
           status: this.getStatusTranslation(this.appointment.status),
-
+          medications: this.getMedicationsNames(this.appointment.branchMedications),
       });
     };
-    if ( this.userAction == 'detailsAppointment' ) {
+    if ( this.formUserAction == 'detailsAppointment' ) {
       this.FormAppointment.disable();
     }
   }
@@ -88,9 +84,16 @@ export class AppointmentFormComponent implements OnInit {
     return this.statusTranslations[status] || status;
   }
 
+  getMedicationsNames(branchMedications: Medication[]): string {
+    if (branchMedications.length > 0) {
+      return branchMedications.map(medication => `${medication.medicationName} - ${medication.description}`).join('\n');
+    }
+    return '';
+  }
+
   onSubmit ( form: FormGroup ) {
     this.submitted = true;
-    if ( this.userAction == 'modifyAppointment' ) { 
+    if ( this.formUserAction == 'modifyAppointment' ) { 
       this.FormAppointment.patchValue({
         startTime: this.FormAppointment.value.startTime.replace(':', ''),
         endTime: this.FormAppointment.value.endTime.replace(':', '')
@@ -112,13 +115,14 @@ export class AppointmentFormComponent implements OnInit {
     appointment['startTime'] = appointment['startTime'].slice(0,2) + ':' + appointment['startTime'].slice(2,4);
     appointment['endTime'] = appointment['endTime'].slice(0,2) + ':' + appointment['endTime'].slice(2,4);
 
-    if ( this.userAction == 'newAppointment' ) { 
+    if ( this.formUserAction == 'newAppointment' ) { 
       Swal.fire({
         allowOutsideClick: false,
         icon: 'info',
         text:'Espere por favor...'
       });
       Swal.showLoading();
+      delete appointment.medications;      
       this.appointmentService.post( appointment ).subscribe(res=>{
         
         console.log(res);
@@ -142,13 +146,14 @@ export class AppointmentFormComponent implements OnInit {
       })
     }
 
-    if ( this.userAction == 'modifyAppointment' ) { 
+    if ( this.formUserAction == 'modifyAppointment' ) { 
       Swal.fire({
         allowOutsideClick: false,
         icon: 'info',
         text:'Espere por favor...'
       });
       Swal.showLoading();
+      delete appointment.medications;
       this.appointmentService.patch( this.appointment.id, appointment).subscribe(res=>{
         
         console.log(res);
@@ -171,16 +176,10 @@ export class AppointmentFormComponent implements OnInit {
         });
       })
     }
-
-
   }
 
   volver() {
-    this.appointmentService.setUserAction('newAppointment');
-    localStorage.setItem('userAction', 'newAppointment');
-
     this.router.navigateByUrl('/appointment');
-
   }
 
 }

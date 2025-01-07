@@ -83,6 +83,14 @@ input:disabled {
     color: gray;
 }
 
+textarea:disabled {
+    color: gray;
+}
+
+input::placeholder {
+    color: gray !important;
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ Alerts ]*/
 
@@ -767,21 +775,19 @@ input[type='image'] {
     margin-bottom: 15px;
 }
 
-/* mat-select {
-    background-color: honeydew !important;
-    font-family: Poppins-Regular !important;
-    height: 42px;
-} */
-
-mat-select .mat-select-placeholder {
-    font-size: 15px !important;
-    color: #6c767d;
+.mat-select-placeholder {
+    color: gray;
 }
+
+.mat-dialog-container {
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px !important;
+  }
 
 .form-reminder-input {
     font-family: Poppins-Regular;
     color: #403866;
-    background-color: honeydew !important;
+    background-color: honeydew;
     line-height: 1.2;
     font-size: 18px;
     display: block;
@@ -795,12 +801,11 @@ mat-select .mat-select-placeholder {
 .input100 {
     font-family: Poppins-Regular;
     color: #403866;
-    background-color: honeydew !important;
+    background-color: honeydew;
     line-height: 1.2;
     font-size: 18px;
     display: block;
     width: 100%;
-    background: transparent;
     height: 42px;
 }
 
@@ -811,14 +816,13 @@ mat-select .mat-select-placeholder {
 .inputDate {
     font-family: Poppins-Regular;
     color: #403866;
-    background-color: honeydew !important;
+    background-color: honeydew;
     line-height: 1.2;
-    font-size: 18px;
     display: inline;
     width: 70%;
-    background: transparent;
     height: 42px;
     margin-top: 0px !important;
+    font-size: 18px;
 }
 
 .inputDate::placeholder {
@@ -839,6 +843,37 @@ mat-select .mat-select-placeholder {
     margin: 15px auto 10px auto;
 }
 
+.mat-select-disabled {
+    background-color: var(--bs-secondary-bg) !important;
+}
+
+.mat-select-disabled .mat-select-value {
+    color: gray;
+}
+
+.mat-select {
+    font-size: 18px;
+    height: 42px;
+    font-family: Poppins-Regular;
+    background-color: honeydew;
+}
+
+.mat-select-value {
+    color: #403866;
+}
+
+.inputDate.mat-input-element {
+    color: #403866;
+    height: 42px;
+}
+
+input::placeholder {
+    font-size: 18px !important;
+}
+
+.mat-input-element:disabled {
+    color: gray;
+}
 
 /*------------------------------------------------------------------
 [ Focus Input ]*/

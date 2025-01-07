@@ -17,6 +17,11 @@ export class ReportService {
     return this.httpClient.get(`${url}pharmacyRequest${queryParams}`);
   }
 
+  getReminderHistory(formValues) {
+    const queryParams = this.createQueryParams(formValues);
+    return this.httpClient.get(`${url}reminderHistory${queryParams}`);
+  }
+
   createQueryParams(formValues) {
     let queryParams = "";
 

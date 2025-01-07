@@ -33,9 +33,13 @@ export class AppointmentService {
     this.appointmentData = appointment;
   }
   
-  get ( branchId: string, status: string ) {
+  getReservationsByBranchId ( branchId: string, status: string ) {
     const params = { status: status };
     return this.httpClient.get(`${ url }reservation/byBranchId/${ branchId }`, { params: params });
+  }
+
+  getAllFromUser() {
+    return this.httpClient.get(`${ url }reservation`)
   }
 
   post ( appointment ) {
@@ -46,9 +50,10 @@ export class AppointmentService {
     this.branchData = branch;
   }
 
-  takeAppointment ( appointmentId ) {
+  takeAppointment ( appointmentId, branchMedications ) {
     const body = {
-      reservationId: appointmentId
+      reservationId: appointmentId,
+      branchMedications: branchMedications
     };
     return this.httpClient.patch(`${ url }reservation/take`, body);
   }

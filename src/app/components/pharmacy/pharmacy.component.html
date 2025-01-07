@@ -1,48 +1,46 @@
 <div class="container-pharmacy login-background" *ngIf="route() == '/pharmacy'">
-
-    <h1 class="reminder-title mb-4 mt-2">
-        Farmacias
-    </h1>
-
-    <div class="container-login100-form-btn mb-4">
-        <div class="cont-search-input">
-            <mat-icon style="transform: scale(1.1);">search</mat-icon>
-            <input class="search-input" type="text" placeholder="Buscar...">
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-7 col-xs-12">
-
-                <div class="box-pharm" *ngFor="let pharmacy of pharmacies" (click)="pharmacyProfile(pharmacy)">
-
-                    <div class="cont-img-pharm">
-                        <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo" alt="Logo farmacia">
-
-                        <ng-template #defaultImage>
-                            <img src="../../../../assets/images/pharmacyProfile.png" alt="Default Image">
-                        </ng-template>
-                    </div>
-
-                    <div class="cont-text-pharm">
-
-                        <span class="box-pharm-name">
-                            {{pharmacy.pharmacyName}}
-                        </span>
-                        <span class="box-pharm-address mb-1">
-                            <mat-icon class="material-icons-outlined location-icon" >add_location</mat-icon>
-                            Dirección: {{pharmacy.address}}
-                        </span>
-                        <span class="box-pharm-address">
-                            <mat-icon class="material-icons-outlined phone-icon" >phone</mat-icon>
-                            Teléfono: {{pharmacy.phoneNumber}}
-                        </span>
-                    </div>
+        <div class="container box-container">
+            <h1 class="reminder-title mb-4 mt-2">
+                Farmacias
+            </h1>
+        
+            <div class="container-login100-form-btn mb-4">
+                <div class="cont-search-input">
+                    <mat-icon style="transform: scale(1.1);">search</mat-icon>
+                    <input class="search-input" type="text" placeholder="Buscar...">
                 </div>
-
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-12">
+    
+                    <div class="box-pharm" *ngFor="let pharmacy of pharmacies" (click)="pharmacyProfile(pharmacy)">
+    
+                        <div class="cont-img-pharm">
+                            <img *ngIf="pharmacy.urlLogo; else defaultImage" [src]="pharmacy.urlLogo" alt="Logo farmacia">
+    
+                            <ng-template #defaultImage>
+                                <img src="../../../../assets/images/pharmacyProfile.png" alt="Default Image">
+                            </ng-template>
+                        </div>
+    
+                        <div class="cont-text-pharm">
+    
+                            <span class="box-pharm-name">
+                                {{pharmacy.pharmacyName}}
+                            </span>
+                            <span class="box-pharm-address mb-1">
+                                <mat-icon class="material-icons-outlined location-icon" >add_location</mat-icon>
+                                Dirección: {{pharmacy.address}}
+                            </span>
+                            <span class="box-pharm-address">
+                                <mat-icon class="material-icons-outlined phone-icon" >phone</mat-icon>
+                                Teléfono: {{pharmacy.phoneNumber}}
+                            </span>
+                        </div>
+                    </div>
+    
+                </div>
             </div>
         </div>
-    </div>
 </div>
 <router-outlet></router-outlet>
