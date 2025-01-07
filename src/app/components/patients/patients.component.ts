@@ -513,6 +513,11 @@ export class PatientsComponent implements OnInit {
         if (res['branchMedicationReminders'][i]['endDate']) {
           res['branchMedicationReminders'][i]['endDate'] = this.formatedDate(res['branchMedicationReminders'][i]['endDate'], format);
         }
+        if (res['branchMedicationReminders'][i]['frequency'] === "2 veces al día") {
+          if (res['branchMedicationReminders'][i]['notificationTimes'] && res['branchMedicationReminders'][i]['notificationTimes'].length > 1) {
+            res['branchMedicationReminders'][i]['timeNotification2'] = this.formatedHour(res['branchMedicationReminders'][i]['notificationTimes'][1], hour);
+        }
+        }
       };
 
       this.branchMedications = res['branchMedicationReminders'];
