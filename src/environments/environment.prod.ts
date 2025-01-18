@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  url:"https://pillboxbackendv2.onrender.com/v1/"
+  url:"https://pillboxbackend-v2.vercel.app/v1/"
 };
