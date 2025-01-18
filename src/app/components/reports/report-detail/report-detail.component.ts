@@ -26,7 +26,7 @@ export class ReportDetailComponent implements OnInit {
   maxDate: Date = new Date();
   reportData: any[] = [];
   chartData: any[] = [];
-
+  role: string;
   submitted: boolean = false;
   selectedToggle: string;
 
@@ -54,6 +54,7 @@ export class ReportDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       let reportName = params['name'];
+      this.role = params['role'];
       this.report = reportTypes[reportName];
     });
 
@@ -63,13 +64,16 @@ export class ReportDetailComponent implements OnInit {
   }
 
   createFormBuilderGroup() {
-    let group = {}
+    let group = {};
 
     if (this.report.hasPeriodfilter) {
       group = {
         createdStartDate: [''],
         createdEndDate: [''],
       }
+    }
+    if (this.report.serviceFunction === 'getReminderHistory' && this.role === 'paciente') {      
+      group['loggedUser'] = ['true'];
     }
 
     this.report.filters.forEach(filter => {

@@ -24,7 +24,12 @@ export class ReportsComponent implements OnInit {
   }
 
   navigateToReportDetail(name) {
-    this.router.navigate(['/reports/reportDetail'], { queryParams: { name: name } });
+    this.router.navigate(['/reports/reportDetail'], { 
+      queryParams: { 
+        name: name,
+        role: this.role 
+      } 
+    });
   }
 
   route() {
