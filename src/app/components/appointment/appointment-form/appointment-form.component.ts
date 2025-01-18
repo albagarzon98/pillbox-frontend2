@@ -122,6 +122,7 @@ export class AppointmentFormComponent implements OnInit {
         text:'Espere por favor...'
       });
       Swal.showLoading();
+      delete appointment.medications;      
       this.appointmentService.post( appointment ).subscribe(res=>{
         
         console.log(res);
@@ -152,6 +153,7 @@ export class AppointmentFormComponent implements OnInit {
         text:'Espere por favor...'
       });
       Swal.showLoading();
+      delete appointment.medications;
       this.appointmentService.patch( this.appointment.id, appointment).subscribe(res=>{
         
         console.log(res);
