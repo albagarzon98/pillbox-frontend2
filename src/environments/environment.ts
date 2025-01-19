@@ -4,7 +4,7 @@
 // URL LOCALHOST http://localhost:3000/v1/
 export const environment = {
   production: false,
-  url:"http://localhost:3000/v1/"
+  url:"https://pillboxbackend-v2.vercel.app/v1/"
 };
 
 /*
