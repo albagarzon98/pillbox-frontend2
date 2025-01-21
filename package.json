@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
-        "build": "ng build --prod",
+        "build": "ng build --configuration production && cp -r src/assets/css/fonts dist/PillBox-FrontEnd/assets/css/",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "heroku-postbuild": "ng build --prod"
