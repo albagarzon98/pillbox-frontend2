@@ -1,23 +1,22 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "server.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "dist/PillBox-FrontEnd/**",
-        "use": "@vercel/static"
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/PillBox-FrontEnd"
       }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "dist/PillBox-FrontEnd/index.html"
-      }
-    ]
-  }
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/assets/(.*)", 
+      "dest": "/assets/$1" 
+    },
+    {
+      "src": "/(?!.*\\.(js|css|png|jpg|jpeg|gif|ico|json|map)$).*",
+      "dest": "/index.html"
+    }
+  ]
+}
