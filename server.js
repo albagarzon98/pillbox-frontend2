@@ -4,12 +4,13 @@ const path = require('path');
 
 const app = express();
 
-// Serve only the static files form the dist directory
-app.use(express.static('./dist/PillBox-FrontEnd'));
+// Serve static files from the dist directory
+app.use(express.static(path.join(__dirname, 'dist/PillBox-FrontEnd')));
 
-app.get('/*', (req, res) =>
-    res.sendFile('index.html', { root: 'dist/PillBox-FrontEnd/' }),
-);
+// Handle all routes by serving index.html
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/PillBox-FrontEnd/index.html'));
+});
 
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+// Export the Express app for Vercel
+module.exports = app;
